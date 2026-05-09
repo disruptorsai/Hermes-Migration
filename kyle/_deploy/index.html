@@ -1,0 +1,976 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Disruptors Media — Strategist & Partner Opportunity</title>
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="icon" type="image/png" sizes="64x64" href="favicon-64.png">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif&family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --black: #050505;
+  --black-light: #0C0C0C;
+  --black-lighter: #131313;
+  --gold: #C9A84C;
+  --gold-dark: #A58A3D;
+  --gold-light: #D4B970;
+  --cream: #F0EDE6;
+  --cream-90: rgba(240, 237, 230, 0.9);
+  --cream-70: rgba(240, 237, 230, 0.7);
+  --cream-50: rgba(240, 237, 230, 0.5);
+  --cream-30: rgba(240, 237, 230, 0.3);
+  --cream-15: rgba(240, 237, 230, 0.15);
+  --cream-10: rgba(240, 237, 230, 0.1);
+  --cream-05: rgba(240, 237, 230, 0.05);
+  --gold-glow: rgba(201, 168, 76, 0.35);
+  --gold-border: rgba(201, 168, 76, 0.25);
+  --gold-tint: rgba(201, 168, 76, 0.08);
+  --font-display: 'Instrument Serif', Georgia, serif;
+  --font-body: 'Outfit', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  height: 100%;
+  background: var(--black);
+  color: var(--cream);
+  font-family: var(--font-body);
+  overflow: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+.deck {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.slide {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 64px 96px 120px;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1), transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse at top, rgba(201, 168, 76, 0.06) 0%, transparent 55%),
+    radial-gradient(ellipse at bottom right, rgba(201, 168, 76, 0.03) 0%, transparent 50%),
+    var(--black);
+}
+
+.slide.active {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.slide-inner {
+  width: 100%;
+  max-width: 1180px;
+  margin: 0 auto;
+}
+
+/* ── Logo ── */
+.logo {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+}
+.logo-mark {
+  width: 56px;
+  height: 56px;
+  object-fit: contain;
+  filter: drop-shadow(0 0 18px rgba(201, 168, 76, 0.4));
+}
+.logo-mark-lg {
+  width: 140px;
+  height: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 0 30px rgba(201, 168, 76, 0.5));
+}
+.logo-text {
+  font-family: var(--font-display);
+  font-size: 22px;
+  letter-spacing: 6px;
+  color: var(--gold);
+  text-transform: uppercase;
+}
+
+/* ── Typography ── */
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 20px;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+.eyebrow::before {
+  content: "";
+  display: inline-block;
+  width: 24px;
+  height: 1px;
+  background: var(--gold);
+}
+
+h1.display {
+  font-family: var(--font-display);
+  font-size: clamp(48px, 6.5vw, 88px);
+  line-height: 1.0;
+  letter-spacing: -2px;
+  color: var(--cream);
+  margin-bottom: 20px;
+}
+h1.display .gold {
+  background: linear-gradient(135deg, var(--gold), var(--gold-light));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+h2.title {
+  font-family: var(--font-display);
+  font-size: clamp(36px, 4.2vw, 56px);
+  line-height: 1.05;
+  letter-spacing: -1.5px;
+  color: var(--cream);
+  margin-bottom: 14px;
+}
+
+.subtitle {
+  font-size: 18px;
+  color: var(--cream-70);
+  font-weight: 300;
+  line-height: 1.5;
+  max-width: 720px;
+}
+
+.section-tag {
+  display: inline-block;
+  padding: 8px 18px;
+  border: 1px solid var(--gold-border);
+  border-radius: 60px;
+  background: var(--gold-tint);
+  color: var(--gold);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin-bottom: 28px;
+}
+
+/* ── Cards / Grids ── */
+.grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 28px;
+  margin-top: 36px;
+}
+.grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-top: 36px;
+}
+
+.card {
+  background: rgba(240, 237, 230, 0.03);
+  border: 1px solid var(--cream-10);
+  border-radius: 20px;
+  padding: 32px;
+  backdrop-filter: blur(16px);
+  transition: all 0.3s ease;
+}
+.card.gold {
+  border-color: var(--gold-border);
+  background: linear-gradient(160deg, var(--gold-tint), rgba(240, 237, 230, 0.03));
+}
+.card.gold:hover, .card:hover {
+  border-color: var(--gold);
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.4), 0 0 40px rgba(201, 168, 76, 0.15);
+}
+
+.card-label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--cream-50);
+  margin-bottom: 14px;
+}
+.card-value {
+  font-family: var(--font-display);
+  font-size: 64px;
+  line-height: 1.0;
+  letter-spacing: -2px;
+  color: var(--gold);
+  margin-bottom: 10px;
+}
+.card-desc {
+  font-size: 14px;
+  color: var(--cream-70);
+  line-height: 1.5;
+  font-style: italic;
+}
+
+/* ── Table ── */
+.table-wrap {
+  margin-top: 32px;
+  border: 1px solid var(--cream-10);
+  border-radius: 20px;
+  overflow: hidden;
+  background: rgba(240, 237, 230, 0.02);
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+thead {
+  background: var(--gold-tint);
+}
+th {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: var(--gold);
+  padding: 20px 24px;
+  text-align: left;
+  border-bottom: 1px solid var(--gold-border);
+  font-weight: 500;
+}
+td {
+  padding: 22px 24px;
+  font-size: 16px;
+  color: var(--cream-90);
+  border-bottom: 1px solid var(--cream-05);
+}
+tbody tr:last-child td { border-bottom: none; }
+td.gold-val {
+  color: var(--gold);
+  font-family: var(--font-display);
+  font-size: 22px;
+  letter-spacing: -0.5px;
+}
+
+/* ── Highlight banner ── */
+.notice {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 18px 26px;
+  background: linear-gradient(90deg, var(--gold-tint), transparent);
+  border-left: 3px solid var(--gold);
+  border-radius: 8px;
+  margin-top: 28px;
+  font-size: 15px;
+  color: var(--cream-90);
+}
+.notice strong { color: var(--gold); font-weight: 500; }
+
+/* ── Lists ── */
+.feat-list {
+  list-style: none;
+  margin-top: 8px;
+}
+.feat-list li {
+  display: flex;
+  gap: 14px;
+  padding: 10px 0;
+  font-size: 16px;
+  color: var(--cream-90);
+  line-height: 1.5;
+}
+.feat-list li::before {
+  content: "▸";
+  color: var(--gold);
+  font-size: 18px;
+  line-height: 1.4;
+  flex-shrink: 0;
+}
+
+.asset-list {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 22px 40px;
+  margin-top: 24px;
+}
+.asset {
+  padding: 22px 24px;
+  border-left: 2px solid var(--gold-border);
+  transition: border-color 0.3s ease;
+}
+.asset:hover { border-left-color: var(--gold); }
+.asset h4 {
+  font-family: var(--font-display);
+  font-size: 22px;
+  color: var(--gold);
+  margin-bottom: 8px;
+  letter-spacing: -0.5px;
+}
+.asset p {
+  font-size: 14px;
+  color: var(--cream-70);
+  line-height: 1.55;
+}
+
+/* ── Nav ── */
+.nav {
+  position: fixed;
+  bottom: 28px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 10px 18px;
+  background: rgba(12, 12, 12, 0.7);
+  backdrop-filter: blur(16px);
+  border: 1px solid var(--cream-10);
+  border-radius: 60px;
+  z-index: 100;
+}
+.nav button {
+  background: transparent;
+  border: none;
+  color: var(--cream-70);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 1px;
+  cursor: pointer;
+  padding: 8px 14px;
+  border-radius: 60px;
+  transition: all 0.2s ease;
+}
+.nav button:hover {
+  color: var(--gold);
+  background: var(--gold-tint);
+}
+.nav-counter {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--cream-50);
+  letter-spacing: 1px;
+  min-width: 60px;
+  text-align: center;
+}
+.nav-counter .cur { color: var(--gold); }
+
+.dots {
+  position: fixed;
+  right: 28px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  z-index: 100;
+}
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--cream-15);
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  padding: 0;
+}
+.dot.active {
+  background: var(--gold);
+  box-shadow: 0 0 12px var(--gold-glow);
+  height: 24px;
+  border-radius: 4px;
+}
+
+.footer-brand {
+  position: fixed;
+  bottom: 28px;
+  left: 40px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 3px;
+  color: var(--cream-30);
+  text-transform: uppercase;
+  z-index: 100;
+}
+.slide-num {
+  position: fixed;
+  top: 28px;
+  right: 40px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 3px;
+  color: var(--cream-30);
+  z-index: 100;
+}
+
+/* Title slide specific */
+.title-slide {
+  text-align: center;
+}
+.title-slide .logo-mark-lg { margin-bottom: 36px; }
+.title-slide h1 { margin-bottom: 24px; }
+.title-slide .subtitle {
+  font-family: var(--font-display);
+  font-size: 26px;
+  color: var(--cream-70);
+  font-style: italic;
+  margin: 0 auto 40px;
+}
+.divider-line {
+  width: 80px;
+  height: 1px;
+  background: var(--gold);
+  margin: 0 auto 32px;
+  box-shadow: 0 0 12px var(--gold-glow);
+}
+.title-meta {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 4px;
+  color: var(--gold);
+  text-transform: uppercase;
+}
+
+/* Partner earnings */
+.earnings-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 22px 0;
+  border-bottom: 1px solid var(--cream-05);
+}
+.earnings-row:last-child {
+  border-bottom: none;
+  border-top: 1px solid var(--gold-border);
+  padding-top: 28px;
+  margin-top: 8px;
+}
+.earnings-label { font-size: 16px; color: var(--cream-90); }
+.earnings-value {
+  font-family: var(--font-display);
+  font-size: 32px;
+  color: var(--cream);
+  letter-spacing: -0.5px;
+}
+.earnings-row:last-child .earnings-value {
+  color: var(--gold);
+  font-size: 42px;
+}
+.earnings-row.neg .earnings-value { color: #d08a7a; }
+
+.closing-title {
+  font-family: var(--font-display);
+  font-size: clamp(40px, 5.5vw, 72px);
+  line-height: 1.05;
+  letter-spacing: -1.5px;
+  text-align: center;
+  margin-bottom: 32px;
+}
+.closing-title .gold {
+  background: linear-gradient(135deg, var(--gold), var(--gold-light));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-style: italic;
+}
+
+.hint {
+  position: fixed;
+  bottom: 80px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 2px;
+  color: var(--cream-30);
+  text-transform: uppercase;
+  opacity: 0;
+  animation: fadeHint 4s ease 1s forwards;
+  z-index: 99;
+  pointer-events: none;
+}
+@keyframes fadeHint {
+  0% { opacity: 0; }
+  20% { opacity: 1; }
+  80% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+/* ── Slide 1 → Next CTA ── */
+.next-hint {
+  position: fixed;
+  bottom: 92px;
+  left: 50%;
+  transform: translateX(calc(-50% + 86px));
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  z-index: 99;
+  pointer-events: none;
+}
+body:has(.slide.active[data-slide="1"]) .next-hint { display: flex; }
+body:has(.slide.active[data-slide="1"]) .hint { display: none; }
+
+.next-hint-bubble {
+  padding: 10px 20px;
+  background: linear-gradient(180deg, rgba(201, 168, 76, 0.12), rgba(201, 168, 76, 0.04));
+  border: 1px solid var(--gold-border);
+  border-radius: 100px;
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  font-family: var(--font-body);
+  font-size: 13.5px;
+  font-weight: 400;
+  letter-spacing: 0.2px;
+  color: var(--cream-90);
+  white-space: nowrap;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+.next-hint-bubble em {
+  font-family: var(--font-display);
+  font-style: italic;
+  color: var(--gold);
+  font-size: 16px;
+  letter-spacing: 0;
+  margin: 0 1px;
+}
+.next-hint-arrow {
+  width: 14px;
+  height: 8px;
+  color: var(--gold);
+  filter: drop-shadow(0 0 6px var(--gold-glow));
+  animation: bounceArrow 1.6s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+@keyframes bounceArrow {
+  0%, 100% { transform: translateY(0); opacity: 0.7; }
+  50% { transform: translateY(8px); opacity: 1; }
+}
+
+/* ── Slide 2: Video + Content split ── */
+.slide-2-layout {
+  display: grid;
+  grid-template-columns: 360px 1fr;
+  gap: 64px;
+  align-items: center;
+  width: 100%;
+}
+.slide-2-video {
+  position: relative;
+  width: 100%;
+  max-width: 360px;
+  border: 1px solid var(--gold-border);
+  border-radius: 20px;
+  overflow: hidden;
+  background: var(--black-light);
+  box-shadow: 0 0 40px rgba(201, 168, 76, 0.15);
+  justify-self: start;
+}
+.slide-2-video video {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 9 / 16;
+  object-fit: cover;
+  background: var(--black);
+}
+.slide-2-content .subtitle { max-width: 100%; }
+.slide-2-content .grid-2.grid-2-stacked {
+  grid-template-columns: 1fr;
+  margin-top: 28px;
+  gap: 16px;
+}
+
+@media (max-width: 900px) {
+  .slide { padding: 40px 32px 100px; }
+  .grid-2, .grid-3 { grid-template-columns: 1fr; }
+  .asset-list { grid-template-columns: 1fr; }
+  .dots { display: none; }
+  .slide-2-layout { grid-template-columns: 1fr; gap: 28px; justify-items: center; }
+  .slide-2-content { width: 100%; }
+  .next-hint { transform: translateX(-50%); width: calc(100vw - 32px); }
+  .next-hint-bubble { white-space: normal; text-align: center; font-size: 12.5px; }
+}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute">
+  <defs>
+    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#D4B970"/>
+      <stop offset="50%" stop-color="#C9A84C"/>
+      <stop offset="100%" stop-color="#A58A3D"/>
+    </linearGradient>
+    <symbol id="globe" viewBox="0 0 100 100">
+      <circle cx="50" cy="50" r="44" fill="#050505" stroke="url(#goldGrad)" stroke-width="2.5"/>
+      <ellipse cx="50" cy="50" rx="44" ry="18" fill="none" stroke="url(#goldGrad)" stroke-width="1.5"/>
+      <ellipse cx="50" cy="50" rx="44" ry="32" fill="none" stroke="url(#goldGrad)" stroke-width="1.2" opacity="0.8"/>
+      <ellipse cx="50" cy="50" rx="18" ry="44" fill="none" stroke="url(#goldGrad)" stroke-width="1.5"/>
+      <ellipse cx="50" cy="50" rx="32" ry="44" fill="none" stroke="url(#goldGrad)" stroke-width="1.2" opacity="0.8"/>
+      <line x1="6" y1="50" x2="94" y2="50" stroke="url(#goldGrad)" stroke-width="1.5"/>
+      <line x1="50" y1="6" x2="50" y2="94" stroke="url(#goldGrad)" stroke-width="1.5"/>
+    </symbol>
+  </defs>
+</svg>
+
+<div class="deck" id="deck">
+
+  <!-- Slide 1: Title -->
+  <section class="slide active title-slide" data-slide="1">
+    <div class="slide-inner">
+      <img class="logo-mark-lg" src="logo.png" alt="Disruptors Media">
+      <h1 class="display"><span class="gold">Disruptors</span> Media</h1>
+      <p class="subtitle">Strategist &amp; Partner Opportunity</p>
+      <div class="divider-line"></div>
+      <div class="title-meta">Compensation Structure</div>
+    </div>
+  </section>
+
+  <!-- Slide 2: Two Tracks -->
+  <section class="slide" data-slide="2">
+    <div class="slide-inner">
+      <div class="slide-2-layout">
+        <div class="slide-2-video">
+          <video controls preload="metadata" playsinline>
+            <source src="UHV-REV.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+        </div>
+        <div class="slide-2-content">
+          <div class="eyebrow">Overview</div>
+          <h2 class="title">Two Tracks. One Mission.</h2>
+          <p class="subtitle">Two distinct paths are available inside Disruptors Media — each offering increasing upside as you grow the monthly recurring revenue you manage.</p>
+          <div class="grid-2 grid-2-stacked">
+            <div class="card gold">
+              <div class="card-label">Track One</div>
+              <div style="font-family: var(--font-display); font-size: 48px; color: var(--gold); letter-spacing: -1px; margin-bottom: 12px;">Strategist</div>
+              <p style="color: var(--cream-70); font-size: 15px; line-height: 1.6;">Base pay plus commission. Earn more when you source your own deals.</p>
+            </div>
+            <div class="card gold">
+              <div class="card-label">Track Two</div>
+              <div style="font-family: var(--font-display); font-size: 48px; color: var(--gold); letter-spacing: -1px; margin-bottom: 12px;">Partner</div>
+              <p style="color: var(--cream-70); font-size: 15px; line-height: 1.6;">Merit-based upgrade. 50/50 revenue split with shared fulfillment.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Slide 3: Strategist Model -->
+  <section class="slide" data-slide="3">
+    <div class="slide-inner">
+      <div class="section-tag">Strategist Model</div>
+      <h2 class="title">Guaranteed Base. <span style="color: var(--gold); font-style: italic;">Unlimited Upside.</span></h2>
+      <div class="grid-2">
+        <div class="card gold">
+          <div class="card-label">Monthly Base Pay</div>
+          <div class="card-value" style="font-size: 56px; letter-spacing: -1.5px;">$3,000&ndash;$5,000</div>
+          <div class="card-desc">Guaranteed every month — set based on relevant experience</div>
+        </div>
+        <div class="card gold">
+          <div class="card-label">Self-Sourced Commission</div>
+          <div class="card-value">20%</div>
+          <div class="card-desc">vs. 10% for DM-provided clients</div>
+        </div>
+      </div>
+      <div class="notice">
+        <span>⚑</span>
+        <span><strong>Important:</strong> No commission is paid until a minimum of $10,000/month in MRR is under management.</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Slide 4: Commission Table -->
+  <section class="slide" data-slide="4">
+    <div class="slide-inner">
+      <div class="eyebrow">Earnings Breakdown</div>
+      <h2 class="title">Source Your Own. <span style="color: var(--gold); font-style: italic;">Double Your Rate.</span></h2>
+      <p class="subtitle">Commission is earned on top of base pay as a percentage of total MRR managed.</p>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Client Source</th>
+              <th>Commission</th>
+              <th>At $40K MRR</th>
+              <th>Total Monthly (+ Base)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Disruptors Media sourced &amp; closed</td>
+              <td class="gold-val">10%</td>
+              <td class="gold-val">$4,000</td>
+              <td class="gold-val">$7,000</td>
+            </tr>
+            <tr>
+              <td>Strategist sourced &amp; closed</td>
+              <td class="gold-val">20%</td>
+              <td class="gold-val">$8,000</td>
+              <td class="gold-val">$11,000</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p style="margin-top: 24px; color: var(--cream-70); font-style: italic; font-size: 15px;">Every client you bring directly translates into significantly higher take-home.</p>
+    </div>
+  </section>
+
+  <!-- Slide 5: Partner Model -->
+  <section class="slide" data-slide="5">
+    <div class="slide-inner">
+      <div class="section-tag">Partner Model</div>
+      <h2 class="title">The Upgrade Is <span style="color: var(--gold); font-style: italic;">Earned.</span></h2>
+      <p class="subtitle">The Partner model is not automatic. To be considered, a Strategist must demonstrate two qualifications:</p>
+      <div class="grid-2" style="margin-top: 40px;">
+        <div class="card">
+          <div class="card-label">Qualification 01</div>
+          <h3 style="font-family: var(--font-display); font-size: 28px; color: var(--gold); margin-bottom: 12px; letter-spacing: -0.5px;">Proven Ability to Sell</h3>
+          <p style="color: var(--cream-70); font-size: 15px; line-height: 1.6;">A track record of independently sourcing and closing clients.</p>
+        </div>
+        <div class="card">
+          <div class="card-label">Qualification 02</div>
+          <h3 style="font-family: var(--font-display); font-size: 28px; color: var(--gold); margin-bottom: 12px; letter-spacing: -0.5px;">Client Retention</h3>
+          <p style="color: var(--cream-70); font-size: 15px; line-height: 1.6;">A minimum of 6 months managing clients with strong retention (benchmarks TBD).</p>
+        </div>
+      </div>
+      <div class="notice">
+        <span>⚑</span>
+        <span>There is no fixed MRR threshold for the Partner upgrade — <strong>it is merit-based.</strong> Commission begins at $10K/month MRR under management.</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Slide 6: Partner Splits -->
+  <section class="slide" data-slide="6">
+    <div class="slide-inner">
+      <div class="eyebrow">Partner Structure</div>
+      <h2 class="title">Split the Revenue. <span style="color: var(--gold); font-style: italic;">Share the Build.</span></h2>
+      <div class="grid-2">
+        <div class="card gold">
+          <div class="card-label">Revenue Split</div>
+          <div class="card-value">50 / 50</div>
+          <div class="card-desc">Partner retains 50% of all MRR managed</div>
+        </div>
+        <div class="card gold">
+          <div class="card-label">Fulfillment Cost Split</div>
+          <div class="card-value">50 / 50</div>
+          <div class="card-desc">Software, VAs, and production shared equally</div>
+        </div>
+      </div>
+      <p style="margin-top: 32px; color: var(--cream-70); font-size: 15px; line-height: 1.6; max-width: 880px;">Partners receiving Disruptors-provided clients earn <strong style="color: var(--gold);">20%</strong> of that client's MRR and remain responsible for their share of fulfillment costs.</p>
+    </div>
+  </section>
+
+  <!-- Slide 7: Partner Earnings Example -->
+  <section class="slide" data-slide="7">
+    <div class="slide-inner" style="max-width: 860px;">
+      <div class="section-tag">Earnings Example</div>
+      <h2 class="title">Partner at <span style="color: var(--gold); font-style: italic;">$40K MRR</span></h2>
+      <div class="card gold" style="padding: 40px 48px; margin-top: 36px;">
+        <div class="earnings-row">
+          <div class="earnings-label">Revenue (50% of managed MRR)</div>
+          <div class="earnings-value">$20,000</div>
+        </div>
+        <div class="earnings-row neg">
+          <div class="earnings-label">Fulfillment cost share (est.)</div>
+          <div class="earnings-value">− $2,000 to $2,500</div>
+        </div>
+        <div class="earnings-row">
+          <div class="earnings-label" style="color: var(--gold); font-family: var(--font-mono); font-size: 11px; letter-spacing: 3px; text-transform: uppercase;">Net Monthly (approx.)</div>
+          <div class="earnings-value">~$17,500+</div>
+        </div>
+      </div>
+      <p style="margin-top: 28px; text-align: center; color: var(--cream-70); font-style: italic; font-size: 16px;">Source your own business and keep more of what you build.</p>
+    </div>
+  </section>
+
+  <!-- Slide 8: Assets -->
+  <section class="slide" data-slide="8">
+    <div class="slide-inner">
+      <div class="eyebrow">What You're Building With</div>
+      <h2 class="title">Assets Disruptors Media <span style="color: var(--gold); font-style: italic;">Provides.</span></h2>
+      <div class="asset-list">
+        <div class="asset">
+          <h4>Proven Brand &amp; Case Studies</h4>
+          <p>Step into a company with an established track record — accumulated proof, client results, and a portfolio that opens doors.</p>
+        </div>
+        <div class="asset">
+          <h4>Systems, Frameworks &amp; Playbooks</h4>
+          <p>Sales messaging, offer positioning, acquisition workflows, and delivery processes — already mapped and battle-tested.</p>
+        </div>
+        <div class="asset">
+          <h4>World-Class Fulfillment Team</h4>
+          <p>Full production team — videographers, editors, automation specialists — backed by AI-accelerated virtual assistants.</p>
+        </div>
+        <div class="asset">
+          <h4>Automation Library</h4>
+          <p>AI voice receptionists, follow-up agents, review collection, chat widgets, database reactivation, quote follow-ups.</p>
+        </div>
+        <div class="asset">
+          <h4>Mentorship &amp; Shared Knowledge</h4>
+          <p>Ongoing coaching from Kyle (sales) and Tyler (fulfillment). Every winning strategy is shared openly across the team.</p>
+        </div>
+        <div class="asset">
+          <h4>Infrastructure Stack</h4>
+          <p>GoHighLevel • n8n • Supabase • OpenAI • Retell AI • Twilio • Vercel • Frame.io — production-grade, day one.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Slide 9: Expectations -->
+  <section class="slide" data-slide="9">
+    <div class="slide-inner">
+      <div class="section-tag">What's Expected</div>
+      <h2 class="title">Full-Time. <span style="color: var(--gold); font-style: italic;">In-Person.</span> All In.</h2>
+      <p class="subtitle">This is a full-time, in-person commitment during all business hours. In the early stages you will shadow Kyle on sales and Tyler on fulfillment to build the foundational skills required to succeed at both.</p>
+      <div class="card gold" style="margin-top: 36px;">
+        <div class="card-label">Early Stage Focus</div>
+        <h3 style="font-family: var(--font-display); font-size: 36px; color: var(--cream); margin-bottom: 16px; letter-spacing: -1px;">Sales First — <span style="color: var(--gold); font-style: italic;">By Design.</span></h3>
+        <p style="color: var(--cream-70); font-size: 16px; line-height: 1.6;">The majority of early time is weighted toward sales. You cannot manage revenue you have not yet acquired. Building your MRR base quickly is the priority — and the fastest path to unlocking the full income potential of either track.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Slide 10: Growth Methods -->
+  <section class="slide" data-slide="10">
+    <div class="slide-inner">
+      <div class="eyebrow">Growth Playbook</div>
+      <h2 class="title">Recommended <span style="color: var(--gold); font-style: italic;">Growth Methods.</span></h2>
+      <div class="grid-2" style="margin-top: 40px;">
+        <div class="card">
+          <div class="card-label">Method 01</div>
+          <h3 style="font-family: var(--font-display); font-size: 26px; color: var(--gold); margin-bottom: 10px; letter-spacing: -0.5px;">LinkedIn Outreach</h3>
+          <p style="color: var(--cream-70); font-size: 14px; line-height: 1.55;">Cold outreach and automation — high-leverage, low-cost acquisition.</p>
+        </div>
+        <div class="card">
+          <div class="card-label">Method 02</div>
+          <h3 style="font-family: var(--font-display); font-size: 26px; color: var(--gold); margin-bottom: 10px; letter-spacing: -0.5px;">Cold Email</h3>
+          <p style="color: var(--cream-70); font-size: 14px; line-height: 1.55;">Scalable campaigns targeting service businesses at volume.</p>
+        </div>
+        <div class="card">
+          <div class="card-label">Method 03</div>
+          <h3 style="font-family: var(--font-display); font-size: 26px; color: var(--gold); margin-bottom: 10px; letter-spacing: -0.5px;">Cold Calling</h3>
+          <p style="color: var(--cream-70); font-size: 14px; line-height: 1.55;">A proven skill-builder — one of the most direct paths to fast closes.</p>
+        </div>
+        <div class="card">
+          <div class="card-label">Method 04</div>
+          <h3 style="font-family: var(--font-display); font-size: 26px; color: var(--gold); margin-bottom: 10px; letter-spacing: -0.5px;">Warm Network</h3>
+          <p style="color: var(--cream-70); font-size: 14px; line-height: 1.55;">Personal and professional relationships — often the fastest first wins.</p>
+        </div>
+      </div>
+      <p style="margin-top: 32px; text-align: center; color: var(--cream-70); font-style: italic; font-size: 15px;">Low-cost, high-repetition outreach compounds your income potential across both tracks.</p>
+    </div>
+  </section>
+
+  <!-- Slide 11: Closing -->
+  <section class="slide title-slide" data-slide="11">
+    <div class="slide-inner">
+      <img class="logo-mark-lg" src="logo.png" alt="Disruptors Media" style="width: 110px; height: auto; margin-bottom: 28px;">
+      <h1 class="closing-title">Build Your Own Business<br><span class="gold">Within Disruptors Media.</span></h1>
+      <div class="divider-line"></div>
+      <div class="title-meta">disruptorsmedia.com</div>
+    </div>
+  </section>
+
+</div>
+
+<div class="slide-num"><span id="slideNum">01</span> / 11</div>
+<div class="footer-brand">Disruptors Media — Strategist &amp; Partner</div>
+
+<div class="dots" id="dots"></div>
+
+<div class="next-hint" aria-hidden="true">
+  <div class="next-hint-bubble">Click <em>Next</em> for a short video about the role</div>
+  <svg class="next-hint-arrow" viewBox="0 0 14 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M1 1l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  </svg>
+</div>
+
+<nav class="nav">
+  <button id="prev">← Prev</button>
+  <span class="nav-counter"><span class="cur" id="cur">01</span> / 11</span>
+  <button id="next">Next →</button>
+</nav>
+
+<div class="hint">Use ← → arrow keys to navigate</div>
+
+<script>
+(function(){
+  const slides = document.querySelectorAll('.slide');
+  const total = slides.length;
+  const dotsEl = document.getElementById('dots');
+  const curEl = document.getElementById('cur');
+  const slideNumEl = document.getElementById('slideNum');
+  let idx = 0;
+
+  // Build dots
+  for (let i = 0; i < total; i++) {
+    const d = document.createElement('button');
+    d.className = 'dot' + (i === 0 ? ' active' : '');
+    d.setAttribute('aria-label', 'Go to slide ' + (i+1));
+    d.addEventListener('click', () => go(i));
+    dotsEl.appendChild(d);
+  }
+  const dots = dotsEl.querySelectorAll('.dot');
+
+  function pad(n){ return String(n).padStart(2,'0'); }
+
+  function go(n){
+    if (n < 0 || n >= total) return;
+    slides[idx].classList.remove('active');
+    dots[idx].classList.remove('active');
+    idx = n;
+    slides[idx].classList.add('active');
+    dots[idx].classList.add('active');
+    curEl.textContent = pad(idx+1);
+    slideNumEl.textContent = pad(idx+1);
+    history.replaceState(null, '', '#' + (idx+1));
+  }
+
+  document.getElementById('prev').addEventListener('click', () => go(idx-1));
+  document.getElementById('next').addEventListener('click', () => go(idx+1));
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') { e.preventDefault(); go(idx+1); }
+    else if (e.key === 'ArrowLeft' || e.key === 'PageUp') { e.preventDefault(); go(idx-1); }
+    else if (e.key === 'Home') { go(0); }
+    else if (e.key === 'End') { go(total-1); }
+  });
+
+  // Deep link
+  const h = parseInt(location.hash.replace('#',''), 10);
+  if (h >= 1 && h <= total) go(h-1);
+
+  // Touch swipe
+  let tx = 0;
+  document.addEventListener('touchstart', e => tx = e.touches[0].clientX);
+  document.addEventListener('touchend', e => {
+    const dx = e.changedTouches[0].clientX - tx;
+    if (Math.abs(dx) > 50) go(idx + (dx < 0 ? 1 : -1));
+  });
+})();
+</script>
+</body>
+</html>

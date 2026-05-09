@@ -1,0 +1,43 @@
+[
+  {
+    "id": "market-research-brief",
+    "name": "Market Research Brief",
+    "description": "Research a niche, analyze competitors, and produce a comprehensive brief",
+    "agent": "researcher",
+    "icon": "<svg viewBox='0 0 22 22' width='22' height='22' fill='none' stroke='currentColor' stroke-width='1.5'><circle cx='11' cy='11' r='8'/><path d='M11 7v4l3 3'/></svg>",
+    "agentName": "Research Agent",
+    "agentDescription": "Autonomous research agent that gathers market intelligence, identifies competitors, and produces structured briefs.",
+    "agentPath": "workflows/market-research-brief/agent.md",
+    "workflowPath": "workflows/market-research-brief/workflow.md",
+    "skills": [
+      {
+        "id": "pick-niche",
+        "name": "Pick Niche",
+        "description": "Define the target market or niche to research based on user input",
+        "icon": "extract",
+        "skillPath": "workflows/market-research-brief/skills/pick-niche/SKILL.md"
+      },
+      {
+        "id": "find-competitors",
+        "name": "Find Competitors",
+        "description": "Search the web to identify key players and competitors in the niche",
+        "icon": "data",
+        "skillPath": "workflows/market-research-brief/skills/find-competitors/SKILL.md"
+      },
+      {
+        "id": "analyze-positioning",
+        "name": "Analyze Positioning",
+        "description": "Evaluate each competitor's positioning, pricing, and unique value props",
+        "icon": "visual",
+        "skillPath": "workflows/market-research-brief/skills/analyze-positioning/SKILL.md"
+      },
+      {
+        "id": "write-report",
+        "name": "Write Report",
+        "description": "Compile findings into a structured market research brief document",
+        "icon": "build",
+        "skillPath": "workflows/market-research-brief/skills/write-report/SKILL.md"
+      }
+    ]
+  }
+]

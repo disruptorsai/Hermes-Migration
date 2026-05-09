@@ -1,0 +1,2179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cold Call Training Playbook — Disruptors Media</title>
+
+    <!-- Fonts: Clash Display for headlines, Satoshi for body -->
+    <link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=clash-display@400,500,600,700&f[]=satoshi@400,500,700&display=swap">
+
+    <style>
+        /* ===========================================
+           CSS CUSTOM PROPERTIES (THEME)
+           Disruptors Media — Dark Cinematic + Electric Cyan
+           =========================================== */
+        :root {
+            --bg-primary: #060a14;
+            --bg-secondary: #0c1222;
+            --bg-card: rgba(12, 18, 34, 0.7);
+            --text-primary: #f0f4ff;
+            --text-secondary: #7a8bb5;
+            --text-muted: #4a5a80;
+            --accent: #00e5ff;
+            --accent-secondary: #0088ff;
+            --accent-glow: rgba(0, 229, 255, 0.25);
+            --accent-glow-strong: rgba(0, 229, 255, 0.5);
+            --danger: #ff3b5c;
+            --success: #00ff88;
+            --warning: #ffaa00;
+            --font-display: 'Clash Display', sans-serif;
+            --font-body: 'Satoshi', sans-serif;
+            --slide-padding: clamp(2rem, 6vw, 5rem);
+            --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+            --duration-normal: 0.7s;
+            --duration-slow: 1.2s;
+        }
+
+        /* ===========================================
+           BASE STYLES
+           =========================================== */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-snap-type: y mandatory;
+            overflow-x: hidden;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            overflow-x: hidden;
+            cursor: default;
+        }
+
+        ::selection {
+            background: var(--accent);
+            color: var(--bg-primary);
+        }
+
+        /* ===========================================
+           PROGRESS BAR
+           =========================================== */
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent), var(--accent-secondary));
+            z-index: 1000;
+            transition: width 0.3s ease;
+            box-shadow: 0 0 12px var(--accent-glow-strong);
+        }
+
+        /* ===========================================
+           NAVIGATION DOTS
+           =========================================== */
+        .nav-dots {
+            position: fixed;
+            right: 1.5rem;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            z-index: 100;
+        }
+
+        .nav-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            border: 1.5px solid var(--text-muted);
+            background: transparent;
+            cursor: pointer;
+            transition: all 0.4s var(--ease-out-expo);
+            position: relative;
+        }
+
+        .nav-dot:hover {
+            border-color: var(--accent);
+            box-shadow: 0 0 8px var(--accent-glow);
+        }
+
+        .nav-dot.active {
+            border-color: var(--accent);
+            background: var(--accent);
+            box-shadow: 0 0 12px var(--accent-glow-strong);
+            transform: scale(1.3);
+        }
+
+        .nav-dot .tooltip {
+            position: absolute;
+            right: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: var(--bg-secondary);
+            border: 1px solid rgba(0, 229, 255, 0.2);
+            color: var(--text-primary);
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 0.65rem;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s;
+            font-family: var(--font-body);
+        }
+
+        .nav-dot:hover .tooltip { opacity: 1; }
+
+        /* ===========================================
+           BRAND WATERMARK + SLIDE COUNTER
+           =========================================== */
+        .brand-watermark {
+            position: fixed;
+            bottom: 1.5rem;
+            left: 2rem;
+            font-family: var(--font-display);
+            font-weight: 700;
+            font-size: 0.75rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            z-index: 100;
+            opacity: 0.5;
+        }
+
+        .slide-counter {
+            position: fixed;
+            bottom: 1.5rem;
+            right: 2rem;
+            font-family: var(--font-display);
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            z-index: 100;
+        }
+
+        .slide-counter .current {
+            color: var(--accent);
+            font-weight: 600;
+        }
+
+        /* ===========================================
+           SLIDE CONTAINER
+           =========================================== */
+        .slide {
+            min-height: 100vh;
+            padding: var(--slide-padding);
+            scroll-snap-align: start;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .slide-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* ===========================================
+           TYPOGRAPHY
+           =========================================== */
+        .slide-label {
+            font-family: var(--font-display);
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 1.2rem;
+        }
+
+        h1 {
+            font-family: var(--font-display);
+            font-weight: 700;
+            font-size: clamp(2.8rem, 6vw, 5.5rem);
+            line-height: 1.05;
+            letter-spacing: -2px;
+        }
+
+        h2 {
+            font-family: var(--font-display);
+            font-weight: 600;
+            font-size: clamp(2rem, 4vw, 3.5rem);
+            line-height: 1.15;
+            letter-spacing: -1px;
+            margin-bottom: 1.5rem;
+        }
+
+        h3 {
+            font-family: var(--font-display);
+            font-weight: 600;
+            font-size: clamp(1.2rem, 2vw, 1.6rem);
+            line-height: 1.3;
+        }
+
+        .subtitle {
+            font-size: clamp(1rem, 1.8vw, 1.4rem);
+            color: var(--text-secondary);
+            line-height: 1.6;
+            max-width: 680px;
+        }
+
+        .highlight {
+            color: var(--accent);
+            font-weight: 600;
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, var(--accent), var(--accent-secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        blockquote {
+            font-family: var(--font-display);
+            font-size: clamp(1rem, 1.8vw, 1.4rem);
+            font-weight: 500;
+            color: var(--text-primary);
+            border-left: 3px solid var(--accent);
+            padding-left: 1.5rem;
+            margin: 2rem 0;
+            line-height: 1.5;
+        }
+
+        /* ===========================================
+           REVEAL ANIMATIONS
+           =========================================== */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity var(--duration-normal) var(--ease-out-expo),
+                        transform var(--duration-normal) var(--ease-out-expo);
+        }
+
+        .reveal-left {
+            opacity: 0;
+            transform: translateX(-50px);
+            transition: opacity var(--duration-normal) var(--ease-out-expo),
+                        transform var(--duration-normal) var(--ease-out-expo);
+        }
+
+        .reveal-right {
+            opacity: 0;
+            transform: translateX(50px);
+            transition: opacity var(--duration-normal) var(--ease-out-expo),
+                        transform var(--duration-normal) var(--ease-out-expo);
+        }
+
+        .reveal-scale {
+            opacity: 0;
+            transform: scale(0.85);
+            transition: opacity var(--duration-slow) var(--ease-out-expo),
+                        transform var(--duration-slow) var(--ease-out-expo);
+        }
+
+        .slide.visible .reveal,
+        .slide.visible .reveal-left,
+        .slide.visible .reveal-right {
+            opacity: 1;
+            transform: translate(0);
+        }
+
+        .slide.visible .reveal-scale {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .d1 { transition-delay: 0.1s; }
+        .d2 { transition-delay: 0.2s; }
+        .d3 { transition-delay: 0.35s; }
+        .d4 { transition-delay: 0.5s; }
+        .d5 { transition-delay: 0.65s; }
+        .d6 { transition-delay: 0.8s; }
+        .d7 { transition-delay: 0.95s; }
+        .d8 { transition-delay: 1.1s; }
+
+        /* ===========================================
+           BACKGROUND EFFECTS
+           =========================================== */
+        .bg-glow {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(120px);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .bg-grid {
+            position: absolute;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(0, 229, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 229, 255, 0.03) 1px, transparent 1px);
+            background-size: 60px 60px;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .bg-noise {
+            position: absolute;
+            inset: 0;
+            opacity: 0.025;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+            background-size: 128px;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        /* ===========================================
+           TITLE SLIDE
+           =========================================== */
+        .title-slide {
+            text-align: center;
+            align-items: center;
+        }
+
+        .title-slide .brand-name {
+            font-family: var(--font-display);
+            font-weight: 500;
+            font-size: 0.85rem;
+            letter-spacing: 6px;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 2.5rem;
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .title-slide .brand-name::before,
+        .title-slide .brand-name::after {
+            content: '';
+            width: 40px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--accent));
+        }
+
+        .title-slide .brand-name::after {
+            background: linear-gradient(90deg, var(--accent), transparent);
+        }
+
+        .title-slide h1 { margin-bottom: 1.5rem; }
+
+        .title-slide .tagline {
+            font-size: clamp(1rem, 2vw, 1.35rem);
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto 3rem;
+            line-height: 1.7;
+        }
+
+        .title-slide .scroll-hint {
+            position: absolute;
+            bottom: 3rem;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-muted);
+            font-size: 0.7rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            animation: float 2.5s ease-in-out infinite;
+        }
+
+        .scroll-hint .arrow {
+            width: 20px;
+            height: 20px;
+            border-right: 1.5px solid var(--text-muted);
+            border-bottom: 1.5px solid var(--text-muted);
+            transform: rotate(45deg);
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(10px); }
+        }
+
+        .title-slide .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            animation: pulse 6s ease-in-out infinite alternate;
+        }
+
+        .title-slide .orb-1 {
+            width: 500px; height: 500px;
+            background: radial-gradient(circle, rgba(0, 229, 255, 0.15), transparent 70%);
+            top: 10%; left: -10%;
+        }
+
+        .title-slide .orb-2 {
+            width: 400px; height: 400px;
+            background: radial-gradient(circle, rgba(0, 136, 255, 0.12), transparent 70%);
+            bottom: 10%; right: -5%;
+            animation-delay: -3s;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 0.6; transform: scale(1); }
+            100% { opacity: 1; transform: scale(1.15); }
+        }
+
+        /* ===========================================
+           STEP CARDS
+           =========================================== */
+        .step-card {
+            padding: 1.5rem;
+            background: var(--bg-card);
+            border: 1px solid rgba(0, 229, 255, 0.1);
+            border-radius: 16px;
+            backdrop-filter: blur(10px);
+            margin-bottom: 1rem;
+            transition: all 0.4s var(--ease-out-expo);
+        }
+
+        .step-card:hover {
+            border-color: rgba(0, 229, 255, 0.25);
+            transform: translateY(-2px);
+        }
+
+        .step-card .step-num {
+            font-family: var(--font-display);
+            font-weight: 700;
+            font-size: 0.7rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+        }
+
+        .step-card .step-title {
+            font-family: var(--font-display);
+            font-weight: 600;
+            font-size: 1.1rem;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .step-card .step-desc {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* ===========================================
+           SCRIPT BLOCKS
+           =========================================== */
+        .script-block {
+            background: rgba(0, 229, 255, 0.04);
+            border-left: 3px solid var(--accent);
+            padding: 1.2rem 1.5rem;
+            border-radius: 0 12px 12px 0;
+            margin: 1rem 0;
+            font-style: italic;
+            font-size: 0.95rem;
+            color: var(--text-primary);
+            line-height: 1.7;
+        }
+
+        .script-block.warning {
+            background: rgba(255, 170, 0, 0.04);
+            border-left-color: var(--warning);
+        }
+
+        .script-block.danger {
+            background: rgba(255, 59, 92, 0.04);
+            border-left-color: var(--danger);
+        }
+
+        .script-block.success {
+            background: rgba(0, 255, 136, 0.04);
+            border-left-color: var(--success);
+        }
+
+        /* ===========================================
+           FLOW STEPS (NUMBERED TIMELINE)
+           =========================================== */
+        .flow-timeline {
+            position: relative;
+            padding-left: 3rem;
+            margin: 2rem 0;
+        }
+
+        .flow-timeline::before {
+            content: '';
+            position: absolute;
+            left: 14px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(to bottom, var(--accent), var(--accent-secondary), rgba(0,229,255,0.1));
+        }
+
+        .flow-item {
+            position: relative;
+            padding: 0.8rem 0 1.2rem;
+        }
+
+        .flow-item::before {
+            content: '';
+            position: absolute;
+            left: -2.35rem;
+            top: 1rem;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--accent);
+            box-shadow: 0 0 12px var(--accent-glow-strong);
+        }
+
+        .flow-item .flow-title {
+            font-family: var(--font-display);
+            font-weight: 600;
+            font-size: 1rem;
+            color: var(--text-primary);
+            margin-bottom: 0.2rem;
+        }
+
+        .flow-item .flow-desc {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        /* ===========================================
+           FEATURE GRID
+           =========================================== */
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.2rem;
+            margin: 2rem 0;
+        }
+
+        .feature-card {
+            padding: 1.8rem 1.5rem;
+            background: var(--bg-card);
+            border: 1px solid rgba(0, 229, 255, 0.1);
+            border-radius: 16px;
+            text-align: center;
+            transition: all 0.4s var(--ease-out-expo);
+            backdrop-filter: blur(10px);
+        }
+
+        .feature-card:hover {
+            border-color: rgba(0, 229, 255, 0.35);
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px rgba(0, 229, 255, 0.08);
+        }
+
+        .feature-card .icon {
+            font-size: 1.8rem;
+            margin-bottom: 0.8rem;
+            display: block;
+        }
+
+        .feature-card .label {
+            font-family: var(--font-display);
+            font-weight: 500;
+            font-size: 0.9rem;
+            color: var(--text-primary);
+        }
+
+        /* ===========================================
+           SMOKESCREEN CARDS
+           =========================================== */
+        .smoke-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .smoke-number {
+            font-family: var(--font-display);
+            font-weight: 700;
+            font-size: 2.5rem;
+            color: var(--accent);
+            opacity: 0.3;
+            line-height: 1;
+        }
+
+        .smoke-quote {
+            font-family: var(--font-display);
+            font-weight: 600;
+            font-size: clamp(1.4rem, 3vw, 2.2rem);
+            color: var(--danger);
+            line-height: 1.2;
+        }
+
+        .smoke-why {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+            padding: 1rem;
+            background: rgba(255, 59, 92, 0.04);
+            border-radius: 12px;
+            border: 1px solid rgba(255, 59, 92, 0.1);
+            line-height: 1.6;
+        }
+
+        .smoke-why strong {
+            color: var(--text-primary);
+        }
+
+        .abp-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+
+        .abp-card {
+            padding: 1.2rem 1.5rem;
+            border-radius: 14px;
+            backdrop-filter: blur(10px);
+        }
+
+        .abp-card.acknowledge {
+            background: rgba(0, 229, 255, 0.04);
+            border: 1px solid rgba(0, 229, 255, 0.15);
+        }
+
+        .abp-card.bridge {
+            background: rgba(0, 136, 255, 0.04);
+            border: 1px solid rgba(0, 136, 255, 0.15);
+        }
+
+        .abp-card.pivot {
+            background: rgba(0, 255, 136, 0.04);
+            border: 1px solid rgba(0, 255, 136, 0.15);
+        }
+
+        .abp-card .abp-label {
+            font-family: var(--font-display);
+            font-weight: 600;
+            font-size: 0.7rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
+        }
+
+        .abp-card.acknowledge .abp-label { color: var(--accent); }
+        .abp-card.bridge .abp-label { color: var(--accent-secondary); }
+        .abp-card.pivot .abp-label { color: var(--success); }
+
+        .abp-card .abp-text {
+            font-size: 0.9rem;
+            color: var(--text-primary);
+            line-height: 1.6;
+            font-style: italic;
+        }
+
+        /* ===========================================
+           BRANCH LOGIC
+           =========================================== */
+        .branch-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .branch-card {
+            padding: 1rem 1.2rem;
+            border-radius: 12px;
+            font-size: 0.85rem;
+            line-height: 1.6;
+        }
+
+        .branch-card.a {
+            background: rgba(0, 255, 136, 0.04);
+            border: 1px solid rgba(0, 255, 136, 0.15);
+        }
+
+        .branch-card.b {
+            background: rgba(255, 170, 0, 0.04);
+            border: 1px solid rgba(255, 170, 0, 0.15);
+        }
+
+        .branch-card .branch-label {
+            font-family: var(--font-display);
+            font-weight: 600;
+            font-size: 0.7rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 0.4rem;
+        }
+
+        .branch-card.a .branch-label { color: var(--success); }
+        .branch-card.b .branch-label { color: var(--warning); }
+        .branch-card .branch-text { color: var(--text-secondary); }
+
+        /* ===========================================
+           OVERVIEW CARDS
+           =========================================== */
+        .overview-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.2rem;
+            margin: 2rem 0;
+        }
+
+        .overview-card {
+            padding: 2rem 1.5rem;
+            background: var(--bg-card);
+            border: 1px solid rgba(0, 229, 255, 0.1);
+            border-radius: 16px;
+            backdrop-filter: blur(10px);
+            transition: all 0.4s var(--ease-out-expo);
+        }
+
+        .overview-card:hover {
+            border-color: rgba(0, 229, 255, 0.25);
+            transform: translateY(-3px);
+        }
+
+        .overview-card .card-num {
+            font-family: var(--font-display);
+            font-weight: 700;
+            font-size: 0.7rem;
+            letter-spacing: 3px;
+            color: var(--accent);
+            margin-bottom: 0.8rem;
+        }
+
+        .overview-card .card-title {
+            font-family: var(--font-display);
+            font-weight: 600;
+            font-size: 1.1rem;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .overview-card .card-desc {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        /* ===========================================
+           PRINCIPLE LIST
+           =========================================== */
+        .principle-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .principle-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+            padding: 1rem 1.2rem;
+            background: var(--bg-card);
+            border: 1px solid rgba(0, 229, 255, 0.08);
+            border-radius: 12px;
+            transition: border-color 0.3s;
+        }
+
+        .principle-item:hover {
+            border-color: rgba(0, 229, 255, 0.2);
+        }
+
+        .principle-icon {
+            width: 28px;
+            height: 28px;
+            border-radius: 8px;
+            background: rgba(0, 229, 255, 0.08);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            font-size: 0.9rem;
+            color: var(--accent);
+            margin-top: 2px;
+        }
+
+        .principle-text {
+            font-size: 0.95rem;
+            color: var(--text-primary);
+            line-height: 1.5;
+        }
+
+        .principle-text strong {
+            color: var(--accent);
+        }
+
+        /* ===========================================
+           CHEAT SHEET TABLE
+           =========================================== */
+        .cheat-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            margin: 1.5rem 0;
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid rgba(0, 229, 255, 0.1);
+            font-size: 0.78rem;
+        }
+
+        .cheat-table th {
+            background: rgba(0, 229, 255, 0.08);
+            font-family: var(--font-display);
+            font-weight: 600;
+            font-size: 0.65rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--accent);
+            padding: 1rem 0.8rem;
+            text-align: left;
+        }
+
+        .cheat-table td {
+            padding: 0.8rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+            color: var(--text-secondary);
+            line-height: 1.5;
+            vertical-align: top;
+        }
+
+        .cheat-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .cheat-table tr:hover td {
+            background: rgba(0, 229, 255, 0.02);
+        }
+
+        .cheat-table td:first-child {
+            color: var(--danger);
+            font-weight: 600;
+            font-family: var(--font-display);
+            white-space: nowrap;
+        }
+
+        /* ===========================================
+           CAPTURE LIST
+           =========================================== */
+        .capture-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .capture-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 1rem 1.2rem;
+            background: var(--bg-card);
+            border: 1px solid rgba(0, 229, 255, 0.1);
+            border-radius: 12px;
+            font-size: 0.95rem;
+            color: var(--text-primary);
+        }
+
+        .capture-check {
+            width: 22px;
+            height: 22px;
+            border-radius: 6px;
+            background: rgba(0, 255, 136, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            color: var(--success);
+            font-size: 0.7rem;
+        }
+
+        /* ===========================================
+           CTA SLIDE
+           =========================================== */
+        .cta-slide {
+            text-align: center;
+            align-items: center;
+        }
+
+        .rules-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1rem;
+            margin: 2rem 0;
+            text-align: left;
+        }
+
+        .rule-card {
+            padding: 1.5rem;
+            background: var(--bg-card);
+            border: 1px solid rgba(0, 229, 255, 0.1);
+            border-radius: 14px;
+            backdrop-filter: blur(10px);
+        }
+
+        .rule-card .rule-text {
+            font-size: 0.95rem;
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+
+        .rule-card .rule-text strong {
+            color: var(--accent);
+        }
+
+        /* ===========================================
+           KEYBOARD HINTS
+           =========================================== */
+        .keyboard-hint {
+            position: fixed;
+            bottom: 1.5rem;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 6px;
+            align-items: center;
+            color: var(--text-muted);
+            font-size: 0.65rem;
+            letter-spacing: 1px;
+            z-index: 100;
+            opacity: 0.4;
+            transition: opacity 0.5s;
+        }
+
+        .keyboard-hint:hover { opacity: 0.8; }
+
+        .key {
+            padding: 3px 8px;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+            font-family: var(--font-body);
+            font-size: 0.6rem;
+        }
+
+        /* ===========================================
+           PARTICLE CANVAS
+           =========================================== */
+        #particles {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        /* ===========================================
+           TWO COLUMN LAYOUT
+           =========================================== */
+        .two-col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin: 1.5rem 0;
+        }
+
+        /* ===========================================
+           PATTERN STEPS (LARGE)
+           =========================================== */
+        .pattern-steps {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .pattern-step {
+            text-align: center;
+            padding: 2.5rem 1.5rem;
+            border-radius: 16px;
+            position: relative;
+        }
+
+        .pattern-step.step-ack {
+            background: rgba(0, 229, 255, 0.05);
+            border: 1px solid rgba(0, 229, 255, 0.2);
+        }
+
+        .pattern-step.step-bridge {
+            background: rgba(0, 136, 255, 0.05);
+            border: 1px solid rgba(0, 136, 255, 0.2);
+        }
+
+        .pattern-step.step-pivot {
+            background: rgba(0, 255, 136, 0.05);
+            border: 1px solid rgba(0, 255, 136, 0.2);
+        }
+
+        .pattern-step .pattern-num {
+            font-family: var(--font-display);
+            font-weight: 700;
+            font-size: 3rem;
+            opacity: 0.15;
+            margin-bottom: 0.5rem;
+        }
+
+        .pattern-step.step-ack .pattern-num { color: var(--accent); }
+        .pattern-step.step-bridge .pattern-num { color: var(--accent-secondary); }
+        .pattern-step.step-pivot .pattern-num { color: var(--success); }
+
+        .pattern-step .pattern-title {
+            font-family: var(--font-display);
+            font-weight: 600;
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .pattern-step.step-ack .pattern-title { color: var(--accent); }
+        .pattern-step.step-bridge .pattern-title { color: var(--accent-secondary); }
+        .pattern-step.step-pivot .pattern-title { color: var(--success); }
+
+        .pattern-step .pattern-desc {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        /* Arrow between steps */
+        .pattern-arrow {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-muted);
+            font-size: 1.5rem;
+        }
+
+        /* ===========================================
+           CALLOUT BOX
+           =========================================== */
+        .callout {
+            padding: 1.5rem;
+            border-radius: 14px;
+            margin: 1.5rem 0;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .callout.important {
+            background: rgba(255, 170, 0, 0.06);
+            border: 1px solid rgba(255, 170, 0, 0.2);
+            color: var(--warning);
+        }
+
+        .callout.tip {
+            background: rgba(0, 255, 136, 0.05);
+            border: 1px solid rgba(0, 255, 136, 0.15);
+            color: var(--success);
+        }
+
+        /* ===========================================
+           RESPONSIVE
+           =========================================== */
+        @media (max-width: 768px) {
+            .nav-dots, .keyboard-hint { display: none; }
+            .brand-watermark { font-size: 0.6rem; bottom: 1rem; left: 1rem; }
+            .slide-counter { bottom: 1rem; right: 1rem; font-size: 0.7rem; }
+            .two-col { grid-template-columns: 1fr; }
+            .pattern-steps { grid-template-columns: 1fr; }
+            .branch-container { grid-template-columns: 1fr; }
+            .abp-grid { grid-template-columns: 1fr; }
+            .cheat-table { font-size: 0.7rem; }
+            .cheat-table th, .cheat-table td { padding: 0.5rem; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .reveal, .reveal-left, .reveal-right, .reveal-scale {
+                transition: opacity 0.3s ease;
+                transform: none !important;
+            }
+            .title-slide .orb { animation: none; }
+            .scroll-hint { animation: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <canvas id="particles"></canvas>
+    <div class="progress-bar" id="progressBar"></div>
+    <nav class="nav-dots" id="navDots"></nav>
+    <div class="brand-watermark">Disruptors Media</div>
+    <div class="slide-counter">
+        <span class="current" id="currentSlide">01</span>
+        <span> / </span>
+        <span id="totalSlides">20</span>
+    </div>
+    <div class="keyboard-hint">
+        <span class="key">&uarr;</span>
+        <span class="key">&darr;</span>
+        <span>or</span>
+        <span class="key">Space</span>
+        <span>to navigate</span>
+    </div>
+
+    <!-- ===================================================
+         SLIDE 1 — TITLE
+         =================================================== -->
+    <section class="slide title-slide" data-title="Title">
+        <div class="bg-noise"></div>
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+
+        <div class="slide-inner">
+            <div class="brand-name reveal d1">Disruptors Media</div>
+            <h1 class="reveal d2">
+                Cold Call<br><span class="gradient-text">Training Playbook</span>
+            </h1>
+            <p class="tagline reveal d3">
+                Clean-Path Script, Smokescreen Handling, and Cheat Sheet<br>
+                <span style="opacity:0.6;font-size:0.9em;">For new sales reps running high-volume outbound</span>
+            </p>
+        </div>
+
+        <div class="scroll-hint">
+            <span>Scroll</span>
+            <div class="arrow"></div>
+        </div>
+    </section>
+
+    <!-- ===================================================
+         SLIDE 2 — HOW TO USE
+         =================================================== -->
+    <section class="slide" data-title="Overview">
+        <div class="bg-noise"></div>
+        <div class="bg-glow" style="width:500px;height:500px;background:rgba(0,229,255,0.06);top:-10%;right:-10%;"></div>
+
+        <div class="slide-inner">
+            <span class="slide-label reveal d1">How to Use This Playbook</span>
+            <h2 class="reveal d2">Four Sections. <span class="gradient-text">In Order.</span></h2>
+            <p class="subtitle reveal d3">New reps should work through them in order before making live calls.</p>
+
+            <div class="overview-grid">
+                <div class="overview-card reveal d3">
+                    <div class="card-num">Part 01</div>
+                    <div class="card-title">The Clean-Path Script</div>
+                    <div class="card-desc">The call flow when the decision maker picks up and gives you permission to talk. Memorize the shape first, then the language.</div>
+                </div>
+                <div class="overview-card reveal d4">
+                    <div class="card-num">Part 02</div>
+                    <div class="card-title">Mindset on Smokescreens</div>
+                    <div class="card-desc">What a smokescreen actually is and why most reps lose the call before it starts. Read this section twice.</div>
+                </div>
+                <div class="overview-card reveal d5">
+                    <div class="card-num">Part 03</div>
+                    <div class="card-title">Smokescreen Scripts</div>
+                    <div class="card-desc">Full scripts for seven common smokescreens. Acknowledge, bridge, and pivot patterns written word for word.</div>
+                </div>
+                <div class="overview-card reveal d6">
+                    <div class="card-num">Appendix</div>
+                    <div class="card-title">Cheat Sheet</div>
+                    <div class="card-desc">Scannable grid for reps to keep open during live calls. Print it. Tape it to the monitor.</div>
+                </div>
+            </div>
+
+            <div class="callout important reveal d7">
+                <strong>New reps:</strong> Do not skip Part 2. The mindset is what makes the scripts work. Reps who memorize the language without the mindset sound like telemarketers. Reps who get the mindset sound like consultants.
+            </div>
+        </div>
+    </section>
+
+    <!-- ===================================================
+         SLIDE 3 — CALL FLOW AT A GLANCE
+         =================================================== -->
+    <section class="slide" data-title="Call Flow">
+        <div class="bg-noise"></div>
+        <div class="bg-grid"></div>
+
+        <div class="slide-inner">
+            <span class="slide-label reveal d1">Part 1: The Clean-Path Script</span>
+            <h2 class="reveal d2">Call Flow <span class="gradient-text">at a Glance</span></h2>
+            <p class="subtitle reveal d3">Your goal is not to sell. It is to generate genuine interest and book a longer video conversation with Kyle.</p>
+
+            <div class="two-col">
+                <div class="flow-timeline reveal d4">
+                    <div class="flow-item">
+                        <div class="flow-title">1. Confirm Decision Maker</div>
+                        <div class="flow-desc">Is this [First Name]?</div>
+                    </div>
+                    <div class="flow-item">
+                        <div class="flow-title">2. Introduce Yourself</div>
+                        <div class="flow-desc">Name + clear reason for the call</div>
+                    </div>
+                    <div class="flow-item">
+                        <div class="flow-title">3. Ask for Permission</div>
+                        <div class="flow-desc">Do you have a couple minutes?</div>
+                    </div>
+                    <div class="flow-item">
+                        <div class="flow-title">4. Frame the Two Ways</div>
+                        <div class="flow-desc">Replicate competitors + amplify what works</div>
+                    </div>
+                    <div class="flow-item">
+                        <div class="flow-title">5. Find the Bottleneck</div>
+                        <div class="flow-desc">Walk me through the process</div>
+                    </div>
+                </div>
+                <div class="flow-timeline reveal d5">
+                    <div class="flow-item">
+                        <div class="flow-title">6. Suggest a Loose Fit</div>
+                        <div class="flow-desc">Directional suggestion + case study</div>
+                    </div>
+                    <div class="flow-item">
+                        <div class="flow-title">7. Ask About Competitors</div>
+                        <div class="flow-desc">What do you see working for them?</div>
+                    </div>
+                    <div class="flow-item">
+                        <div class="flow-title">8. Connect the Dots</div>
+                        <div class="flow-desc">AI can replicate proven plays</div>
+                    </div>
+                    <div class="flow-item">
+                        <div class="flow-title">9. Soft Recommendation</div>
+                        <div class="flow-desc">Honest take + ask for video call</div>
+                    </div>
+                    <div class="flow-item">
+                        <div class="flow-title">10. Confirm &amp; Hand Off</div>
+                        <div class="flow-desc">Lock time, loop in Kyle</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===================================================
+         SLIDE 4 — STEPS 1-3: OPEN THE CALL
+         =================================================== -->
+    <section class="slide" data-title="Steps 1-3">
+        <div class="bg-noise"></div>
+        <div class="bg-glow" style="width:500px;height:500px;background:rgba(0,229,255,0.05);bottom:-15%;left:-10%;"></div>
+
+        <div class="slide-inner">
+            <span class="slide-label reveal d1">Steps 1–3</span>
+            <h2 class="reveal d2">Open the <span class="gradient-text">Call</span></h2>
+
+            <div class="step-card reveal d3">
+                <div class="step-num">Step 01 — Confirm the Decision Maker</div>
+                <div class="script-block">Hey, is this [First Name]?</div>
+                <div class="step-desc">Stay calm and friendly. You are not in a hurry. If someone else answers, switch to gatekeeper branch.</div>
+            </div>
+
+            <div class="step-card reveal d4">
+                <div class="step-num">Step 02 — Introduce Yourself</div>
+                <div class="script-block">Cool. My name is [Your Name]. I reached out because I'm confident I can make you money and save you time with my skill set in artificial intelligence and building systems around it.</div>
+                <div class="step-desc">Keep the tone grounded and confident, not hypey. The word "confident" does the work. Do not oversell past it.</div>
+            </div>
+
+            <div class="step-card reveal d5">
+                <div class="step-num">Step 03 — Ask for Permission</div>
+                <div class="script-block">That being said, I wanted to get to know you and your business quickly to see if a longer conversation would be worth exploring for both of us. Do you have a couple of minutes for me to ask what you've got going on?</div>
+                <div class="step-desc">If yes: continue. If no, maybe, or any resistance: go to Smokescreens (Part 3).</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===================================================
+         SLIDE 5 — STEPS 4-5: FRAME & FIND
+         =================================================== -->
+    <section class="slide" data-title="Steps 4-5">
+        <div class="bg-noise"></div>
+        <div class="bg-grid"></div>
+
+        <div class="slide-inner">
+            <span class="slide-label reveal d1">Steps 4–5</span>
+            <h2 class="reveal d2">Frame AI &amp; Find the <span class="gradient-text">Bottleneck</span></h2>
+
+            <div class="step-card reveal d3">
+                <div class="step-num">Step 04 — Frame the Two Ways AI Helps</div>
+                <div class="script-block">There are really two ways we help businesses with AI. The first is, we identify what your most successful direct competitors are already doing and use AI to help you replicate that strategy faster. The second is, we look at what's already working for you and use AI to help you do ten times more of it, in less time.<br><br>So let me ask you this: what's currently the most effective strategy you're using to bring in sales?</div>
+                <div class="step-desc">This frame positions you as a strategist, not a salesperson. <strong style="color:var(--accent);">Shut up and listen.</strong> Whatever they name is the thread you pull for the rest of the call.</div>
+            </div>
+
+            <div class="step-card reveal d4">
+                <div class="step-num">Step 05 — Dig Into the Process</div>
+                <div class="script-block">Got it. Walk me through the process you use to do that.</div>
+                <div class="step-desc">You are mapping how leads, sales, and revenue actually flow. Listen for repetitive steps, handoffs, and manual work. Those are the AI opportunities.</div>
+            </div>
+
+            <div class="script-block warning reveal d5">
+                <strong style="color:var(--warning);">Bottleneck question (if needed):</strong><br>
+                Okay, so what takes up the most time in that process, or what's the biggest bottleneck keeping you from doing more of it?
+            </div>
+
+            <div class="callout tip reveal d6">
+                Now you have two things: <strong>what works</strong> and <strong>what's in the way.</strong> That combination is where AI lives.
+            </div>
+        </div>
+    </section>
+
+    <!-- ===================================================
+         SLIDE 6 — STEPS 6-8: SUGGEST, COMPETITORS, CONNECT
+         =================================================== -->
+    <section class="slide" data-title="Steps 6-8">
+        <div class="bg-noise"></div>
+        <div class="bg-glow" style="width:500px;height:500px;background:rgba(0,136,255,0.06);top:10%;right:-10%;"></div>
+
+        <div class="slide-inner">
+            <span class="slide-label reveal d1">Steps 6–8</span>
+            <h2 class="reveal d2">Suggest, Compare, <span class="gradient-text">Connect</span></h2>
+
+            <div class="step-card reveal d3">
+                <div class="step-num">Step 06 — Suggest a Loose AI Fit</div>
+                <div class="script-block">Okay, cool. Based on what you're telling me, I do believe AI can help you here. For example, [describe the fit in one or two sentences]. We did something similar for [client or vertical] and the result was [quick outcome].<br><br>That could certainly be something worth talking about in a longer conversation.</div>
+                <div class="step-desc">Don't pitch a full solution. Keep the case study short. One sentence what they did, one sentence what it produced.</div>
+            </div>
+
+            <div class="step-card reveal d4">
+                <div class="step-num">Step 07 — Ask About Competitors</div>
+                <div class="script-block">Let me ask you this: what are other companies in your same space, in your same niche, doing that you see working for them? What do you see your most successful competitors doing?</div>
+                <div class="step-desc">Then the key qualifying question: <span style="color:var(--accent);font-weight:600;">Are you doing those things?</span><br>If not — you've found a proven, market-validated play they're not running. That is a strong AI fit.</div>
+            </div>
+
+            <div class="step-card reveal d5">
+                <div class="step-num">Step 08 — Connect AI to the Proven Plays</div>
+                <div class="script-block">Based on what you're describing, there are proven messages and systems already working for companies like yours. AI and automation can help you replicate those without needing to hire a bigger team or add hours to your week.</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===================================================
+         SLIDE 7 — STEPS 9-10: THE ASK & HAND OFF
+         =================================================== -->
+    <section class="slide" data-title="Steps 9-10">
+        <div class="bg-noise"></div>
+        <div class="bg-glow" style="width:500px;height:500px;background:rgba(0,255,136,0.05);bottom:-10%;right:-10%;"></div>
+
+        <div class="slide-inner">
+            <span class="slide-label reveal d1">Steps 9–10</span>
+            <h2 class="reveal d2">The Ask &amp; <span class="gradient-text">Hand Off</span></h2>
+
+            <div class="step-card reveal d3">
+                <div class="step-num">Step 09 — Soft Recommendation</div>
+                <div class="script-block">I'll be honest with you. Based on what you've shared, I genuinely believe AI can help you in a couple of specific ways, [name one or two]. If I didn't think that, I wouldn't say so. Do you have time this week for a short video call to talk through it properly?</div>
+                <div class="step-desc"><strong style="color:var(--accent);">Stay quiet after the ask.</strong> Let them answer. If they say yes, move to scheduling. If they hesitate, treat it as a soft smokescreen and go to Part 3.</div>
+            </div>
+
+            <div class="step-card reveal d4">
+                <div class="step-num">Step 10 — Confirm and Hand Off to Kyle</div>
+                <div class="script-block">Perfect. I'll have Kyle, who leads the AI side, on that call with us. I'm sending the invite to [email] right now, you should see it hit your inbox in the next minute or two.</div>
+            </div>
+
+            <div class="principle-list reveal d5">
+                <div class="principle-item">
+                    <div class="principle-icon">&#128197;</div>
+                    <div class="principle-text"><strong>Lock a specific day and time window.</strong> Not "later this week."</div>
+                </div>
+                <div class="principle-item">
+                    <div class="principle-icon">&#128231;</div>
+                    <div class="principle-text"><strong>Confirm the email address</strong> for the calendar invite.</div>
+                </div>
+                <div class="principle-item">
+                    <div class="principle-icon">&#128100;</div>
+                    <div class="principle-text"><strong>Tell them Kyle will be on the call</strong> as the AI lead.</div>
+                </div>
+                <div class="principle-item">
+                    <div class="principle-icon">&#9889;</div>
+                    <div class="principle-text"><strong>Send the invite immediately</strong> while still on the phone, if possible.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===================================================
+         SLIDE 8 — GUIDING PRINCIPLES
+         =================================================== -->
+    <section class="slide" data-title="Principles">
+        <div class="bg-noise"></div>
+        <div class="bg-grid"></div>
+
+        <div class="slide-inner">
+            <span class="slide-label reveal d1">Guiding Principles</span>
+            <h2 class="reveal d2">Rules for the <span class="gradient-text">Caller</span></h2>
+
+            <div class="principle-list">
+                <div class="principle-item reveal d3">
+                    <div class="principle-icon">&#10067;</div>
+                    <div class="principle-text"><strong>Ask, don't pitch.</strong> Your questions should outnumber your statements at least three to one.</div>
+                </div>
+                <div class="principle-item reveal d3">
+                    <div class="principle-icon">&#127919;</div>
+                    <div class="principle-text"><strong>Anchor every AI suggestion</strong> to something they just told you. No generic promises.</div>
+                </div>
+                <div class="principle-item reveal d4">
+                    <div class="principle-icon">&#128172;</div>
+                    <div class="principle-text"><strong>Use the word "genuinely" sparingly</strong> and mean it. The honesty framing is a pattern break from typical cold calls.</div>
+                </div>
+                <div class="principle-item reveal d4">
+                    <div class="principle-icon">&#128266;</div>
+                    <div class="principle-text"><strong>Never oversell on the phone.</strong> Your job is to earn the video call, not the deal.</div>
+                </div>
+                <div class="principle-item reveal d5">
+                    <div class="principle-icon">&#128263;</div>
+                    <div class="principle-text"><strong>Pause after questions.</strong> Silence is a qualifier, not a problem.</div>
+                </div>
+                <div class="principle-item reveal d5">
+                    <div class="principle-icon">&#128221;</div>
+                    <div class="principle-text"><strong>Take notes in real time.</strong> Kyle needs the "what's working," "what's the bottleneck," and "competitor moves" answers for the close call.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===================================================
+         SLIDE 9 — MINDSET ON SMOKESCREENS
+         =================================================== -->
+    <section class="slide" data-title="Mindset">
+        <div class="bg-noise"></div>
+        <div class="bg-glow" style="width:600px;height:600px;background:rgba(255,59,92,0.05);top:50%;left:50%;transform:translate(-50%,-50%);"></div>
+
+        <div class="slide-inner">
+            <span class="slide-label reveal d1">Part 2: Mindset</span>
+            <h2 class="reveal d2">A Smokescreen Is <span style="color:var(--danger);">Not</span> an Objection</h2>
+
+            <div class="two-col">
+                <div class="reveal d3">
+                    <h3 style="color:var(--danger);margin-bottom:1rem;">Smokescreen</h3>
+                    <p style="color:var(--text-secondary);line-height:1.7;font-size:0.95rem;">
+                        Reflexive. Happens in the first 15 seconds, before they've heard anything. It is not a real assessment of your offer. It is the autopilot response a business owner gives when they suspect they're talking to a salesperson.
+                    </p>
+                </div>
+                <div class="reveal d4">
+                    <h3 style="color:var(--success);margin-bottom:1rem;">Real Objection</h3>
+                    <p style="color:var(--text-secondary);line-height:1.7;font-size:0.95rem;">
+                        A thoughtful reason someone doesn't want what you're offering. It comes <em>after</em> they understand what you do. Real objections deserve real answers.
+                    </p>
+                </div>
+            </div>
+
+            <blockquote class="reveal d5" style="margin-top:2rem;">
+                If you treat a smokescreen like a real objection, you will try to overcome it with logic or features, and you will lose. You cannot argue someone into wanting to talk to you.
+            </blockquote>
+
+            <div class="callout important reveal d6">
+                <strong>The move:</strong> Acknowledge the smokescreen as valid, show you're not what they expected, and redirect the conversation back to them. Once they're talking about their business instead of fending off a pitch, the smokescreen evaporates on its own.
+            </div>
+        </div>
+    </section>
+
+    <!-- ===================================================
+         SLIDE 10 — THE PATTERN: ACKNOWLEDGE, BRIDGE, PIVOT
+         =================================================== -->
+    <section class="slide" data-title="The Pattern">
+        <div class="bg-noise"></div>
+        <div class="bg-grid"></div>
+
+        <div class="slide-inner">
+            <span class="slide-label reveal d1">The Universal Pattern</span>
+            <h2 class="reveal d2">Acknowledge. Bridge. <span class="gradient-text">Pivot.</span></h2>
+            <p class="subtitle reveal d3">Every smokescreen response in Part 3 follows this exact pattern.</p>
+
+            <div class="pattern-steps">
+                <div class="pattern-step step-ack reveal d4">
+                    <div class="pattern-num">01</div>
+                    <div class="pattern-title">Acknowledge</div>
+                    <div class="pattern-desc">Genuinely, briefly. Do not apologize. Validate what they said.</div>
+                </div>
+                <div class="pattern-step step-bridge reveal d5">
+                    <div class="pattern-num">02</div>
+                    <div class="pattern-title">Bridge</div>
+                    <div class="pattern-desc">Lower the stakes. Make it clear you're not here to pitch.</div>
+                </div>
+                <div class="pattern-step step-pivot reveal d6">
+                    <div class="pattern-num">03</div>
+                    <div class="pattern-title">Pivot</div>
+                    <div class="pattern-desc">Ask a short, easy, business-focused question that puts them back in the driver's seat.</div>
+                </div>
+            </div>
+
+            <blockquote class="reveal d7" style="text-align:center;border:none;margin-top:2rem;">
+                <span class="highlight" style="font-size:1.2em;">Memorize this pattern before you memorize any script.</span>
+            </blockquote>
+        </div>
+    </section>
+
+    <!-- ===================================================
+         SLIDE 11 — SMOKESCREEN 1: "I'm busy right now."
+         =================================================== -->
+    <section class="slide" data-title='SS1: Busy'>
+        <div class="bg-noise"></div>
+        <div class="bg-glow" style="width:400px;height:400px;background:rgba(255,59,92,0.05);top:10%;left:-10%;"></div>
+
+        <div class="slide-inner">
+            <span class="slide-label reveal d1">Smokescreen 1</span>
+            <div class="smoke-header reveal d2">
+                <span class="smoke-number">01</span>
+                <span class="smoke-quote">"I'm busy right now."</span>
+            </div>
+
+            <div class="smoke-why reveal d3">
+                <strong>Why they say it:</strong> This is the default. 90% of owners will say some version of this, whether they're actually busy or not. It is a reflex.
+            </div>
+
+            <div class="abp-grid">
+                <div class="abp-card acknowledge reveal d4">
+                    <div class="abp-label">Acknowledge</div>
+                    <div class="abp-text">Yeah, I totally get it. That's what it is to be a business owner, there's always something else to handle.</div>
+                </div>
+                <div class="abp-card bridge reveal d5">
+                    <div class="abp-label">Bridge</div>
+                    <div class="abp-text">My job isn't to give you a full spiel about how AI can help your business today, right now. It's just to see if a longer conversation is going to be worthwhile.</div>
+                </div>
+                <div class="abp-card pivot reveal d6">
+                    <div class="abp-label">Pivot</div>
+                    <div class="abp-text">Would you say there are any bottlenecks right now that you suspect automation, better systems, or AI could help you with?</div>
+                </div>
+            </div>
+
+            <div class="branch-container reveal d7">
+                <div class="branch-card a">
+                    <div class="branch-label">Branch A: They Engage</div>
+                    <div class="branch-text">They name a bottleneck. Proceed as if the smokescreen never happened. Continue into the clean-path flow at Step 5.</div>
+                </div>
+                <div class="branch-card b">
+                    <div class="branch-label">Branch B: Still No Time</div>
+                    <div class="branch-text">Don't push. Ask: "When would be a better time? I just need ten minutes over the phone." Lock it and count it as a win.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===================================================
+         SLIDE 12 — SMOKESCREEN 2: "AI is slop."
+         =================================================== -->
+    <section class="slide" data-title='SS2: AI Slop'>
+        <div class="bg-noise"></div>
+        <div class="bg-glow" style="width:400px;height:400px;background:rgba(255,59,92,0.05);bottom:10%;right:-10%;"></div>
+
+        <div class="slide-inner">
+            <span class="slide-label reveal d1">Smokescreen 2</span>
+            <div class="smoke-header reveal d2">
+                <span class="smoke-number">02</span>
+                <span class="smoke-quote">"AI is slop."</span>
+            </div>
+
+            <div class="smoke-why reveal d3">
+                <strong>Why they say it:</strong> They tried an AI tool, got bad output, and wrote off the whole category. Or pure skepticism from articles / social media.
+            </div>
+
+            <div class="abp-grid">
+                <div class="abp-card acknowledge reveal d4">
+                    <div class="abp-label">Acknowledge (Agree Partially)</div>
+                    <div class="abp-text">Yeah, AI is a lot like training a human employee. It typically doesn't get it right the first time. There's an artful way to use it, and most people never get past the first bad output.</div>
+                </div>
+                <div class="abp-card bridge reveal d5">
+                    <div class="abp-label">Bridge (With Conviction)</div>
+                    <div class="abp-text">What I can guarantee is this: the companies that leverage AI at a high level are going to vastly outperform the ones that don't. [Give a quick, specific example.]</div>
+                </div>
+                <div class="abp-card pivot reveal d6">
+                    <div class="abp-label">Pivot</div>
+                    <div class="abp-text">That being said, I don't want to diagnose and tell you what you need to do for your business, because I don't know your situation. Do you mind telling me what you want to get done and where you'd like to see your company be in the next year or so?</div>
+                </div>
+            </div>
+
+            <div class="callout tip reveal d7">
+                After they share a goal, ask: <strong>"Got it. What's keeping you from getting there right now?"</strong> — Now you have a goal and an obstacle. Return to clean-path flow at Step 6 or 9.
+            </div>
+        </div>
+    </section>
+
+    <!-- ===================================================
+         SLIDE 13 — SMOKESCREEN 3: "I can't afford to hire anyone."
+         =================================================== -->
+    <section class="slide" data-title="SS3: Can't Afford">
+        <div class="bg-noise"></div>
+        <div class="bg-grid"></div>
+
+        <div class="slide-inner">
+            <span class="slide-label reveal d1">Smokescreen 3</span>
+            <div class="smoke-header reveal d2">
+                <span class="smoke-number">03</span>
+                <span class="smoke-quote">"I can't afford to hire anyone right now."</span>
+            </div>
+
+            <div class="smoke-why reveal d3">
+                <strong>Why they say it:</strong> They assume your offer looks like a traditional agency retainer or a full-time hire. They're trying to disqualify themselves before you get to pricing.
+            </div>
+
+            <div class="abp-grid">
+                <div class="abp-card acknowledge reveal d4">
+                    <div class="abp-label">Acknowledge &amp; Disarm</div>
+                    <div class="abp-text">Yeah, and honestly, if that's the case, I'd be more than happy to point you toward AI tools you can use at a very low cost until it makes sense to work with someone like me.</div>
+                </div>
+                <div class="abp-card bridge reveal d5">
+                    <div class="abp-label">Bridge</div>
+                    <div class="abp-text">That being said, do you mind if I ask a couple of questions about your business to see where you're at, so I can point you in the right direction?</div>
+                </div>
+                <div class="abp-card pivot reveal d6">
+                    <div class="abp-label">Pivot (Qualify Gently)</div>
+                    <div class="abp-text">Roughly how much are you doing in monthly revenue? What's bringing in the most business? Where do things fall apart or slow down?</div>
+                </div>
+            </div>
+
+            <div class="branch-container reveal d7">
+                <div class="branch-card a">
+                    <div class="branch-label">Branch A: They Qualify</div>
+                    <div class="branch-text">Pivot back to real conversation. "Based on what you're sharing, I genuinely think we can help. We start small and build. Would a video call this week make sense?"</div>
+                </div>
+                <div class="branch-card b">
+                    <div class="branch-label">Branch B: They Don't Qualify</div>
+                    <div class="branch-text">Deliver on the promise. Give them 1-2 genuine low-cost AI tool suggestions. Thank them warmly. Reps who deliver free pointers build referral networks by accident.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===================================================
+         SLIDE 14 — SMOKESCREEN 4: "Send me an email."
+         =================================================== -->
+    <section class="slide" data-title='SS4: Send Email'>
+        <div class="bg-noise"></div>
+        <div class="bg-glow" style="width:400px;height:400px;background:rgba(255,59,92,0.05);top:10%;right:-10%;"></div>
+
+        <div class="slide-inner">
+            <span class="slide-label reveal d1">Smokescreen 4</span>
+            <div class="smoke-header reveal d2">
+                <span class="smoke-number">04</span>
+                <span class="smoke-quote">"Send me an email with some information."</span>
+            </div>
+
+            <div class="smoke-why reveal d3">
+                <strong>Why they say it:</strong> The polite brush-off. They don't trust you enough yet to spend real time. A generic email they skim and delete costs them nothing.
+            </div>
+
+            <div class="abp-grid">
+                <div class="abp-card acknowledge reveal d4">
+                    <div class="abp-label">Acknowledge</div>
+                    <div class="abp-text">Yeah, happy to, and I absolutely will.</div>
+                </div>
+                <div class="abp-card bridge reveal d5">
+                    <div class="abp-label">Bridge</div>
+                    <div class="abp-text">Honestly though, a generic email isn't going to be nearly as useful as a two-minute conversation, because then I can actually send you something that fits your situation instead of a boilerplate pitch.</div>
+                </div>
+                <div class="abp-card pivot reveal d6">
+                    <div class="abp-label">Pivot</div>
+                    <div class="abp-text">So real quick, what would you actually want that email to help you with? What's top of mind for you on the business right now?</div>
+                </div>
+            </div>
+
+            <div class="branch-container reveal d7">
+                <div class="branch-card a">
+                    <div class="branch-label">Branch A: They Answer</div>
+                    <div class="branch-text">The email request evaporates. They're in the conversation. Proceed into Step 5 of the clean-path flow.</div>
+                </div>
+                <div class="branch-card b">
+                    <div class="branch-label">Branch B: Still Want Email</div>
+                    <div class="branch-text">Qualify the email: "So I send something worth your time, what's the one thing you'd want it to address?" Whatever they say is your hook for the follow-up.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===================================================
+         SLIDE 15 — SMOKESCREEN 5: "Is this a sales call?"
+         =================================================== -->
+    <section class="slide" data-title='SS5: Sales Call?'>
+        <div class="bg-noise"></div>
+        <div class="bg-glow" style="width:400px;height:400px;background:rgba(255,59,92,0.05);bottom:10%;left:-10%;"></div>
+
+        <div class="slide-inner">
+            <span class="slide-label reveal d1">Smokescreen 5</span>
+            <div class="smoke-header reveal d2">
+                <span class="smoke-number">05</span>
+                <span class="smoke-quote">"Is this a sales call?"</span>
+            </div>
+
+            <div class="smoke-why reveal d3">
+                <strong>Why they say it:</strong> They're testing you. They've been burned by callers who dodge the question or lie. Total honesty earns more credibility in 3 seconds than most reps earn in the whole call.
+            </div>
+
+            <div class="abp-grid">
+                <div class="abp-card acknowledge reveal d4">
+                    <div class="abp-label">Acknowledge (Total Honesty)</div>
+                    <div class="abp-text">Yeah, it is, technically. I'm calling because I think I can actually help.</div>
+                </div>
+                <div class="abp-card bridge reveal d5">
+                    <div class="abp-label">Bridge</div>
+                    <div class="abp-text">That said, my job isn't to pitch you today. It's to see if a longer conversation is worth your time. If it's not, I'll tell you that, and we both save ourselves the effort.</div>
+                </div>
+                <div class="abp-card pivot reveal d6">
+                    <div class="abp-label">Pivot</div>
+                    <div class="abp-text">So let me ask, what's one area of the business right now where, if you had a magic wand, you'd want more leads, more time back, or a better system?</div>
+                </div>
+            </div>
+
+            <div class="callout important reveal d7">
+                <strong>Do not soften this. Do not dodge.</strong> Reps who say "well, not really, it's more of a consultation" get hung up on immediately because they sound evasive. The confidence in the honesty is the move.
+            </div>
+        </div>
+    </section>
+
+    <!-- ===================================================
+         SLIDE 16 — SMOKESCREEN 6: "I'm not interested."
+         =================================================== -->
+    <section class="slide" data-title='SS6: Not Interested'>
+        <div class="bg-noise"></div>
+        <div class="bg-grid"></div>
+
+        <div class="slide-inner">
+            <span class="slide-label reveal d1">Smokescreen 6</span>
+            <div class="smoke-header reveal d2">
+                <span class="smoke-number">06</span>
+                <span class="smoke-quote">"I'm not interested."</span>
+            </div>
+
+            <div class="smoke-why reveal d3">
+                <strong>Why they say it:</strong> The nuclear smokescreen. Usually comes in the first 10 seconds, before they've actually heard anything. They can't be "not interested" because they have no idea what you're offering. It's pure reflex.
+            </div>
+
+            <div class="abp-grid">
+                <div class="abp-card acknowledge reveal d4">
+                    <div class="abp-label">Acknowledge</div>
+                    <div class="abp-text">Totally fair, I haven't given you any reason to be.</div>
+                </div>
+                <div class="abp-card bridge reveal d5">
+                    <div class="abp-label">Bridge</div>
+                    <div class="abp-text">Can I ask you one quick question, and then I'll let you go either way?</div>
+                </div>
+                <div class="abp-card pivot reveal d6">
+                    <div class="abp-label">Pivot</div>
+                    <div class="abp-text">If there was one thing in your business right now that's eating up too much of your time or leaving money on the table, what would it be?</div>
+                </div>
+            </div>
+
+            <div class="branch-container reveal d7">
+                <div class="branch-card a">
+                    <div class="branch-label">Branch A: They Engage (~1 in 3)</div>
+                    <div class="branch-text">You're back in. Do NOT break the "one question" promise by launching into a pitch. Let the conversation develop naturally for another minute before proposing anything.</div>
+                </div>
+                <div class="branch-card b">
+                    <div class="branch-label">Branch B: Still No</div>
+                    <div class="branch-text">Honor the promise. Thank them, end warmly, move on. The rep who respects the exit here is the rep the owner doesn't block from calling back in 6 months.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===================================================
+         SLIDE 17 — SMOKESCREEN 7: "Just tell me how much it costs."
+         =================================================== -->
+    <section class="slide" data-title='SS7: Price'>
+        <div class="bg-noise"></div>
+        <div class="bg-glow" style="width:400px;height:400px;background:rgba(255,59,92,0.05);top:10%;left:-10%;"></div>
+
+        <div class="slide-inner">
+            <span class="slide-label reveal d1">Smokescreen 7</span>
+            <div class="smoke-header reveal d2">
+                <span class="smoke-number">07</span>
+                <span class="smoke-quote">"Just tell me how much it costs."</span>
+            </div>
+
+            <div class="smoke-why reveal d3">
+                <strong>Why they say it:</strong> Price-first is avoidance disguised as directness. A number kills the call either way: too high and you're out, too low and you've commoditized yourself before they understand what they're buying.
+            </div>
+
+            <div class="abp-grid">
+                <div class="abp-card acknowledge reveal d4">
+                    <div class="abp-label">Acknowledge</div>
+                    <div class="abp-text">Yeah, totally fair question, and I respect you wanting to cut to it.</div>
+                </div>
+                <div class="abp-card bridge reveal d5">
+                    <div class="abp-label">Bridge</div>
+                    <div class="abp-text">The honest answer is, pricing depends entirely on what would actually move the needle for you, and I genuinely can't tell you that until I know a little about your situation. Throwing out a random number right now would either scare you off for no reason or undersell what you actually need.</div>
+                </div>
+                <div class="abp-card pivot reveal d6">
+                    <div class="abp-label">Pivot</div>
+                    <div class="abp-text">Can I ask sixty seconds of questions to figure out what you'd actually need, and then I'll give you a real answer on price?</div>
+                </div>
+            </div>
+
+            <div class="branch-container reveal d7">
+                <div class="branch-card a">
+                    <div class="branch-label">Branch A: They Agree</div>
+                    <div class="branch-text">Ask qualifying questions (revenue, team, what's working, bottleneck). Then give a range anchored to value: "This kind of engagement is usually in the X to Y range."</div>
+                </div>
+                <div class="branch-card b">
+                    <div class="branch-label">Branch B: Push for Number</div>
+                    <div class="branch-text">Give a range: "Typical engagements land from [low] to [high] per month. The range is wide because two businesses in the same industry need different things."</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===================================================
+         SLIDE 18 — CHEAT SHEET
+         =================================================== -->
+    <section class="slide" data-title="Cheat Sheet">
+        <div class="bg-noise"></div>
+
+        <div class="slide-inner">
+            <span class="slide-label reveal d1">Appendix</span>
+            <h2 class="reveal d2">One-Page <span class="gradient-text">Cheat Sheet</span></h2>
+            <p class="subtitle reveal d3">Print this. Tape it to your monitor. Use it live.</p>
+
+            <div style="overflow-x:auto;">
+                <table class="cheat-table reveal-scale d4">
+                    <thead>
+                        <tr>
+                            <th>Smokescreen</th>
+                            <th>What It Means</th>
+                            <th>Acknowledge</th>
+                            <th>Bridge</th>
+                            <th>Pivot (Ask This)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>"I'm busy right now."</td>
+                            <td>Reflex. They want an easy out.</td>
+                            <td>"I totally get it. That's what it is to be a business owner."</td>
+                            <td>"My job isn't to give you a full spiel. Just to see if a longer conversation is worthwhile."</td>
+                            <td>"Any bottlenecks that automation or AI could help with?"</td>
+                        </tr>
+                        <tr>
+                            <td>"AI is slop."</td>
+                            <td>Bad prior experience or general skepticism.</td>
+                            <td>"AI is like training an employee. There's an artful way to use it."</td>
+                            <td>"Companies leveraging AI at a high level will vastly outperform those that don't."</td>
+                            <td>"Where would you like to see your company in the next year?"</td>
+                        </tr>
+                        <tr>
+                            <td>"I can't afford anyone."</td>
+                            <td>Picturing a retainer or full-time hire.</td>
+                            <td>"Happy to point you toward low-cost AI tools until it makes sense."</td>
+                            <td>"Mind if I ask a couple questions to point you in the right direction?"</td>
+                            <td>"What's your monthly revenue? What's bringing in business?"</td>
+                        </tr>
+                        <tr>
+                            <td>"Send me an email."</td>
+                            <td>Polite brush-off. Low trust.</td>
+                            <td>"Yeah, happy to, and I absolutely will."</td>
+                            <td>"A generic email won't be as useful as a 2-minute conversation."</td>
+                            <td>"What would you want that email to help with?"</td>
+                        </tr>
+                        <tr>
+                            <td>"Is this a sales call?"</td>
+                            <td>Testing you. Don't dodge.</td>
+                            <td>"Yeah, it is, technically. I think I can actually help."</td>
+                            <td>"My job isn't to pitch today. Just see if a longer conversation is worth it."</td>
+                            <td>"If you had a magic wand — more leads, time, or better system?"</td>
+                        </tr>
+                        <tr>
+                            <td>"I'm not interested."</td>
+                            <td>Pure reflex. Do not push.</td>
+                            <td>"Totally fair, I haven't given you any reason to be."</td>
+                            <td>"Can I ask one quick question, then I'll let you go either way?"</td>
+                            <td>"One thing eating up too much time or leaving money on the table?"</td>
+                        </tr>
+                        <tr>
+                            <td>"How much does it cost?"</td>
+                            <td>Avoidance disguised as directness.</td>
+                            <td>"Totally fair question. I respect you wanting to cut to it."</td>
+                            <td>"Pricing depends on what moves the needle for you."</td>
+                            <td>"Can I ask 60 seconds of questions, then give you a real answer?"</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===================================================
+         SLIDE 19 — INFO TO CAPTURE FOR KYLE
+         =================================================== -->
+    <section class="slide" data-title="Capture for Kyle">
+        <div class="bg-noise"></div>
+        <div class="bg-glow" style="width:500px;height:500px;background:rgba(0,229,255,0.05);bottom:-10%;right:-10%;"></div>
+
+        <div class="slide-inner">
+            <span class="slide-label reveal d1">Before the Close Call</span>
+            <h2 class="reveal d2">Information to Capture <span class="gradient-text">for Kyle</span></h2>
+            <p class="subtitle reveal d3">Kyle needs this data to continue the thread on the video call. Capture it in real time.</p>
+
+            <div class="capture-grid">
+                <div class="capture-item reveal d4">
+                    <div class="capture-check">&#10003;</div>
+                    <span>Business name, owner name, website</span>
+                </div>
+                <div class="capture-item reveal d4">
+                    <div class="capture-check">&#10003;</div>
+                    <span>Phone number and email address</span>
+                </div>
+                <div class="capture-item reveal d5">
+                    <div class="capture-check">&#10003;</div>
+                    <span>What's currently working to bring money in</span>
+                </div>
+                <div class="capture-item reveal d5">
+                    <div class="capture-check">&#10003;</div>
+                    <span>The process behind it and the bottleneck</span>
+                </div>
+                <div class="capture-item reveal d6">
+                    <div class="capture-check">&#10003;</div>
+                    <span>Successful competitor moves they mentioned</span>
+                </div>
+                <div class="capture-item reveal d6">
+                    <div class="capture-check">&#10003;</div>
+                    <span>Whether they are already doing those things</span>
+                </div>
+                <div class="capture-item reveal d7">
+                    <div class="capture-check">&#10003;</div>
+                    <span>Your 1-2 AI suggestions from Step 9</span>
+                </div>
+                <div class="capture-item reveal d7">
+                    <div class="capture-check">&#10003;</div>
+                    <span>Scheduled date, time, time zone, invite confirmed</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===================================================
+         SLIDE 20 — RULES TO CALL BY / CLOSE
+         =================================================== -->
+    <section class="slide cta-slide" data-title="Rules to Call By">
+        <div class="bg-noise"></div>
+        <div class="orb orb-1" style="width:400px;height:400px;background:radial-gradient(circle,rgba(0,229,255,0.12),transparent 70%);top:20%;left:10%;position:absolute;border-radius:50%;filter:blur(80px);animation:pulse 6s ease-in-out infinite alternate;"></div>
+        <div class="orb orb-2" style="width:350px;height:350px;background:radial-gradient(circle,rgba(0,136,255,0.1),transparent 70%);bottom:20%;right:10%;position:absolute;border-radius:50%;filter:blur(80px);animation:pulse 6s ease-in-out infinite alternate;animation-delay:-2s;"></div>
+
+        <div class="slide-inner">
+            <span class="slide-label reveal d1">Rules to Call By</span>
+            <h2 class="reveal d2" style="font-size:clamp(2rem,5vw,3.8rem);">
+                Sound Like a <span class="gradient-text">Consultant,</span><br>Not a Telemarketer.
+            </h2>
+
+            <div class="rules-grid">
+                <div class="rule-card reveal d3">
+                    <div class="rule-text"><strong>Acknowledge before you bridge.</strong> Acknowledge before you bridge. Acknowledge before you bridge.</div>
+                </div>
+                <div class="rule-card reveal d3">
+                    <div class="rule-text"><strong>Never argue</strong> with a smokescreen. Agree with it, lower the stakes, then pivot.</div>
+                </div>
+                <div class="rule-card reveal d4">
+                    <div class="rule-text">The pivot is always a <strong>short, easy, business-focused question.</strong></div>
+                </div>
+                <div class="rule-card reveal d4">
+                    <div class="rule-text">If they won't engage after one pivot, <strong>ask for ten minutes on their calendar.</strong> A scheduled call counts as a win.</div>
+                </div>
+                <div class="rule-card reveal d5">
+                    <div class="rule-text">If they truly won't qualify, <strong>deliver on the free pointer.</strong> Referrals come from the calls you didn't close.</div>
+                </div>
+                <div class="rule-card reveal d5">
+                    <div class="rule-text">Your job is to <strong>earn the video call</strong> with Kyle, not close the deal on the phone.</div>
+                </div>
+            </div>
+
+            <div style="text-align:center;margin-top:3rem;" class="reveal d6">
+                <div style="font-family:var(--font-display);font-weight:700;color:var(--text-secondary);font-size:1.1rem;letter-spacing:3px;text-transform:uppercase;margin-bottom:0.5rem;">Disruptors Media</div>
+                <span style="color:var(--text-muted);font-size:0.85rem;">Cold Call Training Playbook &middot; Internal Use</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===========================================
+         JAVASCRIPT — Presentation Controller
+         =========================================== -->
+    <script>
+        class ParticleSystem {
+            constructor(canvas) {
+                this.canvas = canvas;
+                this.ctx = canvas.getContext('2d');
+                this.particles = [];
+                this.resize();
+                window.addEventListener('resize', () => this.resize());
+                this.init();
+                this.animate();
+            }
+
+            resize() {
+                this.canvas.width = window.innerWidth;
+                this.canvas.height = window.innerHeight;
+            }
+
+            init() {
+                const count = Math.min(50, Math.floor(window.innerWidth / 25));
+                for (let i = 0; i < count; i++) {
+                    this.particles.push({
+                        x: Math.random() * this.canvas.width,
+                        y: Math.random() * this.canvas.height,
+                        vx: (Math.random() - 0.5) * 0.3,
+                        vy: (Math.random() - 0.5) * 0.3,
+                        size: Math.random() * 1.5 + 0.5,
+                        opacity: Math.random() * 0.3 + 0.05
+                    });
+                }
+            }
+
+            animate() {
+                this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+                this.particles.forEach(p => {
+                    p.x += p.vx;
+                    p.y += p.vy;
+                    if (p.x < 0) p.x = this.canvas.width;
+                    if (p.x > this.canvas.width) p.x = 0;
+                    if (p.y < 0) p.y = this.canvas.height;
+                    if (p.y > this.canvas.height) p.y = 0;
+                    this.ctx.beginPath();
+                    this.ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                    this.ctx.fillStyle = `rgba(0, 229, 255, ${p.opacity})`;
+                    this.ctx.fill();
+                });
+                for (let i = 0; i < this.particles.length; i++) {
+                    for (let j = i + 1; j < this.particles.length; j++) {
+                        const dx = this.particles[i].x - this.particles[j].x;
+                        const dy = this.particles[i].y - this.particles[j].y;
+                        const dist = Math.sqrt(dx * dx + dy * dy);
+                        if (dist < 120) {
+                            this.ctx.beginPath();
+                            this.ctx.moveTo(this.particles[i].x, this.particles[i].y);
+                            this.ctx.lineTo(this.particles[j].x, this.particles[j].y);
+                            this.ctx.strokeStyle = `rgba(0, 229, 255, ${0.03 * (1 - dist / 120)})`;
+                            this.ctx.lineWidth = 0.5;
+                            this.ctx.stroke();
+                        }
+                    }
+                }
+                requestAnimationFrame(() => this.animate());
+            }
+        }
+
+        class SlidePresentation {
+            constructor() {
+                this.slides = document.querySelectorAll('.slide');
+                this.currentIndex = 0;
+                this.isScrolling = false;
+                this.scrollTimeout = null;
+
+                document.getElementById('totalSlides').textContent = this.slides.length;
+
+                this.buildNavDots();
+                this.setupObserver();
+                this.setupKeyboard();
+                this.setupTouch();
+                this.setupWheel();
+                this.updateProgress();
+            }
+
+            buildNavDots() {
+                const nav = document.getElementById('navDots');
+                this.slides.forEach((slide, i) => {
+                    const dot = document.createElement('button');
+                    dot.className = 'nav-dot' + (i === 0 ? ' active' : '');
+                    dot.setAttribute('aria-label', `Go to slide ${i + 1}`);
+                    const tooltip = document.createElement('span');
+                    tooltip.className = 'tooltip';
+                    tooltip.textContent = slide.dataset.title || `Slide ${i + 1}`;
+                    dot.appendChild(tooltip);
+                    dot.addEventListener('click', () => this.goTo(i));
+                    nav.appendChild(dot);
+                });
+            }
+
+            setupObserver() {
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('visible');
+                            const index = Array.from(this.slides).indexOf(entry.target);
+                            this.currentIndex = index;
+                            this.updateUI();
+                        }
+                    });
+                }, { threshold: 0.4 });
+                this.slides.forEach(slide => observer.observe(slide));
+            }
+
+            setupKeyboard() {
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'ArrowDown' || e.key === ' ' || e.key === 'PageDown') {
+                        e.preventDefault();
+                        this.next();
+                    } else if (e.key === 'ArrowUp' || e.key === 'PageUp') {
+                        e.preventDefault();
+                        this.prev();
+                    } else if (e.key === 'Home') {
+                        e.preventDefault();
+                        this.goTo(0);
+                    } else if (e.key === 'End') {
+                        e.preventDefault();
+                        this.goTo(this.slides.length - 1);
+                    }
+                });
+            }
+
+            setupTouch() {
+                let startY = 0;
+                document.addEventListener('touchstart', (e) => {
+                    startY = e.touches[0].clientY;
+                }, { passive: true });
+                document.addEventListener('touchend', (e) => {
+                    const diff = startY - e.changedTouches[0].clientY;
+                    if (Math.abs(diff) > 60) {
+                        if (diff > 0) this.next();
+                        else this.prev();
+                    }
+                }, { passive: true });
+            }
+
+            setupWheel() {
+                document.addEventListener('wheel', (e) => {
+                    if (this.isScrolling) return;
+                    this.isScrolling = true;
+                    if (e.deltaY > 30) this.next();
+                    else if (e.deltaY < -30) this.prev();
+                    clearTimeout(this.scrollTimeout);
+                    this.scrollTimeout = setTimeout(() => {
+                        this.isScrolling = false;
+                    }, 800);
+                }, { passive: true });
+            }
+
+            next() {
+                if (this.currentIndex < this.slides.length - 1) this.goTo(this.currentIndex + 1);
+            }
+
+            prev() {
+                if (this.currentIndex > 0) this.goTo(this.currentIndex - 1);
+            }
+
+            goTo(index) {
+                this.currentIndex = index;
+                this.slides[index].scrollIntoView({ behavior: 'smooth' });
+                this.updateUI();
+            }
+
+            updateUI() {
+                document.querySelectorAll('.nav-dot').forEach((dot, i) => {
+                    dot.classList.toggle('active', i === this.currentIndex);
+                });
+                document.getElementById('currentSlide').textContent =
+                    String(this.currentIndex + 1).padStart(2, '0');
+                this.updateProgress();
+            }
+
+            updateProgress() {
+                const progress = ((this.currentIndex + 1) / this.slides.length) * 100;
+                document.getElementById('progressBar').style.width = progress + '%';
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            const isMobile = window.innerWidth < 768;
+            if (!prefersReducedMotion && !isMobile) {
+                new ParticleSystem(document.getElementById('particles'));
+            }
+            new SlidePresentation();
+            document.querySelector('.slide').classList.add('visible');
+        });
+    </script>
+</body>
+</html>

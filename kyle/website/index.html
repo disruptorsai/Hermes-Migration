@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BrandForge — Build Your Complete Brand Identity</title>
+  <meta name="description" content="Generate professional brand guidelines, voice framework, and visual identity documents in minutes. Export as PDF, Google Doc, or Markdown.">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- ═══════════════════ NAVIGATION ═══════════════════ -->
+  <nav class="nav" id="nav">
+    <div class="nav-inner">
+      <a href="#hero" class="nav-logo">
+        <span class="nav-logo-icon">◆</span>
+        BrandForge
+      </a>
+      <div class="nav-links" id="navLinks">
+        <a href="#guidelines" class="nav-link">Guidelines</a>
+        <a href="#voice" class="nav-link">Voice</a>
+        <a href="#archetype" class="nav-link">Archetype</a>
+        <a href="#export" class="nav-link">Export</a>
+      </div>
+      <a href="#guidelines" class="nav-cta">Get Started</a>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ═══════════════════ HERO SECTION ═══════════════════ -->
+  <section id="hero" class="hero">
+    <div class="hero-bg">
+      <div class="orb orb-1"></div>
+      <div class="orb orb-2"></div>
+      <div class="orb orb-3"></div>
+      <div class="orb orb-4"></div>
+      <div class="orb orb-5"></div>
+      <div class="grid-overlay"></div>
+      <div class="grain"></div>
+    </div>
+    <div class="hero-content">
+      <div class="hero-badge">
+        <span class="badge-dot"></span>
+        Professional Brand System Builder
+      </div>
+      <h1 class="hero-title">
+        Your Complete Brand Identity
+        <br>
+        <span class="hero-accent">Generated in Minutes</span>
+      </h1>
+      <p class="hero-subtitle">
+        Answer guided questions about your brand. Get professional brand guidelines, voice framework, and archetype system documents — ready to export as PDF, Google Doc, or download.
+      </p>
+      <div class="hero-actions">
+        <a href="#guidelines" class="btn btn-primary">
+          <span class="btn-glow"></span>
+          <span class="btn-text">Build Brand Guidelines</span>
+          <svg class="btn-arrow" width="20" height="20" viewBox="0 0 20 20" fill="none">
+            <path d="M4 10h12m0 0l-4-4m4 4l-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
+        <a href="#voice" class="btn btn-secondary">
+          <span class="btn-text">Define Brand Voice</span>
+        </a>
+        <a href="#archetype" class="btn btn-secondary">
+          <span class="btn-text">Discover Archetype</span>
+        </a>
+      </div>
+      <div class="hero-stats">
+        <div class="hero-stat">
+          <span class="hero-stat-number">14</span>
+          <span class="hero-stat-label">Guidelines</span>
+        </div>
+        <div class="hero-stat-divider"></div>
+        <div class="hero-stat">
+          <span class="hero-stat-number">13</span>
+          <span class="hero-stat-label">Voice Modules</span>
+        </div>
+        <div class="hero-stat-divider"></div>
+        <div class="hero-stat">
+          <span class="hero-stat-number">15</span>
+          <span class="hero-stat-label">Archetype</span>
+        </div>
+        <div class="hero-stat-divider"></div>
+        <div class="hero-stat">
+          <span class="hero-stat-number">3</span>
+          <span class="hero-stat-label">Export Formats</span>
+        </div>
+      </div>
+    </div>
+    <div class="hero-scroll">
+      <span>Scroll to begin</span>
+      <div class="scroll-indicator">
+        <div class="scroll-dot"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════ BRAND GUIDELINES FORM ═══════════════════ -->
+  <section id="guidelines" class="section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-label">01 /// Brand Guidelines</span>
+        <h2 class="section-title">Build Your Visual Identity System</h2>
+        <p class="section-desc">Define your brand's foundation, colors, typography, logo usage, UI components, and visual style. Each section maps directly to your brand guidelines document.</p>
+      </div>
+      <div class="wizard" id="guidelinesWizard">
+        <div class="wizard-progress">
+          <div class="wizard-progress-bar" id="guidelinesProgressBar"></div>
+        </div>
+        <div class="wizard-step-labels" id="guidelinesStepLabels"></div>
+        <div class="wizard-body" id="guidelinesSteps"></div>
+        <div class="wizard-nav">
+          <button class="btn btn-ghost" id="guidelinesPrev" disabled>
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M10 12L6 8l4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Previous
+          </button>
+          <span class="wizard-step-count" id="guidelinesCount">Step 1 of 5</span>
+          <button class="btn btn-primary btn-sm" id="guidelinesNext">
+            Next
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M6 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════ BRAND VOICE FORM ═══════════════════ -->
+  <section id="voice" class="section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-label">02 /// Brand Voice & Identity</span>
+        <h2 class="section-title">Define How Your Brand Speaks</h2>
+        <p class="section-desc">Craft your brand's voice DNA, tone spectrum, messaging architecture, audience segments, and content templates. This becomes your brand's single source of truth for all communications.</p>
+      </div>
+      <div class="wizard" id="voiceWizard">
+        <div class="wizard-progress">
+          <div class="wizard-progress-bar" id="voiceProgressBar"></div>
+        </div>
+        <div class="wizard-step-labels" id="voiceStepLabels"></div>
+        <div class="wizard-body" id="voiceSteps"></div>
+        <div class="wizard-nav">
+          <button class="btn btn-ghost" id="voicePrev" disabled>
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M10 12L6 8l4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Previous
+          </button>
+          <span class="wizard-step-count" id="voiceCount">Step 1 of 5</span>
+          <button class="btn btn-primary btn-sm" id="voiceNext">
+            Next
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M6 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════ BRAND ARCHETYPE FORM ═══════════════════ -->
+  <section id="archetype" class="section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-label">03 /// Brand Archetype</span>
+        <h2 class="section-title">Discover Your Brand's Psychological Blueprint</h2>
+        <p class="section-desc">Uncover the archetype that drives how your brand thinks, speaks, and shows up. Define your primary and secondary archetypes, shadow side, personality spectrum, and character profile.</p>
+      </div>
+      <div class="wizard" id="archetypeWizard">
+        <div class="wizard-progress">
+          <div class="wizard-progress-bar" id="archetypeProgressBar"></div>
+        </div>
+        <div class="wizard-step-labels" id="archetypeStepLabels"></div>
+        <div class="wizard-body" id="archetypeSteps"></div>
+        <div class="wizard-nav">
+          <button class="btn btn-ghost" id="archetypePrev" disabled>
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M10 12L6 8l4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Previous
+          </button>
+          <span class="wizard-step-count" id="archetypeCount">Step 1 of 5</span>
+          <button class="btn btn-primary btn-sm" id="archetypeNext">
+            Next
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M6 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════ EXPORT SECTION ═══════════════════ -->
+  <section id="export" class="section section-export">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-label">04 /// Export Your Brand</span>
+        <h2 class="section-title">Preview & Export Your Documents</h2>
+        <p class="section-desc">Review your completed brand identity system and export it in your preferred format.</p>
+      </div>
+
+      <div class="export-grid">
+        <!-- Export Options -->
+        <div class="export-card" id="exportPdfCard">
+          <div class="export-card-icon">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M14 2v6h6M16 13H8M16 17H8M10 9H8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <h3>Export as PDF</h3>
+          <p>Download a professionally formatted PDF document ready for sharing.</p>
+          <div class="export-actions">
+            <button class="btn btn-primary btn-sm" onclick="exportPDF('guidelines')">Guidelines</button>
+            <button class="btn btn-primary btn-sm" onclick="exportPDF('voice')">Voice</button>
+            <button class="btn btn-primary btn-sm" onclick="exportPDF('archetype')">Archetype</button>
+          </div>
+        </div>
+
+        <div class="export-card" id="exportDocCard">
+          <div class="export-card-icon">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M14 2v6h6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <h3>Google Doc / Word</h3>
+          <p>Download as a .doc file you can open in Google Docs or Microsoft Word.</p>
+          <div class="export-actions">
+            <button class="btn btn-primary btn-sm" onclick="exportDoc('guidelines')">Guidelines</button>
+            <button class="btn btn-primary btn-sm" onclick="exportDoc('voice')">Voice</button>
+            <button class="btn btn-primary btn-sm" onclick="exportDoc('archetype')">Archetype</button>
+          </div>
+        </div>
+
+        <div class="export-card" id="exportMdCard">
+          <div class="export-card-icon">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none"><path d="M4 7V4h16v3M9 20h6M12 4v16" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <h3>Download Markdown</h3>
+          <p>Get a clean Markdown file perfect for documentation systems and version control.</p>
+          <div class="export-actions">
+            <button class="btn btn-primary btn-sm" onclick="exportMarkdown('guidelines')">Guidelines</button>
+            <button class="btn btn-primary btn-sm" onclick="exportMarkdown('voice')">Voice</button>
+            <button class="btn btn-primary btn-sm" onclick="exportMarkdown('archetype')">Archetype</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Document Preview -->
+      <div class="preview-wrapper">
+        <div class="preview-toolbar">
+          <div class="preview-tabs">
+            <button class="preview-tab active" data-preview="guidelines">Brand Guidelines</button>
+            <button class="preview-tab" data-preview="voice">Brand Voice</button>
+            <button class="preview-tab" data-preview="archetype">Brand Archetype</button>
+          </div>
+          <button class="btn btn-ghost btn-sm" onclick="copyToClipboard()">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><rect x="9" y="9" width="13" height="13" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1" stroke="currentColor" stroke-width="1.5"/></svg>
+            Copy to Clipboard
+          </button>
+        </div>
+        <div class="preview-content" id="previewContent">
+          <p class="preview-empty">Fill out the forms above to see your brand documents here.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════ FOOTER ═══════════════════ -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <span class="nav-logo-icon">◆</span> BrandForge
+        </div>
+        <p class="footer-text">Professional brand identity builder. Fill in your details, export your documents.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Toast notification -->
+  <div class="toast" id="toast"></div>
+
+  <!-- Hidden export container -->
+  <div id="exportContainer" style="position:absolute;left:-9999px;top:-9999px;"></div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

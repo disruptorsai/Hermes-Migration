@@ -1,0 +1,1715 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Sales Infrastructure — Wise Abatement</title>
+
+    <!-- Fonts: Clash Display for headlines, Satoshi for body -->
+    <link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=clash-display@400,500,600,700&f[]=satoshi@400,500,700&display=swap">
+
+    <style>
+        /* ===========================================
+           THEME — Dark + Electric Cyan + Safety Orange accents
+           Tailored for Wise Abatement (hazardous material removal)
+           =========================================== */
+        :root {
+            --bg-primary: #060a14;
+            --bg-secondary: #0c1222;
+            --bg-card: rgba(12, 18, 34, 0.7);
+            --text-primary: #f0f4ff;
+            --text-secondary: #7a8bb5;
+            --text-muted: #4a5a80;
+            --accent: #00e5ff;
+            --accent-secondary: #0088ff;
+            --accent-glow: rgba(0, 229, 255, 0.25);
+            --accent-glow-strong: rgba(0, 229, 255, 0.5);
+            --danger: #ff3b5c;
+            --success: #00ff88;
+            --warning: #ffaa00;
+            --orange: #ff8c42;
+            --font-display: 'Clash Display', sans-serif;
+            --font-body: 'Satoshi', sans-serif;
+            --slide-padding: clamp(2rem, 6vw, 5rem);
+            --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+            --duration-normal: 0.7s;
+            --duration-slow: 1.2s;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-snap-type: y mandatory;
+            overflow-x: hidden;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            overflow-x: hidden;
+        }
+
+        ::selection {
+            background: var(--accent);
+            color: var(--bg-primary);
+        }
+
+        /* ===========================================
+           PROGRESS BAR
+           =========================================== */
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent), var(--accent-secondary));
+            z-index: 1000;
+            transition: width 0.3s ease;
+            box-shadow: 0 0 12px var(--accent-glow-strong);
+        }
+
+        /* ===========================================
+           NAVIGATION DOTS
+           =========================================== */
+        .nav-dots {
+            position: fixed;
+            right: 1.5rem;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            z-index: 100;
+        }
+
+        .nav-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            border: 1.5px solid var(--text-muted);
+            background: transparent;
+            cursor: pointer;
+            transition: all 0.4s var(--ease-out-expo);
+            position: relative;
+        }
+
+        .nav-dot:hover { border-color: var(--accent); box-shadow: 0 0 8px var(--accent-glow); }
+
+        .nav-dot.active {
+            border-color: var(--accent);
+            background: var(--accent);
+            box-shadow: 0 0 12px var(--accent-glow-strong);
+            transform: scale(1.3);
+        }
+
+        .nav-dot .tooltip {
+            position: absolute;
+            right: 22px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: var(--bg-secondary);
+            border: 1px solid rgba(0, 229, 255, 0.2);
+            color: var(--text-primary);
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 0.7rem;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s;
+            font-family: var(--font-body);
+        }
+
+        .nav-dot:hover .tooltip { opacity: 1; }
+
+        /* ===========================================
+           FIXED UI ELEMENTS
+           =========================================== */
+        .brand-watermark {
+            position: fixed;
+            bottom: 1.5rem;
+            left: 2rem;
+            font-family: var(--font-display);
+            font-weight: 700;
+            font-size: 0.75rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            z-index: 100;
+            opacity: 0.5;
+        }
+
+        .slide-counter {
+            position: fixed;
+            bottom: 1.5rem;
+            right: 2rem;
+            font-family: var(--font-display);
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            z-index: 100;
+        }
+
+        .slide-counter .current { color: var(--accent); font-weight: 600; }
+
+        .keyboard-hint {
+            position: fixed;
+            bottom: 1.5rem;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 6px;
+            align-items: center;
+            color: var(--text-muted);
+            font-size: 0.65rem;
+            letter-spacing: 1px;
+            z-index: 100;
+            opacity: 0.4;
+        }
+
+        .key {
+            padding: 3px 8px;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+            font-size: 0.6rem;
+        }
+
+        /* ===========================================
+           SLIDE BASE
+           =========================================== */
+        .slide {
+            min-height: 100vh;
+            padding: var(--slide-padding);
+            scroll-snap-align: start;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .slide-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* ===========================================
+           TYPOGRAPHY
+           =========================================== */
+        .slide-label {
+            font-family: var(--font-display);
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 1.2rem;
+        }
+
+        h1 {
+            font-family: var(--font-display);
+            font-weight: 700;
+            font-size: clamp(2.8rem, 6vw, 5.5rem);
+            line-height: 1.05;
+            letter-spacing: -2px;
+        }
+
+        h2 {
+            font-family: var(--font-display);
+            font-weight: 600;
+            font-size: clamp(2rem, 4vw, 3.5rem);
+            line-height: 1.15;
+            letter-spacing: -1px;
+            margin-bottom: 1.5rem;
+        }
+
+        .subtitle {
+            font-size: clamp(1rem, 1.8vw, 1.4rem);
+            color: var(--text-secondary);
+            line-height: 1.6;
+            max-width: 680px;
+        }
+
+        .highlight { color: var(--accent); font-weight: 600; }
+
+        .gradient-text {
+            background: linear-gradient(135deg, var(--accent), var(--accent-secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        blockquote {
+            font-family: var(--font-display);
+            font-size: clamp(1.1rem, 2vw, 1.5rem);
+            font-weight: 500;
+            color: var(--text-primary);
+            border-left: 3px solid var(--accent);
+            padding-left: 1.5rem;
+            margin: 2rem 0;
+            line-height: 1.5;
+        }
+
+        /* ===========================================
+           REVEAL ANIMATIONS
+           =========================================== */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity var(--duration-normal) var(--ease-out-expo),
+                        transform var(--duration-normal) var(--ease-out-expo);
+        }
+
+        .reveal-left {
+            opacity: 0;
+            transform: translateX(-50px);
+            transition: opacity var(--duration-normal) var(--ease-out-expo),
+                        transform var(--duration-normal) var(--ease-out-expo);
+        }
+
+        .reveal-right {
+            opacity: 0;
+            transform: translateX(50px);
+            transition: opacity var(--duration-normal) var(--ease-out-expo),
+                        transform var(--duration-normal) var(--ease-out-expo);
+        }
+
+        .reveal-scale {
+            opacity: 0;
+            transform: scale(0.85);
+            transition: opacity var(--duration-slow) var(--ease-out-expo),
+                        transform var(--duration-slow) var(--ease-out-expo);
+        }
+
+        .slide.visible .reveal,
+        .slide.visible .reveal-left,
+        .slide.visible .reveal-right {
+            opacity: 1;
+            transform: translate(0);
+        }
+
+        .slide.visible .reveal-scale {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .d1 { transition-delay: 0.1s; }
+        .d2 { transition-delay: 0.2s; }
+        .d3 { transition-delay: 0.35s; }
+        .d4 { transition-delay: 0.5s; }
+        .d5 { transition-delay: 0.65s; }
+        .d6 { transition-delay: 0.8s; }
+        .d7 { transition-delay: 0.95s; }
+        .d8 { transition-delay: 1.1s; }
+
+        /* ===========================================
+           BACKGROUND EFFECTS
+           =========================================== */
+        .bg-glow {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(120px);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .bg-grid {
+            position: absolute;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(0, 229, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 229, 255, 0.03) 1px, transparent 1px);
+            background-size: 60px 60px;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .bg-noise {
+            position: absolute;
+            inset: 0;
+            opacity: 0.025;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+            background-size: 128px;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        /* ===========================================
+           TITLE SLIDE
+           =========================================== */
+        .title-slide {
+            text-align: center;
+            align-items: center;
+        }
+
+        .title-slide .brand-name {
+            font-family: var(--font-display);
+            font-weight: 500;
+            font-size: 0.85rem;
+            letter-spacing: 6px;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 1rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .title-slide .brand-name::before,
+        .title-slide .brand-name::after {
+            content: '';
+            width: 40px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--accent));
+        }
+
+        .title-slide .brand-name::after {
+            background: linear-gradient(90deg, var(--accent), transparent);
+        }
+
+        .title-slide .client-for {
+            font-family: var(--font-display);
+            font-weight: 600;
+            font-size: 1.1rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--orange);
+            margin-bottom: 2.5rem;
+        }
+
+        .title-slide .tagline {
+            font-size: clamp(1rem, 2vw, 1.35rem);
+            color: var(--text-secondary);
+            max-width: 650px;
+            margin: 1.5rem auto 0;
+            line-height: 1.7;
+        }
+
+        .title-slide .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            animation: pulse 6s ease-in-out infinite alternate;
+        }
+
+        .title-slide .orb-1 {
+            width: 500px; height: 500px;
+            background: radial-gradient(circle, rgba(0, 229, 255, 0.15), transparent 70%);
+            top: 10%; left: -10%;
+        }
+
+        .title-slide .orb-2 {
+            width: 400px; height: 400px;
+            background: radial-gradient(circle, rgba(255, 140, 66, 0.1), transparent 70%);
+            bottom: 10%; right: -5%;
+            animation-delay: -3s;
+        }
+
+        .scroll-hint {
+            position: absolute;
+            bottom: 3rem;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-muted);
+            font-size: 0.7rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            animation: float 2.5s ease-in-out infinite;
+        }
+
+        .scroll-hint .arrow {
+            width: 20px; height: 20px;
+            border-right: 1.5px solid var(--text-muted);
+            border-bottom: 1.5px solid var(--text-muted);
+            transform: rotate(45deg);
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(10px); }
+        }
+
+        @keyframes pulse {
+            0% { opacity: 0.6; transform: scale(1); }
+            100% { opacity: 1; transform: scale(1.15); }
+        }
+
+        /* ===========================================
+           STAT CARDS — for Wise Abatement metrics
+           =========================================== */
+        .stat-row {
+            display: flex;
+            gap: 1.5rem;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+
+        .stat-card {
+            flex: 1;
+            min-width: 150px;
+            padding: 1.5rem;
+            background: var(--bg-card);
+            border: 1px solid rgba(0, 229, 255, 0.1);
+            border-radius: 16px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+        }
+
+        .stat-card .stat-value {
+            font-family: var(--font-display);
+            font-weight: 700;
+            font-size: 2.2rem;
+            color: var(--accent);
+            line-height: 1;
+            margin-bottom: 0.4rem;
+        }
+
+        .stat-card .stat-label {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+
+        /* ===========================================
+           PROBLEM ITEMS
+           =========================================== */
+        .problem-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+
+        .problem-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 1.2rem;
+            background: rgba(255, 59, 92, 0.06);
+            border: 1px solid rgba(255, 59, 92, 0.15);
+            border-radius: 12px;
+            transition: border-color 0.3s, background 0.3s;
+        }
+
+        .problem-item:hover {
+            border-color: rgba(255, 59, 92, 0.35);
+            background: rgba(255, 59, 92, 0.1);
+        }
+
+        .problem-icon {
+            width: 8px; height: 8px;
+            border-radius: 50%;
+            background: var(--danger);
+            flex-shrink: 0;
+            margin-top: 6px;
+            box-shadow: 0 0 8px rgba(255, 59, 92, 0.5);
+        }
+
+        .problem-item .p-title {
+            font-family: var(--font-display);
+            font-weight: 600;
+            font-size: 0.95rem;
+            margin-bottom: 3px;
+        }
+
+        .problem-item .p-desc {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            line-height: 1.4;
+        }
+
+        /* ===========================================
+           FLOW DIAGRAMS
+           =========================================== */
+        .flow-container {
+            display: flex;
+            gap: 2rem;
+            margin: 2.5rem 0;
+            flex-wrap: wrap;
+        }
+
+        .flow-box {
+            flex: 1;
+            min-width: 280px;
+            padding: 2rem;
+            border-radius: 16px;
+        }
+
+        .flow-box.before {
+            background: rgba(255, 59, 92, 0.05);
+            border: 1px solid rgba(255, 59, 92, 0.2);
+        }
+
+        .flow-box.after {
+            background: rgba(0, 229, 255, 0.05);
+            border: 1px solid rgba(0, 229, 255, 0.2);
+        }
+
+        .flow-label {
+            font-family: var(--font-display);
+            font-weight: 600;
+            font-size: 0.8rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 1.5rem;
+        }
+
+        .flow-box.before .flow-label { color: var(--danger); }
+        .flow-box.after .flow-label { color: var(--success); }
+
+        .flow-step {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 0.7rem 0;
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+        }
+
+        .flow-step .step-arrow { color: var(--text-muted); font-size: 0.8rem; }
+
+        .flow-box.before .flow-step:last-child .step-text { color: var(--danger); font-weight: 500; }
+        .flow-box.after .flow-step:last-child .step-text { color: var(--success); font-weight: 500; }
+
+        /* ===========================================
+           FEATURE GRID
+           =========================================== */
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1.2rem;
+            margin: 2.5rem 0;
+        }
+
+        .feature-card {
+            padding: 1.8rem 1.5rem;
+            background: var(--bg-card);
+            border: 1px solid rgba(0, 229, 255, 0.1);
+            border-radius: 16px;
+            backdrop-filter: blur(10px);
+            transition: all 0.4s var(--ease-out-expo);
+        }
+
+        .feature-card:hover {
+            border-color: rgba(0, 229, 255, 0.35);
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px rgba(0, 229, 255, 0.08);
+        }
+
+        .feature-card .icon {
+            font-size: 1.8rem;
+            margin-bottom: 0.8rem;
+            display: block;
+        }
+
+        .feature-card .f-title {
+            font-family: var(--font-display);
+            font-weight: 600;
+            font-size: 1rem;
+            color: var(--text-primary);
+            margin-bottom: 0.4rem;
+        }
+
+        .feature-card .f-desc {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        /* ===========================================
+           ARCHITECTURE DIAGRAM
+           =========================================== */
+        .arch-diagram { padding: 2rem 0; }
+
+        .arch-level {
+            display: flex;
+            justify-content: center;
+        }
+
+        .arch-node {
+            padding: 1rem 2rem;
+            border-radius: 14px;
+            font-family: var(--font-display);
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-align: center;
+            letter-spacing: 0.5px;
+        }
+
+        .arch-node.top {
+            background: linear-gradient(135deg, rgba(0, 229, 255, 0.1), rgba(0, 136, 255, 0.1));
+            border: 1px solid rgba(0, 229, 255, 0.3);
+            color: var(--accent);
+        }
+
+        .arch-node.brain {
+            background: linear-gradient(135deg, var(--accent), var(--accent-secondary));
+            color: var(--bg-primary);
+            padding: 1.5rem 2.5rem;
+            font-size: 1rem;
+            box-shadow: 0 0 40px var(--accent-glow), 0 0 80px rgba(0, 229, 255, 0.1);
+        }
+
+        .arch-node.branch {
+            background: var(--bg-card);
+            border: 1px solid rgba(0, 229, 255, 0.15);
+            color: var(--text-primary);
+            min-width: 150px;
+        }
+
+        .arch-node.branch .sub-label {
+            font-weight: 400;
+            font-size: 0.72rem;
+            color: var(--text-secondary);
+            display: block;
+            margin-top: 4px;
+        }
+
+        .arch-connector {
+            width: 2px;
+            height: 35px;
+            background: linear-gradient(to bottom, var(--accent), rgba(0, 229, 255, 0.2));
+            margin: 0 auto;
+        }
+
+        .arch-branch-lines {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            position: relative;
+            padding: 0 2rem;
+            flex-wrap: wrap;
+        }
+
+        .arch-branch-lines::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: calc(50% - 220px);
+            right: calc(50% - 220px);
+            height: 2px;
+            background: linear-gradient(90deg, rgba(0,229,255,0.05), var(--accent), rgba(0,229,255,0.05));
+        }
+
+        .arch-branch-line {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .arch-branch-line .line {
+            width: 2px;
+            height: 25px;
+            background: linear-gradient(to bottom, var(--accent), rgba(0, 229, 255, 0.15));
+        }
+
+        /* ===========================================
+           SEGMENT CARDS — for audience segments
+           =========================================== */
+        .segment-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1.2rem;
+            margin: 2rem 0;
+        }
+
+        .segment-card {
+            padding: 1.8rem;
+            background: var(--bg-card);
+            border: 1px solid rgba(0, 229, 255, 0.08);
+            border-radius: 16px;
+            backdrop-filter: blur(10px);
+            transition: all 0.4s var(--ease-out-expo);
+        }
+
+        .segment-card:hover {
+            border-color: rgba(0, 229, 255, 0.25);
+            transform: translateY(-3px);
+        }
+
+        .segment-card .seg-icon {
+            font-size: 2rem;
+            margin-bottom: 0.8rem;
+            display: block;
+        }
+
+        .segment-card .seg-title {
+            font-family: var(--font-display);
+            font-weight: 600;
+            font-size: 1.05rem;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .segment-card .seg-desc {
+            font-size: 0.82rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        .segment-card .seg-tag {
+            display: inline-block;
+            margin-top: 0.8rem;
+            padding: 4px 12px;
+            background: rgba(0, 229, 255, 0.08);
+            border: 1px solid rgba(0, 229, 255, 0.2);
+            border-radius: 100px;
+            font-size: 0.7rem;
+            color: var(--accent);
+            font-weight: 500;
+        }
+
+        /* ===========================================
+           COMPARISON TABLE
+           =========================================== */
+        .comparison-grid {
+            display: grid;
+            margin: 2rem 0;
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid rgba(0, 229, 255, 0.1);
+        }
+
+        .comparison-row {
+            display: grid;
+            grid-template-columns: 1fr 60px 1fr;
+            align-items: center;
+            transition: background 0.3s;
+        }
+
+        .comparison-row:hover { background: rgba(0, 229, 255, 0.03); }
+        .comparison-row:not(:last-child) { border-bottom: 1px solid rgba(255, 255, 255, 0.04); }
+        .comparison-row.header { background: rgba(0, 229, 255, 0.06); }
+
+        .comp-old, .comp-new, .comp-arrow { padding: 1rem 1.5rem; font-size: 0.95rem; }
+        .comp-old { color: var(--text-muted); text-decoration: line-through; text-decoration-color: rgba(255, 59, 92, 0.4); }
+        .comp-arrow { text-align: center; color: var(--accent); font-size: 1.2rem; }
+        .comp-new { color: var(--accent); font-weight: 500; }
+
+        .comparison-row.header .comp-old,
+        .comparison-row.header .comp-new {
+            font-family: var(--font-display);
+            font-weight: 600;
+            font-size: 0.75rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            text-decoration: none;
+        }
+
+        .comparison-row.header .comp-old { color: var(--text-muted); }
+        .comparison-row.header .comp-new { color: var(--accent); }
+
+        /* ===========================================
+           DEMO TIMELINE
+           =========================================== */
+        .demo-timeline {
+            position: relative;
+            padding-left: 3rem;
+            margin: 2rem 0;
+        }
+
+        .demo-timeline::before {
+            content: '';
+            position: absolute;
+            left: 14px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(to bottom, var(--accent), var(--accent-secondary), rgba(0,229,255,0.1));
+        }
+
+        .demo-step {
+            position: relative;
+            padding: 1rem 0 1.5rem;
+        }
+
+        .demo-step::before {
+            content: '';
+            position: absolute;
+            left: -2.35rem;
+            top: 1.3rem;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--accent);
+            box-shadow: 0 0 12px var(--accent-glow-strong);
+        }
+
+        .demo-step .step-num {
+            font-family: var(--font-display);
+            font-weight: 600;
+            font-size: 0.7rem;
+            letter-spacing: 2px;
+            color: var(--accent);
+            text-transform: uppercase;
+            margin-bottom: 0.3rem;
+        }
+
+        .demo-step .step-title {
+            font-family: var(--font-display);
+            font-weight: 600;
+            font-size: 1.05rem;
+            color: var(--text-primary);
+            margin-bottom: 0.3rem;
+        }
+
+        .demo-step .step-desc {
+            font-size: 0.82rem;
+            color: var(--text-secondary);
+        }
+
+        .demo-results {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .demo-result-tag {
+            padding: 0.5rem 1.2rem;
+            background: rgba(0, 255, 136, 0.08);
+            border: 1px solid rgba(0, 255, 136, 0.25);
+            border-radius: 100px;
+            font-size: 0.8rem;
+            color: var(--success);
+            font-weight: 500;
+        }
+
+        /* ===========================================
+           REVIEW CARDS
+           =========================================== */
+        .review-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.2rem;
+            margin: 2rem 0;
+        }
+
+        .review-card {
+            padding: 1.5rem;
+            background: var(--bg-card);
+            border: 1px solid rgba(255, 170, 0, 0.1);
+            border-radius: 14px;
+            backdrop-filter: blur(10px);
+        }
+
+        .review-card .stars {
+            color: var(--warning);
+            font-size: 0.9rem;
+            margin-bottom: 0.6rem;
+            letter-spacing: 2px;
+        }
+
+        .review-card .review-text {
+            font-size: 0.9rem;
+            color: var(--text-primary);
+            line-height: 1.5;
+            font-style: italic;
+            margin-bottom: 0.6rem;
+        }
+
+        .review-card .review-author {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        /* ===========================================
+           CTA SLIDE
+           =========================================== */
+        .cta-slide { text-align: center; align-items: center; }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1.2rem;
+            margin-top: 2.5rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .cta-btn {
+            padding: 1rem 2.5rem;
+            border-radius: 14px;
+            font-family: var(--font-display);
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.4s var(--ease-out-expo);
+            text-decoration: none;
+            border: none;
+            letter-spacing: 0.5px;
+        }
+
+        .cta-btn.primary {
+            background: linear-gradient(135deg, var(--accent), var(--accent-secondary));
+            color: var(--bg-primary);
+            box-shadow: 0 4px 30px var(--accent-glow);
+        }
+
+        .cta-btn.primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 40px var(--accent-glow-strong);
+        }
+
+        .cta-btn.secondary {
+            background: transparent;
+            border: 1.5px solid rgba(0, 229, 255, 0.3);
+            color: var(--accent);
+        }
+
+        .cta-btn.secondary:hover {
+            background: rgba(0, 229, 255, 0.08);
+            border-color: var(--accent);
+            transform: translateY(-3px);
+        }
+
+        .cta-footer {
+            margin-top: 4rem;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+        .cta-footer .brand {
+            font-family: var(--font-display);
+            font-weight: 700;
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+
+        /* ===========================================
+           PARTICLE CANVAS
+           =========================================== */
+        #particles {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        /* ===========================================
+           RESPONSIVE
+           =========================================== */
+        @media (max-width: 768px) {
+            .nav-dots, .keyboard-hint { display: none; }
+            .brand-watermark { font-size: 0.6rem; bottom: 1rem; left: 1rem; }
+            .slide-counter { bottom: 1rem; right: 1rem; font-size: 0.7rem; }
+            .flow-container { flex-direction: column; }
+            .stat-row { flex-direction: column; }
+            .comparison-row { grid-template-columns: 1fr 40px 1fr; }
+            .comp-old, .comp-new { font-size: 0.85rem; padding: 0.8rem 1rem; }
+            .arch-branch-lines { flex-direction: column; align-items: center; }
+            .arch-branch-lines::before { display: none; }
+            .demo-results { flex-direction: column; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .reveal, .reveal-left, .reveal-right, .reveal-scale {
+                transition: opacity 0.3s ease;
+                transform: none !important;
+            }
+            .title-slide .orb { animation: none; }
+            .scroll-hint { animation: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <canvas id="particles"></canvas>
+    <div class="progress-bar" id="progressBar"></div>
+    <nav class="nav-dots" id="navDots"></nav>
+    <div class="brand-watermark">Disruptors Media</div>
+    <div class="slide-counter">
+        <span class="current" id="currentSlide">01</span>
+        <span> / </span>
+        <span id="totalSlides">10</span>
+    </div>
+    <div class="keyboard-hint">
+        <span class="key">&uarr;</span>
+        <span class="key">&darr;</span>
+        <span>or</span>
+        <span class="key">Space</span>
+        <span>to navigate</span>
+    </div>
+
+    <!-- ===================================================
+         SLIDE 1 — TITLE (Tailored for Wise Abatement)
+         =================================================== -->
+    <section class="slide title-slide" data-title="Title">
+        <div class="bg-noise"></div>
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+
+        <div class="slide-inner">
+            <div class="brand-name reveal d1">Disruptors Media</div>
+            <div class="client-for reveal d2">Prepared for Wise Abatement</div>
+            <h1 class="reveal d3">
+                AI Sales<br><span class="gradient-text">Infrastructure</span>
+            </h1>
+            <p class="tagline reveal d4">
+                Turn every lead, call, and inquiry into a booked inspection &mdash; automatically, 24/7.
+            </p>
+        </div>
+
+        <div class="scroll-hint">
+            <span>Scroll</span>
+            <div class="arrow"></div>
+        </div>
+    </section>
+
+    <!-- ===================================================
+         SLIDE 2 — YOUR NUMBERS (Wise Abatement social proof)
+         =================================================== -->
+    <section class="slide" data-title="Your Numbers">
+        <div class="bg-noise"></div>
+        <div class="bg-glow" style="width:500px;height:500px;background:rgba(255,170,0,0.06);top:-10%;right:-10%;"></div>
+
+        <div class="slide-inner">
+            <span class="slide-label reveal d1">Wise Abatement Today</span>
+            <h2 class="reveal d2">You've already built <span class="gradient-text">the reputation.</span></h2>
+            <p class="subtitle reveal d3">10+ years, 5 stars, trusted by the biggest names in Alberta. Now let's make sure no lead slips through the cracks.</p>
+
+            <div class="stat-row">
+                <div class="stat-card reveal d4">
+                    <div class="stat-value">10+</div>
+                    <div class="stat-label">Years in Calgary</div>
+                </div>
+                <div class="stat-card reveal d4">
+                    <div class="stat-value">5.0</div>
+                    <div class="stat-label">Google Rating</div>
+                </div>
+                <div class="stat-card reveal d5">
+                    <div class="stat-value">102+</div>
+                    <div class="stat-label">Google Reviews</div>
+                </div>
+                <div class="stat-card reveal d5">
+                    <div class="stat-value">IICRC</div>
+                    <div class="stat-label">Certified</div>
+                </div>
+            </div>
+
+            <div class="review-grid">
+                <div class="review-card reveal d6">
+                    <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                    <div class="review-text">"Quick to respond to our emergency, competitive pricing, personable through the entire experience."</div>
+                    <div class="review-author">&mdash; Andrew J.</div>
+                </div>
+                <div class="review-card reveal d6">
+                    <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                    <div class="review-text">"Efficient, responsive, clean, and easy to work with. High quality and affordable."</div>
+                    <div class="review-author">&mdash; Jeff H.</div>
+                </div>
+                <div class="review-card reveal d7">
+                    <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                    <div class="review-text">"Very quick response and booking. The price is very reasonable."</div>
+                    <div class="review-author">&mdash; Teresa J.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===================================================
+         SLIDE 3 — THE PROBLEM (Specific to Wise Abatement)
+         =================================================== -->
+    <section class="slide" data-title="The Problem">
+        <div class="bg-noise"></div>
+        <div class="bg-glow" style="width:500px;height:500px;background:rgba(255,59,92,0.06);top:20%;left:-10%;"></div>
+
+        <div class="slide-inner">
+            <span class="slide-label reveal d1">The Problem</span>
+            <h2 class="reveal d2">
+                You don't have a lead problem.<br>
+                You have a <span style="color:var(--danger)">lead activation</span> problem.
+            </h2>
+
+            <div class="problem-list">
+                <div class="problem-item reveal d3">
+                    <div class="problem-icon"></div>
+                    <div>
+                        <div class="p-title">After-Hours Dead Zone</div>
+                        <div class="p-desc">After 5PM, every website inquiry and call goes unanswered until morning. Homeowners finding mould don't wait.</div>
+                    </div>
+                </div>
+                <div class="problem-item reveal d3">
+                    <div class="problem-icon"></div>
+                    <div>
+                        <div class="p-title">Speed-to-Lead Gap</div>
+                        <div class="p-desc">You identified this yourself &mdash; slow response time is your biggest gap. Every hour = a competitor's opportunity.</div>
+                    </div>
+                </div>
+                <div class="problem-item reveal d4">
+                    <div class="problem-icon"></div>
+                    <div>
+                        <div class="p-title">Dead Leads in the CRM</div>
+                        <div class="p-desc">Unconverted quotes, past customers, and stale contractors sitting untouched in your database.</div>
+                    </div>
+                </div>
+                <div class="problem-item reveal d4">
+                    <div class="problem-icon"></div>
+                    <div>
+                        <div class="p-title">Review Velocity Stalls</div>
+                        <div class="p-desc">You know 2-3 reviews in a row = more inbound calls. But nobody's automating the ask after every job.</div>
+                    </div>
+                </div>
+                <div class="problem-item reveal d5">
+                    <div class="problem-icon"></div>
+                    <div>
+                        <div class="p-title">Disconnected Channels</div>
+                        <div class="p-desc">Website form, Google My Business, phone calls &mdash; all separate. No unified system connecting them.</div>
+                    </div>
+                </div>
+                <div class="problem-item reveal d5">
+                    <div class="problem-icon"></div>
+                    <div>
+                        <div class="p-title">Manual Follow-Up Fatigue</div>
+                        <div class="p-desc">Your team is busy removing asbestos, not chasing callbacks. Follow-ups fall through the cracks.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===================================================
+         SLIDE 4 — THE TRANSFORMATION
+         =================================================== -->
+    <section class="slide" data-title="Transformation">
+        <div class="bg-noise"></div>
+        <div class="bg-grid"></div>
+
+        <div class="slide-inner">
+            <span class="slide-label reveal d1">The Transformation</span>
+            <h2 class="reveal d2">
+                From missed leads to<br><span class="gradient-text">booked inspections.</span>
+            </h2>
+
+            <div class="flow-container">
+                <div class="flow-box before reveal-left d3">
+                    <div class="flow-label">Today</div>
+                    <div class="flow-step">
+                        <span class="step-arrow">&#9656;</span>
+                        <span class="step-text">Homeowner finds mould at 8PM</span>
+                    </div>
+                    <div class="flow-step">
+                        <span class="step-arrow">&#8595;</span>
+                        <span class="step-text">Submits quote form on wiseabatement.ca</span>
+                    </div>
+                    <div class="flow-step">
+                        <span class="step-arrow">&#8595;</span>
+                        <span class="step-text">No response until next morning</span>
+                    </div>
+                    <div class="flow-step">
+                        <span class="step-arrow">&#8595;</span>
+                        <span class="step-text">Homeowner already called a competitor</span>
+                    </div>
+                </div>
+
+                <div class="flow-box after reveal-right d4">
+                    <div class="flow-label">With AI Sales Infrastructure</div>
+                    <div class="flow-step">
+                        <span class="step-arrow">&#9656;</span>
+                        <span class="step-text">Homeowner finds mould at 8PM</span>
+                    </div>
+                    <div class="flow-step">
+                        <span class="step-arrow">&#8595;</span>
+                        <span class="step-text">AI Chat answers instantly on website</span>
+                    </div>
+                    <div class="flow-step">
+                        <span class="step-arrow">&#8595;</span>
+                        <span class="step-text">AI qualifies the lead &amp; captures info</span>
+                    </div>
+                    <div class="flow-step">
+                        <span class="step-arrow">&#8595;</span>
+                        <span class="step-text">AI books inspection for tomorrow</span>
+                    </div>
+                    <div class="flow-step">
+                        <span class="step-arrow">&#8595;</span>
+                        <span class="step-text">SMS confirmation + CRM entry logged</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===================================================
+         SLIDE 5 — WHAT GETS INSTALLED
+         =================================================== -->
+    <section class="slide" data-title="What Gets Installed">
+        <div class="bg-noise"></div>
+        <div class="bg-glow" style="width:600px;height:600px;background:rgba(0,229,255,0.06);top:50%;left:50%;transform:translate(-50%,-50%);"></div>
+
+        <div class="slide-inner">
+            <span class="slide-label reveal d1">What Gets Installed</span>
+            <h2 class="reveal d2">
+                Your complete <span class="gradient-text">AI Sales Infrastructure</span>
+            </h2>
+            <p class="subtitle reveal d3">Built specifically for Wise Abatement. Every component trained on your services, your process, and your brand voice.</p>
+
+            <div class="feature-grid">
+                <div class="feature-card reveal d4">
+                    <span class="icon">&#129302;</span>
+                    <div class="f-title">AI Website Chatbot</div>
+                    <div class="f-desc">Answers asbestos, mould, lead, and vermiculite questions 24/7. Qualifies leads, captures info, books inspections. Trained on your full knowledge base.</div>
+                </div>
+                <div class="feature-card reveal d4">
+                    <span class="icon">&#128266;</span>
+                    <div class="f-title">AI Voice Agent</div>
+                    <div class="f-desc">Handles inbound calls using your exact script and tone. Qualifies callers, books inspections, or captures callbacks. Never misses a ring.</div>
+                </div>
+                <div class="feature-card reveal d5">
+                    <span class="icon">&#128172;</span>
+                    <div class="f-title">AI SMS Follow-Up</div>
+                    <div class="f-desc">Runs your database reactivation sequences automatically &mdash; unconverted leads, past customers, stale contractors. All on autopilot.</div>
+                </div>
+                <div class="feature-card reveal d5">
+                    <span class="icon">&#11088;</span>
+                    <div class="f-title">Automated Review Requests</div>
+                    <div class="f-desc">Triggers after every completed job. Maintains your 5.0 rating and drives the review velocity that brings more inbound calls.</div>
+                </div>
+                <div class="feature-card reveal d6">
+                    <span class="icon">&#128197;</span>
+                    <div class="f-title">Inspection Booking Engine</div>
+                    <div class="f-desc">AI books directly into your calendar. Homeowners, contractors, and property managers all get instant scheduling.</div>
+                </div>
+                <div class="feature-card reveal d6">
+                    <span class="icon">&#128200;</span>
+                    <div class="f-title">Lead Intelligence Dashboard</div>
+                    <div class="f-desc">See every lead, every conversation, every booking. Track which channels perform. One place, full visibility.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===================================================
+         SLIDE 6 — ARCHITECTURE
+         =================================================== -->
+    <section class="slide" data-title="Architecture">
+        <div class="bg-noise"></div>
+        <div class="bg-grid"></div>
+
+        <div class="slide-inner">
+            <span class="slide-label reveal d1">Architecture</span>
+            <h2 class="reveal d2">How it all <span class="gradient-text">connects</span> for Wise Abatement</h2>
+
+            <div class="arch-diagram">
+                <div class="arch-level reveal d3">
+                    <div class="arch-node top">&#127760; &nbsp;wiseabatement.ca + Google My Business</div>
+                </div>
+                <div class="arch-connector reveal d3"></div>
+
+                <div class="arch-level reveal d4">
+                    <div class="arch-node top">&#128222; &nbsp;Inbound Calls + &#129302; Website Chat</div>
+                </div>
+                <div class="arch-connector reveal d4"></div>
+
+                <div class="arch-level reveal-scale d5">
+                    <div class="arch-node brain">&#9889; AI Sales Infrastructure Brain</div>
+                </div>
+                <div class="arch-connector reveal d5"></div>
+
+                <div class="arch-branch-lines reveal d6">
+                    <div class="arch-branch-line">
+                        <div class="line"></div>
+                        <div class="arch-node branch">
+                            &#128172; SMS AI
+                            <span class="sub-label">Lead Follow-Up</span>
+                        </div>
+                    </div>
+                    <div class="arch-branch-line">
+                        <div class="line"></div>
+                        <div class="arch-node branch">
+                            &#128266; Voice AI
+                            <span class="sub-label">Call Handling</span>
+                        </div>
+                    </div>
+                    <div class="arch-branch-line">
+                        <div class="line"></div>
+                        <div class="arch-node branch">
+                            &#128197; Booking
+                            <span class="sub-label">Inspections</span>
+                        </div>
+                    </div>
+                    <div class="arch-branch-line">
+                        <div class="line"></div>
+                        <div class="arch-node branch">
+                            &#11088; Reviews
+                            <span class="sub-label">Post-Job</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <blockquote class="reveal d7" style="text-align:center;border:none;margin-top:1rem;">
+                Your website, phone, chat, SMS, reviews, and CRM &mdash;<br>
+                <span class="highlight">all connected through one intelligent system.</span>
+            </blockquote>
+        </div>
+    </section>
+
+    <!-- ===================================================
+         SLIDE 7 — YOUR AUDIENCES (Segments)
+         =================================================== -->
+    <section class="slide" data-title="Your Audiences">
+        <div class="bg-noise"></div>
+        <div class="bg-glow" style="width:400px;height:400px;background:rgba(0,229,255,0.05);bottom:-10%;right:-5%;"></div>
+
+        <div class="slide-inner">
+            <span class="slide-label reveal d1">Who It Serves</span>
+            <h2 class="reveal d2">AI trained for <span class="gradient-text">every segment</span> you serve</h2>
+            <p class="subtitle reveal d3">The AI knows how to talk to homeowners differently than contractors. Every conversation is tailored.</p>
+
+            <div class="segment-grid">
+                <div class="segment-card reveal d4">
+                    <span class="seg-icon">&#127968;</span>
+                    <div class="seg-title">Homeowners</div>
+                    <div class="seg-desc">Anxious about mould or asbestos. Need reassurance, clear answers, and fast scheduling. AI leads with safety, peace of mind, and your 5-star reputation.</div>
+                    <span class="seg-tag">Primary Volume</span>
+                </div>
+                <div class="segment-card reveal d4">
+                    <span class="seg-icon">&#128679;</span>
+                    <div class="seg-title">General Contractors</div>
+                    <div class="seg-desc">Need fast turnaround, clearance reports, and competitive pricing. AI qualifies project timeline and books directly. Your highest LTV segment.</div>
+                    <span class="seg-tag">Highest LTV</span>
+                </div>
+                <div class="segment-card reveal d5">
+                    <span class="seg-icon">&#127970;</span>
+                    <div class="seg-title">Property Managers</div>
+                    <div class="seg-desc">Multi-unit buildings, tenant complaints, compliance. AI emphasizes minimal disruption, documentation, and scalable service.</div>
+                    <span class="seg-tag">Repeat Revenue</span>
+                </div>
+                <div class="segment-card reveal d5">
+                    <span class="seg-icon">&#127963;</span>
+                    <div class="seg-title">Commercial &amp; Industrial</div>
+                    <div class="seg-desc">Tim Hortons, Best Buy, Alberta Government, YYC Airport. AI leads with certifications, large-scale experience, and compliance.</div>
+                    <span class="seg-tag">Enterprise Trust</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===================================================
+         SLIDE 8 — WHAT IT REPLACES
+         =================================================== -->
+    <section class="slide" data-title="Replaces">
+        <div class="bg-noise"></div>
+
+        <div class="slide-inner">
+            <span class="slide-label reveal d1">What It Replaces</span>
+            <h2 class="reveal d2">
+                An AI sales team for Wise Abatement<br>
+                <span class="gradient-text">that never sleeps.</span>
+            </h2>
+
+            <div class="comparison-grid reveal-scale d3">
+                <div class="comparison-row header">
+                    <div class="comp-old">Today</div>
+                    <div class="comp-arrow"></div>
+                    <div class="comp-new">With AI Infrastructure</div>
+                </div>
+                <div class="comparison-row">
+                    <div class="comp-old">Manual call answering</div>
+                    <div class="comp-arrow">&rarr;</div>
+                    <div class="comp-new">AI Voice Agent (24/7)</div>
+                </div>
+                <div class="comparison-row">
+                    <div class="comp-old">No after-hours response</div>
+                    <div class="comp-arrow">&rarr;</div>
+                    <div class="comp-new">AI Chat on website (always on)</div>
+                </div>
+                <div class="comparison-row">
+                    <div class="comp-old">Manual follow-up texts</div>
+                    <div class="comp-arrow">&rarr;</div>
+                    <div class="comp-new">AI SMS sequences (automated)</div>
+                </div>
+                <div class="comparison-row">
+                    <div class="comp-old">Asking for reviews manually</div>
+                    <div class="comp-arrow">&rarr;</div>
+                    <div class="comp-new">Auto review requests (post-job)</div>
+                </div>
+                <div class="comparison-row">
+                    <div class="comp-old">Dead leads in CRM</div>
+                    <div class="comp-arrow">&rarr;</div>
+                    <div class="comp-new">Database reactivation campaigns</div>
+                </div>
+                <div class="comparison-row">
+                    <div class="comp-old">Disconnected tools</div>
+                    <div class="comp-arrow">&rarr;</div>
+                    <div class="comp-new">One unified AI brain</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===================================================
+         SLIDE 9 — LIVE DEMO FLOW
+         =================================================== -->
+    <section class="slide" data-title="Demo">
+        <div class="bg-noise"></div>
+        <div class="bg-grid"></div>
+
+        <div class="slide-inner">
+            <span class="slide-label reveal d1">See It In Action</span>
+            <h2 class="reveal d2">A homeowner finds mould at <span class="gradient-text">9PM tonight.</span></h2>
+
+            <div class="demo-timeline">
+                <div class="demo-step reveal d3">
+                    <div class="step-num">9:02 PM</div>
+                    <div class="step-title">Visits wiseabatement.ca</div>
+                    <div class="step-desc">Homeowner Googles "mould removal Calgary" and lands on your site. AI chatbot greets them.</div>
+                </div>
+                <div class="demo-step reveal d4">
+                    <div class="step-num">9:03 PM</div>
+                    <div class="step-title">AI Answers Their Questions</div>
+                    <div class="step-desc">"Is mould dangerous?" "How much does it cost?" AI responds using your knowledge base — warm, professional, not robotic.</div>
+                </div>
+                <div class="demo-step reveal d5">
+                    <div class="step-num">9:05 PM</div>
+                    <div class="step-title">AI Qualifies the Lead</div>
+                    <div class="step-desc">Asks property type, what they're dealing with, urgency, and whether they're the homeowner. Captures name, phone, email.</div>
+                </div>
+                <div class="demo-step reveal d6">
+                    <div class="step-num">9:06 PM</div>
+                    <div class="step-title">AI Books the Inspection</div>
+                    <div class="step-desc">Schedules directly into your calendar for tomorrow morning. No human needed.</div>
+                </div>
+            </div>
+
+            <div class="demo-results reveal d7">
+                <div class="demo-result-tag">&#10003; SMS Confirmation Sent</div>
+                <div class="demo-result-tag">&#10003; Calendar Booking Created</div>
+                <div class="demo-result-tag">&#10003; CRM Lead Captured</div>
+                <div class="demo-result-tag">&#10003; Team Notified</div>
+            </div>
+
+            <blockquote class="reveal d8" style="margin-top:1.5rem;">
+                While your competitors' phones go to voicemail, <span class="highlight">your AI just booked an inspection.</span>
+            </blockquote>
+        </div>
+    </section>
+
+    <!-- ===================================================
+         SLIDE 10 — CTA / CLOSE
+         =================================================== -->
+    <section class="slide cta-slide" data-title="Next Steps">
+        <div class="bg-noise"></div>
+        <div class="orb orb-1" style="width:400px;height:400px;background:radial-gradient(circle,rgba(0,229,255,0.12),transparent 70%);top:20%;left:10%;position:absolute;border-radius:50%;filter:blur(80px);animation:pulse 6s ease-in-out infinite alternate;"></div>
+        <div class="orb orb-2" style="width:350px;height:350px;background:radial-gradient(circle,rgba(255,140,66,0.08),transparent 70%);bottom:20%;right:10%;position:absolute;border-radius:50%;filter:blur(80px);animation:pulse 6s ease-in-out infinite alternate;animation-delay:-2s;"></div>
+
+        <div class="slide-inner">
+            <span class="slide-label reveal d1">Next Steps</span>
+            <h2 class="reveal d2" style="font-size:clamp(2rem,5vw,3.8rem);">
+                Ready to never miss<br>
+                <span class="gradient-text">another lead again?</span>
+            </h2>
+            <p class="subtitle reveal d3" style="text-align:center;margin:0 auto 0.5rem;">
+                Every call answered. Every inquiry qualified. Every inspection booked.<br>Automatically. 24/7. Trained on Wise Abatement's voice.
+            </p>
+
+            <div class="cta-buttons reveal d4">
+                <button class="cta-btn primary">Book Your AI Sales Audit</button>
+                <button class="cta-btn secondary">See a Live Demo</button>
+            </div>
+
+            <div class="cta-footer reveal d5">
+                <div class="brand" style="margin-bottom:0.5rem;">Disruptors Media</div>
+                <span>AI Sales Infrastructure for Wise Abatement</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===========================================
+         JAVASCRIPT
+         =========================================== -->
+    <script>
+        /* ===========================================
+           PARTICLE SYSTEM
+           =========================================== */
+        class ParticleSystem {
+            constructor(canvas) {
+                this.canvas = canvas;
+                this.ctx = canvas.getContext('2d');
+                this.particles = [];
+                this.resize();
+                window.addEventListener('resize', () => this.resize());
+                this.init();
+                this.animate();
+            }
+
+            resize() {
+                this.canvas.width = window.innerWidth;
+                this.canvas.height = window.innerHeight;
+            }
+
+            init() {
+                const count = Math.min(45, Math.floor(window.innerWidth / 30));
+                for (let i = 0; i < count; i++) {
+                    this.particles.push({
+                        x: Math.random() * this.canvas.width,
+                        y: Math.random() * this.canvas.height,
+                        vx: (Math.random() - 0.5) * 0.25,
+                        vy: (Math.random() - 0.5) * 0.25,
+                        size: Math.random() * 1.5 + 0.5,
+                        opacity: Math.random() * 0.25 + 0.05
+                    });
+                }
+            }
+
+            animate() {
+                this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+                this.particles.forEach(p => {
+                    p.x += p.vx;
+                    p.y += p.vy;
+                    if (p.x < 0) p.x = this.canvas.width;
+                    if (p.x > this.canvas.width) p.x = 0;
+                    if (p.y < 0) p.y = this.canvas.height;
+                    if (p.y > this.canvas.height) p.y = 0;
+                    this.ctx.beginPath();
+                    this.ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                    this.ctx.fillStyle = `rgba(0, 229, 255, ${p.opacity})`;
+                    this.ctx.fill();
+                });
+                for (let i = 0; i < this.particles.length; i++) {
+                    for (let j = i + 1; j < this.particles.length; j++) {
+                        const dx = this.particles[i].x - this.particles[j].x;
+                        const dy = this.particles[i].y - this.particles[j].y;
+                        const dist = Math.sqrt(dx * dx + dy * dy);
+                        if (dist < 110) {
+                            this.ctx.beginPath();
+                            this.ctx.moveTo(this.particles[i].x, this.particles[i].y);
+                            this.ctx.lineTo(this.particles[j].x, this.particles[j].y);
+                            this.ctx.strokeStyle = `rgba(0, 229, 255, ${0.025 * (1 - dist / 110)})`;
+                            this.ctx.lineWidth = 0.5;
+                            this.ctx.stroke();
+                        }
+                    }
+                }
+                requestAnimationFrame(() => this.animate());
+            }
+        }
+
+        /* ===========================================
+           SLIDE PRESENTATION CONTROLLER
+           =========================================== */
+        class SlidePresentation {
+            constructor() {
+                this.slides = document.querySelectorAll('.slide');
+                this.currentIndex = 0;
+                this.isScrolling = false;
+                this.scrollTimeout = null;
+                this.buildNavDots();
+                this.setupObserver();
+                this.setupKeyboard();
+                this.setupTouch();
+                this.setupWheel();
+                this.updateProgress();
+            }
+
+            buildNavDots() {
+                const nav = document.getElementById('navDots');
+                this.slides.forEach((slide, i) => {
+                    const dot = document.createElement('button');
+                    dot.className = 'nav-dot' + (i === 0 ? ' active' : '');
+                    dot.setAttribute('aria-label', `Go to slide ${i + 1}`);
+                    const tooltip = document.createElement('span');
+                    tooltip.className = 'tooltip';
+                    tooltip.textContent = slide.dataset.title || `Slide ${i + 1}`;
+                    dot.appendChild(tooltip);
+                    dot.addEventListener('click', () => this.goTo(i));
+                    nav.appendChild(dot);
+                });
+            }
+
+            setupObserver() {
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('visible');
+                            const index = Array.from(this.slides).indexOf(entry.target);
+                            this.currentIndex = index;
+                            this.updateUI();
+                        }
+                    });
+                }, { threshold: 0.4 });
+                this.slides.forEach(slide => observer.observe(slide));
+            }
+
+            setupKeyboard() {
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'ArrowDown' || e.key === ' ' || e.key === 'PageDown') {
+                        e.preventDefault(); this.next();
+                    } else if (e.key === 'ArrowUp' || e.key === 'PageUp') {
+                        e.preventDefault(); this.prev();
+                    } else if (e.key === 'Home') {
+                        e.preventDefault(); this.goTo(0);
+                    } else if (e.key === 'End') {
+                        e.preventDefault(); this.goTo(this.slides.length - 1);
+                    }
+                });
+            }
+
+            setupTouch() {
+                let startY = 0;
+                document.addEventListener('touchstart', (e) => { startY = e.touches[0].clientY; }, { passive: true });
+                document.addEventListener('touchend', (e) => {
+                    const diff = startY - e.changedTouches[0].clientY;
+                    if (Math.abs(diff) > 60) { diff > 0 ? this.next() : this.prev(); }
+                }, { passive: true });
+            }
+
+            setupWheel() {
+                document.addEventListener('wheel', (e) => {
+                    if (this.isScrolling) return;
+                    this.isScrolling = true;
+                    if (e.deltaY > 30) this.next();
+                    else if (e.deltaY < -30) this.prev();
+                    clearTimeout(this.scrollTimeout);
+                    this.scrollTimeout = setTimeout(() => { this.isScrolling = false; }, 800);
+                }, { passive: true });
+            }
+
+            next() { if (this.currentIndex < this.slides.length - 1) this.goTo(this.currentIndex + 1); }
+            prev() { if (this.currentIndex > 0) this.goTo(this.currentIndex - 1); }
+
+            goTo(index) {
+                this.currentIndex = index;
+                this.slides[index].scrollIntoView({ behavior: 'smooth' });
+                this.updateUI();
+            }
+
+            updateUI() {
+                document.querySelectorAll('.nav-dot').forEach((dot, i) => {
+                    dot.classList.toggle('active', i === this.currentIndex);
+                });
+                document.getElementById('currentSlide').textContent = String(this.currentIndex + 1).padStart(2, '0');
+                this.updateProgress();
+            }
+
+            updateProgress() {
+                const progress = ((this.currentIndex + 1) / this.slides.length) * 100;
+                document.getElementById('progressBar').style.width = progress + '%';
+            }
+        }
+
+        /* ===========================================
+           INITIALIZE
+           =========================================== */
+        document.addEventListener('DOMContentLoaded', () => {
+            const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            const isMobile = window.innerWidth < 768;
+            if (!prefersReducedMotion && !isMobile) {
+                new ParticleSystem(document.getElementById('particles'));
+            }
+            new SlidePresentation();
+            document.querySelector('.slide').classList.add('visible');
+        });
+    </script>
+</body>
+</html>

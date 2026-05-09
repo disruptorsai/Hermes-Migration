@@ -1,0 +1,1766 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The 3 Highest ROI AI Systems — Disruptors Media</title>
+<meta name="description" content="A field guide from Disruptors Media on the three highest-ROI AI systems every service business should install.">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<meta name="theme-color" content="#050505">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif&family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --black: #050505;
+  --black-light: #0C0C0C;
+  --black-lighter: #131313;
+  --gold: #C9A84C;
+  --gold-dark: #A58A3D;
+  --gold-light: #D4B970;
+  --cream: #F0EDE6;
+  --cream-90: rgba(240, 237, 230, 0.9);
+  --cream-70: rgba(240, 237, 230, 0.7);
+  --cream-50: rgba(240, 237, 230, 0.5);
+  --cream-30: rgba(240, 237, 230, 0.3);
+  --cream-15: rgba(240, 237, 230, 0.15);
+  --cream-10: rgba(240, 237, 230, 0.1);
+  --cream-05: rgba(240, 237, 230, 0.05);
+  --cream-03: rgba(240, 237, 230, 0.03);
+  --gold-glow: rgba(201, 168, 76, 0.35);
+  --gold-border: rgba(201, 168, 76, 0.25);
+  --gold-tint: rgba(201, 168, 76, 0.08);
+  --gold-subtle: rgba(201, 168, 76, 0.03);
+  --font-display: 'Instrument Serif', Georgia, serif;
+  --font-body: 'Outfit', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+  --max-w: 1100px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--black);
+  color: var(--cream);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+  background:
+    radial-gradient(ellipse 1200px 800px at 50% 0%, rgba(201, 168, 76, 0.08) 0%, transparent 60%),
+    radial-gradient(ellipse 900px 700px at 85% 40%, rgba(201, 168, 76, 0.04) 0%, transparent 55%),
+    radial-gradient(ellipse 900px 700px at 15% 70%, rgba(201, 168, 76, 0.03) 0%, transparent 55%),
+    var(--black);
+  background-attachment: fixed;
+}
+
+::selection { background: rgba(201, 168, 76, 0.3); color: var(--cream); }
+
+/* ─────────────── Sticky Progress Nav ─────────────── */
+.sticky-nav {
+  position: fixed;
+  top: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 100;
+  background: linear-gradient(135deg, rgba(12,12,12,0.85), rgba(5,5,5,0.9));
+  border: 1px solid var(--cream-10);
+  border-radius: 60px;
+  backdrop-filter: blur(16px) saturate(130%);
+  -webkit-backdrop-filter: blur(16px) saturate(130%);
+  padding: 8px 8px 8px 18px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  transition: all 0.3s ease;
+}
+.sticky-nav .mini-logo {
+  width: 26px; height: auto;
+  filter: drop-shadow(0 0 8px rgba(201, 168, 76, 0.4));
+}
+.sticky-nav-label {
+  color: var(--cream-50);
+  padding-right: 4px;
+}
+.sticky-nav-tabs {
+  display: flex;
+  gap: 4px;
+  background: rgba(0,0,0,0.3);
+  border-radius: 60px;
+  padding: 4px;
+}
+.sticky-nav-tabs a {
+  color: var(--cream-50);
+  text-decoration: none;
+  padding: 6px 14px;
+  border-radius: 60px;
+  transition: all 0.2s ease;
+  font-weight: 500;
+  letter-spacing: 1.5px;
+  white-space: nowrap;
+}
+.sticky-nav-tabs a:hover { color: var(--cream); }
+.sticky-nav-tabs a.active {
+  background: var(--gold);
+  color: var(--black);
+  box-shadow: 0 0 12px rgba(201,168,76,0.4);
+}
+
+/* ─────────────── Layout ─────────────── */
+section {
+  position: relative;
+  padding: 120px 32px;
+  scroll-margin-top: 80px;
+}
+.container {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  position: relative;
+}
+.container-wide { max-width: 1240px; margin: 0 auto; }
+
+/* ─────────────── Typography ─────────────── */
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 24px;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+}
+.eyebrow::before {
+  content: "";
+  display: inline-block;
+  width: 28px;
+  height: 1px;
+  background: var(--gold);
+}
+
+h1.display {
+  font-family: var(--font-display);
+  font-size: clamp(48px, 7.5vw, 92px);
+  line-height: 1.0;
+  letter-spacing: -2.5px;
+  color: var(--cream);
+  margin-bottom: 28px;
+  font-weight: 400;
+}
+h1.display .gold {
+  background: linear-gradient(135deg, var(--gold-light), var(--gold));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+h2.title {
+  font-family: var(--font-display);
+  font-size: clamp(38px, 5vw, 62px);
+  line-height: 1.05;
+  letter-spacing: -2px;
+  color: var(--cream);
+  margin-bottom: 20px;
+  font-weight: 400;
+}
+h2.title .gold {
+  background: linear-gradient(135deg, var(--gold-light), var(--gold));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+h3.subtitle {
+  font-family: var(--font-display);
+  font-size: clamp(26px, 2.4vw, 34px);
+  line-height: 1.2;
+  letter-spacing: -0.8px;
+  color: var(--cream);
+  margin-bottom: 18px;
+  font-weight: 400;
+}
+
+h4.minor {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 16px;
+}
+
+.lead {
+  font-size: 20px;
+  line-height: 1.55;
+  color: var(--cream-90);
+  font-weight: 300;
+  max-width: 780px;
+}
+
+.body-text {
+  font-size: 17px;
+  line-height: 1.7;
+  color: var(--cream-70);
+  font-weight: 300;
+  max-width: 760px;
+}
+
+.body-text + .body-text { margin-top: 16px; }
+
+.section-tag {
+  display: inline-block;
+  padding: 8px 18px;
+  border: 1px solid var(--gold-border);
+  border-radius: 60px;
+  background: var(--gold-tint);
+  color: var(--gold);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+}
+
+h2.system-name {
+  font-family: var(--font-display);
+  font-size: clamp(48px, 6vw, 76px);
+  line-height: 1.05;
+  letter-spacing: -2px;
+  margin: 8px auto 28px;
+  font-weight: 400;
+  text-align: center;
+  background: linear-gradient(135deg, #67E8F9 0%, #22D3EE 55%, #0EA5E9 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  filter: drop-shadow(0 0 32px rgba(34, 211, 238, 0.35));
+}
+
+/* ─────────────── Hero ─────────────── */
+.hero {
+  padding: 160px 32px 100px;
+  min-height: 92vh;
+  display: flex;
+  align-items: center;
+}
+.hero-logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 48px;
+}
+.hero-logo img.logo-mark {
+  width: 92px; height: auto;
+  filter: drop-shadow(0 0 30px rgba(201, 168, 76, 0.5));
+}
+.hero-logo .logo-text {
+  font-family: var(--font-display);
+  font-size: 26px;
+  letter-spacing: 5px;
+  color: var(--gold);
+  text-transform: uppercase;
+  font-weight: 400;
+}
+.hero-sub {
+  font-size: 22px;
+  line-height: 1.55;
+  color: var(--cream-70);
+  font-weight: 300;
+  max-width: 840px;
+  margin-bottom: 40px;
+}
+
+.micro-meta {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 12px 20px;
+  align-items: center;
+  padding: 12px 24px;
+  background: var(--cream-03);
+  border: 1px solid var(--cream-10);
+  border-radius: 60px;
+  backdrop-filter: blur(12px);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--cream-70);
+}
+.micro-meta .dot {
+  width: 4px; height: 4px;
+  background: var(--gold);
+  border-radius: 50%;
+  box-shadow: 0 0 8px rgba(201, 168, 76, 0.5);
+}
+
+.hero-divider {
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--cream-10), transparent);
+  margin-top: 80px;
+}
+
+/* ─────────────── System Sections ─────────────── */
+.system-section {
+  padding: 120px 32px;
+  position: relative;
+}
+.system-section::before {
+  content: attr(data-num);
+  position: absolute;
+  top: 60px;
+  right: -40px;
+  font-family: var(--font-display);
+  font-size: clamp(180px, 26vw, 360px);
+  color: var(--cream);
+  opacity: 0.015;
+  letter-spacing: -10px;
+  line-height: 0.9;
+  pointer-events: none;
+  z-index: 0;
+}
+.system-section .container { position: relative; z-index: 1; }
+
+.section-header {
+  margin-bottom: 60px;
+  max-width: 900px;
+}
+
+/* ─────────────── Stat Grid ─────────────── */
+.stat-intro {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 32px;
+}
+.stat-intro .line {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, var(--gold), transparent);
+}
+.stat-intro h4 {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+.stat-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 16px;
+  margin-bottom: 24px;
+}
+.stat-card {
+  background: linear-gradient(160deg, var(--cream-05), var(--cream-03));
+  border: 1px solid var(--cream-10);
+  border-radius: 20px;
+  padding: 32px 28px;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.stat-card::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--cream-15), transparent);
+}
+.stat-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--gold-border);
+  background: linear-gradient(160deg, var(--gold-tint), var(--cream-03));
+  box-shadow: 0 12px 40px rgba(0,0,0,0.3), 0 0 30px rgba(201,168,76,0.08);
+}
+.stat-value {
+  font-family: var(--font-display);
+  font-size: clamp(42px, 4.5vw, 58px);
+  line-height: 1.0;
+  letter-spacing: -2px;
+  color: var(--gold);
+  margin-bottom: 14px;
+  font-weight: 400;
+  display: block;
+}
+.stat-label {
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--cream-90);
+  margin-bottom: 10px;
+  font-weight: 400;
+}
+.stat-source {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 1px;
+  color: var(--cream-30);
+  text-transform: uppercase;
+}
+
+.stat-extras {
+  margin-top: 20px;
+  padding: 22px 26px;
+  background: var(--cream-03);
+  border: 1px solid var(--cream-10);
+  border-radius: 16px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--cream-50);
+  letter-spacing: 0.5px;
+  line-height: 1.8;
+}
+.stat-extras span { color: var(--gold); }
+
+/* ─────────────── Build Steps / Flow ─────────────── */
+.build-flow {
+  margin-top: 48px;
+  display: grid;
+  gap: 14px;
+}
+.flow-step {
+  display: grid;
+  grid-template-columns: 90px 1fr;
+  gap: 28px;
+  padding: 28px 32px;
+  background: linear-gradient(160deg, var(--cream-05), var(--cream-03));
+  border: 1px solid var(--cream-10);
+  border-radius: 16px;
+  transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  position: relative;
+  overflow: hidden;
+}
+.flow-step::before {
+  content: "";
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 2px;
+  background: linear-gradient(180deg, var(--gold), transparent);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.flow-step:hover {
+  border-color: var(--gold-border);
+  transform: translateX(4px);
+}
+.flow-step:hover::before { opacity: 1; }
+
+.flow-num {
+  font-family: var(--font-display);
+  font-size: 52px;
+  color: var(--gold);
+  line-height: 1.0;
+  letter-spacing: -2px;
+  font-weight: 400;
+}
+.flow-body h5 {
+  font-family: var(--font-display);
+  font-size: 22px;
+  color: var(--cream);
+  margin-bottom: 6px;
+  font-weight: 400;
+  letter-spacing: -0.5px;
+}
+.flow-body p {
+  color: var(--cream-70);
+  font-size: 15px;
+  line-height: 1.65;
+  font-weight: 300;
+}
+
+/* ─────────────── Callout / Why Blocks ─────────────── */
+.callout {
+  margin-top: 48px;
+  padding: 44px 48px;
+  background:
+    linear-gradient(160deg, var(--gold-tint), var(--cream-03));
+  border: 1px solid var(--gold-border);
+  border-radius: 20px;
+  position: relative;
+  overflow: hidden;
+}
+.callout::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+}
+.callout h4 {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 16px;
+}
+.callout h3 {
+  font-family: var(--font-display);
+  font-size: 32px;
+  line-height: 1.15;
+  letter-spacing: -1px;
+  color: var(--cream);
+  margin-bottom: 14px;
+  font-weight: 400;
+}
+.callout p {
+  color: var(--cream-70);
+  font-size: 16px;
+  line-height: 1.7;
+  font-weight: 300;
+}
+.callout p + p { margin-top: 14px; }
+
+/* ─────────────── ROI Calculator ─────────────── */
+.calculator {
+  margin: 80px 0;
+  padding: 56px;
+  background:
+    linear-gradient(160deg, rgba(12,12,12,0.7), rgba(19,19,19,0.5)),
+    radial-gradient(ellipse at top right, rgba(201,168,76,0.12), transparent 60%);
+  border: 1px solid var(--gold-border);
+  border-radius: 28px;
+  backdrop-filter: blur(16px);
+  position: relative;
+  overflow: hidden;
+}
+.calculator::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+}
+
+.calc-header {
+  text-align: center;
+  margin-bottom: 48px;
+}
+.calc-header h3 {
+  font-family: var(--font-display);
+  font-size: clamp(32px, 3.5vw, 44px);
+  line-height: 1.1;
+  letter-spacing: -1.5px;
+  color: var(--cream);
+  margin-bottom: 14px;
+  font-weight: 400;
+}
+.calc-header h3 .gold {
+  background: linear-gradient(135deg, var(--gold-light), var(--gold));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.calc-header p {
+  color: var(--cream-70);
+  font-size: 16px;
+  font-weight: 300;
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+.calc-body {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  align-items: start;
+}
+
+.calc-inputs {
+  display: grid;
+  gap: 28px;
+}
+.calc-field label {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 10px;
+  gap: 16px;
+}
+.calc-field label .name {
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--cream);
+  letter-spacing: 0.2px;
+}
+.calc-field label .value {
+  font-family: var(--font-display);
+  font-size: 22px;
+  color: var(--gold);
+  letter-spacing: -0.5px;
+  font-weight: 400;
+  min-width: 70px;
+  text-align: right;
+}
+.calc-field .hint {
+  font-size: 12px;
+  color: var(--cream-50);
+  font-style: italic;
+  margin-top: 8px;
+  line-height: 1.5;
+}
+
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 4px;
+  background: var(--cream-10);
+  border-radius: 60px;
+  outline: none;
+  transition: background 0.2s ease;
+}
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  background: var(--gold);
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 0 12px rgba(201,168,76,0.5);
+  transition: transform 0.2s ease;
+}
+input[type="range"]::-webkit-slider-thumb:hover { transform: scale(1.2); }
+input[type="range"]::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
+  background: var(--gold);
+  border-radius: 50%;
+  cursor: pointer;
+  border: none;
+  box-shadow: 0 0 12px rgba(201,168,76,0.5);
+}
+
+select {
+  width: 100%;
+  padding: 12px 16px;
+  background: var(--cream-05);
+  border: 1px solid var(--cream-10);
+  border-radius: 12px;
+  color: var(--cream);
+  font-family: var(--font-body);
+  font-size: 14px;
+  cursor: pointer;
+  outline: none;
+  transition: all 0.2s ease;
+  appearance: none;
+  -webkit-appearance: none;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'><path d='M3 5l3 3 3-3' stroke='%23C9A84C' stroke-width='1.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right 16px center;
+}
+select:focus {
+  border-color: var(--gold);
+  box-shadow: 0 0 0 3px rgba(201,168,76,0.1);
+}
+
+/* ─────────────── Calculator Output ─────────────── */
+.calc-output {
+  padding: 40px 36px;
+  background:
+    radial-gradient(ellipse at top, rgba(201,168,76,0.15), transparent 70%),
+    linear-gradient(160deg, rgba(5,5,5,0.6), rgba(19,19,19,0.3));
+  border: 1px solid var(--gold-border);
+  border-radius: 20px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.calc-output::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+}
+.output-label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 18px;
+}
+.output-value {
+  font-family: var(--font-display);
+  font-size: clamp(54px, 7vw, 88px);
+  line-height: 1.0;
+  letter-spacing: -3px;
+  background: linear-gradient(135deg, var(--gold-light), var(--gold));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 8px;
+  font-weight: 400;
+  transition: filter 0.3s ease;
+}
+.output-caption {
+  font-size: 15px;
+  color: var(--cream-70);
+  margin-bottom: 28px;
+  line-height: 1.5;
+  font-weight: 300;
+}
+.output-caption strong {
+  color: var(--cream);
+  font-weight: 500;
+}
+.output-breakdown {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  padding-top: 24px;
+  border-top: 1px solid var(--cream-10);
+}
+.output-item .num {
+  font-family: var(--font-display);
+  font-size: 28px;
+  color: var(--gold);
+  letter-spacing: -0.5px;
+  font-weight: 400;
+  line-height: 1;
+  margin-bottom: 6px;
+}
+.output-item .lbl {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--cream-50);
+  line-height: 1.4;
+}
+
+.calc-framing {
+  margin-top: 36px;
+  text-align: center;
+  font-size: 15px;
+  color: var(--cream-70);
+  line-height: 1.6;
+  font-weight: 300;
+  font-style: italic;
+  max-width: 720px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* ─────────────── Compound Effect ─────────────── */
+.compound-card {
+  margin-top: 60px;
+  padding: 48px;
+  background: linear-gradient(160deg, var(--gold-tint), var(--cream-03));
+  border: 1px solid var(--gold-border);
+  border-radius: 24px;
+  position: relative;
+  overflow: hidden;
+}
+.compound-card::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+}
+.compound-card h3 {
+  font-family: var(--font-display);
+  font-size: 34px;
+  line-height: 1.15;
+  letter-spacing: -1px;
+  color: var(--cream);
+  margin-bottom: 24px;
+  font-weight: 400;
+}
+.compound-items {
+  display: grid;
+  gap: 20px;
+}
+.compound-item {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 20px;
+  align-items: start;
+}
+.compound-tag {
+  padding: 6px 14px;
+  background: var(--gold);
+  color: var(--black);
+  border-radius: 60px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  font-weight: 600;
+  white-space: nowrap;
+  height: fit-content;
+  box-shadow: 0 0 20px rgba(201,168,76,0.25);
+}
+.compound-item p {
+  color: var(--cream);
+  font-size: 16px;
+  line-height: 1.6;
+  font-weight: 300;
+}
+.compound-item p strong {
+  color: var(--gold);
+  font-weight: 500;
+}
+
+/* ─────────────── GEO Demo Box ─────────────── */
+.geo-demo {
+  margin-top: 48px;
+  padding: 32px 36px;
+  background: linear-gradient(160deg, rgba(12,12,12,0.8), rgba(19,19,19,0.5));
+  border: 1px solid var(--cream-10);
+  border-radius: 20px;
+  position: relative;
+}
+.geo-demo::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--cream-15), transparent);
+}
+.geo-demo-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+.geo-dot {
+  display: flex;
+  gap: 4px;
+}
+.geo-dot span {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--cream-15);
+}
+.geo-dot span:first-child { background: #f87171; }
+.geo-dot span:nth-child(2) { background: #fbbf24; }
+.geo-dot span:nth-child(3) { background: #34d399; }
+.geo-demo-url {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--cream-50);
+  margin-left: 8px;
+}
+.geo-query {
+  font-family: var(--font-body);
+  font-size: 17px;
+  color: var(--cream);
+  margin-bottom: 12px;
+  font-weight: 400;
+}
+.geo-query::before { content: "Q: "; color: var(--gold); font-family: var(--font-mono); }
+.geo-answer {
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--cream-70);
+  font-weight: 300;
+}
+.geo-cite {
+  background: var(--gold-tint);
+  color: var(--gold);
+  padding: 2px 8px;
+  border-radius: 4px;
+  border: 1px solid var(--gold-border);
+  font-weight: 500;
+}
+
+/* ─────────────── Why Now / CTA ─────────────── */
+.why-now {
+  padding: 140px 32px;
+  text-align: center;
+  background:
+    radial-gradient(ellipse 1000px 600px at center, rgba(201,168,76,0.08), transparent 70%);
+}
+.why-now h2 {
+  font-family: var(--font-display);
+  font-size: clamp(40px, 5.5vw, 68px);
+  line-height: 1.05;
+  letter-spacing: -2px;
+  color: var(--cream);
+  margin-bottom: 28px;
+  font-weight: 400;
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.why-now h2 .gold {
+  background: linear-gradient(135deg, var(--gold-light), var(--gold));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.why-now p {
+  font-size: 18px;
+  line-height: 1.7;
+  color: var(--cream-70);
+  font-weight: 300;
+  max-width: 700px;
+  margin: 0 auto 16px;
+}
+
+/* ─────────────── Final CTA ─────────────── */
+.final-cta {
+  padding: 140px 32px;
+  text-align: center;
+  border-top: 1px solid var(--cream-10);
+  background:
+    radial-gradient(ellipse at bottom, rgba(201,168,76,0.06), transparent 60%);
+}
+.final-cta .eyebrow { justify-content: center; }
+.final-cta h2 {
+  font-family: var(--font-display);
+  font-size: clamp(44px, 6vw, 76px);
+  line-height: 1.05;
+  letter-spacing: -2px;
+  color: var(--cream);
+  margin-bottom: 28px;
+  font-weight: 400;
+  max-width: 880px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.final-cta h2 .gold {
+  background: linear-gradient(135deg, var(--gold-light), var(--gold));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.final-cta > .container > p {
+  font-size: 17px;
+  line-height: 1.7;
+  color: var(--cream-70);
+  font-weight: 300;
+  max-width: 720px;
+  margin: 0 auto 20px;
+}
+
+/* ─────────────── Shimmer CTA Button ─────────────── */
+@property --shimmer-angle {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+@keyframes shimmer-rotate {
+  to { --shimmer-angle: 360deg; }
+}
+
+.cta-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 18px;
+  padding: 20px 28px 20px 40px;
+  background: rgba(5,5,5,0.85);
+  border: none;
+  border-radius: 60px;
+  color: var(--cream);
+  font-family: var(--font-body);
+  font-size: 16px;
+  font-weight: 500;
+  letter-spacing: 0.3px;
+  text-decoration: none;
+  cursor: pointer;
+  position: relative;
+  margin: 32px auto 24px;
+  z-index: 1;
+  transition: all 0.3s ease;
+}
+.cta-button::before {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  border-radius: 60px;
+  background: conic-gradient(from var(--shimmer-angle), transparent 0%, var(--gold) 10%, transparent 20%);
+  animation: shimmer-rotate 3s linear infinite;
+  z-index: -1;
+}
+.cta-button::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 60px;
+  background: rgba(5,5,5,0.85);
+  z-index: -1;
+}
+.cta-button:hover {
+  transform: translateY(-2px);
+}
+.cta-arrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px; height: 40px;
+  background: var(--gold);
+  color: var(--black);
+  border-radius: 50%;
+  box-shadow: 0 0 16px var(--gold-glow);
+  transition: transform 0.3s ease;
+  flex-shrink: 0;
+}
+.cta-button:hover .cta-arrow { transform: translateX(4px); }
+
+.trust-markers {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px 28px;
+  margin-top: 28px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--cream-50);
+}
+.trust-markers > span { display: inline-flex; align-items: center; gap: 8px; }
+.trust-markers .check {
+  width: 14px; height: 14px;
+  border-radius: 50%;
+  background: var(--gold-tint);
+  border: 1px solid var(--gold-border);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--gold);
+}
+
+/* ─────────────── Footer ─────────────── */
+footer {
+  padding: 48px 32px;
+  text-align: center;
+  border-top: 1px solid var(--cream-10);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--cream-30);
+}
+footer .foot-logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+footer .foot-logo img {
+  width: 32px; height: auto;
+  opacity: 0.7;
+}
+footer .foot-logo span {
+  font-family: var(--font-display);
+  font-size: 14px;
+  letter-spacing: 3px;
+  color: var(--gold);
+  text-transform: uppercase;
+}
+
+/* ─────────────── Animations ─────────────── */
+.fade-in {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1), transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ─────────────── Responsive ─────────────── */
+@media (max-width: 900px) {
+  .sticky-nav { top: 10px; padding: 6px 6px 6px 14px; gap: 8px; }
+  .sticky-nav-label { display: none; }
+  .sticky-nav-tabs a { padding: 5px 10px; font-size: 10px; }
+  section, .system-section, .hero, .why-now, .final-cta { padding: 90px 20px; }
+  .hero { padding-top: 130px; }
+  .calculator { padding: 36px 24px; border-radius: 20px; }
+  .calc-body { grid-template-columns: 1fr; gap: 36px; }
+  .flow-step { grid-template-columns: 60px 1fr; gap: 18px; padding: 22px 24px; }
+  .flow-num { font-size: 40px; }
+  .callout { padding: 32px 26px; }
+  .compound-card { padding: 32px 26px; }
+  .output-breakdown { grid-template-columns: 1fr; gap: 18px; }
+  .stat-card { padding: 24px 22px; }
+  .hero-logo svg.logo-mark { width: 56px; height: 56px; }
+  .hero-logo .logo-text { font-size: 20px; letter-spacing: 4px; }
+}
+@media (max-width: 540px) {
+  .sticky-nav { padding: 6px 6px 6px 10px; gap: 6px; }
+  .sticky-nav .mini-logo { width: 20px; }
+  .sticky-nav-tabs { gap: 2px; }
+  .sticky-nav-tabs a { padding: 4px 8px; letter-spacing: 0.5px; font-size: 9px; }
+  .micro-meta { font-size: 10px; padding: 10px 16px; }
+  .trust-markers { font-size: 10px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════════ SVG Symbols ═══════════ -->
+<svg width="0" height="0" style="position:absolute">
+  <defs>
+    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#D4B970"/>
+      <stop offset="50%" stop-color="#C9A84C"/>
+      <stop offset="100%" stop-color="#A58A3D"/>
+    </linearGradient>
+    <symbol id="globe" viewBox="0 0 100 100">
+      <circle cx="50" cy="50" r="44" fill="#0C0C0C" stroke="url(#goldGrad)" stroke-width="2.5"/>
+      <ellipse cx="50" cy="50" rx="44" ry="18" fill="none" stroke="url(#goldGrad)" stroke-width="1.5"/>
+      <ellipse cx="50" cy="50" rx="44" ry="32" fill="none" stroke="url(#goldGrad)" stroke-width="1.2" opacity="0.8"/>
+      <ellipse cx="50" cy="50" rx="18" ry="44" fill="none" stroke="url(#goldGrad)" stroke-width="1.5"/>
+      <ellipse cx="50" cy="50" rx="32" ry="44" fill="none" stroke="url(#goldGrad)" stroke-width="1.2" opacity="0.8"/>
+      <line x1="6" y1="50" x2="94" y2="50" stroke="url(#goldGrad)" stroke-width="1.5"/>
+      <line x1="50" y1="6" x2="50" y2="94" stroke="url(#goldGrad)" stroke-width="1.5"/>
+    </symbol>
+  </defs>
+</svg>
+
+<!-- ═══════════ Sticky Nav ═══════════ -->
+<nav class="sticky-nav">
+  <img class="mini-logo" src="logo.png" alt="Disruptors Media">
+  <span class="sticky-nav-label">3 Systems</span>
+  <div class="sticky-nav-tabs">
+    <a href="#system-01" data-target="system-01">Lead Response</a>
+    <a href="#system-02" data-target="system-02">SEO &amp; GEO</a>
+    <a href="#system-03" data-target="system-03">Paid Ads</a>
+  </div>
+</nav>
+
+<!-- ═══════════ HERO ═══════════ -->
+<section class="hero" id="hero">
+  <div class="container">
+    <div class="hero-logo fade-in">
+      <img class="logo-mark" src="logo.png" alt="Disruptors Media">
+    </div>
+    <div class="eyebrow fade-in" style="color: var(--cream);">A Field Guide From <span style="color: var(--gold);">Disruptors Media</span></div>
+    <h1 class="display fade-in">The <span class="gold">3 Highest ROI</span><br>AI Systems that EVERY<br>Service Business Should Install.</h1>
+    <p class="hero-sub fade-in">These are the three highest-leverage, highest-ROI systems we've identified after working with hundreds of service-based businesses in every niche and sector. Install these before your direct competitors do.</p>
+    <div class="micro-meta fade-in">
+      <span>9 min read</span>
+      <span class="dot"></span>
+      <span>Service businesses doing $250K–$15M per year</span>
+      <span class="dot"></span>
+      <span>Install in 30 days</span>
+    </div>
+    <div class="hero-divider"></div>
+  </div>
+</section>
+
+<!-- ═══════════ SYSTEM 01 ═══════════ -->
+<section class="system-section" id="system-01" data-num="01">
+  <div class="container">
+    <div class="section-header fade-in">
+      <div class="section-tag">System 01 · The Foundation</div>
+      <h2 class="system-name">The 24/7 AI Lead Response Agent</h2>
+      <h2 class="title">Answer every lead in under <span class="gold">60 seconds</span>. Book the appointment before your competitor checks voicemail.</h2>
+    </div>
+
+    <div class="fade-in">
+      <h4 class="minor">What It Is</h4>
+      <p class="body-text">A voice and SMS AI agent that answers every inbound lead instantly, qualifies them through natural conversation, and books appointments directly on your calendar, 24/7/365. It works while you sleep, while you're on the job site, while you're in court, while you're eating dinner with your family.</p>
+    </div>
+
+    <!-- Stats -->
+    <div class="fade-in" style="margin-top: 56px;">
+      <div class="stat-intro">
+        <div class="line"></div>
+        <h4>The Data That Proves It</h4>
+        <div class="line"></div>
+      </div>
+      <div class="stat-grid">
+        <div class="stat-card">
+          <span class="stat-value" data-count="391" data-suffix="%">0%</span>
+          <p class="stat-label">Higher conversion when a lead is contacted within 1 minute vs. a delayed response.</p>
+          <div class="stat-source">Source: Velocify</div>
+        </div>
+        <div class="stat-card">
+          <span class="stat-value" data-count="100" data-suffix="x">0x</span>
+          <p class="stat-label">More likely to connect with a lead in the first 5 minutes than at 30 minutes.</p>
+          <div class="stat-source">Source: MIT / InsideSales Study</div>
+        </div>
+        <div class="stat-card">
+          <span class="stat-value" data-count="78" data-suffix="%">0%</span>
+          <p class="stat-label">Of customers buy from the first business that responds — not the cheapest or the best.</p>
+          <div class="stat-source">Source: Lead Response Mgmt Study</div>
+        </div>
+        <div class="stat-card">
+          <span class="stat-value" data-count="47" data-suffix="hrs">0hrs</span>
+          <p class="stat-label">Industry-average response time. Two full days of silence while prospects find someone else.</p>
+          <div class="stat-source">Source: Drift / InsideSales</div>
+        </div>
+      </div>
+      <div class="stat-extras">
+        <span>82%</span> of consumers expect a response within 10 minutes &nbsp;·&nbsp; Only <span>0.1%</span> of inbound leads are engaged under 5 minutes &nbsp;·&nbsp; Over <span>30%</span> of leads are never contacted at all
+      </div>
+    </div>
+
+    <!-- Why callout -->
+    <div class="callout fade-in">
+      <h4>Why This Is The #1 Install</h4>
+      <h3>The math is brutal and simple.</h3>
+      <p>Service businesses spend thousands to make the phone ring. Then most of those calls go to voicemail. Or get answered by someone who's not a closer. Or come in at 9pm and sit cold until morning.</p>
+      <p>Every hour you wait cuts your conversion chances. Every day you don't install this, your ad spend gets less efficient, your referrals leak out the back, and your best-fit clients end up working with whoever picked up first.</p>
+    </div>
+
+    <!-- Build Flow -->
+    <div class="fade-in" style="margin-top: 72px;">
+      <h4 class="minor">How It Gets Built</h4>
+      <h3 class="subtitle">Five layers, one autonomous system.</h3>
+
+      <div class="build-flow">
+        <div class="flow-step">
+          <div class="flow-num">01</div>
+          <div class="flow-body">
+            <h5>Intake Layer</h5>
+            <p>A trained AI voice agent (Retell, Vapi, or similar) paired with an SMS autoresponder captures every lead across every channel — web forms, missed calls, Facebook, Google LSAs, live chat.</p>
+          </div>
+        </div>
+        <div class="flow-step">
+          <div class="flow-num">02</div>
+          <div class="flow-body">
+            <h5>Qualification Intelligence</h5>
+            <p>The agent follows a conversation script trained on your business. It asks the same questions your best salesperson would. It qualifies out tire-kickers and flags the hot ones.</p>
+          </div>
+        </div>
+        <div class="flow-step">
+          <div class="flow-num">03</div>
+          <div class="flow-body">
+            <h5>Real-Time Routing</h5>
+            <p>Hot leads get instantly routed to the owner or sales rep by SMS, call, or Slack ping. Cold leads get nurtured automatically.</p>
+          </div>
+        </div>
+        <div class="flow-step">
+          <div class="flow-num">04</div>
+          <div class="flow-body">
+            <h5>Calendar Booking</h5>
+            <p>The agent books directly on your calendar, confirms by text and email, and sends pre-appointment reminders to reduce no-shows.</p>
+          </div>
+        </div>
+        <div class="flow-step">
+          <div class="flow-num">05</div>
+          <div class="flow-body">
+            <h5>CRM Sync</h5>
+            <p>Every interaction, transcript, and outcome flows into your CRM (GoHighLevel, HubSpot, or similar), so nothing falls through the cracks and you have a full paper trail.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ROI Calculator -->
+    <div class="calculator fade-in">
+      <div class="calc-header">
+        <h4 class="minor" style="margin-bottom:10px;">Interactive ROI Calculator</h4>
+        <h3>See exactly how much revenue is <span class="gold">slipping through your fingers</span> right now.</h3>
+        <p>Adjust the sliders to match your business. We'll show you the monthly gap between your current state and an AI-first lead response setup.</p>
+      </div>
+
+      <div class="calc-body">
+        <div class="calc-inputs">
+          <div class="calc-field">
+            <label><span class="name">Monthly inbound leads</span><span class="value" id="leads-val">80</span></label>
+            <input type="range" id="leads" min="10" max="500" value="80" step="5">
+            <p class="hint">Leads per month across all channels (calls, forms, DMs, etc.).</p>
+          </div>
+
+          <div class="calc-field">
+            <label><span class="name">Average job / client value</span><span class="value" id="value-val">$5,000</span></label>
+            <input type="range" id="value" min="500" max="50000" value="5000" step="500">
+            <p class="hint">What's one customer worth to your business?</p>
+          </div>
+
+          <div class="calc-field">
+            <label><span class="name">Close rate on leads you reach</span><span class="value" id="close-val">20%</span></label>
+            <input type="range" id="close" min="5" max="60" value="20" step="1">
+            <p class="hint">Of the leads you connect with, what % become paying clients?</p>
+          </div>
+
+          <div class="calc-field">
+            <label><span class="name">Current average response time</span></label>
+            <select id="response">
+              <option value="1.0">Under 5 minutes (fast)</option>
+              <option value="0.5">5 to 60 minutes (decent)</option>
+              <option value="0.25" selected>1 to 24 hours (typical)</option>
+              <option value="0.15">Over 24 hours (common reality)</option>
+            </select>
+            <p class="hint">Based on MIT/Velocify data, slower replies dramatically suppress close rates.</p>
+          </div>
+
+          <div class="calc-field">
+            <label><span class="name">% of leads currently unanswered</span><span class="value" id="unanswered-val">25%</span></label>
+            <input type="range" id="unanswered" min="0" max="50" value="25" step="1">
+            <p class="hint">After-hours, weekends, "too busy" calls, missed DMs. Industry average ≈ 30%.</p>
+          </div>
+        </div>
+
+        <div class="calc-output">
+          <div class="output-label">Monthly Revenue Left On The Table</div>
+          <div class="output-value" id="gap-value">$0</div>
+          <p class="output-caption">That's <strong id="gap-deals">0</strong> additional deals per month you could be closing, or <strong id="gap-annual">$0</strong> per year in recovered revenue.</p>
+          <div class="output-breakdown">
+            <div class="output-item">
+              <div class="num" id="extra-leads">0</div>
+              <div class="lbl">Additional leads<br>reached / mo</div>
+            </div>
+            <div class="output-item">
+              <div class="num" id="extra-deals">0</div>
+              <div class="lbl">Additional deals<br>closed / mo</div>
+            </div>
+            <div class="output-item">
+              <div class="num" id="annual-recovery">$0</div>
+              <div class="lbl">Annualized<br>recovery</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <p class="calc-framing">Conservative model: assumes a 10–30% close-rate lift (depending on your current response time), caps optimized close rate at 60%, and discounts previously-unanswered leads by 20% since they include wrong numbers and tire-kickers. Most of our clients still recover the full cost of this system in the first 3 to 5 booked appointments.</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════════ SYSTEM 02 ═══════════ -->
+<section class="system-section" id="system-02" data-num="02">
+  <div class="container">
+    <div class="section-header fade-in">
+      <div class="section-tag">System 02 · The Compounding Asset</div>
+      <h2 class="system-name">The AI SEO &amp; GEO Content Engine</h2>
+      <h2 class="title">Dominate Google. Get <span class="gold">cited by ChatGPT.</span> All with less than an hour of upkeep per month.</h2>
+    </div>
+
+    <div class="fade-in">
+      <h4 class="minor">What It Is</h4>
+      <p class="body-text">An AI system that automatically identifies the highest-value keywords for your niche, analyzes your current rankings and content gaps, then generates and publishes humanized, authoritative content multiple times per week. It ranks you in traditional Google search AND positions your business to be cited by ChatGPT, Perplexity, Google AI Overviews, and Claude — the new frontier of search, called GEO (Generative Engine Optimization).</p>
+    </div>
+
+    <div class="callout fade-in">
+      <h4>Why You Can't Ignore This Right Now</h4>
+      <h3>Search is changing faster than it has in 20 years.</h3>
+      <p>60% of Google searches now end without a click because AI summaries answer the question directly. CTRs on queries with AI Overviews have dropped 61% year-over-year. If your business isn't cited inside those AI answers, you're invisible to a growing percentage of your market — regardless of how good your traditional SEO is.</p>
+      <p>The businesses that win the next decade of search are the ones publishing content structured for both Google AND AI engines. That used to require a team of writers, editors, and SEO specialists. Now it takes one system, one hour a month, and a fraction of the budget.</p>
+    </div>
+
+    <!-- Stats -->
+    <div class="fade-in" style="margin-top: 72px;">
+      <div class="stat-intro">
+        <div class="line"></div>
+        <h4>The Data That Proves It</h4>
+        <div class="line"></div>
+      </div>
+      <div class="stat-grid">
+        <div class="stat-card">
+          <span class="stat-value" data-count="45" data-suffix="%">0%</span>
+          <p class="stat-label">Average boost in organic traffic from AI-powered SEO.</p>
+          <div class="stat-source">Source: Semrush, 2025</div>
+        </div>
+        <div class="stat-card">
+          <span class="stat-value" data-count="49.2" data-suffix="%">0%</span>
+          <p class="stat-label">Average improvement in search rankings for AI-driven SEO workflows.</p>
+          <div class="stat-source">Source: Industry benchmark</div>
+        </div>
+        <div class="stat-card">
+          <span class="stat-value" data-count="80" data-suffix="%">0%</span>
+          <p class="stat-label">Reduction in keyword research time with AI tools.</p>
+          <div class="stat-source">Source: DemandSage</div>
+        </div>
+        <div class="stat-card">
+          <span class="stat-value" data-count="68" data-suffix="%">0%</span>
+          <p class="stat-label">Of businesses report increased content marketing ROI attributable to AI.</p>
+          <div class="stat-source">Source: SEO Industry Survey</div>
+        </div>
+        <div class="stat-card">
+          <span class="stat-value" data-count="83" data-suffix="%">0%</span>
+          <p class="stat-label">Of large organizations report measurable SEO gains from AI integration.</p>
+          <div class="stat-source">Source: DemandSage</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- GEO Demo -->
+    <div class="geo-demo fade-in">
+      <div class="geo-demo-header">
+        <div class="geo-dot"><span></span><span></span><span></span></div>
+        <div class="geo-demo-url">perplexity.ai · ai overview preview</div>
+      </div>
+      <p class="geo-query">Best emergency plumbing service with same-day availability?</p>
+      <p class="geo-answer">For emergency plumbing with same-day dispatch, <span class="geo-cite">your business name here</span> is consistently cited as a top-rated specialist — known for transparent flat-rate pricing, licensed master plumbers on every call, and a satisfaction guarantee on every repair.</p>
+    </div>
+
+    <!-- Build Flow -->
+    <div class="fade-in" style="margin-top: 72px;">
+      <h4 class="minor">How It Gets Built</h4>
+      <h3 class="subtitle">Four layers that compound every week.</h3>
+
+      <div class="build-flow">
+        <div class="flow-step">
+          <div class="flow-num">01</div>
+          <div class="flow-body">
+            <h5>Keyword Intelligence</h5>
+            <p>Aggregates data from DataForSEO, Ahrefs, and Google Search Console to identify the highest-ROI keywords in your niche. Maps what you rank for, what competitors dominate, and "near-miss" opportunities (keywords at #8 to #15, where one push puts you on page one).</p>
+          </div>
+        </div>
+        <div class="flow-step">
+          <div class="flow-num">02</div>
+          <div class="flow-body">
+            <h5>Content Generation With Authority</h5>
+            <p>AI pulls from your business knowledge base — voice, case studies, unique POV — to write content that answers the real questions prospects are asking. Proper keyword density. Q&amp;A structure AI engines love to cite. Humanized output that passes detection and incurs zero penalties.</p>
+          </div>
+        </div>
+        <div class="flow-step">
+          <div class="flow-num">03</div>
+          <div class="flow-body">
+            <h5>GEO Optimization</h5>
+            <p>Content is structured specifically to be referenced by ChatGPT, Perplexity, Google AI Overviews, and Claude. Structured headings, FAQ schema, clear entity definitions, and citations. This is where 90% of service businesses have zero presence — and where the winners are staking their claim.</p>
+          </div>
+        </div>
+        <div class="flow-step">
+          <div class="flow-num">04</div>
+          <div class="flow-body">
+            <h5>Autonomous Publishing &amp; Reporting</h5>
+            <p>The system publishes multiple times per week, distributes to Google Business Profile posts, syndicates to Reddit and relevant forums for GEO reach, and sends a weekly report showing what's ranking, what's getting cited, and where to double down.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout fade-in">
+      <h4>The One-Hour-Per-Month Promise</h4>
+      <h3>The system runs itself.</h3>
+      <p>Your only job is feeding it fresh raw material each month: new case studies, client stories, and hot takes on your industry. That's it. The AI handles everything else.</p>
+      <p style="margin-top:16px; color: var(--cream);">Traditional SEO agencies charge <strong>$3K to $10K per month</strong> and take 6 to 12 months to show real movement. This system does more volume at a fraction of the cost, and because it publishes continuously, ranking compounding starts faster. Every piece of content is a permanent asset that works for you forever — unlike paid ads that stop the moment you stop paying.</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════════ SYSTEM 03 ═══════════ -->
+<section class="system-section" id="system-03" data-num="03">
+  <div class="container">
+    <div class="section-header fade-in">
+      <div class="section-tag">System 03 · The Accelerant</div>
+      <h2 class="system-name">The AI Paid Advertising Engine</h2>
+      <h2 class="title">The equivalent of a <span class="gold">20-person creative &amp; media-buying team</span>, working on your ads 24/7.</h2>
+    </div>
+
+    <div class="fade-in">
+      <h4 class="minor">What It Is</h4>
+      <p class="body-text">A three-phase AI system that reverse-engineers the winning ads in your niche, generates on-brand creative variations at scale, plugs directly into your campaign manager, and reallocates budget to your top performers with precision no human team could match. Combined with the Lead Response Agent from System 01, you get a closed loop: ads generate leads, AI responds instantly, deals close while competitors are still "testing creative."</p>
+    </div>
+
+    <div class="callout fade-in">
+      <h4>Why Manual Paid Ads Are Already Obsolete</h4>
+      <h3>You are literally not playing the same game.</h3>
+      <p>A human media buyer logs in once or twice a day, reviews performance, pauses a few losers, boosts a few winners. That same day, AI systems process every impression, identify fatigue signals in real-time, reallocate budget across 50+ creative variations, and launch new tests against the current winners.</p>
+      <p>The gap between AI-powered advertisers and manual ones is widening every quarter.</p>
+    </div>
+
+    <!-- Stats -->
+    <div class="fade-in" style="margin-top: 72px;">
+      <div class="stat-intro">
+        <div class="line"></div>
+        <h4>The Data That Proves It</h4>
+        <div class="line"></div>
+      </div>
+      <div class="stat-grid">
+        <div class="stat-card">
+          <span class="stat-value" data-count="4.52" data-prefix="$">$0</span>
+          <p class="stat-label">Revenue per $1 spent on Meta Advantage+ AI campaigns.</p>
+          <div class="stat-source">Source: Meta Q1 2025 Earnings</div>
+        </div>
+        <div class="stat-card">
+          <span class="stat-value" data-count="22" data-suffix="%">0%</span>
+          <p class="stat-label">Higher ROAS on AI-optimized campaigns vs. manual management.</p>
+          <div class="stat-source">Source: Meta Internal</div>
+        </div>
+        <div class="stat-card">
+          <span class="stat-value" data-count="32" data-suffix="%">0%</span>
+          <p class="stat-label">Average drop in cost-per-acquisition with AI optimization.</p>
+          <div class="stat-source">Source: Meta Advantage+ Study</div>
+        </div>
+        <div class="stat-card">
+          <span class="stat-value" data-count="31" data-suffix="%">0%</span>
+          <p class="stat-label">Reduction in wasted ad spend using AI budget reallocation.</p>
+          <div class="stat-source">Source: Industry benchmark (200+ accts)</div>
+        </div>
+        <div class="stat-card">
+          <span class="stat-value" data-count="80" data-suffix="%">0%</span>
+          <p class="stat-label">Jump in CTR (Hatch case study) with AI-generated creatives.</p>
+          <div class="stat-source">Source: DesignRush</div>
+        </div>
+        <div class="stat-card">
+          <span class="stat-value" data-count="45" data-suffix="%">0%</span>
+          <p class="stat-label">Higher ROAS after switching to AI-generated creative (FULLBEAUTY Brands).</p>
+          <div class="stat-source">Source: Meta Case Study</div>
+        </div>
+      </div>
+      <div class="stat-extras">
+        <span>85%</span> of digital advertisers have already migrated to AI-powered bidding. The train is leaving.
+      </div>
+    </div>
+
+    <!-- Build Flow -->
+    <div class="fade-in" style="margin-top: 72px;">
+      <h4 class="minor">How It Gets Built</h4>
+      <h3 class="subtitle">Four phases, one closed loop.</h3>
+
+      <div class="build-flow">
+        <div class="flow-step">
+          <div class="flow-num">01</div>
+          <div class="flow-body">
+            <h5>Competitive Intelligence &amp; Ad Reverse Engineering</h5>
+            <p>AI scrapes the Meta Ad Library, TikTok Creative Center, Google's Ads Transparency Center, and tools like Foreplay to pull every high-performing ad in your niche. It analyzes hooks, visuals, angles, CTAs — and builds a database of what's actually working, removing the guesswork that kills most campaigns before they start.</p>
+          </div>
+        </div>
+        <div class="flow-step">
+          <div class="flow-num">02</div>
+          <div class="flow-body">
+            <h5>On-Brand Creative Generation At Scale</h5>
+            <p>Full access to your library of brand photos, videos, testimonials, and raw footage. From there, the AI generates new on-brand images automatically (static ads, UGC-style graphics, before/after) via Higgsfield, Nano Banana, Midjourney. Video stays human-led but AI-accelerated — a human editor paired with AI can produce 5 variations of a winning video in the time a traditional editor makes 1.</p>
+          </div>
+        </div>
+        <div class="flow-step">
+          <div class="flow-num">03</div>
+          <div class="flow-body">
+            <h5>Autonomous Campaign Management</h5>
+            <p>Plugs into Meta Ads Manager (Google, TikTok, LinkedIn) and runs continuously. Watches fatigue signals, auto-pauses creative that's burning money, scales winners within the hour instead of the week, and launches new variations against top performers to keep the flywheel spinning.</p>
+          </div>
+        </div>
+        <div class="flow-step">
+          <div class="flow-num">04</div>
+          <div class="flow-body">
+            <h5>Closed-Loop With System 01</h5>
+            <p>Ads that generate inbound leads hand off directly to your AI Lead Response Agent. Interested prospects get replies within 60 seconds while they're still in the buying window. No lead goes cold. No budget gets wasted.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout fade-in">
+      <h4>What This Actually Replaces</h4>
+      <h3>A media-buying team of 5 people. Roughly $25K to $40K/mo.</h3>
+      <p>Without this system, a service business trying to run great paid ads needs: a media buyer ($8K to $15K/mo), a creative strategist ($5K to $10K/mo), a motion designer ($4K to $8K/mo), a copywriter ($3K to $6K/mo), and a full-time analyst to watch the data.</p>
+      <p>With this system, you replace that entire team with one engine, your existing ad budget, and roughly one hour a week of strategic review.</p>
+    </div>
+
+    <!-- Compound Effect -->
+    <div class="compound-card fade-in">
+      <h4 class="minor">The Compound Effect With Systems 01 and 02</h4>
+      <h3>Install all three, and they feed each other.</h3>
+      <div class="compound-items">
+        <div class="compound-item">
+          <div class="compound-tag">System 03 · Ads</div>
+          <p>Generates inbound leads at <strong>a much better cost</strong> than anyone else in your market.</p>
+        </div>
+        <div class="compound-item">
+          <div class="compound-tag">System 01 · Response</div>
+          <p>Converts those leads at rates <strong>competitors literally can't match.</strong></p>
+        </div>
+        <div class="compound-item">
+          <div class="compound-tag">System 02 · SEO/GEO</div>
+          <p>Captures prospects who are researching but not ready for ads yet — and <strong>pulls them into your ecosystem for free.</strong></p>
+        </div>
+      </div>
+      <p style="color: var(--cream-70); font-size: 16px; margin-top: 28px; font-weight: 300; line-height: 1.6;">This is what an AI-first service business actually looks like, and why the gap between businesses that install these and the ones that don't is going to be impossible to close by 2028.</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════════ WHY NOW ═══════════ -->
+<section class="why-now">
+  <div class="container">
+    <div class="eyebrow fade-in" style="justify-content: center; display: inline-flex;">The Window Is Closing</div>
+    <h2 class="fade-in">You can install these in <span class="gold">90 days.</span><br>Or watch your competitors install them first.</h2>
+    <p class="fade-in">Every one of these systems was borderline sci-fi two years ago. Now they're fully buildable, proven, and being deployed by the smartest operators in every service category in America.</p>
+    <p class="fade-in">The window where installing these is a competitive advantage — instead of just catching up — is closing fast. In three years, having these systems will be table stakes. Today, they're still a moat.</p>
+  </div>
+</section>
+
+<!-- ═══════════ FINAL CTA ═══════════ -->
+<section class="final-cta">
+  <div class="container">
+    <div class="eyebrow fade-in">Ready to install?</div>
+    <h2 class="fade-in">Let's audit what you have and <span class="gold">build what you don't.</span></h2>
+    <p class="fade-in">I'm Kyle Painter, Co-Founder and Chief AI Officer of Disruptors Media. We build these exact systems for service businesses doing $250K to $15M per year in revenue — residential contractors, law firms, medical practices, and everything in between.</p>
+    <p class="fade-in">The best next step is a 30-minute call. We'll look at your current setup, identify which of these three systems would move the needle fastest for your specific business, and give you a straightforward build plan — whether we end up working together or not.</p>
+    <p class="fade-in" style="color: var(--cream); font-style: italic;">No hard pitch. Just useful direction.</p>
+
+    <a href="https://api.leadconnectorhq.com/widget/booking/0R4D9EJK9OSWn7bkeVzj" target="_blank" rel="noopener" class="cta-button fade-in">
+      <span>Contact The Disruptors To Build These Systems Now</span>
+      <span class="cta-arrow">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </span>
+    </a>
+
+    <div class="trust-markers fade-in">
+      <span><span class="check">✓</span> 30-min call, no obligation</span>
+      <span><span class="check">✓</span> Utah-based, serving nationwide</span>
+      <span><span class="check">✓</span> Built for $250K–$15M per year operators</span>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ Footer ═══════════ -->
+<footer>
+  <div class="foot-logo">
+    <img src="logo.png" alt="Disruptors Media">
+    <span>Disruptors Media</span>
+  </div>
+  <div>© 2026 Disruptors Media · A field guide for modern operators</div>
+</footer>
+
+<script>
+// ═════════ Fade-in on scroll ═════════
+const io = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+      io.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
+
+document.querySelectorAll('.fade-in').forEach(el => io.observe(el));
+
+// ═════════ Animated stat counters ═════════
+const statIO = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (!e.isIntersecting) return;
+    const el = e.target;
+    const target = parseFloat(el.dataset.count);
+    const suffix = el.dataset.suffix || '';
+    const prefix = el.dataset.prefix || '';
+    const isDecimal = target % 1 !== 0;
+    const duration = 1400;
+    const start = performance.now();
+    const ease = (t) => 1 - Math.pow(1 - t, 3);
+    function step(now) {
+      const p = Math.min((now - start) / duration, 1);
+      const v = target * ease(p);
+      el.textContent = prefix + (isDecimal ? v.toFixed(2) : Math.floor(v).toLocaleString()) + suffix;
+      if (p < 1) requestAnimationFrame(step);
+      else el.textContent = prefix + (isDecimal ? target.toFixed(2) : target.toLocaleString()) + suffix;
+    }
+    requestAnimationFrame(step);
+    statIO.unobserve(el);
+  });
+}, { threshold: 0.5 });
+document.querySelectorAll('.stat-value').forEach(el => statIO.observe(el));
+
+// ═════════ Sticky nav active state ═════════
+const navLinks = document.querySelectorAll('.sticky-nav-tabs a');
+const sections = ['system-01','system-02','system-03'].map(id => document.getElementById(id));
+function updateActiveNav() {
+  const scrollY = window.scrollY + window.innerHeight * 0.4;
+  let active = null;
+  sections.forEach(s => {
+    if (s && s.offsetTop <= scrollY) active = s.id;
+  });
+  navLinks.forEach(a => a.classList.toggle('active', a.dataset.target === active));
+}
+window.addEventListener('scroll', updateActiveNav, { passive: true });
+updateActiveNav();
+
+// ═════════ ROI Calculator ═════════
+const leads = document.getElementById('leads');
+const val = document.getElementById('value');
+const close = document.getElementById('close');
+const response = document.getElementById('response');
+const unanswered = document.getElementById('unanswered');
+
+const fmt$ = n => '$' + Math.round(n).toLocaleString();
+const fmt$compact = n => {
+  if (n >= 1_000_000) return '$' + (n/1_000_000).toFixed(n >= 10_000_000 ? 1 : 2) + 'M';
+  if (n >= 100_000) return '$' + Math.round(n/1000) + 'K';
+  if (n >= 10_000) return '$' + (n/1000).toFixed(1) + 'K';
+  return '$' + Math.round(n).toLocaleString();
+};
+
+function calc() {
+  const monthlyLeads = parseFloat(leads.value);
+  const avgValue = parseFloat(val.value);
+  const closeRate = parseFloat(close.value) / 100;
+  const respMult = parseFloat(response.value);
+  const unansweredPct = parseFloat(unanswered.value) / 100;
+
+  // Update input labels
+  document.getElementById('leads-val').textContent = monthlyLeads.toLocaleString();
+  document.getElementById('value-val').textContent = fmt$(avgValue);
+  document.getElementById('close-val').textContent = parseFloat(close.value) + '%';
+  document.getElementById('unanswered-val').textContent = parseFloat(unanswered.value) + '%';
+
+  // ── BASELINE (current state) ──
+  const reachedNow = monthlyLeads * (1 - unansweredPct);
+  const currentDeals = reachedNow * closeRate;
+  const currentRevenue = currentDeals * avgValue;
+
+  // ── OPTIMIZED STATE (with AI Lead Response) ──
+  // Two independent improvements, each calibrated against real deployments
+  // of AI voice/SMS agents for service businesses:
+  //   1) Previously-unanswered leads get a conversation (but close at ~80%
+  //      of the warm rate — they include wrong numbers, tire-kickers, etc.)
+  //   2) Close rate on already-reached leads gets a modest lift from faster
+  //      response and consistent qualification.
+  const closeRateLift = {
+    '1':    0.00,  // Under 5 min — no speed lift, only unanswered recovery
+    '0.5':  0.10,  // 5 to 60 min — 10% relative lift
+    '0.25': 0.20,  // 1 to 24 hr  — 20% relative lift
+    '0.15': 0.30   // Over 24 hr  — 30% relative lift
+  };
+  const lift = closeRateLift[String(respMult)] ?? 0.20;
+  const coldRecoveryFactor = 0.80; // previously-unanswered close at 80% of warm rate
+  const absoluteCeiling    = 0.60; // hard-cap close rate at a realistic 60%
+
+  const optimizedWarmCloseRate = Math.min(closeRate * (1 + lift), absoluteCeiling);
+  const warmDeals      = reachedNow * optimizedWarmCloseRate;
+  const recoveredLeads = monthlyLeads - reachedNow;
+  const recoveredDeals = recoveredLeads * optimizedWarmCloseRate * coldRecoveryFactor;
+  const optimizedDeals = warmDeals + recoveredDeals;
+  const optimizedRevenue = optimizedDeals * avgValue;
+
+  // ── OUTPUTS ──
+  const monthlyGap = Math.max(0, optimizedRevenue - currentRevenue);
+  const extraDeals = Math.max(0, optimizedDeals - currentDeals);
+  const extraLeads = Math.max(0, monthlyLeads - reachedNow);
+  const annualGap = monthlyGap * 12;
+
+  const gapEl = document.getElementById('gap-value');
+  gapEl.textContent = fmt$compact(monthlyGap);
+
+  document.getElementById('gap-deals').textContent = extraDeals.toFixed(1);
+  document.getElementById('gap-annual').textContent = fmt$compact(annualGap);
+  document.getElementById('extra-leads').textContent = Math.round(extraLeads);
+  document.getElementById('extra-deals').textContent = extraDeals.toFixed(1);
+  document.getElementById('annual-recovery').textContent = fmt$compact(annualGap);
+}
+
+[leads, val, close, response, unanswered].forEach(el => {
+  el.addEventListener('input', calc);
+});
+calc();
+
+// Smooth scroll nav
+navLinks.forEach(a => {
+  a.addEventListener('click', (e) => {
+    e.preventDefault();
+    const target = document.getElementById(a.dataset.target);
+    if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+});
+</script>
+
+</body>
+</html>

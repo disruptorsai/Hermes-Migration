@@ -1,0 +1,1863 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Disruptors Media — Sales Training Curriculum: The First 30 Days">
+<meta name="robots" content="noindex, nofollow">
+<title>Disruptors Media — The First 30 Days</title>
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="icon" type="image/png" sizes="64x64" href="favicon-64.png">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif&family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --black: #050505;
+  --black-light: #0C0C0C;
+  --black-lighter: #131313;
+  --gold: #C9A84C;
+  --gold-dark: #A58A3D;
+  --gold-light: #D4B970;
+  --cream: #F0EDE6;
+  --cream-90: rgba(240, 237, 230, 0.9);
+  --cream-70: rgba(240, 237, 230, 0.7);
+  --cream-50: rgba(240, 237, 230, 0.5);
+  --cream-30: rgba(240, 237, 230, 0.3);
+  --cream-15: rgba(240, 237, 230, 0.15);
+  --cream-10: rgba(240, 237, 230, 0.1);
+  --cream-05: rgba(240, 237, 230, 0.05);
+  --gold-glow: rgba(201, 168, 76, 0.35);
+  --gold-border: rgba(201, 168, 76, 0.25);
+  --gold-tint: rgba(201, 168, 76, 0.08);
+  --gold-tint-strong: rgba(201, 168, 76, 0.14);
+  --font-display: 'Instrument Serif', Georgia, serif;
+  --font-body: 'Outfit', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  min-height: 100%;
+  background: var(--black);
+  color: var(--cream);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  background:
+    radial-gradient(ellipse at top, rgba(201, 168, 76, 0.05) 0%, transparent 55%),
+    radial-gradient(ellipse at bottom right, rgba(201, 168, 76, 0.025) 0%, transparent 50%),
+    var(--black);
+  background-attachment: fixed;
+}
+
+a { color: var(--gold); text-decoration: none; border-bottom: 1px dashed var(--gold-border); }
+a:hover { border-bottom-color: var(--gold); }
+
+/* ========== LOGIN ========== */
+.login-wrap {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 48px 24px;
+}
+.login-card {
+  width: 100%;
+  max-width: 480px;
+  background: rgba(240, 237, 230, 0.03);
+  border: 1px solid var(--cream-10);
+  border-radius: 20px;
+  padding: 48px 40px;
+  backdrop-filter: blur(16px);
+  text-align: center;
+}
+.login-logo {
+  width: 110px;
+  height: auto;
+  object-fit: contain;
+  display: block;
+  margin: 0 auto 24px;
+  filter: drop-shadow(0 0 22px rgba(201, 168, 76, 0.5));
+}
+.login-eyebrow {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 14px;
+}
+.login-title {
+  font-family: var(--font-display);
+  font-size: 42px;
+  line-height: 1.05;
+  letter-spacing: -1px;
+  margin-bottom: 10px;
+}
+.login-title .gold {
+  background: linear-gradient(135deg, var(--gold), var(--gold-light));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-style: italic;
+}
+.login-sub {
+  color: var(--cream-70);
+  font-size: 15px;
+  line-height: 1.55;
+  margin-bottom: 32px;
+}
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.login-input {
+  width: 100%;
+  padding: 16px 18px;
+  background: rgba(240, 237, 230, 0.04);
+  border: 1px solid var(--cream-15);
+  border-radius: 12px;
+  color: var(--cream);
+  font-family: var(--font-body);
+  font-size: 15px;
+  outline: none;
+  transition: all 0.2s;
+}
+.login-input:focus {
+  border-color: var(--gold);
+  background: rgba(240, 237, 230, 0.06);
+  box-shadow: 0 0 0 3px var(--gold-tint);
+}
+.login-btn {
+  padding: 16px 24px;
+  background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+  color: var(--black);
+  border: none;
+  border-radius: 12px;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 14px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.login-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 24px rgba(201, 168, 76, 0.35);
+}
+.login-hint {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 2px;
+  color: var(--cream-50);
+  text-transform: uppercase;
+  margin-top: 24px;
+}
+
+/* ========== APP SHELL ========== */
+.app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+.app[hidden] { display: none; }
+
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  backdrop-filter: blur(20px);
+  background: rgba(5, 5, 5, 0.85);
+  border-bottom: 1px solid var(--cream-10);
+  padding: 16px 32px;
+}
+.topbar-inner {
+  max-width: 1240px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-width: 0;
+}
+.brand-logo {
+  width: 52px;
+  height: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 0 12px rgba(201, 168, 76, 0.45));
+  flex-shrink: 0;
+}
+.brand-text {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+.brand-name {
+  font-family: var(--font-display);
+  font-size: 20px;
+  line-height: 1;
+  letter-spacing: -0.5px;
+}
+.brand-sub {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-top: 4px;
+}
+.user-box {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.user-email {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 1px;
+  color: var(--cream-70);
+}
+.user-email .badge {
+  display: inline-block;
+  margin-left: 8px;
+  padding: 3px 9px;
+  border: 1px solid var(--gold-border);
+  border-radius: 60px;
+  background: var(--gold-tint);
+  color: var(--gold);
+  font-size: 9px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+}
+.ghost-btn {
+  padding: 8px 14px;
+  background: transparent;
+  border: 1px solid var(--cream-15);
+  color: var(--cream-70);
+  border-radius: 8px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.ghost-btn:hover {
+  border-color: var(--gold);
+  color: var(--gold);
+}
+
+/* ========== TABS ========== */
+.tab-nav {
+  position: sticky;
+  top: 73px;
+  z-index: 35;
+  backdrop-filter: blur(20px);
+  background: rgba(5, 5, 5, 0.85);
+  border-bottom: 1px solid var(--cream-10);
+}
+.tab-nav-inner {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 0 32px;
+  display: flex;
+  gap: 4px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.tab-nav-inner::-webkit-scrollbar { display: none; }
+.tab-btn {
+  padding: 18px 20px;
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid transparent;
+  color: var(--cream-50);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.2s;
+  white-space: nowrap;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+  min-width: 0;
+}
+.tab-btn:hover { color: var(--cream-90); }
+.tab-btn.active {
+  color: var(--gold);
+  border-bottom-color: var(--gold);
+}
+.tab-btn .tab-label {
+  font-family: var(--font-display);
+  font-size: 17px;
+  letter-spacing: -0.3px;
+  text-transform: none;
+  color: inherit;
+}
+.tab-btn .tab-meta {
+  font-size: 9px;
+  color: var(--cream-50);
+  letter-spacing: 1.5px;
+}
+.tab-btn.active .tab-meta { color: var(--gold); opacity: 0.7; }
+
+/* ========== CONTENT ========== */
+main {
+  flex: 1;
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 48px 32px 120px;
+  width: 100%;
+}
+.tab-panel { display: none; animation: fadeIn 0.5s ease; }
+.tab-panel.active { display: block; }
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 16px;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+.eyebrow::before {
+  content: "";
+  display: inline-block;
+  width: 24px;
+  height: 1px;
+  background: var(--gold);
+}
+
+h1.display {
+  font-family: var(--font-display);
+  font-size: clamp(42px, 5vw, 72px);
+  line-height: 1.0;
+  letter-spacing: -1.5px;
+  margin-bottom: 20px;
+}
+h1.display .gold {
+  background: linear-gradient(135deg, var(--gold), var(--gold-light));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-style: italic;
+}
+
+h2.section {
+  font-family: var(--font-display);
+  font-size: clamp(30px, 3.4vw, 44px);
+  line-height: 1.1;
+  letter-spacing: -1px;
+  margin: 56px 0 14px;
+  color: var(--cream);
+}
+h2.section .accent { color: var(--gold); font-style: italic; }
+
+h3.sub {
+  font-family: var(--font-display);
+  font-size: 26px;
+  line-height: 1.2;
+  letter-spacing: -0.4px;
+  margin: 36px 0 10px;
+  color: var(--cream);
+}
+
+h4.day-title {
+  font-family: var(--font-display);
+  font-size: 22px;
+  line-height: 1.2;
+  margin: 24px 0 8px;
+  color: var(--cream);
+}
+
+p {
+  font-size: 16px;
+  line-height: 1.65;
+  color: var(--cream-90);
+  margin-bottom: 14px;
+}
+p.lead {
+  font-size: 18px;
+  color: var(--cream-90);
+  line-height: 1.6;
+  font-weight: 300;
+  max-width: 820px;
+  margin-bottom: 20px;
+}
+p.quiet { color: var(--cream-70); font-size: 15px; }
+
+ul.bullets { list-style: none; margin: 10px 0 18px; }
+ul.bullets li {
+  position: relative;
+  padding: 6px 0 6px 22px;
+  font-size: 15px;
+  color: var(--cream-90);
+  line-height: 1.6;
+}
+ul.bullets li::before {
+  content: "▸";
+  position: absolute;
+  left: 0;
+  top: 6px;
+  color: var(--gold);
+  font-size: 14px;
+}
+
+.divider {
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--cream-15), transparent);
+  margin: 40px 0;
+}
+
+/* ========== PROGRESS BAR ========== */
+.progress-top {
+  background: rgba(240, 237, 230, 0.03);
+  border: 1px solid var(--cream-10);
+  border-radius: 16px;
+  padding: 22px 26px;
+  margin-bottom: 32px;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+.progress-top .progress-label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: var(--cream-50);
+}
+.progress-top .progress-value {
+  font-family: var(--font-display);
+  font-size: 28px;
+  color: var(--gold);
+  line-height: 1;
+  min-width: 72px;
+}
+.progress-bar {
+  flex: 1;
+  min-width: 200px;
+  height: 6px;
+  background: var(--cream-10);
+  border-radius: 60px;
+  overflow: hidden;
+}
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--gold-dark), var(--gold-light));
+  box-shadow: 0 0 12px var(--gold-glow);
+  transition: width 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  border-radius: 60px;
+}
+
+/* ========== CARDS / BOXES ========== */
+.card {
+  background: rgba(240, 237, 230, 0.03);
+  border: 1px solid var(--cream-10);
+  border-radius: 20px;
+  padding: 28px 32px;
+  margin-bottom: 24px;
+  backdrop-filter: blur(12px);
+  transition: border-color 0.2s;
+}
+.card:hover { border-color: var(--gold-border); }
+.card.gold {
+  border-color: var(--gold-border);
+  background: linear-gradient(160deg, var(--gold-tint), rgba(240, 237, 230, 0.03));
+}
+
+.day-card {
+  background: rgba(240, 237, 230, 0.025);
+  border: 1px solid var(--cream-10);
+  border-radius: 18px;
+  padding: 28px 32px;
+  margin-bottom: 28px;
+  transition: border-color 0.2s;
+}
+.day-card:hover { border-color: var(--gold-border); }
+.day-card-header {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 4px;
+}
+.day-num {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 3px;
+  color: var(--gold);
+  text-transform: uppercase;
+}
+.day-card h4 {
+  font-family: var(--font-display);
+  font-size: 26px;
+  letter-spacing: -0.4px;
+  color: var(--cream);
+  margin: 0;
+}
+.day-card .day-progress {
+  margin-left: auto;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 2px;
+  color: var(--cream-50);
+  text-transform: uppercase;
+}
+
+/* ========== CHECKBOXES ========== */
+.check-group { margin: 12px 0; }
+.check-group-title {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: var(--cream-50);
+  margin: 20px 0 10px;
+}
+.check {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 12px 14px;
+  margin: 6px 0;
+  background: rgba(240, 237, 230, 0.02);
+  border: 1px solid var(--cream-10);
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.2s;
+  user-select: none;
+}
+.check:hover {
+  border-color: var(--gold-border);
+  background: rgba(240, 237, 230, 0.04);
+}
+.check.kyle {
+  background: linear-gradient(90deg, var(--gold-tint), rgba(240, 237, 230, 0.02));
+  border-color: var(--gold-border);
+  border-left: 3px solid var(--gold);
+}
+.check.kyle.locked {
+  cursor: not-allowed;
+  opacity: 0.88;
+}
+.check.kyle.locked:hover { border-color: var(--gold-border); }
+.check-box {
+  width: 22px;
+  height: 22px;
+  border: 1.5px solid var(--cream-30);
+  border-radius: 6px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+  margin-top: 1px;
+}
+.check.kyle .check-box { border-color: var(--gold); }
+.check.checked .check-box {
+  background: var(--gold);
+  border-color: var(--gold);
+  box-shadow: 0 0 12px var(--gold-glow);
+}
+.check-box svg {
+  width: 14px;
+  height: 14px;
+  stroke: var(--black);
+  stroke-width: 3;
+  fill: none;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+.check.checked .check-box svg { opacity: 1; }
+.check-text {
+  font-size: 15px;
+  line-height: 1.55;
+  color: var(--cream-90);
+  flex: 1;
+}
+.check.checked .check-text {
+  color: var(--cream-50);
+  text-decoration: line-through;
+  text-decoration-color: var(--gold);
+}
+.check.kyle .check-text { color: var(--cream); }
+.check.kyle.checked .check-text { color: var(--cream-50); }
+.check-kyle-tag {
+  display: inline-block;
+  margin-left: 8px;
+  padding: 2px 8px;
+  border: 1px solid var(--gold-border);
+  border-radius: 60px;
+  font-family: var(--font-mono);
+  font-size: 8px;
+  letter-spacing: 1.5px;
+  color: var(--gold);
+  text-transform: uppercase;
+  vertical-align: middle;
+}
+
+/* ========== RESOURCE / LINK BOXES ========== */
+.resource-box {
+  margin: 14px 0;
+  padding: 16px 20px;
+  background: linear-gradient(90deg, var(--gold-tint), transparent);
+  border-left: 2px solid var(--gold);
+  border-radius: 10px;
+  font-size: 14px;
+  color: var(--cream-90);
+  line-height: 1.55;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.resource-box .rb-label {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: var(--gold);
+  flex-shrink: 0;
+}
+.resource-box .rb-text { flex: 1; min-width: 200px; }
+.resource-box a.rb-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-left: auto;
+  padding: 8px 14px;
+  background: var(--gold);
+  color: var(--black);
+  border: none;
+  border-radius: 8px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  font-weight: 500;
+  transition: all 0.2s;
+}
+.resource-box a.rb-link:hover {
+  background: var(--gold-light);
+  box-shadow: 0 4px 16px var(--gold-glow);
+  transform: translateY(-1px);
+}
+.resource-box.soon {
+  background: linear-gradient(90deg, rgba(240, 237, 230, 0.04), transparent);
+  border-left-color: var(--cream-30);
+}
+.resource-box.soon .rb-label { color: var(--cream-50); }
+.resource-box.soon .rb-text { color: var(--cream-70); font-style: italic; }
+.soon-pill {
+  margin-left: auto;
+  padding: 6px 12px;
+  border: 1px dashed var(--cream-30);
+  border-radius: 60px;
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--cream-50);
+  flex-shrink: 0;
+}
+
+.callout {
+  margin: 18px 0;
+  padding: 24px 28px;
+  background: linear-gradient(160deg, var(--gold-tint), rgba(240, 237, 230, 0.03));
+  border: 1px solid var(--gold-border);
+  border-left: 3px solid var(--gold);
+  border-radius: 14px;
+}
+.callout p:last-child { margin-bottom: 0; }
+.callout-label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 10px;
+}
+
+/* ========== SCHEDULE TABLE ========== */
+.schedule {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  margin: 20px 0;
+  border: 1px solid var(--cream-10);
+  border-radius: 14px;
+  overflow: hidden;
+}
+.schedule th, .schedule td {
+  padding: 14px 18px;
+  text-align: left;
+  font-size: 14px;
+  line-height: 1.5;
+}
+.schedule th {
+  background: rgba(240, 237, 230, 0.04);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--gold);
+  font-weight: 500;
+  border-bottom: 1px solid var(--cream-10);
+}
+.schedule td { color: var(--cream-90); border-bottom: 1px solid var(--cream-05); }
+.schedule tr:last-child td { border-bottom: none; }
+.schedule td:first-child {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--gold);
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+  width: 38%;
+}
+
+/* ========== RUBRIC TABLE ========== */
+.rubric {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  margin: 20px 0;
+  border: 1px solid var(--cream-10);
+  border-radius: 14px;
+  overflow: hidden;
+}
+.rubric th, .rubric td {
+  padding: 14px 18px;
+  text-align: left;
+  font-size: 14px;
+  line-height: 1.5;
+  border-bottom: 1px solid var(--cream-05);
+}
+.rubric th {
+  background: rgba(240, 237, 230, 0.04);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--gold);
+  font-weight: 500;
+  border-bottom: 1px solid var(--cream-10);
+}
+.rubric td:first-child { color: var(--gold); font-weight: 500; width: 32%; }
+.rubric td { color: var(--cream-90); }
+.rubric tr:last-child td { border-bottom: none; }
+
+/* ========== WEEK INTRO BANNER ========== */
+.week-banner {
+  margin-bottom: 40px;
+  padding: 40px 40px 36px;
+  border-radius: 22px;
+  background: linear-gradient(135deg, var(--gold-tint-strong), rgba(240, 237, 230, 0.02));
+  border: 1px solid var(--gold-border);
+  position: relative;
+  overflow: hidden;
+}
+.week-banner::before {
+  content: "";
+  position: absolute;
+  top: -50%;
+  right: -20%;
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, var(--gold-glow), transparent 60%);
+  opacity: 0.18;
+  pointer-events: none;
+}
+.week-banner .week-num {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 4px;
+  color: var(--gold);
+  text-transform: uppercase;
+  margin-bottom: 14px;
+}
+.week-banner h1 {
+  font-family: var(--font-display);
+  font-size: clamp(42px, 5.2vw, 72px);
+  line-height: 1;
+  letter-spacing: -1.5px;
+  margin-bottom: 10px;
+}
+.week-banner h1 .gold {
+  background: linear-gradient(135deg, var(--gold), var(--gold-light));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-style: italic;
+}
+.week-banner .theme {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 22px;
+  color: var(--cream-70);
+  line-height: 1.4;
+  max-width: 760px;
+  position: relative;
+}
+
+/* ========== DAILY GOAL INPUT ========== */
+.goal-input-row {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin: 10px 0;
+  padding: 10px 14px;
+  background: rgba(240, 237, 230, 0.02);
+  border: 1px solid var(--cream-10);
+  border-radius: 12px;
+}
+.goal-input-row label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 2px;
+  color: var(--cream-50);
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.goal-input-row input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  color: var(--cream);
+  font-family: var(--font-body);
+  font-size: 14px;
+  outline: none;
+  padding: 6px 0;
+}
+.goal-input-row input::placeholder { color: var(--cream-30); }
+
+/* ========== GRID ========== */
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+.mini-card {
+  padding: 22px 24px;
+  background: rgba(240, 237, 230, 0.03);
+  border: 1px solid var(--cream-10);
+  border-radius: 16px;
+}
+.mini-card .mc-num {
+  font-family: var(--font-display);
+  font-size: 44px;
+  line-height: 1;
+  color: var(--gold);
+  margin-bottom: 8px;
+}
+.mini-card .mc-title {
+  font-family: var(--font-display);
+  font-size: 20px;
+  line-height: 1.2;
+  color: var(--cream);
+  margin-bottom: 8px;
+}
+.mini-card .mc-desc {
+  font-size: 14px;
+  color: var(--cream-70);
+  line-height: 1.55;
+}
+
+/* ========== FOOTER ========== */
+.footer {
+  padding: 40px 32px 60px;
+  text-align: center;
+  border-top: 1px solid var(--cream-10);
+  margin-top: 60px;
+}
+.footer p {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 2px;
+  color: var(--cream-50);
+  text-transform: uppercase;
+  margin: 0;
+}
+
+/* ========== TOAST ========== */
+.toast {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  padding: 14px 20px;
+  background: var(--black-lighter);
+  border: 1px solid var(--gold);
+  border-radius: 12px;
+  color: var(--cream);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  z-index: 100;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.3s;
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.6), 0 0 20px var(--gold-tint);
+  pointer-events: none;
+}
+.toast.show { opacity: 1; transform: translateY(0); }
+
+/* ========== RESPONSIVE ========== */
+@media (max-width: 860px) {
+  .topbar { padding: 14px 18px; }
+  .tab-nav-inner { padding: 0 18px; }
+  .tab-btn { padding: 14px 14px; }
+  .tab-btn .tab-label { font-size: 14px; }
+  main { padding: 32px 18px 100px; }
+  .grid-2, .grid-3 { grid-template-columns: 1fr; }
+  .card, .day-card, .week-banner { padding: 24px 22px; }
+  .login-card { padding: 36px 28px; }
+  .schedule td:first-child { width: auto; }
+  .brand-sub { display: none; }
+  .user-email { display: none; }
+}
+</style>
+</head>
+<body>
+
+<!-- ========== LOGIN ========== -->
+<div class="login-wrap" id="loginView">
+  <div class="login-card">
+    <img class="login-logo" src="logo.png" alt="Disruptors Media">
+    <div class="login-eyebrow">Disruptors Media</div>
+    <h1 class="login-title">The First <span class="gold">30 Days</span></h1>
+    <p class="login-sub">Sales training curriculum for new Strategists &amp; Partners. Log in with your email to track your progress across the program.</p>
+    <form class="login-form" id="loginForm">
+      <input type="email" class="login-input" id="emailInput" placeholder="your.email@disruptorsmedia.com" autocomplete="email" required>
+      <button type="submit" class="login-btn">Start Training</button>
+    </form>
+    <div class="login-hint">Your progress is saved automatically</div>
+  </div>
+</div>
+
+<!-- ========== APP ========== -->
+<div class="app" id="appView" hidden>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="brand">
+        <img class="brand-logo" src="logo.png" alt="Disruptors Media">
+        <div class="brand-text">
+          <div class="brand-name">Disruptors Media</div>
+          <div class="brand-sub">Sales Training · First 30 Days</div>
+        </div>
+      </div>
+      <div class="user-box">
+        <div class="user-email" id="userEmail"></div>
+        <button class="ghost-btn" id="logoutBtn">Log out</button>
+      </div>
+    </div>
+  </header>
+
+  <nav class="tab-nav">
+    <div class="tab-nav-inner" id="tabNav"></div>
+  </nav>
+
+  <main id="mainContent"></main>
+
+  <footer class="footer">
+    <p>Disruptors Media · Internal Training · Do Not Distribute</p>
+  </footer>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+/* =========================================================
+   DATA MODEL
+   ========================================================= */
+
+// Kyle admin emails (lowercase). These users can toggle kyle-checkboxes.
+const KYLE_EMAILS = [
+  'kyle@disruptorsmedia.com',
+  'kyle.painter@disruptorsmedia.com',
+  'kylepainter@disruptorsmedia.com',
+  'admin@disruptorsmedia.com'
+];
+
+const TABS = [
+  { id: 'overview', label: 'Overview', meta: 'Foundations' },
+  { id: 'week1', label: 'Week 1', meta: 'Days 1–5 · Foundation' },
+  { id: 'week2', label: 'Week 2', meta: 'Days 6–10 · Skills & Volume' },
+  { id: 'week3', label: 'Week 3', meta: 'Days 11–15 · Field Work' },
+  { id: 'week4', label: 'Week 4', meta: 'Days 16–21+ · Independence' }
+];
+
+/* Every [CHECKBOX] has a stable id. Kyle-only items get type:'kyle'. */
+const CURRICULUM = {
+  overview: {
+    title: 'Overview & Foundations',
+    intro: 'Your roadmap for the first 30 days as a Disruptors Media Strategist or Partner. It is designed to be honest, practical, and fast.'
+  },
+  week1: {
+    banner: {
+      num: 'Week 01',
+      title: 'Foundation',
+      theme: 'Learn enough to be dangerous. Then get on the phone.'
+    },
+    days: [
+      {
+        id: 'd1', num: 'Day 1', title: 'Company, ICP, and Who We Help',
+        blocks: [
+          { type: 'section', title: 'Morning Training', subtitle: '1 hour with Kyle' },
+          { type: 'check', id: 'd1_morning', text: 'Attended morning training session' },
+          { type: 'p', text: '<strong>Topics covered:</strong> The origin of Disruptors Media and why it exists · The Strategist and Partner tracks · Who we serve: the ICP defined in detail · Why service businesses are underserved by the current marketing landscape.' },
+          { type: 'resource', label: 'Link', text: 'Strategist vs. Partner Overview — compensation, role structure, and what success looks like at each stage.', url: 'https://disruptors-strategist-partner.vercel.app/#1' },
+          { type: 'check', id: 'd1_sp_overview', text: 'Reviewed the Strategist & Partner overview document' },
+          { type: 'check', id: 'd1_icp', text: 'Read and can describe the ICP without notes' },
+
+          { type: 'section', title: 'Client Case Studies' },
+          { type: 'p', text: 'Before making any calls, you need social proof. Review the real client examples so you can speak to outcomes when asked "who have you worked with?"' },
+          { type: 'resource', label: 'Link', text: 'Disruptors Client Case Studies — scrolling deck of real client outcomes.', url: 'https://canva.link/4yu6dw7ecb2wvx3' },
+          { type: 'check', id: 'd1_case_reviewed', text: 'Reviewed all client case studies' },
+          { type: 'check', id: 'd1_case_3', text: 'Can name at least 3 clients and describe the outcome we produced for each' },
+
+          { type: 'section', title: 'Afternoon Role-Play with Kyle' },
+          { type: 'callout', label: 'Prompt from Kyle', text: '"Who does Disruptors Media work with and why do those businesses need you?"' },
+          { type: 'check', id: 'd1_verbal', text: 'Completed this verbal deliverable with Kyle' },
+          { type: 'kyle', id: 'd1_kyle_pass', text: 'Rep passed the Day 1 verbal check' }
+        ]
+      },
+      {
+        id: 'd2', num: 'Day 2', title: 'The Offer and How We Position',
+        blocks: [
+          { type: 'section', title: 'Morning Training', subtitle: '1 hour with Kyle' },
+          { type: 'check', id: 'd2_morning', text: 'Attended morning training session' },
+          { type: 'p', text: '<strong>Topics:</strong> The full Disruptors Media service menu · How to talk about our offer without sounding like every other agency · Why we\'re a meaningful alternative to doing nothing, a traditional agency, DIY, or a freelancer.' },
+
+          { type: 'section', title: 'How We\'re Different', subtitle: 'Memorize these' },
+          { type: 'ol', items: [
+            'We build AI-empowered systems custom to each client, inside <em>their own</em> software. No artificial dependency on us. They own everything we build.',
+            'We work live with their team and teach AI as we go. Every engagement makes their people more capable, not more reliant.',
+            'Month-to-month. No long-term contracts. We earn the relationship every month.',
+            'We don\'t push any one marketing mechanism. Strategy follows the client\'s needs, not our preferred channel.'
+          ]},
+
+          { type: 'section', title: 'Service Offerings Reference' },
+          { type: 'resource', label: 'Link', text: 'Disruptors Services and Pricing — full service menu with descriptions and typical price ranges.', url: 'https://disruptors-pricing-guide.vercel.app/#rules' },
+          { type: 'check', id: 'd2_services_reviewed', text: 'Reviewed all service offerings' },
+          { type: 'check', id: 'd2_services_4', text: 'Can describe at least 4 service offerings from memory' },
+
+          { type: 'section', title: 'Proposal Reference' },
+          { type: 'resource', label: 'Link', text: 'Sample Disruptors Media proposals — shared Google Drive with example PDFs plus the system instructions and assets you need to spin up your own custom Claude proposal-writing project.', url: 'https://drive.google.com/drive/folders/16swPpE7wsNbZ9QlNFQPIH3W4Ylg2z6kH?usp=sharing' },
+          { type: 'check', id: 'd2_proposal', text: 'Reviewed a sample proposal' },
+
+          { type: 'section', title: 'Competitive Positioning Breakdown' },
+          { type: 'resource', label: 'Link', text: 'Why a Fractional Chief AI Officer beats a marketing agency — the core competitive positioning argument and talking points.', url: 'https://chief-ai-officer-difference.vercel.app/' },
+          { type: 'check', id: 'd2_competitive', text: 'Reviewed competitive positioning document' },
+
+          { type: 'section', title: 'Afternoon Role-Play with Kyle' },
+          { type: 'callout', label: 'Prompt from Kyle', text: '"So what do you guys do?"' },
+          { type: 'p', text: 'Your answer must be clear, specific, jargon-free, and under 90 seconds.' },
+          { type: 'check', id: 'd2_verbal', text: 'Completed this verbal deliverable with Kyle' },
+          { type: 'kyle', id: 'd2_kyle_pass', text: 'Rep passed the Day 2 verbal check' }
+        ]
+      },
+      {
+        id: 'd3', num: 'Day 3', title: 'First Cold Calls',
+        blocks: [
+          { type: 'section', title: 'Before You Dial: Lead Identification' },
+          { type: 'p', text: '<strong>Step 1:</strong> Pick a niche that interests you personally OR one where DM has strong case studies. <strong>Step 2:</strong> Use Claude to build a lead list in that niche.' },
+          { type: 'resource', label: 'Resource', text: 'Lead Identification Workflow with Claude — how to build a niche lead list and pull phone numbers.', soon: true },
+          { type: 'check', id: 'd3_niche', text: 'Chose a target niche' },
+          { type: 'check', id: 'd3_list50', text: 'Built a lead list of at least 50 contacts using Claude' },
+
+          { type: 'section', title: 'Morning Training', subtitle: '1 hour with Kyle' },
+          { type: 'check', id: 'd3_morning', text: 'Attended morning training session' },
+          { type: 'p', text: '<strong>Topics:</strong> Structure of an effective cold call opener (pattern interrupt, value hook, soft ask) · Gatekeeper handling · The three most common early objections ("I\'m not interested" / "We already have someone" / "Send me an email") · The goal of a cold call: NOT to close. To open a real conversation.' },
+
+          { type: 'section', title: 'Pre-Call Role-Play' },
+          { type: 'p', text: 'Run the opener 5 times with Kyle playing the prospect. Kyle scores each rep.' },
+          { type: 'check', id: 'd3_roleplay5', text: 'Completed 5 pre-call role-play reps' },
+
+          { type: 'section', title: 'First Cold Calling Block', subtitle: '60–90 minutes' },
+          { type: 'goalInput', id: 'd3_goal', label: 'My call goal for today' },
+          { type: 'check', id: 'd3_block', text: 'Made first cold calling block (minimum 20 dials)' },
+          { type: 'callout', label: 'GHL CRM — What to Log', text: 'You do <strong>not</strong> need to log every dial. Only prospects who express interest or book a call go into the GHL CRM. Keep your dial count in a simple tally — the CRM is reserved for real pipeline.' },
+          { type: 'check', id: 'd3_ghl', text: 'Entered any interested prospects and booked calls into the GHL CRM' },
+
+          { type: 'callout', label: 'Goal for Day 3', text: 'Not a booked meeting. The goal is to get through the opener without freezing, hear what real business owners actually say, and bring real objections to the afternoon debrief.' },
+
+          { type: 'section', title: 'End of Day Debrief' },
+          { type: 'check', id: 'd3_debrief', text: 'Completed end of day debrief with Kyle' },
+          { type: 'check', id: 'd3_eod_log', text: 'Noted dial count and objections heard from the day' }
+        ]
+      },
+      {
+        id: 'd4', num: 'Day 4', title: 'The Sales Framework and Client Journey',
+        blocks: [
+          { type: 'section', title: 'Morning Training', subtitle: '1 hour with Kyle' },
+          { type: 'check', id: 'd4_morning', text: 'Attended morning training session' },
+          { type: 'p', text: '<strong>Topics:</strong> The full arc of the Disruptors sales process · Kyle\'s conversational sales framework: each stage, its purpose, and what a good rep does · Your role vs. Kyle\'s until you\'re certified (you open and qualify, Kyle closes).' },
+
+          { type: 'section', title: 'The Disruptors Sales Framework' },
+          { type: 'resource', label: 'Link', text: 'Kyle\'s Sales Framework — the full conversational flow, stage by stage.', url: 'https://disruptors-sales-framework.netlify.app/#1' },
+          { type: 'check', id: 'd4_fw_read', text: 'Read the full sales framework at least once' },
+          { type: 'check', id: 'd4_fw_draw', text: 'Can draw each stage from memory without looking' },
+
+          { type: 'section', title: 'The Client Journey in Practice' },
+          { type: 'p', text: 'Kyle walks through each step live:' },
+          { type: 'bullets', items: [
+            'The cold call / outreach opener',
+            'The introductory / discovery call',
+            'The strategy session',
+            'The proposal',
+            'The agreement (GHL master sales form shown)',
+            'The payment processor',
+            'Onboarding'
+          ]},
+          { type: 'check', id: 'd4_walkthrough', text: 'Attended client journey walkthrough with Kyle' },
+          { type: 'check', id: 'd4_ghl_form', text: 'Saw the GHL master sales form' },
+          { type: 'check', id: 'd4_agreement', text: 'Saw the agreement document' },
+          { type: 'check', id: 'd4_payment', text: 'Saw the payment processor flow' },
+
+          { type: 'section', title: 'Handoff Criteria', subtitle: 'Before Kyle joins a strategy call' },
+          { type: 'ol', items: [
+            'What are their current pain points around marketing and growth?',
+            'Where do we suspect AI can help in their business?',
+            'Are they making $15k/month or more? (Uncover naturally — don\'t make it feel like a screening call.)'
+          ]},
+          { type: 'check', id: 'd4_handoff', text: 'Reviewed handoff criteria with Kyle' },
+
+          { type: 'section', title: 'Video Study: Real Introductory Calls' },
+          { type: 'p', text: 'Watch independently during afternoon study time. Notes on: what Kyle did well in the first 3 minutes, when the prospect started talking more, what pain point emerged, how Kyle responded.' },
+          { type: 'resource', label: 'Link', text: 'Kyle\'s real sales call recordings — full library of recorded discovery and closing calls.', url: 'https://sales-training-disruptorsais-projects.vercel.app/login' },
+          { type: 'check', id: 'd4_videos', text: 'Watched both example calls' },
+          { type: 'check', id: 'd4_notes', text: 'Wrote notes on each call (share with Kyle)' },
+
+          { type: 'section', title: 'End of Day Deliverable' },
+          { type: 'p', text: 'Walk through the sales framework from memory: stage names, purpose of each stage, and what happens at the handoff point.' },
+          { type: 'check', id: 'd4_recall', text: 'Completed framework recall with Kyle' },
+          { type: 'kyle', id: 'd4_kyle_pass', text: 'Rep can recite the framework accurately' }
+        ]
+      },
+      {
+        id: 'd5', num: 'Day 5', title: 'Objections from the Field',
+        blocks: [
+          { type: 'section', title: 'Morning Training', subtitle: '1 hour with Kyle' },
+          { type: 'check', id: 'd5_morning', text: 'Attended morning training session' },
+          { type: 'p', text: '<strong>Topics:</strong> What objections did you hear this week? · Address each as a group — what\'s the real concern, what\'s a response that acknowledges it and moves forward? · Expand the live objection list on the whiteboard.' },
+          { type: 'callout', label: 'Note', text: 'There is no static objection bank document. The list is built, worked, and refined live in Kyle\'s training sessions on the whiteboard. Capture your own notes during the session — those become your personal bank.' },
+          { type: 'check', id: 'd5_bank', text: 'Participated in the live objection session and captured my own notes' },
+
+          { type: 'section', title: 'Cold Calling Block', subtitle: '60–90 minutes' },
+          { type: 'goalInput', id: 'd5_goal', label: 'My call goal for today' },
+          { type: 'check', id: 'd5_block', text: 'Completed cold calling block (minimum 30 dials — building volume)' },
+          { type: 'check', id: 'd5_ghl', text: 'Entered any interested prospects and booked calls into the GHL CRM' },
+
+          { type: 'section', title: 'End of Week 1 Self-Assessment' },
+          { type: 'p', text: 'Score yourself 1–5 on each. If any score is 3 or below, Kyle does a focused 15-minute mini-session on that area before the week closes.' },
+          { type: 'check', id: 'd5_sa1', text: 'I can describe who Disruptors Media works with and why, without notes' },
+          { type: 'check', id: 'd5_sa2', text: 'I can deliver a 60–90 second answer to "what do you guys do?" naturally and confidently' },
+          { type: 'check', id: 'd5_sa3', text: 'I can get through the cold call opener without losing my place or freezing' },
+          { type: 'check', id: 'd5_sa4', text: 'I know the three early objection responses well enough to use them live' },
+          { type: 'check', id: 'd5_sa5', text: 'I can recite every stage of the Disruptors sales framework in order' },
+          { type: 'check', id: 'd5_sa6', text: 'I understand what I need to uncover before qualifying someone for a strategy call' },
+          { type: 'kyle', id: 'd5_kyle_complete', text: 'Week 1 self-assessment completed and reviewed' }
+        ]
+      }
+    ]
+  },
+
+  week2: {
+    banner: {
+      num: 'Week 02',
+      title: 'Skills & Volume',
+      theme: 'Get sharper. Go deeper. Dial more.'
+    },
+    days: [
+      {
+        id: 'd67', num: 'Days 6–7', title: 'Discovery and Qualifying',
+        blocks: [
+          { type: 'section', title: 'Morning Training', subtitle: '1 hour with Kyle — both days' },
+          { type: 'check', id: 'd6_morning', text: 'Day 6: Attended morning training' },
+          { type: 'check', id: 'd7_morning', text: 'Day 7: Attended morning training' },
+          { type: 'p', text: '<strong>Topics:</strong> Opening with a business owner and building rapport fast · The purpose of discovery (you\'re not pitching, you\'re learning) · Qualifying questions in sequence · The critical shift: listen to understand, not to reply.' },
+          { type: 'bullets', items: [
+            'What does their current marketing look like?',
+            'What\'s not working or what are they frustrated by?',
+            'What would growth mean to them specifically?',
+            'What\'s their monthly revenue? (Ask it naturally, not clinically.)'
+          ]},
+          { type: 'resource', label: 'Link', text: 'Kyle\'s Sales Framework — re-read the Discovery Stage section now that you\'re running real discovery calls.', url: 'https://disruptors-sales-framework.netlify.app/#1' },
+
+          { type: 'section', title: 'Role-Play: Discovery Calls', subtitle: 'Heavy volume, both days' },
+          { type: 'p', text: 'Kyle plays a skeptical business owner. Rep runs opener → discovery. Kyle scores: rapport in first 60 seconds, question quality & sequence, whether rep listened, whether at least one real pain point emerged.' },
+          { type: 'check', id: 'd6_rp', text: 'Day 6: Completed minimum 3 scored discovery role-plays' },
+          { type: 'check', id: 'd7_rp', text: 'Day 7: Completed minimum 3 scored discovery role-plays' },
+          { type: 'check', id: 'd6_feedback', text: 'Day 6: Received and reviewed Kyle\'s scoring feedback' },
+          { type: 'check', id: 'd7_feedback', text: 'Day 7: Received and reviewed Kyle\'s scoring feedback' },
+
+          { type: 'section', title: 'Cold Calling Blocks' },
+          { type: 'goalInput', id: 'd6_goal', label: 'Day 6 call goal' },
+          { type: 'check', id: 'd6_dials', text: 'Day 6: Minimum 50 dials completed' },
+          { type: 'goalInput', id: 'd7_goal', label: 'Day 7 call goal' },
+          { type: 'check', id: 'd7_dials', text: 'Day 7: Minimum 50 dials completed' },
+
+          { type: 'section', title: 'End of Day' },
+          { type: 'check', id: 'd6_eod', text: 'Day 6: Noted dial count, objections heard, and any interested prospects entered in GHL' },
+          { type: 'check', id: 'd7_eod', text: 'Day 7: Noted dial count, objections heard, and any interested prospects entered in GHL' }
+        ]
+      },
+      {
+        id: 'd89', num: 'Days 8–9', title: 'Appointment Setting',
+        blocks: [
+          { type: 'section', title: 'Morning Training', subtitle: '1 hour with Kyle — both days' },
+          { type: 'check', id: 'd8_morning', text: 'Day 8: Attended morning training' },
+          { type: 'check', id: 'd9_morning', text: 'Day 9: Attended morning training' },
+          { type: 'p', text: '<strong>Topics:</strong> Transitioning discovery → booked appointment · Appointment-setting language (what to say, what NOT to promise) · Own the process. Don\'t "bring on a closer" — Kyle is a resource, not a crutch · Finding a time on Kyle\'s calendar live during the call.' },
+          { type: 'resource', label: 'Link', text: 'Kyle\'s shared Google Calendar for strategy call booking.' },
+
+          { type: 'section', title: 'Client Research: The Pre-Call Process' },
+          { type: 'p', text: 'Before any strategy call, research the prospect. Kyle will show you the Claude project he uses.' },
+          { type: 'resource', label: 'Link', text: 'Marketing Research Assistant — Google Drive with the system-instructions prompt and assets you need to build your own client-research Claude project. Kyle walks you through it during Day 8 or 9 training.', url: 'https://drive.google.com/drive/folders/1LFHzH2vqCCTMDYhiofbh6hgh2Sfia5nU?usp=sharing' },
+          { type: 'check', id: 'd89_claude_walk', text: 'Attended walkthrough of the client research Claude project' },
+          { type: 'check', id: 'd89_claude_rep', text: 'Can replicate the research process independently for a new prospect' },
+
+          { type: 'section', title: 'Shadowing: Live Strategy Calls with Kyle' },
+          { type: 'p', text: 'If Kyle has strategy calls this week, you observe <strong>in the room</strong>. No remote mute-and-watch.' },
+          { type: 'check', id: 'd89_shadow', text: 'Observed at least one live strategy call with Kyle in person' },
+          { type: 'check', id: 'd89_debrief', text: 'Completed Shadow Call Debrief Sheet after each observed call' },
+          { type: 'resource', label: 'Resource', text: 'Shadow Call Debrief Sheet — one-pager with structured questions.' },
+          { type: 'callout', label: 'Shadow debrief — after every observed call', text: '1) How did Kyle open? 2) When did the prospect start talking more than Kyle? 3) What pain point became the center? 4) What objections came up, how were they handled? 5) How was the offer introduced? 6) What next step was agreed? 7) What would I have done differently, and why?' },
+
+          { type: 'section', title: 'Cold Calling Blocks' },
+          { type: 'resource', label: 'Link', text: 'Disruptors Cold Call Playbook — the psychology, openers, and scripting Kyle has found most useful. Review before each dialing block.', url: 'https://cold-call-playbook.vercel.app/' },
+          { type: 'goalInput', id: 'd8_goal', label: 'Day 8 call goal' },
+          { type: 'check', id: 'd8_dials', text: 'Day 8: Minimum 50 dials completed' },
+          { type: 'goalInput', id: 'd9_goal', label: 'Day 9 call goal' },
+          { type: 'check', id: 'd9_dials', text: 'Day 9: Minimum 50 dials completed' }
+        ]
+      },
+      {
+        id: 'd10', num: 'Day 10', title: 'Objection Handling Deep Dive',
+        blocks: [
+          { type: 'section', title: 'Morning Training — Session Format' },
+          { type: 'check', id: 'd10_morning', text: 'Attended morning training session' },
+          { type: 'ol', items: [
+            'Kyle writes the top objections on a whiteboard.',
+            'For each objection, the group works through the right response. Kyle writes resolutions on the board.',
+            'Reps practice each response with Kyle playing the prospect.',
+            'Kyle erases resolutions from the board.',
+            'Reps recite the responses from memory, one by one.'
+          ]},
+          { type: 'check', id: 'd10_whiteboard', text: 'Completed whiteboard objection exercise' },
+          { type: 'check', id: 'd10_recite', text: 'Completed memory recitation of all top objections without notes' },
+
+          { type: 'section', title: 'Cold Calling Block' },
+          { type: 'goalInput', id: 'd10_goal', label: 'Call goal for today' },
+          { type: 'check', id: 'd10_dials', text: 'Minimum 50 dials completed' },
+
+          { type: 'section', title: 'End of Week 2: Formal Evaluation' },
+          { type: 'p', text: 'Not a self-assessment. A graded evaluation by Kyle covering the past two weeks.' },
+          { type: 'resource', label: 'Link', text: 'Week 2 Evaluation — Kyle administers. Link to the evaluation form.' },
+          { type: 'check', id: 'd10_eval', text: 'Completed Week 2 formal evaluation' },
+          { type: 'kyle', id: 'd10_kyle_pass', text: 'Rep PASSED Week 2 evaluation' },
+          { type: 'kyle', id: 'd10_kyle_work', text: 'Rep needs additional work before advancing (specify areas)' }
+        ]
+      }
+    ]
+  },
+
+  week3: {
+    banner: {
+      num: 'Week 03',
+      title: 'Field Work',
+      theme: 'More reps. Real situations. Observe everything.'
+    },
+    days: [
+      {
+        id: 'd1113', num: 'Days 11–13', title: 'Field Focus and Dual Shadowing',
+        blocks: [
+          { type: 'section', title: 'Morning Debrief', subtitle: 'Shorter this week — 30 minutes' },
+          { type: 'p', text: 'Week 3 group sessions are shorter. The learning happens in the field.' },
+          { type: 'check', id: 'd11_morning', text: 'Day 11: Morning debrief attended' },
+          { type: 'check', id: 'd12_morning', text: 'Day 12: Morning debrief attended' },
+          { type: 'check', id: 'd13_morning', text: 'Day 13: Morning debrief attended' },
+          { type: 'p', text: '<strong>Debrief topics:</strong> New objections or breakthroughs from yesterday\'s calls · Who\'s shadowing Kyle today and who\'s shadowing Tyler?' },
+
+          { type: 'section', title: 'Shadowing: Kyle (Sales)' },
+          { type: 'p', text: 'Observe Kyle on strategy calls this week. Use the Shadow Call Debrief Sheet for each observed call.' },
+          { type: 'check', id: 'd1113_kyle_2', text: 'Observed at least 2 strategy calls with Kyle' },
+          { type: 'check', id: 'd1113_debrief', text: 'Completed Shadow Call Debrief Sheet after each (submit to Kyle)' },
+
+          { type: 'section', title: 'Shadowing: Tyler (Fulfillment)' },
+          { type: 'p', text: 'Observe Tyler on client fulfillment calls. Understanding the client experience after the sale directly improves your sales conversations — you\'ll be able to speak to onboarding and delivery with confidence.' },
+          { type: 'bullets', items: [
+            'How does Tyler open a client call?',
+            'How does he set expectations and manage scope?',
+            'What do clients ask about or push back on most?',
+            'How does Tyler handle an issue or something that isn\'t working?'
+          ]},
+          { type: 'check', id: 'd1113_tyler_2', text: 'Observed at least 2 fulfillment calls with Tyler' },
+          { type: 'check', id: 'd1113_tyler_notes', text: 'Completed written notes on fulfillment observations (share with Kyle)' },
+
+          { type: 'section', title: 'Cold Calling Blocks' },
+          { type: 'goalInput', id: 'd11_goal', label: 'Day 11 call goal' },
+          { type: 'check', id: 'd11_dials', text: 'Day 11: Minimum 50 dials completed. Interested prospects entered into GHL CRM.' },
+          { type: 'goalInput', id: 'd12_goal', label: 'Day 12 call goal' },
+          { type: 'check', id: 'd12_dials', text: 'Day 12: Minimum 50 dials completed. Interested prospects entered into GHL CRM.' },
+          { type: 'goalInput', id: 'd13_goal', label: 'Day 13 call goal' },
+          { type: 'check', id: 'd13_dials', text: 'Day 13: Minimum 50 dials completed. Interested prospects entered into GHL CRM.' },
+
+          { type: 'section', title: 'Goal This Week' },
+          { type: 'p', text: 'At least 2 real strategy calls should be booked and attended by end of Day 13. Kyle closes.' },
+          { type: 'check', id: 'd1113_book1', text: 'Booked at least 1 strategy call' },
+          { type: 'check', id: 'd1113_book2', text: 'Booked at least 2 strategy calls' },
+          { type: 'kyle', id: 'd1113_kyle_notes', text: 'Rep\'s strategy call notes and handoff summaries in GHL were complete and useful' }
+        ]
+      },
+      {
+        id: 'd1415', num: 'Days 14–15', title: 'Full-Cycle Role-Play Days',
+        blocks: [
+          { type: 'section', title: 'Format' },
+          { type: 'p', text: 'Two days dedicated heavily to end-to-end role-play simulations. Morning training still runs. Afternoon extends into deeper practice runs.' },
+          { type: 'check', id: 'd14_morning', text: 'Day 14: Attended morning training' },
+          { type: 'check', id: 'd15_morning', text: 'Day 15: Attended morning training' },
+
+          { type: 'section', title: 'The Full-Cycle Rep', subtitle: 'Kyle plays a realistic business owner' },
+          { type: 'ol', items: [
+            'Cold call opener',
+            'Discovery questions',
+            'Qualifying (uncover pain, revenue, fit)',
+            'Transition to booking a strategy call',
+            'First 10–15 minutes of the strategy call (rapport, agenda-setting, diving into their situation)'
+          ]},
+          { type: 'rubric' },
+
+          { type: 'check', id: 'd14_rp2', text: 'Day 14: Completed minimum 2 full-cycle role-play reps, scored by Kyle' },
+          { type: 'check', id: 'd15_rp2', text: 'Day 15: Completed minimum 2 full-cycle role-play reps, scored by Kyle' },
+          { type: 'check', id: 'd1415_review', text: 'Reviewed all rubric scores and noted specific improvement areas' },
+
+          { type: 'section', title: 'Cold Calling Blocks' },
+          { type: 'goalInput', id: 'd14_goal', label: 'Day 14 call goal' },
+          { type: 'check', id: 'd14_dials', text: 'Day 14: Minimum 50 dials completed. Interested prospects entered into GHL CRM.' },
+          { type: 'goalInput', id: 'd15_goal', label: 'Day 15 call goal' },
+          { type: 'check', id: 'd15_dials', text: 'Day 15: Minimum 50 dials completed. Interested prospects entered into GHL CRM.' }
+        ]
+      }
+    ]
+  },
+
+  week4: {
+    banner: {
+      num: 'Week 04',
+      title: 'Independent Operation',
+      theme: 'Prove you\'re ready. Own your pipeline.'
+    },
+    days: [
+      {
+        id: 'd1618', num: 'Days 16–18', title: 'Independent Outreach & Pipeline',
+        blocks: [
+          { type: 'section', title: 'What Changes This Week' },
+          { type: 'p', text: 'You operate with significantly more independence. Kyle reviews activity logs at end of day but does not supervise calls in real time. Morning training still runs. Afternoon role-play and coaching still runs. The middle of the day is yours.' },
+          { type: 'check', id: 'd16_morning', text: 'Day 16: Morning training attended' },
+          { type: 'check', id: 'd17_morning', text: 'Day 17: Morning training attended' },
+          { type: 'check', id: 'd18_morning', text: 'Day 18: Morning training attended' },
+
+          { type: 'section', title: 'Daily Targets' },
+          { type: 'goalInput', id: 'd16_goal', label: 'Day 16 call + booking goal' },
+          { type: 'check', id: 'd16_dials', text: 'Day 16: Minimum 50 dials completed. Interested prospects entered into GHL CRM.. Personal call booking goal set.' },
+          { type: 'goalInput', id: 'd17_goal', label: 'Day 17 call + booking goal' },
+          { type: 'check', id: 'd17_dials', text: 'Day 17: Minimum 50 dials completed. Interested prospects entered into GHL CRM.. Personal call booking goal set.' },
+          { type: 'goalInput', id: 'd18_goal', label: 'Day 18 call + booking goal' },
+          { type: 'check', id: 'd18_dials', text: 'Day 18: Minimum 50 dials completed. Interested prospects entered into GHL CRM.. Personal call booking goal set.' },
+
+          { type: 'section', title: 'GoHighLevel Pipeline Review' },
+          { type: 'p', text: 'Every strategy call you book this week has a complete GHL notes summary before the call. Kyle reads your notes cold, then gives you feedback: "Would I have been prepared to close based on what you wrote?"' },
+          { type: 'check', id: 'd1618_ghl', text: 'All booked calls have complete GHL notes submitted before call time' },
+          { type: 'kyle', id: 'd1618_kyle_notes', text: 'Rep\'s GHL documentation is call-ready' },
+
+          { type: 'section', title: 'Running Your Own Calls' },
+          { type: 'p', text: 'If you feel ready to run a strategy call independently this week, you may. Kyle is available if you want his help on a specific deal. Your decision, not a requirement. Your first solo close will be a big moment — when it happens, we make it one.' },
+          { type: 'check', id: 'd1618_solo', text: '(Optional) Ran a strategy call independently this week' },
+          { type: 'check', id: 'd1618_ask', text: '(Optional) Requested Kyle\'s help on a specific deal' }
+        ]
+      },
+      {
+        id: 'd1920', num: 'Days 19–20', title: 'Certification Prep',
+        blocks: [
+          { type: 'section', title: 'Certification Prep' },
+          { type: 'p', text: 'Preparing for the Day 21+ certification: a full mock strategy call recorded on video, assessed by a custom Claude project built by Kyle.' },
+          { type: 'check', id: 'd19_rp2', text: 'Day 19: Completed 2 full-cycle role-plays with Kyle, scored and debriefed' },
+          { type: 'check', id: 'd20_rp2', text: 'Day 20: Completed 2 full-cycle role-plays with Kyle, scored and debriefed' },
+
+          { type: 'section', title: 'Prep Checklist' },
+          { type: 'check', id: 'd1920_review', text: 'Reviewed all Shadow Call Debrief Sheets from Weeks 3–4' },
+          { type: 'check', id: 'd1920_top10', text: 'Wrote out natural responses to the top 10 objections without looking. Read them back. Edited anything that sounded rehearsed.' },
+          { type: 'check', id: 'd1920_walk', text: 'Practiced the offer walkthrough and proposal framing at least 3 times' },
+
+          { type: 'kyle', id: 'd1920_kyle_done', text: 'Day 19–20 role-play assessments completed' }
+        ]
+      },
+      {
+        id: 'd21', num: 'Day 21+', title: 'The Certification',
+        blocks: [
+          { type: 'section', title: 'Format' },
+          { type: 'p', text: 'A recorded video role-play. Kyle plays a realistic, resistant business owner. You run the full strategy call from opener to next-step close. Submitted to the DM custom Claude assessment project. Score of 4/5 or higher across categories = a pass.' },
+          { type: 'resource', label: 'Link', text: 'Disruptors Media Sales Certification — Claude Assessment Project (link added when built).' },
+          { type: 'check', id: 'd21_record', text: 'Completed certification role-play (recorded on video)' },
+          { type: 'check', id: 'd21_submit', text: 'Submitted recording to the Claude assessment project' },
+          { type: 'kyle', id: 'd21_kyle_pass', text: 'PASSED — Rep is certified to run and close strategy calls independently' },
+          { type: 'kyle', id: 'd21_kyle_retry', text: 'Not yet passed — specific feedback provided, second attempt scheduled' },
+
+          { type: 'section', title: 'Your First Sale' },
+          { type: 'p', text: 'Passing the certification means you can close independently. When you bring in your first client on your own, we celebrate it. This is not a small thing. Your first sale is proof you have built a skill that will pay you for as long as you use it — the result of every uncomfortable call, every role-play you pushed through, every objection you learned to handle instead of retreat from.' },
+          { type: 'callout', label: 'First Sale', text: 'We make it a big deal. Because it is.' },
+
+          { type: 'section', title: 'After Month 1: Ongoing Development' },
+          { type: 'bullets', items: [
+            '<strong>Weekly 1-on-1 with Kyle:</strong> Continues indefinitely. One session per week — what you\'re seeing in the field, where you\'re winning, where you need sharpening.',
+            '<strong>Annual re-certification:</strong> Optional but recommended as the framework evolves.',
+            '<strong>Peer role-play:</strong> Encouraged between reps on a regular cadence.'
+          ]},
+          { type: 'p', text: 'The standard for continued independent operation is 4/5 or higher on Kyle\'s Claude assessment project whenever a re-check is done.' }
+        ]
+      }
+    ]
+  }
+};
+
+/* =========================================================
+   STATE & STORAGE
+   ========================================================= */
+
+const STORAGE_PREFIX = 'dm_30day_';
+let currentUser = null;
+let state = {}; // { checkId: true/false, goal_dXXX: "string" }
+
+function storageKey(email) { return STORAGE_PREFIX + email.toLowerCase().trim(); }
+
+function loadState(email) {
+  try {
+    const raw = localStorage.getItem(storageKey(email));
+    return raw ? JSON.parse(raw) : {};
+  } catch (e) { return {}; }
+}
+
+function saveState() {
+  if (!currentUser) return;
+  localStorage.setItem(storageKey(currentUser), JSON.stringify(state));
+}
+
+function isKyle() {
+  return currentUser && KYLE_EMAILS.includes(currentUser.toLowerCase().trim());
+}
+
+/* =========================================================
+   RENDER
+   ========================================================= */
+
+function renderOverview() {
+  return `
+    <div class="tab-panel active" id="panel-overview">
+      <div class="eyebrow">Foundations</div>
+      <h1 class="display">Welcome to the <span class="gold">Disruptors Media</span> Sales Training</h1>
+      <p class="lead">This is your roadmap to your first 30 days as a Strategist or Partner with Disruptors Media. Following this roadmap, you'll receive the training you'll need to know precisely how to build your MRR (Monthly Recurring Revenue) that you manage. As you go through this roadmap, you'll learn the skill of effective communication that leads to action — aka sales. This is a necessary skill if you're going to build your income and your business inside the umbrella of Disruptors Media.</p>
+      <p>Luckily for you, you count on the leadership and experience of seasoned veterans of sales, marketing, AI automation, and client relations. Combined, Disruptors Media has <strong>35+ years</strong> executing high-ticket sales and training others to do the same. As you go through these next 30 days, take advantage of the training and shadowing opportunities Disruptors leadership provides. And remember — unlocking these skills opens doors for growth and earnings that are uncapped.</p>
+
+      <h2 class="section">The Two Core <span class="accent">Philosophies</span></h2>
+
+      <div class="card gold">
+        <h3 class="sub">1 · You Eat What You Kill</h3>
+        <p>At Disruptors Media, we believe in uncapped growth. We want every member of our team to be paid in direct proportion to the value they bring. We provide the systems and training for each person to create their own business and income inside the umbrella of DM.</p>
+        <p>No artificial ceiling. No politics, no waiting your turn, no bureaucratic pay band that caps your upside. Those who take ownership of their own skill acquisition and put in the work can make a truly life-changing income. The results you produce determine the life you build. That's not a warning — that's an invitation.</p>
+      </div>
+
+      <div class="card gold">
+        <h3 class="sub">2 · Up-Skilling Is a MUST in the Age of AI</h3>
+        <p>In a world where so many skills are becoming obsolete, it is vital that every person on this team level up consistently and aggressively.</p>
+        <div class="grid-2" style="margin-top:18px;">
+          <div class="mini-card">
+            <div class="mc-title">Human Skills</div>
+            <div class="mc-desc">Communication, integrity, diligence, empathy, follow-through, and the ability to earn trust face-to-face and voice-to-voice. These cannot be automated. They become more valuable the more AI advances.</div>
+          </div>
+          <div class="mini-card">
+            <div class="mc-title">AI Skills</div>
+            <div class="mc-desc">Automation, systems creation, prompt engineering, workflow design, and creative output using AI tools. These multiply the output of human skill exponentially.</div>
+          </div>
+        </div>
+        <p style="margin-top:18px;">The First 30 Days focuses heavily on human skills: communicating with business owners, earning attention, building credibility in seconds, and moving a conversation toward a decision. The AI layer is taught throughout — but the foundation here is you, on the phone, with a real person on the other end.</p>
+      </div>
+
+      <h2 class="section">How the <span class="accent">Curriculum</span> Works</h2>
+      <p>Each day has a structured agenda, training activities, and one or more end-of-day deliverables. Deliverables are not optional — they are the proof that the training stuck.</p>
+      <p>You check off items as you complete them. Kyle checks off evaluations, assessments, and milestone passes. Progress is visible to both of you at all times.</p>
+
+      <h2 class="section">The <span class="accent">Daily Rhythm</span></h2>
+      <p>Your schedule during the first 30 days follows this structure. Punctuality is non-negotiable. Kyle starts on time.</p>
+      <table class="schedule">
+        <thead><tr><th>Time Block</th><th>Activity</th></tr></thead>
+        <tbody>
+          <tr><td>Morning, first hour (sharp)</td><td>Group training session with Kyle — all new hires present</td></tr>
+          <tr><td>Next 60–90 minutes</td><td>Cold calling block, uninterrupted</td></tr>
+          <tr><td>Mid-morning to lunch</td><td>Shadow Tyler on client fulfillment calls</td></tr>
+          <tr><td>After lunch</td><td>Independent study, content creation, self-directed work</td></tr>
+          <tr><td>Mid-afternoon</td><td>Training and role-play with Kyle + cold calling together</td></tr>
+          <tr><td>End of day</td><td>Enter interested prospects and booked calls into the GHL CRM, note your dial count and objections heard</td></tr>
+        </tbody>
+      </table>
+
+      <h2 class="section">Set a Daily Goal — <span class="accent">Every Morning</span></h2>
+      <p>Before you make your first call, write down your call goal for the day. Not a range. A number. Commit to it.</p>
+      <p class="quiet">Goals are the difference between a productive day and a busy-feeling day. The reps who ramp fastest show up with intention, not just effort.</p>
+      ${renderCheck({ type: 'check', id: 'ov_daily_goal', text: 'I have written my call goal for today before touching the phone.' })}
+      <p class="quiet" style="margin-top:8px;">(This daily-goal commitment repeats on each day's view.)</p>
+
+      <h2 class="section">Lead Generation: <span class="accent">Your Options</span></h2>
+      <p>Cold calling is required. It is the primary skill-building activity of the first 30 days and the fastest path to developing the communication ability that makes everything else in sales easier.</p>
+      <div class="callout">
+        <div class="callout-label">Kyle's Story</div>
+        <p>Kyle did 100–200 dials daily in the beginning. Those initial sales paid for every other lead generation mechanism he uses today. Cold calling is a means to an end. It builds the skill. The skill builds the income. The income buys the time to use other methods.</p>
+      </div>
+      <p>You are not limited to cold calling. As you grow, you'll have access to:</p>
+      <ul class="bullets">
+        <li>Cold calling (required in Month 1)</li>
+        <li>LinkedIn outbound via Dripify (DM handles setup)</li>
+        <li>Cold email campaigns</li>
+        <li>Paid advertising (once you have MRR to invest)</li>
+        <li>Organic social media content</li>
+        <li>Networking events (Silicon Slopes, local business groups)</li>
+        <li>Door knocking</li>
+        <li>Warm network outreach (existing contacts, referrals, former clients)</li>
+        <li>Cold callers or VAs (once you've mastered the conversation yourself)</li>
+      </ul>
+      <p>Choose the channels that fit your personality and network — but do not skip cold calling in Month 1. You cannot outsource something you have not learned yourself.</p>
+
+      <h2 class="section">Who We Serve: <span class="accent">The ICP</span></h2>
+      <p>Before you make a single call, you must know who you are calling and whether they are worth calling.</p>
+      <div class="grid-2">
+        <div class="mini-card">
+          <div class="mc-title">Ideal Client Profile</div>
+          <ul class="bullets" style="margin-top:10px;">
+            <li>Service-based businesses, B2B and B2C</li>
+            <li>Minimum monthly revenue of $15k/month</li>
+            <li>Contractors, trades, medical, legal, professional services, similar</li>
+            <li>Can include e-commerce or product businesses, but not preferred — marketing approach is meaningfully different. We lead with service.</li>
+          </ul>
+        </div>
+        <div class="mini-card">
+          <div class="mc-title">Qualifying Signals</div>
+          <ul class="bullets" style="margin-top:10px;">
+            <li>They have a team and are actively doing business</li>
+            <li>Marketing gap: nothing in place, underperforming agency, DIY mess, freelancer duct-taped solution</li>
+            <li>Owner or key decision-maker is reachable</li>
+            <li>Monthly revenue at or above $15k/month</li>
+          </ul>
+        </div>
+      </div>
+      <div class="callout" style="margin-top:18px;">
+        <div class="callout-label">Disqualifying Signals</div>
+        <p>Pure product or e-commerce with no service component · Startup with no revenue · Owner who has no interest in AI or systems (rare, but it exists).</p>
+      </div>
+    </div>
+  `;
+}
+
+function renderWeek(key) {
+  const wk = CURRICULUM[key];
+  const daysHtml = wk.days.map(day => renderDay(day, key)).join('');
+  return `
+    <div class="tab-panel" id="panel-${key}">
+      <div class="week-banner">
+        <div class="week-num">${wk.banner.num}</div>
+        <h1><span class="gold">${wk.banner.title}</span></h1>
+        <div class="theme">${wk.banner.theme}</div>
+      </div>
+      ${renderWeekProgress(key)}
+      ${daysHtml}
+    </div>
+  `;
+}
+
+function renderWeekProgress(key) {
+  return `<div class="progress-top" data-progress-for="${key}">
+    <div><div class="progress-label">${key.toUpperCase()} Progress</div></div>
+    <div class="progress-value" data-progress-pct="${key}">0%</div>
+    <div class="progress-bar"><div class="progress-fill" data-progress-fill="${key}" style="width:0%;"></div></div>
+    <div class="progress-label" data-progress-count="${key}">0 / 0</div>
+  </div>`;
+}
+
+function renderDay(day, weekKey) {
+  const blocksHtml = day.blocks.map(b => renderBlock(b)).join('');
+  return `
+    <div class="day-card" data-day-card="${weekKey}-${day.id}">
+      <div class="day-card-header">
+        <span class="day-num">${day.num}</span>
+        <h4>${day.title}</h4>
+        <span class="day-progress" data-day-progress="${weekKey}-${day.id}">0 / 0</span>
+      </div>
+      ${blocksHtml}
+    </div>
+  `;
+}
+
+function renderBlock(b) {
+  switch (b.type) {
+    case 'section':
+      return `<div class="check-group-title">${b.title}${b.subtitle ? ` — ${b.subtitle}` : ''}</div>`;
+    case 'p':
+      return `<p>${b.text}</p>`;
+    case 'bullets':
+      return `<ul class="bullets">${b.items.map(i => `<li>${i}</li>`).join('')}</ul>`;
+    case 'ol':
+      return `<ol class="bullets" style="list-style:decimal; padding-left:22px;">${b.items.map(i => `<li style="padding:6px 0 6px 4px;">${i}</li>`).join('')}</ol>`;
+    case 'check':
+      return renderCheck(b);
+    case 'kyle':
+      return renderCheck(b, true);
+    case 'resource':
+      if (b.soon) {
+        return `<div class="resource-box soon"><span class="rb-label">${b.label}</span><span class="rb-text">${b.text}</span><span class="soon-pill">Coming Soon</span></div>`;
+      }
+      if (b.url) {
+        const cta = b.cta || 'Open ↗';
+        return `<div class="resource-box"><span class="rb-label">${b.label}</span><span class="rb-text">${b.text}</span><a class="rb-link" href="${b.url}" target="_blank" rel="noopener">${cta}</a></div>`;
+      }
+      return `<div class="resource-box"><span class="rb-label">${b.label}</span><span class="rb-text">${b.text}</span></div>`;
+    case 'callout':
+      return `<div class="callout">${b.label ? `<div class="callout-label">${b.label}</div>` : ''}<p>${b.text}</p></div>`;
+    case 'goalInput':
+      return renderGoalInput(b);
+    case 'rubric':
+      return renderRubric();
+    default:
+      return '';
+  }
+}
+
+function renderCheck(b, isKyleItem) {
+  const type = isKyleItem ? 'kyle' : 'check';
+  const checked = !!state[b.id];
+  const tag = isKyleItem ? `<span class="check-kyle-tag">Kyle</span>` : '';
+  const locked = isKyleItem && !isKyle() ? 'locked' : '';
+  return `
+    <div class="check ${type} ${checked ? 'checked' : ''} ${locked}" data-check-id="${b.id}" data-check-type="${type}">
+      <div class="check-box"><svg viewBox="0 0 24 24"><polyline points="4,12 10,18 20,6"/></svg></div>
+      <div class="check-text">${b.text}${tag}</div>
+    </div>
+  `;
+}
+
+function renderGoalInput(b) {
+  const val = state[b.id] || '';
+  return `
+    <div class="goal-input-row">
+      <label>${b.label}</label>
+      <input type="text" data-goal-id="${b.id}" value="${escapeAttr(val)}" placeholder="e.g., 60 dials, 2 strategy calls booked">
+    </div>
+  `;
+}
+
+function renderRubric() {
+  return `
+    <table class="rubric">
+      <thead><tr><th>Skill Area</th><th>What Good Looks Like</th></tr></thead>
+      <tbody>
+        <tr><td>Opener delivery</td><td>Natural, confident. Comfortable pause after the hook. Not robotic.</td></tr>
+        <tr><td>Discovery</td><td>3+ qualifying questions before any pitch</td></tr>
+        <tr><td>Listening</td><td>Prospect's words reflected back during the close</td></tr>
+        <tr><td>Objection handling</td><td>Calm, empathetic, then redirect. Never argue.</td></tr>
+        <tr><td>Booking language</td><td>Clear time, clear value promise, no over-promising</td></tr>
+        <tr><td>Overall confidence</td><td>Doesn't rush. Doesn't fill silence with nervous filler.</td></tr>
+      </tbody>
+    </table>
+  `;
+}
+
+function escapeAttr(s) { return String(s).replace(/"/g, '&quot;').replace(/</g, '&lt;'); }
+
+/* =========================================================
+   PROGRESS COMPUTATION
+   ========================================================= */
+
+function collectCheckIds(weekKey) {
+  const wk = CURRICULUM[weekKey];
+  if (!wk || !wk.days) return [];
+  const ids = [];
+  wk.days.forEach(d => {
+    d.blocks.forEach(b => {
+      if (b.type === 'check' || b.type === 'kyle') ids.push(b.id);
+    });
+  });
+  return ids;
+}
+
+function collectDayCheckIds(weekKey, dayId) {
+  const wk = CURRICULUM[weekKey];
+  const day = wk.days.find(d => d.id === dayId);
+  if (!day) return [];
+  return day.blocks.filter(b => b.type === 'check' || b.type === 'kyle').map(b => b.id);
+}
+
+function updateProgress() {
+  ['week1', 'week2', 'week3', 'week4'].forEach(wk => {
+    const ids = collectCheckIds(wk);
+    const done = ids.filter(id => state[id]).length;
+    const pct = ids.length ? Math.round((done / ids.length) * 100) : 0;
+    const pctEl = document.querySelector(`[data-progress-pct="${wk}"]`);
+    const fillEl = document.querySelector(`[data-progress-fill="${wk}"]`);
+    const countEl = document.querySelector(`[data-progress-count="${wk}"]`);
+    if (pctEl) pctEl.textContent = pct + '%';
+    if (fillEl) fillEl.style.width = pct + '%';
+    if (countEl) countEl.textContent = `${done} / ${ids.length}`;
+
+    // update per-day
+    CURRICULUM[wk].days.forEach(d => {
+      const dayIds = collectDayCheckIds(wk, d.id);
+      const dayDone = dayIds.filter(id => state[id]).length;
+      const dayEl = document.querySelector(`[data-day-progress="${wk}-${d.id}"]`);
+      if (dayEl) dayEl.textContent = `${dayDone} / ${dayIds.length}`;
+    });
+  });
+}
+
+/* =========================================================
+   EVENTS
+   ========================================================= */
+
+function attachAppEvents() {
+  document.getElementById('logoutBtn').addEventListener('click', () => {
+    // Don't clear progress — just exit session
+    currentUser = null;
+    document.getElementById('appView').hidden = true;
+    document.getElementById('loginView').style.display = 'flex';
+    document.getElementById('emailInput').value = '';
+    document.getElementById('emailInput').focus();
+  });
+
+  document.getElementById('mainContent').addEventListener('click', (e) => {
+    const check = e.target.closest('[data-check-id]');
+    if (!check) return;
+    const id = check.dataset.checkId;
+    const type = check.dataset.checkType;
+    if (type === 'kyle' && !isKyle()) {
+      toast('Only Kyle can toggle this item');
+      return;
+    }
+    state[id] = !state[id];
+    check.classList.toggle('checked', !!state[id]);
+    saveState();
+    updateProgress();
+  });
+
+  document.getElementById('mainContent').addEventListener('input', (e) => {
+    const input = e.target.closest('[data-goal-id]');
+    if (!input) return;
+    state[input.dataset.goalId] = input.value;
+    saveState();
+  });
+
+  // tab switching
+  document.getElementById('tabNav').addEventListener('click', (e) => {
+    const btn = e.target.closest('[data-tab]');
+    if (!btn) return;
+    activateTab(btn.dataset.tab);
+  });
+}
+
+function activateTab(tabId) {
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.toggle('active', b.dataset.tab === tabId));
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.toggle('active', p.id === 'panel-' + tabId));
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  try { sessionStorage.setItem(STORAGE_PREFIX + 'lastTab', tabId); } catch(e){}
+}
+
+function renderTabNav() {
+  const nav = document.getElementById('tabNav');
+  nav.innerHTML = TABS.map(t => `
+    <button class="tab-btn" data-tab="${t.id}">
+      <span class="tab-label">${t.label}</span>
+      <span class="tab-meta">${t.meta}</span>
+    </button>
+  `).join('');
+}
+
+function renderAllPanels() {
+  const main = document.getElementById('mainContent');
+  main.innerHTML = renderOverview() +
+    renderWeek('week1') + renderWeek('week2') + renderWeek('week3') + renderWeek('week4');
+}
+
+/* =========================================================
+   TOAST
+   ========================================================= */
+
+let toastTimer = null;
+function toast(msg) {
+  const el = document.getElementById('toast');
+  el.textContent = msg;
+  el.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => el.classList.remove('show'), 2200);
+}
+
+/* =========================================================
+   LOGIN
+   ========================================================= */
+
+function login(email) {
+  currentUser = email.toLowerCase().trim();
+  state = loadState(currentUser);
+  try { localStorage.setItem(STORAGE_PREFIX + 'lastEmail', currentUser); } catch(e){}
+  document.getElementById('loginView').style.display = 'none';
+  document.getElementById('appView').hidden = false;
+  const userBadge = isKyle() ? ' <span class="badge">Admin</span>' : '';
+  document.getElementById('userEmail').innerHTML = currentUser + userBadge;
+  renderTabNav();
+  renderAllPanels();
+  let lastTab = 'overview';
+  try { lastTab = sessionStorage.getItem(STORAGE_PREFIX + 'lastTab') || 'overview'; } catch(e){}
+  activateTab(lastTab);
+  updateProgress();
+}
+
+document.getElementById('loginForm').addEventListener('submit', (e) => {
+  e.preventDefault();
+  const email = document.getElementById('emailInput').value;
+  if (!email || !email.includes('@')) {
+    toast('Please enter a valid email');
+    return;
+  }
+  login(email);
+});
+
+// auto-login if we have a last email (same browser)
+try {
+  const last = localStorage.getItem(STORAGE_PREFIX + 'lastEmail');
+  if (last) {
+    document.getElementById('emailInput').value = last;
+  }
+} catch(e){}
+
+attachAppEvents();
+</script>
+</body>
+</html>

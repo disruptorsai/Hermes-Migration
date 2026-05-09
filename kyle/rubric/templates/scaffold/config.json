@@ -1,0 +1,23 @@
+{
+  "brandName": "RUBRIC Console",
+  "agents": [
+    {
+      "id": "agent-1",
+      "name": "Agent 1",
+      "color": "#58abf5",
+      "icon": "Crown"
+    },
+    {
+      "id": "agent-2",
+      "name": "Agent 2",
+      "color": "#50e3c2",
+      "icon": "Spark"
+    },
+    {
+      "id": "agent-3",
+      "name": "Agent 3",
+      "color": "#f5a623",
+      "icon": "Fortress"
+    }
+  ]
+}

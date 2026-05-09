@@ -1,0 +1,880 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Voice Receptionist — Client Intake Form | Disruptors Media</title>
+  <meta name="description" content="Complete the AI Voice Receptionist Client Intake Form to configure your custom AI phone system. Powered by Disruptors Media." />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="https://ulfnzcniivkjtfaoxfmi.supabase.co/storage/v1/object/public/site-assets/images/disruptors-media/brand/logos/gold-logo.png" />
+
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <!-- Ambient glow effects -->
+  <div class="ambient-glow ambient-glow--top"></div>
+  <div class="ambient-glow ambient-glow--bottom"></div>
+
+  <div class="app-container">
+    <!-- Header -->
+    <header class="header" id="header">
+      <div class="header__inner">
+        <a href="#" class="header__logo">
+          <img src="https://ulfnzcniivkjtfaoxfmi.supabase.co/storage/v1/object/public/site-assets/images/disruptors-media/brand/logos/gold-logo.png" alt="Disruptors Media" class="header__logo-img" />
+        </a>
+        <div class="header__badge">Client Intake</div>
+      </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="hero">
+      <div class="hero__content">
+        <span class="hero__tag">AI Voice Receptionist</span>
+        <h1 class="hero__title">Client Intake Form</h1>
+        <p class="hero__subtitle">Tell us about your business so we can build your perfect AI receptionist. This form takes about 10–15 minutes to complete.</p>
+      </div>
+    </section>
+
+    <!-- Progress Bar -->
+    <div class="progress-container" id="progress-container">
+      <div class="progress-bar">
+        <div class="progress-bar__fill" id="progress-fill"></div>
+      </div>
+      <div class="progress-info">
+        <span class="progress-info__step" id="progress-step-label">Step 1 of 12</span>
+        <span class="progress-info__percent" id="progress-percent">0%</span>
+      </div>
+      <!-- Step dots -->
+      <div class="step-dots" id="step-dots">
+        <button class="step-dot active" data-step="0" title="Business Information">1</button>
+        <button class="step-dot" data-step="1" title="Call Handling">2</button>
+        <button class="step-dot" data-step="2" title="Caller Intent">3</button>
+        <button class="step-dot" data-step="3" title="Lead Capture">4</button>
+        <button class="step-dot" data-step="4" title="Service Area">5</button>
+        <button class="step-dot" data-step="5" title="FAQs">6</button>
+        <button class="step-dot" data-step="6" title="Transfer Rules">7</button>
+        <button class="step-dot" data-step="7" title="Integrations">8</button>
+        <button class="step-dot" data-step="8" title="Brand Voice">9</button>
+        <button class="step-dot" data-step="9" title="Special Handling">10</button>
+        <button class="step-dot" data-step="10" title="Testing & Launch">11</button>
+        <button class="step-dot" data-step="11" title="Additional Notes">12</button>
+      </div>
+    </div>
+
+    <!-- Form -->
+    <form id="intake-form" class="form" novalidate autocomplete="off">
+
+      <!-- ===================== STEP 1: Business Information ===================== -->
+      <div class="form-step active" data-step="0">
+        <div class="form-step__header">
+          <span class="form-step__number">01</span>
+          <div>
+            <h2 class="form-step__title">Business Information</h2>
+            <p class="form-step__desc">Basic details about your business that the AI will use to identify itself.</p>
+          </div>
+        </div>
+
+        <div class="form-grid form-grid--2col">
+          <div class="form-group">
+            <label for="business-name" class="form-label">Business Name <span class="required">*</span></label>
+            <input type="text" id="business-name" name="business_name" class="form-input" placeholder="e.g. Apex Plumbing Services" required />
+          </div>
+          <div class="form-group">
+            <label for="phone-number" class="form-label">Phone Number <span class="required">*</span></label>
+            <input type="tel" id="phone-number" name="phone_number" class="form-input" placeholder="(555) 123-4567" required />
+          </div>
+          <div class="form-group">
+            <label for="email" class="form-label">Email <span class="required">*</span></label>
+            <input type="email" id="email" name="email" class="form-input" placeholder="hello@yourbusiness.com" required />
+          </div>
+          <div class="form-group">
+            <label for="website" class="form-label">Website</label>
+            <input type="url" id="website" name="website" class="form-input" placeholder="https://yourbusiness.com" />
+          </div>
+          <div class="form-group form-group--full">
+            <label for="address" class="form-label">Address / Location</label>
+            <input type="text" id="address" name="address" class="form-input" placeholder="123 Main St, Suite 100, City, State ZIP" />
+          </div>
+        </div>
+
+        <div class="form-divider"></div>
+
+        <h3 class="form-section-label">Business Hours</h3>
+        <div class="form-grid form-grid--2col">
+          <div class="form-group">
+            <label for="weekday-hours" class="form-label">Weekday Hours</label>
+            <input type="text" id="weekday-hours" name="weekday_hours" class="form-input" placeholder="e.g. Mon–Fri 8:00 AM – 5:00 PM" />
+          </div>
+          <div class="form-group">
+            <label for="weekend-hours" class="form-label">Weekend Hours</label>
+            <input type="text" id="weekend-hours" name="weekend_hours" class="form-input" placeholder="e.g. Sat 9:00 AM – 1:00 PM, Sun Closed" />
+          </div>
+        </div>
+      </div>
+
+      <!-- ===================== STEP 2: Call Handling Preferences ===================== -->
+      <div class="form-step" data-step="1">
+        <div class="form-step__header">
+          <span class="form-step__number">02</span>
+          <div>
+            <h2 class="form-step__title">Call Handling Preferences</h2>
+            <p class="form-step__desc">How should the AI answer and manage calls?</p>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="ai-persona" class="form-label">AI Name / Persona</label>
+          <input type="text" id="ai-persona" name="ai_persona" class="form-input" placeholder="e.g. Sarah, Alex, or leave blank for default" />
+        </div>
+
+        <div class="form-group">
+          <label for="greeting-script" class="form-label">Preferred Greeting Script</label>
+          <textarea id="greeting-script" name="greeting_script" class="form-textarea" rows="3" placeholder='e.g. "Hi, thank you for calling [Business]. This is [Name], how can I help you today?"'></textarea>
+        </div>
+
+        <div class="form-divider"></div>
+        <h3 class="form-section-label">After-Hours Handling</h3>
+        <div class="checkbox-grid checkbox-grid--2col">
+          <label class="checkbox-card">
+            <input type="radio" name="after_hours" value="same_greeting" />
+            <span class="checkbox-card__box"></span>
+            <span class="checkbox-card__text">Same greeting as business hours</span>
+          </label>
+          <label class="checkbox-card">
+            <input type="radio" name="after_hours" value="different_message" />
+            <span class="checkbox-card__box"></span>
+            <span class="checkbox-card__text">Different after-hours message</span>
+          </label>
+          <label class="checkbox-card">
+            <input type="radio" name="after_hours" value="take_message" />
+            <span class="checkbox-card__box"></span>
+            <span class="checkbox-card__text">Take message only</span>
+          </label>
+          <label class="checkbox-card">
+            <input type="radio" name="after_hours" value="offer_callback" />
+            <span class="checkbox-card__box"></span>
+            <span class="checkbox-card__text">Offer callback</span>
+          </label>
+        </div>
+
+        <div class="form-divider"></div>
+        <h3 class="form-section-label">Voicemail Policy</h3>
+        <div class="checkbox-grid checkbox-grid--2col">
+          <label class="checkbox-card">
+            <input type="radio" name="voicemail_policy" value="detailed_message" />
+            <span class="checkbox-card__box"></span>
+            <span class="checkbox-card__text">Take detailed message</span>
+          </label>
+          <label class="checkbox-card">
+            <input type="radio" name="voicemail_policy" value="text_instead" />
+            <span class="checkbox-card__box"></span>
+            <span class="checkbox-card__text">Offer to text instead</span>
+          </label>
+          <label class="checkbox-card">
+            <input type="radio" name="voicemail_policy" value="redirect_voicemail" />
+            <span class="checkbox-card__box"></span>
+            <span class="checkbox-card__text">Redirect to voicemail box</span>
+          </label>
+          <label class="checkbox-card">
+            <input type="radio" name="voicemail_policy" value="schedule_callback" />
+            <span class="checkbox-card__box"></span>
+            <span class="checkbox-card__text">Schedule callback</span>
+          </label>
+        </div>
+      </div>
+
+      <!-- ===================== STEP 3: Caller Intent Categories ===================== -->
+      <div class="form-step" data-step="2">
+        <div class="form-step__header">
+          <span class="form-step__number">03</span>
+          <div>
+            <h2 class="form-step__title">Caller Intent Categories</h2>
+            <p class="form-step__desc">What types of calls should the AI expect and how should it prioritize them?</p>
+          </div>
+        </div>
+
+        <h3 class="form-section-label">Primary Call Types <span class="form-label-hint">(check all that apply)</span></h3>
+        <div class="checkbox-grid checkbox-grid--2col">
+          <label class="checkbox-card">
+            <input type="checkbox" name="call_types" value="new_quote" />
+            <span class="checkbox-card__box"></span>
+            <span class="checkbox-card__text">New quote / estimate requests</span>
+          </label>
+          <label class="checkbox-card">
+            <input type="checkbox" name="call_types" value="existing_customer" />
+            <span class="checkbox-card__box"></span>
+            <span class="checkbox-card__text">Existing customer inquiries</span>
+          </label>
+          <label class="checkbox-card">
+            <input type="checkbox" name="call_types" value="scheduling" />
+            <span class="checkbox-card__box"></span>
+            <span class="checkbox-card__text">Scheduling / rescheduling</span>
+          </label>
+          <label class="checkbox-card">
+            <input type="checkbox" name="call_types" value="job_status" />
+            <span class="checkbox-card__box"></span>
+            <span class="checkbox-card__text">Job status questions</span>
+          </label>
+          <label class="checkbox-card">
+            <input type="checkbox" name="call_types" value="billing" />
+            <span class="checkbox-card__box"></span>
+            <span class="checkbox-card__text">Billing / payment questions</span>
+          </label>
+          <label class="checkbox-card">
+            <input type="checkbox" name="call_types" value="general_service" />
+            <span class="checkbox-card__box"></span>
+            <span class="checkbox-card__text">General service questions</span>
+          </label>
+          <label class="checkbox-card">
+            <input type="checkbox" name="call_types" value="complaints" />
+            <span class="checkbox-card__box"></span>
+            <span class="checkbox-card__text">Complaints / issues</span>
+          </label>
+          <label class="checkbox-card">
+            <input type="checkbox" name="call_types" value="other_call_type" />
+            <span class="checkbox-card__box"></span>
+            <span class="checkbox-card__text">Other</span>
+          </label>
+        </div>
+        <div class="form-group form-group--conditional" id="other-call-type-group" style="display:none;">
+          <label for="other-call-type" class="form-label">Specify other call type</label>
+          <input type="text" id="other-call-type" name="other_call_type" class="form-input" placeholder="Describe the call type..." />
+        </div>
+
+        <div class="form-divider"></div>
+        <h3 class="form-section-label">Do you need to distinguish between:</h3>
+        <div class="checkbox-grid checkbox-grid--2col">
+          <label class="checkbox-card">
+            <input type="checkbox" name="distinguish" value="res_vs_com" />
+            <span class="checkbox-card__box"></span>
+            <span class="checkbox-card__text">Residential vs. Commercial</span>
+          </label>
+          <label class="checkbox-card">
+            <input type="checkbox" name="distinguish" value="new_vs_existing" />
+            <span class="checkbox-card__box"></span>
+            <span class="checkbox-card__text">New vs. Existing customers</span>
+          </label>
+          <label class="checkbox-card">
+            <input type="checkbox" name="distinguish" value="urgent_vs_non" />
+            <span class="checkbox-card__box"></span>
+            <span class="checkbox-card__text">Urgent vs. Non-urgent</span>
+          </label>
+          <label class="checkbox-card">
+            <input type="checkbox" name="distinguish" value="treat_same" />
+            <span class="checkbox-card__box"></span>
+            <span class="checkbox-card__text">N/A — treat all the same</span>
+          </label>
+        </div>
+      </div>
+
+      <!-- ===================== STEP 4: Lead Capture Information ===================== -->
+      <div class="form-step" data-step="3">
+        <div class="form-step__header">
+          <span class="form-step__number">04</span>
+          <div>
+            <h2 class="form-step__title">Lead Capture Information</h2>
+            <p class="form-step__desc">What information should the AI collect from new callers requesting a quote or service?</p>
+          </div>
+        </div>
+
+        <h3 class="form-section-label">Required Fields <span class="form-label-hint">(check all that apply)</span></h3>
+        <div class="checkbox-grid checkbox-grid--2col">
+          <label class="checkbox-card">
+            <input type="checkbox" name="lead_fields" value="full_name" />
+            <span class="checkbox-card__box"></span>
+            <span class="checkbox-card__text">Full name</span>
+          </label>
+          <label class="checkbox-card">
+            <input type="checkbox" name="lead_fields" value="phone" />
+            <span class="checkbox-card__box"></span>
+            <span class="checkbox-card__text">Phone number</span>
+          </label>
+          <label class="checkbox-card">
+            <input type="checkbox" name="lead_fields" value="email" />
+            <span class="checkbox-card__box"></span>
+            <span class="checkbox-card__text">Email address</span>
+          </label>
+          <label class="checkbox-card">
+            <input type="checkbox" name="lead_fields" value="property_address" />
+            <span class="checkbox-card__box"></span>
+            <span class="checkbox-card__text">Property address</span>
+          </label>
+          <label class="checkbox-card">
+            <input type="checkbox" name="lead_fields" value="service_type" />
+            <span class="checkbox-card__box"></span>
+            <span class="checkbox-card__text">Service type needed</span>
+          </label>
+          <label class="checkbox-card">
+            <input type="checkbox" name="lead_fields" value="res_or_com" />
+            <span class="checkbox-card__box"></span>
+            <span class="checkbox-card__text">Residential or commercial</span>
+          </label>
+          <label class="checkbox-card">
+            <input type="checkbox" name="lead_fields" value="referral_source" />
+            <span class="checkbox-card__box"></span>
+            <span class="checkbox-card__text">How they heard about you</span>
+          </label>
+          <label class="checkbox-card">
+            <input type="checkbox" name="lead_fields" value="preferred_contact" />
+            <span class="checkbox-card__box"></span>
+            <span class="checkbox-card__text">Preferred contact method</span>
+          </label>
+          <label class="checkbox-card">
+            <input type="checkbox" name="lead_fields" value="callback_time" />
+            <span class="checkbox-card__box"></span>
+            <span class="checkbox-card__text">Best time for callback / visit</span>
+          </label>
+          <label class="checkbox-card">
+            <input type="checkbox" name="lead_fields" value="budget_range" />
+            <span class="checkbox-card__box"></span>
+            <span class="checkbox-card__text">Budget range</span>
+          </label>
+          <label class="checkbox-card">
+            <input type="checkbox" name="lead_fields" value="urgency" />
+            <span class="checkbox-card__box"></span>
+            <span class="checkbox-card__text">Urgency / timeline</span>
+          </label>
+          <label class="checkbox-card">
+            <input type="checkbox" name="lead_fields" value="other_field" />
+            <span class="checkbox-card__box"></span>
+            <span class="checkbox-card__text">Other</span>
+          </label>
+        </div>
+        <div class="form-group form-group--conditional" id="other-lead-field-group" style="display:none;">
+          <label for="other-lead-field" class="form-label">Specify other field</label>
+          <input type="text" id="other-lead-field" name="other_lead_field" class="form-input" placeholder="Describe the field..." />
+        </div>
+
+        <div class="form-divider"></div>
+        <div class="form-group">
+          <label for="services-offered" class="form-label">Services Offered</label>
+          <p class="form-hint">List all services for the AI to recognize. The AI will use this list to categorize caller requests.</p>
+          <textarea id="services-offered" name="services_offered" class="form-textarea" rows="4" placeholder="e.g. Drain cleaning, Water heater installation, Emergency plumbing, Bathroom remodeling..."></textarea>
+        </div>
+      </div>
+
+      <!-- ===================== STEP 5: Service Area ===================== -->
+      <div class="form-step" data-step="4">
+        <div class="form-step__header">
+          <span class="form-step__number">05</span>
+          <div>
+            <h2 class="form-step__title">Service Area</h2>
+            <p class="form-step__desc">Define geographic boundaries so the AI can qualify or disqualify callers.</p>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="service-area" class="form-label">Primary Service Area</label>
+          <p class="form-hint">List cities, towns, zip codes, or regions you serve.</p>
+          <textarea id="service-area" name="service_area" class="form-textarea" rows="3" placeholder="e.g. Dallas, Fort Worth, Arlington, Plano — within 30 miles of downtown"></textarea>
+        </div>
+
+        <div class="form-divider"></div>
+        <h3 class="form-section-label">How should the AI handle callers outside the service area?</h3>
+        <div class="checkbox-grid checkbox-grid--2col">
+          <label class="checkbox-card">
+            <input type="radio" name="out_of_area" value="politely_decline" />
+            <span class="checkbox-card__box"></span>
+            <span class="checkbox-card__text">Politely decline</span>
+          </label>
+          <label class="checkbox-card">
+            <input type="radio" name="out_of_area" value="take_info" />
+            <span class="checkbox-card__box"></span>
+            <span class="checkbox-card__text">Take info anyway for review</span>
+          </label>
+          <label class="checkbox-card">
+            <input type="radio" name="out_of_area" value="travel_fee" />
+            <span class="checkbox-card__box"></span>
+            <span class="checkbox-card__text">Quote with travel fee</span>
+          </label>
+          <label class="checkbox-card">
+            <input type="radio" name="out_of_area" value="transfer_manager" />
+            <span class="checkbox-card__box"></span>
+            <span class="checkbox-card__text">Transfer to manager</span>
+          </label>
+        </div>
+      </div>
+
+      <!-- ===================== STEP 6: FAQs ===================== -->
+      <div class="form-step" data-step="5">
+        <div class="form-step__header">
+          <span class="form-step__number">06</span>
+          <div>
+            <h2 class="form-step__title">Frequently Asked Questions</h2>
+            <p class="form-step__desc">List common questions callers ask and the answers you want the AI to provide.</p>
+          </div>
+        </div>
+
+        <div class="faq-list" id="faq-list">
+          <div class="faq-item" data-faq-index="0">
+            <div class="faq-item__header">
+              <span class="faq-item__num">Q1</span>
+              <button type="button" class="faq-item__remove" title="Remove FAQ" style="display:none;">&times;</button>
+            </div>
+            <div class="form-grid form-grid--2col">
+              <div class="form-group">
+                <label class="form-label">Question</label>
+                <input type="text" name="faq_question_0" class="form-input" placeholder="e.g. How much do you charge?" />
+              </div>
+              <div class="form-group">
+                <label class="form-label">Answer</label>
+                <input type="text" name="faq_answer_0" class="form-input" placeholder="e.g. Pricing depends on the service..." />
+              </div>
+            </div>
+          </div>
+          <div class="faq-item" data-faq-index="1">
+            <div class="faq-item__header">
+              <span class="faq-item__num">Q2</span>
+              <button type="button" class="faq-item__remove" title="Remove FAQ" style="display:none;">&times;</button>
+            </div>
+            <div class="form-grid form-grid--2col">
+              <div class="form-group">
+                <label class="form-label">Question</label>
+                <input type="text" name="faq_question_1" class="form-input" placeholder="e.g. Do you offer free estimates?" />
+              </div>
+              <div class="form-group">
+                <label class="form-label">Answer</label>
+                <input type="text" name="faq_answer_1" class="form-input" placeholder="e.g. Yes, we offer free on-site estimates..." />
+              </div>
+            </div>
+          </div>
+          <div class="faq-item" data-faq-index="2">
+            <div class="faq-item__header">
+              <span class="faq-item__num">Q3</span>
+              <button type="button" class="faq-item__remove" title="Remove FAQ" style="display:none;">&times;</button>
+            </div>
+            <div class="form-grid form-grid--2col">
+              <div class="form-group">
+                <label class="form-label">Question</label>
+                <input type="text" name="faq_question_2" class="form-input" placeholder="e.g. What areas do you serve?" />
+              </div>
+              <div class="form-group">
+                <label class="form-label">Answer</label>
+                <input type="text" name="faq_answer_2" class="form-input" placeholder="e.g. We serve the greater metro area..." />
+              </div>
+            </div>
+          </div>
+        </div>
+        <button type="button" class="btn btn--ghost" id="add-faq-btn">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 3v10M3 8h10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          Add Another FAQ
+        </button>
+      </div>
+
+      <!-- ===================== STEP 7: Transfer & Escalation Rules ===================== -->
+      <div class="form-step" data-step="6">
+        <div class="form-step__header">
+          <span class="form-step__number">07</span>
+          <div>
+            <h2 class="form-step__title">Transfer & Escalation Rules</h2>
+            <p class="form-step__desc">When should the AI transfer a call to a human instead of handling it?</p>
+          </div>
+        </div>
+
+        <h3 class="form-section-label">Primary Transfer Contact</h3>
+        <div class="form-grid form-grid--3col">
+          <div class="form-group">
+            <label for="transfer-name" class="form-label">Name</label>
+            <input type="text" id="transfer-name" name="transfer_name" class="form-input" placeholder="John Smith" />
+          </div>
+          <div class="form-group">
+            <label for="transfer-phone" class="form-label">Direct Phone</label>
+            <input type="tel" id="transfer-phone" name="transfer_phone" class="form-input" placeholder="(555) 987-6543" />
+          </div>
+          <div class="form-group">
+            <label for="transfer-role" class="form-label">Role / Title</label>
+            <input type="text" id="transfer-role" name="transfer_role" class="form-input" placeholder="Operations Manager" />
+          </div>
+        </div>
+
+        <div class="form-divider"></div>
+        <h3 class="form-section-label">Backup Contact <span class="form-label-hint">(if primary unavailable)</span></h3>
+        <div class="form-grid form-grid--2col">
+          <div class="form-group">
+            <label for="backup-name" class="form-label">Name</label>
+            <input type="text" id="backup-name" name="backup_name" class="form-input" placeholder="Jane Doe" />
+          </div>
+          <div class="form-group">
+            <label for="backup-phone" class="form-label">Direct Phone</label>
+            <input type="tel" id="backup-phone" name="backup_phone" class="form-input" placeholder="(555) 555-0199" />
+          </div>
+        </div>
+
+        <div class="form-divider"></div>
+        <h3 class="form-section-label">Transfer Triggers <span class="form-label-hint">(when should AI transfer immediately?)</span></h3>
+        <div class="checkbox-grid checkbox-grid--2col">
+          <label class="checkbox-card">
+            <input type="checkbox" name="transfer_triggers" value="existing_urgent" />
+            <span class="checkbox-card__box"></span>
+            <span class="checkbox-card__text">Existing customer with urgent issue</span>
+          </label>
+          <label class="checkbox-card">
+            <input type="checkbox" name="transfer_triggers" value="large_commercial" />
+            <span class="checkbox-card__box"></span>
+            <span class="checkbox-card__text">Large commercial job inquiry</span>
+          </label>
+          <label class="checkbox-card">
+            <input type="checkbox" name="transfer_triggers" value="complaint" />
+            <span class="checkbox-card__box"></span>
+            <span class="checkbox-card__text">Customer complaint</span>
+          </label>
+          <label class="checkbox-card">
+            <input type="checkbox" name="transfer_triggers" value="specific_person" />
+            <span class="checkbox-card__box"></span>
+            <span class="checkbox-card__text">Caller asks for specific person</span>
+          </label>
+          <label class="checkbox-card">
+            <input type="checkbox" name="transfer_triggers" value="emergency" />
+            <span class="checkbox-card__box"></span>
+            <span class="checkbox-card__text">Emergency / safety issue</span>
+          </label>
+          <label class="checkbox-card">
+            <input type="checkbox" name="transfer_triggers" value="media" />
+            <span class="checkbox-card__box"></span>
+            <span class="checkbox-card__text">Media / press inquiry</span>
+          </label>
+          <label class="checkbox-card">
+            <input type="checkbox" name="transfer_triggers" value="legal" />
+            <span class="checkbox-card__box"></span>
+            <span class="checkbox-card__text">Legal matter</span>
+          </label>
+          <label class="checkbox-card">
+            <input type="checkbox" name="transfer_triggers" value="other_trigger" />
+            <span class="checkbox-card__box"></span>
+            <span class="checkbox-card__text">Other</span>
+          </label>
+        </div>
+
+        <div class="form-divider"></div>
+        <div class="form-group">
+          <label for="vip-callers" class="form-label">VIP Callers <span class="form-label-hint">(always transfer these callers)</span></label>
+          <p class="form-hint">Names, companies, or numbers that should always be transferred.</p>
+          <textarea id="vip-callers" name="vip_callers" class="form-textarea" rows="3" placeholder="e.g. John from ABC Corp — (555) 000-1111"></textarea>
+        </div>
+      </div>
+
+      <!-- ===================== STEP 8: Integrations & Notifications ===================== -->
+      <div class="form-step" data-step="7">
+        <div class="form-step__header">
+          <span class="form-step__number">08</span>
+          <div>
+            <h2 class="form-step__title">Integrations & Notifications</h2>
+            <p class="form-step__desc">Where should lead information be sent?</p>
+          </div>
+        </div>
+
+        <h3 class="form-section-label">CRM / Scheduling Software</h3>
+        <div class="checkbox-grid checkbox-grid--2col">
+          <label class="checkbox-card">
+            <input type="checkbox" name="crm" value="jobber" />
+            <span class="checkbox-card__box"></span>
+            <span class="checkbox-card__text">Jobber</span>
+          </label>
+          <label class="checkbox-card">
+            <input type="checkbox" name="crm" value="housecall_pro" />
+            <span class="checkbox-card__box"></span>
+            <span class="checkbox-card__text">Housecall Pro</span>
+          </label>
+          <label class="checkbox-card">
+            <input type="checkbox" name="crm" value="servicetitan" />
+            <span class="checkbox-card__box"></span>
+            <span class="checkbox-card__text">ServiceTitan</span>
+          </label>
+          <label class="checkbox-card">
+            <input type="checkbox" name="crm" value="gohighlevel" />
+            <span class="checkbox-card__box"></span>
+            <span class="checkbox-card__text">GoHighLevel</span>
+          </label>
+          <label class="checkbox-card">
+            <input type="checkbox" name="crm" value="salesforce" />
+            <span class="checkbox-card__box"></span>
+            <span class="checkbox-card__text">Salesforce</span>
+          </label>
+          <label class="checkbox-card">
+            <input type="checkbox" name="crm" value="hubspot" />
+            <span class="checkbox-card__box"></span>
+            <span class="checkbox-card__text">HubSpot</span>
+          </label>
+          <label class="checkbox-card">
+            <input type="checkbox" name="crm" value="none" />
+            <span class="checkbox-card__box"></span>
+            <span class="checkbox-card__text">None / Manual</span>
+          </label>
+          <label class="checkbox-card">
+            <input type="checkbox" name="crm" value="other_crm" />
+            <span class="checkbox-card__box"></span>
+            <span class="checkbox-card__text">Other</span>
+          </label>
+        </div>
+        <div class="form-group form-group--conditional" id="other-crm-group" style="display:none;">
+          <label for="other-crm" class="form-label">Specify CRM</label>
+          <input type="text" id="other-crm" name="other_crm" class="form-input" placeholder="Your CRM / software name" />
+        </div>
+
+        <div class="form-divider"></div>
+        <h3 class="form-section-label">Lead Notification Preferences</h3>
+        <div class="form-grid form-grid--2col">
+          <div class="form-group">
+            <label for="lead-emails" class="form-label">Email(s) for leads</label>
+            <input type="text" id="lead-emails" name="lead_emails" class="form-input" placeholder="leads@yourbusiness.com" />
+          </div>
+          <div class="form-group">
+            <label for="lead-sms" class="form-label">SMS number(s)</label>
+            <input type="tel" id="lead-sms" name="lead_sms" class="form-input" placeholder="(555) 123-4567" />
+          </div>
+          <div class="form-group form-group--full">
+            <label for="lead-other" class="form-label">Other (Slack, etc.)</label>
+            <input type="text" id="lead-other" name="lead_other" class="form-input" placeholder="e.g. Slack #new-leads channel" />
+          </div>
+        </div>
+
+        <div class="form-divider"></div>
+        <h3 class="form-section-label">Calendar Integration Needed?</h3>
+        <div class="checkbox-grid checkbox-grid--2col">
+          <label class="checkbox-card">
+            <input type="radio" name="calendar" value="google" />
+            <span class="checkbox-card__box"></span>
+            <span class="checkbox-card__text">Yes — Google Calendar</span>
+          </label>
+          <label class="checkbox-card">
+            <input type="radio" name="calendar" value="outlook" />
+            <span class="checkbox-card__box"></span>
+            <span class="checkbox-card__text">Yes — Outlook / Microsoft</span>
+          </label>
+          <label class="checkbox-card">
+            <input type="radio" name="calendar" value="crm_calendar" />
+            <span class="checkbox-card__box"></span>
+            <span class="checkbox-card__text">Yes — CRM calendar</span>
+          </label>
+          <label class="checkbox-card">
+            <input type="radio" name="calendar" value="no" />
+            <span class="checkbox-card__box"></span>
+            <span class="checkbox-card__text">No — AI takes message only</span>
+          </label>
+        </div>
+      </div>
+
+      <!-- ===================== STEP 9: Tone & Brand Voice ===================== -->
+      <div class="form-step" data-step="8">
+        <div class="form-step__header">
+          <span class="form-step__number">09</span>
+          <div>
+            <h2 class="form-step__title">Tone & Brand Voice</h2>
+            <p class="form-step__desc">How should the AI sound when representing your business?</p>
+          </div>
+        </div>
+
+        <h3 class="form-section-label">Preferred Tone</h3>
+        <div class="checkbox-grid checkbox-grid--3col">
+          <label class="checkbox-card checkbox-card--tone">
+            <input type="radio" name="tone" value="professional" />
+            <span class="checkbox-card__box"></span>
+            <div class="checkbox-card__content">
+              <span class="checkbox-card__icon">👔</span>
+              <span class="checkbox-card__text">Professional / Formal</span>
+            </div>
+          </label>
+          <label class="checkbox-card checkbox-card--tone">
+            <input type="radio" name="tone" value="friendly" />
+            <span class="checkbox-card__box"></span>
+            <div class="checkbox-card__content">
+              <span class="checkbox-card__icon">😊</span>
+              <span class="checkbox-card__text">Friendly / Casual</span>
+            </div>
+          </label>
+          <label class="checkbox-card checkbox-card--tone">
+            <input type="radio" name="tone" value="mix" />
+            <span class="checkbox-card__box"></span>
+            <div class="checkbox-card__content">
+              <span class="checkbox-card__icon">⚡</span>
+              <span class="checkbox-card__text">Mix of both</span>
+            </div>
+          </label>
+        </div>
+
+        <div class="form-divider"></div>
+        <div class="form-grid form-grid--2col">
+          <div class="form-group">
+            <label for="phrases-use" class="form-label">Phrases to USE</label>
+            <textarea id="phrases-use" name="phrases_use" class="form-textarea" rows="3" placeholder='e.g. "We appreciate your business," "Happy to help!"'></textarea>
+          </div>
+          <div class="form-group">
+            <label for="phrases-avoid" class="form-label">Phrases to AVOID</label>
+            <textarea id="phrases-avoid" name="phrases_avoid" class="form-textarea" rows="3" placeholder='e.g. "No problem," "Hey there," any slang'></textarea>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===================== STEP 10: Special Call Handling ===================== -->
+      <div class="form-step" data-step="9">
+        <div class="form-step__header">
+          <span class="form-step__number">10</span>
+          <div>
+            <h2 class="form-step__title">Special Call Handling</h2>
+            <p class="form-step__desc">How should the AI handle these specific situations?</p>
+          </div>
+        </div>
+
+        <h3 class="form-section-label">Call Types</h3>
+        <div class="special-call-list">
+          <div class="special-call-item">
+            <div class="special-call-item__label">Solicitors / Sales calls</div>
+            <input type="text" name="handle_solicitors" class="form-input" placeholder="e.g. Politely decline and end call" />
+          </div>
+          <div class="special-call-item">
+            <div class="special-call-item__label">Job applicants</div>
+            <input type="text" name="handle_applicants" class="form-input" placeholder="e.g. Take name & number, email to HR" />
+          </div>
+          <div class="special-call-item">
+            <div class="special-call-item__label">Vendor / Supplier calls</div>
+            <input type="text" name="handle_vendors" class="form-input" placeholder="e.g. Take detailed message" />
+          </div>
+          <div class="special-call-item">
+            <div class="special-call-item__label">Wrong numbers</div>
+            <input type="text" name="handle_wrong" class="form-input" placeholder="e.g. Politely inform caller" />
+          </div>
+          <div class="special-call-item">
+            <div class="special-call-item__label">Prank calls</div>
+            <input type="text" name="handle_prank" class="form-input" placeholder="e.g. End call politely" />
+          </div>
+        </div>
+
+        <div class="form-divider"></div>
+        <h3 class="form-section-label">Language Support Needed?</h3>
+        <div class="checkbox-grid checkbox-grid--3col">
+          <label class="checkbox-card">
+            <input type="checkbox" name="languages" value="english" checked />
+            <span class="checkbox-card__box"></span>
+            <span class="checkbox-card__text">English only</span>
+          </label>
+          <label class="checkbox-card">
+            <input type="checkbox" name="languages" value="spanish" />
+            <span class="checkbox-card__box"></span>
+            <span class="checkbox-card__text">Spanish</span>
+          </label>
+          <label class="checkbox-card">
+            <input type="checkbox" name="languages" value="other_lang" />
+            <span class="checkbox-card__box"></span>
+            <span class="checkbox-card__text">Other</span>
+          </label>
+        </div>
+        <div class="form-group form-group--conditional" id="other-lang-group" style="display:none;">
+          <label for="other-lang" class="form-label">Specify language</label>
+          <input type="text" id="other-lang" name="other_language" class="form-input" placeholder="e.g. French, Mandarin" />
+        </div>
+      </div>
+
+      <!-- ===================== STEP 11: Testing & Launch ===================== -->
+      <div class="form-step" data-step="10">
+        <div class="form-step__header">
+          <span class="form-step__number">11</span>
+          <div>
+            <h2 class="form-step__title">Testing & Launch</h2>
+            <p class="form-step__desc">Help us set up your testing environment and go-live preferences.</p>
+          </div>
+        </div>
+
+        <div class="form-grid form-grid--2col">
+          <div class="form-group">
+            <label for="test-phone" class="form-label">Test Phone Number</label>
+            <input type="tel" id="test-phone" name="test_phone" class="form-input" placeholder="(555) 000-0000" />
+          </div>
+          <div class="form-group">
+            <label for="qa-name" class="form-label">QA Contact Name</label>
+            <input type="text" id="qa-name" name="qa_name" class="form-input" placeholder="Your name or QA manager" />
+          </div>
+          <div class="form-group">
+            <label for="qa-email" class="form-label">QA Contact Email</label>
+            <input type="email" id="qa-email" name="qa_email" class="form-input" placeholder="qa@yourbusiness.com" />
+          </div>
+          <div class="form-group">
+            <label for="go-live-date" class="form-label">Target Go-Live Date</label>
+            <input type="date" id="go-live-date" name="go_live_date" class="form-input" />
+          </div>
+        </div>
+
+        <div class="form-divider"></div>
+        <h3 class="form-section-label">Launch Preference</h3>
+        <div class="checkbox-grid checkbox-grid--2col">
+          <label class="checkbox-card">
+            <input type="radio" name="launch_preference" value="soft" />
+            <span class="checkbox-card__box"></span>
+            <div class="checkbox-card__content">
+              <span class="checkbox-card__icon">🚦</span>
+              <span class="checkbox-card__text">Soft launch (limited hours first)</span>
+            </div>
+          </label>
+          <label class="checkbox-card">
+            <input type="radio" name="launch_preference" value="full" />
+            <span class="checkbox-card__box"></span>
+            <div class="checkbox-card__content">
+              <span class="checkbox-card__icon">🚀</span>
+              <span class="checkbox-card__text">Full deployment immediately</span>
+            </div>
+          </label>
+        </div>
+      </div>
+
+      <!-- ===================== STEP 12: Additional Notes ===================== -->
+      <div class="form-step" data-step="11">
+        <div class="form-step__header">
+          <span class="form-step__number">12</span>
+          <div>
+            <h2 class="form-step__title">Additional Notes</h2>
+            <p class="form-step__desc">Any other information, special instructions, or requirements not covered above.</p>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="additional-notes" class="form-label">Notes</label>
+          <textarea id="additional-notes" name="additional_notes" class="form-textarea form-textarea--large" rows="6" placeholder="Share anything else we should know to make your AI receptionist perfect..."></textarea>
+        </div>
+      </div>
+
+      <!-- Navigation -->
+      <div class="form-nav">
+        <button type="button" class="btn btn--secondary" id="prev-btn" disabled>
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M10 3L5 8l5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Previous
+        </button>
+        <button type="button" class="btn btn--primary" id="next-btn">
+          Next
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M6 3l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <button type="submit" class="btn btn--submit" id="submit-btn" style="display:none;">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3 9.5l4 4 8-8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Submit Intake Form
+        </button>
+      </div>
+    </form>
+
+    <!-- Success Screen -->
+    <div class="success-screen" id="success-screen" style="display:none;">
+      <div class="success-screen__inner">
+        <div class="success-screen__icon">
+          <svg width="64" height="64" viewBox="0 0 64 64" fill="none"><circle cx="32" cy="32" r="30" stroke="#C9A84C" stroke-width="2"/><path d="M20 33l8 8 16-16" stroke="#C9A84C" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <h2 class="success-screen__title">Thank You!</h2>
+        <p class="success-screen__text">Your AI Voice Receptionist intake form has been submitted successfully. Our team will review your information and reach out within 24–48 hours to begin building your custom AI receptionist.</p>
+        <a href="#" class="btn btn--primary" onclick="location.reload()">Submit Another Form</a>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer" id="footer">
+      <div class="footer__inner">
+        <img src="https://ulfnzcniivkjtfaoxfmi.supabase.co/storage/v1/object/public/site-assets/images/disruptors-media/brand/logos/gold-logo.png" alt="Disruptors Media" class="footer__logo" />
+        <p class="footer__text">© 2026 Disruptors Media. All rights reserved.</p>
+      </div>
+    </footer>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

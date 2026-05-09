@@ -1,0 +1,504 @@
+{
+  "brandName": "Kyle's Command Center",
+  "mission": "Disruptors Media — AI-powered marketing and automation agency serving service-based businesses. 17 teams, 56 agents, 1,100+ skills.",
+  "serverLabel": "phantom-agents",
+  "skillsRoot": "/Users/owner/Downloads/Phantom-Agents-CLIENT-KYLE/",
+  "lead": {
+    "id": "meta-orchestrator",
+    "name": "Meta-Orchestrator",
+    "badge": "Lead",
+    "role": "Central Command",
+    "description": "Central routing brain — receives tasks, creates plans, routes to 17 specialized teams, enforces quality gates, tracks progress across the entire Phantom Agents system.",
+    "skills": ["Orchestration", "Planning", "Routing", "Quality Gates", "Memory"],
+    "icon": "Crown",
+    "color": "#ff6b1a"
+  },
+  "agents": [
+    {
+      "id": "backend-agent",
+      "name": "Backend Agent",
+      "role": "Full-Stack / Backend",
+      "description": "API design, microservices, auth, payments",
+      "skills": ["API Design", "Microservices", "Auth", "Payments"],
+      "icon": "Fortress",
+      "color": "#0a84ff"
+    },
+    {
+      "id": "code-review-agent",
+      "name": "Code Review Agent",
+      "role": "Full-Stack / Code Review",
+      "description": "PR review, refactoring, dependency audits",
+      "skills": ["PR Review", "Refactoring", "Security Audit"],
+      "icon": "Sentinel",
+      "color": "#0a84ff"
+    },
+    {
+      "id": "database-agent",
+      "name": "Database Agent",
+      "role": "Full-Stack / Database",
+      "description": "Schema design, migrations, PostgreSQL, cloud databases",
+      "skills": ["Schema Design", "Migrations", "PostgreSQL"],
+      "icon": "Monolith",
+      "color": "#0a84ff"
+    },
+    {
+      "id": "frontend-agent",
+      "name": "Frontend Agent",
+      "role": "Full-Stack / Frontend",
+      "description": "React, Next.js, Tailwind, UI/UX, accessibility",
+      "skills": ["React", "Next.js", "Tailwind", "A11y"],
+      "icon": "Prism",
+      "color": "#0a84ff"
+    },
+    {
+      "id": "testing-agent",
+      "name": "Testing Agent",
+      "role": "Full-Stack / QA",
+      "description": "TDD, E2E testing, Playwright, test coverage",
+      "skills": ["TDD", "E2E", "Playwright", "Coverage"],
+      "icon": "Aegis",
+      "color": "#0a84ff"
+    },
+    {
+      "id": "audit-agent",
+      "name": "Audit Agent",
+      "role": "Security / Compliance",
+      "description": "SAST, threat modeling, PCI-DSS, GDPR",
+      "skills": ["SAST", "Threat Modeling", "Compliance"],
+      "icon": "Warden",
+      "color": "#ff2d55"
+    },
+    {
+      "id": "exploit-agent",
+      "name": "Exploit Agent",
+      "role": "Security / Pentest",
+      "description": "Web, network, system penetration testing",
+      "skills": ["Web Pentest", "Network Pentest", "Exploitation"],
+      "icon": "Fang",
+      "color": "#ff2d55"
+    },
+    {
+      "id": "recon-agent",
+      "name": "Recon Agent",
+      "role": "Security / Recon",
+      "description": "Attack surface mapping, scanning, OSINT",
+      "skills": ["OSINT", "Scanning", "Reconnaissance"],
+      "icon": "Specter",
+      "color": "#ff2d55"
+    },
+    {
+      "id": "azure-specialist",
+      "name": "Azure Specialist",
+      "role": "DevOps / Azure",
+      "description": "121 Azure services — AI, compute, storage, monitoring",
+      "skills": ["Azure", "Cloud Services", "Monitoring"],
+      "icon": "Nimbus",
+      "color": "#50e3c2"
+    },
+    {
+      "id": "deployment-agent",
+      "name": "Deployment Agent",
+      "role": "DevOps / CI-CD",
+      "description": "GitHub Actions, GitLab CI, GitOps, Vercel",
+      "skills": ["CI/CD", "GitHub Actions", "Vercel", "GitOps"],
+      "icon": "Pylon",
+      "color": "#50e3c2"
+    },
+    {
+      "id": "infrastructure-agent",
+      "name": "Infrastructure Agent",
+      "role": "DevOps / Infra",
+      "description": "AWS, GCP, K8s, Terraform, Docker, multi-cloud",
+      "skills": ["AWS", "GCP", "Terraform", "Docker", "K8s"],
+      "icon": "Titan",
+      "color": "#50e3c2"
+    },
+    {
+      "id": "observability-agent",
+      "name": "Observability Agent",
+      "role": "DevOps / Monitoring",
+      "description": "Prometheus, Grafana, distributed tracing, incident management",
+      "skills": ["Prometheus", "Grafana", "Tracing", "Alerting"],
+      "icon": "Beacon",
+      "color": "#50e3c2"
+    },
+    {
+      "id": "ai-architect",
+      "name": "AI Architect",
+      "role": "AI-ML / Architecture",
+      "description": "Multi-agent orchestration, LLM apps, memory, evaluation",
+      "skills": ["Multi-Agent", "LLM Apps", "RAG", "Evaluation"],
+      "icon": "Phantom",
+      "color": "#af52de"
+    },
+    {
+      "id": "prompt-engineer",
+      "name": "Prompt Engineer",
+      "role": "AI-ML / Prompts",
+      "description": "Prompt optimization, caching, systematic improvement",
+      "skills": ["Prompt Design", "Caching", "Optimization"],
+      "icon": "Rune",
+      "color": "#af52de"
+    },
+    {
+      "id": "rag-search-agent",
+      "name": "RAG/Search Agent",
+      "role": "AI-ML / Retrieval",
+      "description": "RAG pipelines, vector databases, embeddings, hybrid search",
+      "skills": ["Vector DBs", "Embeddings", "Hybrid Search"],
+      "icon": "Nexus",
+      "color": "#af52de"
+    },
+    {
+      "id": "voice-vision-agent",
+      "name": "Voice/Vision Agent",
+      "role": "AI-ML / Multimodal",
+      "description": "Voice agents, computer vision, image gen, transcription",
+      "skills": ["Voice AI", "Computer Vision", "Image Gen"],
+      "icon": "Echo",
+      "color": "#af52de"
+    },
+    {
+      "id": "analytics-agent",
+      "name": "Analytics Agent",
+      "role": "Marketing / Analytics",
+      "description": "Tracking, dashboards, market research",
+      "skills": ["Analytics", "Dashboards", "Market Research"],
+      "icon": "Vertex",
+      "color": "#f5a623"
+    },
+    {
+      "id": "content-agent",
+      "name": "Content Agent",
+      "role": "Marketing / Content",
+      "description": "Copywriting, email, social media, brand",
+      "skills": ["Copywriting", "Email", "Social", "Brand"],
+      "icon": "Spark",
+      "color": "#f5a623"
+    },
+    {
+      "id": "cro-agent",
+      "name": "CRO Agent",
+      "role": "Marketing / CRO",
+      "description": "A/B testing, funnels, pricing, growth hacking",
+      "skills": ["A/B Testing", "Funnels", "Pricing", "Growth"],
+      "icon": "Torque",
+      "color": "#f5a623"
+    },
+    {
+      "id": "lead-gen-agent",
+      "name": "Lead Generation Agent",
+      "role": "Marketing / Lead Gen",
+      "description": "Prospect research, lead scoring, cold email, outreach",
+      "skills": ["Prospecting", "Lead Scoring", "Cold Email"],
+      "icon": "Strider",
+      "color": "#f5a623"
+    },
+    {
+      "id": "seo-agent",
+      "name": "SEO Agent",
+      "role": "Marketing / SEO",
+      "description": "Audits, content strategy, keywords, programmatic SEO",
+      "skills": ["SEO Audit", "Keywords", "Content Strategy"],
+      "icon": "Thorn",
+      "color": "#f5a623"
+    },
+    {
+      "id": "business-analyst",
+      "name": "Business Analyst",
+      "role": "Startup / Analysis",
+      "description": "Market research, financial modeling, competitive intelligence",
+      "skills": ["Market Research", "Financial Modeling", "Competitive Intel"],
+      "icon": "Sage",
+      "color": "#22c55e"
+    },
+    {
+      "id": "legal-hr-agent",
+      "name": "Legal/HR Agent",
+      "role": "Startup / Legal",
+      "description": "Contracts, compliance, team composition",
+      "skills": ["Contracts", "Compliance", "HR"],
+      "icon": "Helm",
+      "color": "#22c55e"
+    },
+    {
+      "id": "product-manager",
+      "name": "Product Manager",
+      "role": "Startup / Product",
+      "description": "Roadmaps, PRDs, pricing, launch strategy",
+      "skills": ["Roadmaps", "PRDs", "Pricing", "Launch"],
+      "icon": "Apex",
+      "color": "#22c55e"
+    },
+    {
+      "id": "integration-builder",
+      "name": "Integration Builder",
+      "role": "Automation / Integrations",
+      "description": "102 platform skills, 70+ SaaS integrations",
+      "skills": ["GHL", "Zapier", "Make", "70+ Platforms"],
+      "icon": "Flux",
+      "color": "#06b6d4"
+    },
+    {
+      "id": "workflow-orchestrator",
+      "name": "Workflow Orchestrator",
+      "role": "Automation / Workflows",
+      "description": "n8n, Zapier, Make, automation pattern design",
+      "skills": ["n8n", "Zapier", "Make", "Automation"],
+      "icon": "Drift",
+      "color": "#06b6d4"
+    },
+    {
+      "id": "doc-writer",
+      "name": "Doc Writer",
+      "role": "Documentation / Writing",
+      "description": "Technical docs, wikis, tutorials, changelogs, Obsidian",
+      "skills": ["Tech Docs", "Tutorials", "Changelogs", "Obsidian"],
+      "icon": "Glyph",
+      "color": "#8b5cf6"
+    },
+    {
+      "id": "office-producer",
+      "name": "Office Producer",
+      "role": "Documentation / Office",
+      "description": "DOCX, PDF, PPTX, XLSX generation",
+      "skills": ["DOCX", "PDF", "PPTX", "XLSX"],
+      "icon": "Obelisk",
+      "color": "#8b5cf6"
+    },
+    {
+      "id": "app-store-agent",
+      "name": "App Store Agent",
+      "role": "Mobile / ASO",
+      "description": "App store deployment, ASO, Expo optimization",
+      "skills": ["ASO", "Expo", "Store Optimization"],
+      "icon": "Comet",
+      "color": "#ec4899"
+    },
+    {
+      "id": "mobile-dev-agent",
+      "name": "Mobile Dev Agent",
+      "role": "Mobile / Development",
+      "description": "Flutter, React Native, SwiftUI, Jetpack Compose",
+      "skills": ["Flutter", "React Native", "SwiftUI"],
+      "icon": "Fuse",
+      "color": "#ec4899"
+    },
+    {
+      "id": "game-engine-agent",
+      "name": "Game Engine Agent",
+      "role": "Game Dev / Engines",
+      "description": "Unity, Unreal, Godot, Bevy, Minecraft Bukkit",
+      "skills": ["Unity", "Unreal", "Godot", "Bevy"],
+      "icon": "Ember",
+      "color": "#eab308"
+    },
+    {
+      "id": "graphics-agent",
+      "name": "Graphics Agent",
+      "role": "Game Dev / Graphics",
+      "description": "GLSL shaders, Three.js, 3D web graphics",
+      "skills": ["GLSL", "Three.js", "WebGL", "Shaders"],
+      "icon": "Nova",
+      "color": "#eab308"
+    },
+    {
+      "id": "smart-contract-agent",
+      "name": "Smart Contract Agent",
+      "role": "Blockchain / Contracts",
+      "description": "Solidity, DeFi protocols, NFT standards",
+      "skills": ["Solidity", "DeFi", "NFTs"],
+      "icon": "Cipher",
+      "color": "#14b8a6"
+    },
+    {
+      "id": "web3-testing-agent",
+      "name": "Web3 Testing Agent",
+      "role": "Blockchain / Testing",
+      "description": "Smart contract testing, fuzzing, security",
+      "skills": ["Contract Testing", "Fuzzing", "Web3 QA"],
+      "icon": "Shard",
+      "color": "#14b8a6"
+    },
+    {
+      "id": "skill-creator",
+      "name": "Skill Creator",
+      "role": "Skill Building / Creator",
+      "description": "Creating and managing Claude Code skills",
+      "skills": ["Skill Design", "Skill Management"],
+      "icon": "Spire",
+      "color": "#f97316"
+    },
+    {
+      "id": "tool-builder",
+      "name": "Tool Builder",
+      "role": "Skill Building / Tools",
+      "description": "MCP servers, custom tools, Obsidian plugins",
+      "skills": ["MCP Servers", "Custom Tools", "Plugins"],
+      "icon": "Crux",
+      "color": "#f97316"
+    },
+    {
+      "id": "content-strategist",
+      "name": "Content Strategist",
+      "role": "Content / Strategy",
+      "description": "Editorial planning, calendars, audience research, brand voice",
+      "skills": ["Editorial Planning", "Brand Voice", "Audience Research"],
+      "icon": "Halo",
+      "color": "#3b82f6"
+    },
+    {
+      "id": "copywriter",
+      "name": "Copywriter",
+      "role": "Content / Copy",
+      "description": "Blog posts, web copy, sales pages, scripts",
+      "skills": ["Blog Posts", "Sales Pages", "Web Copy"],
+      "icon": "Pike",
+      "color": "#3b82f6"
+    },
+    {
+      "id": "email-marketer",
+      "name": "Email Marketer",
+      "role": "Content / Email",
+      "description": "Sequences, newsletters, cold outreach, automation",
+      "skills": ["Email Sequences", "Newsletters", "Automation"],
+      "icon": "Volt",
+      "color": "#3b82f6"
+    },
+    {
+      "id": "seo-content-specialist",
+      "name": "SEO Content Specialist",
+      "role": "Content / SEO",
+      "description": "Keyword research, content optimization, search-first writing",
+      "skills": ["Keyword Research", "Content Optimization"],
+      "icon": "Blade",
+      "color": "#3b82f6"
+    },
+    {
+      "id": "social-media-manager",
+      "name": "Social Media Manager",
+      "role": "Content / Social",
+      "description": "Post creation, platform strategy, scheduling",
+      "skills": ["Social Posts", "Scheduling", "Hashtags"],
+      "icon": "Pulse",
+      "color": "#3b82f6"
+    },
+    {
+      "id": "video-audio-producer",
+      "name": "Video & Audio Producer",
+      "role": "Content / Video",
+      "description": "AI video, Remotion, scripting, transcription",
+      "skills": ["AI Video", "Remotion", "Transcription"],
+      "icon": "Flare",
+      "color": "#3b82f6"
+    },
+    {
+      "id": "visual-designer",
+      "name": "Visual Designer",
+      "role": "Content / Design",
+      "description": "Graphics, presentations, infographics, design systems",
+      "skills": ["Graphics", "Presentations", "Infographics"],
+      "icon": "Mist",
+      "color": "#3b82f6"
+    },
+    {
+      "id": "brief-generator",
+      "name": "Brief Generator",
+      "role": "CSM / Briefs",
+      "description": "Morning briefs with alerts from client tracker and meeting data",
+      "skills": ["Brief Synthesis", "Alerting"],
+      "icon": "Orb",
+      "color": "#10b981"
+    },
+    {
+      "id": "client-tracker",
+      "name": "Client Tracker",
+      "role": "CSM / Tracking",
+      "description": "Client folder scanning, engagement status, deliverable tracking",
+      "skills": ["Client Scanning", "Status Tracking"],
+      "icon": "Rook",
+      "color": "#10b981"
+    },
+    {
+      "id": "meeting-analyst",
+      "name": "Meeting Analyst",
+      "role": "CSM / Meetings",
+      "description": "Action item extraction, cross-referencing deliverables",
+      "skills": ["Action Items", "Cross-Reference"],
+      "icon": "Arc",
+      "color": "#10b981"
+    },
+    {
+      "id": "project-manager",
+      "name": "Project Manager",
+      "role": "CSM / PM",
+      "description": "Task assignment, brief analysis, employee folder management",
+      "skills": ["Task Assignment", "Brief Analysis"],
+      "icon": "Oxide",
+      "color": "#10b981"
+    },
+    {
+      "id": "client-uat-coordinator",
+      "name": "Client UAT Coordinator",
+      "role": "QA / UAT",
+      "description": "Staging links, client feedback collection, sign-off tracking",
+      "skills": ["Staging", "UAT", "Sign-off"],
+      "icon": "Wisp",
+      "color": "#f59e0b"
+    },
+    {
+      "id": "continuous-improvement",
+      "name": "Continuous Improvement",
+      "role": "QA / Improvement",
+      "description": "Post-delivery audits, gap analysis, improvement proposals",
+      "skills": ["Audits", "Gap Analysis", "Improvement"],
+      "icon": "Claw",
+      "color": "#f59e0b"
+    },
+    {
+      "id": "polish-agent",
+      "name": "Polish Agent",
+      "role": "QA / Polish",
+      "description": "Typos, broken links, Lighthouse scores, meta tags",
+      "skills": ["Lighthouse", "Meta Tags", "Visual QA"],
+      "icon": "Spark",
+      "color": "#f59e0b"
+    },
+    {
+      "id": "qa-engineer",
+      "name": "QA Engineer",
+      "role": "QA / Testing",
+      "description": "Cross-browser, regression, E2E flow validation",
+      "skills": ["Cross-Browser", "Regression", "E2E"],
+      "icon": "Fortress",
+      "color": "#f59e0b"
+    },
+    {
+      "id": "capex-opex-tracker",
+      "name": "CapEx & OpEx Tracker",
+      "role": "Finance / Expenses",
+      "description": "Business expenses, subscriptions, tool costs, burn rate",
+      "skills": ["Expense Tracking", "Burn Rate", "Subscriptions"],
+      "icon": "Torque",
+      "color": "#6366f1"
+    },
+    {
+      "id": "payroll-retainer",
+      "name": "Payroll & Retainer Agent",
+      "role": "Finance / Payroll",
+      "description": "Employee compensation, client retainer payment cycles",
+      "skills": ["Payroll", "Retainers", "Payment Scheduling"],
+      "icon": "Volt",
+      "color": "#6366f1"
+    },
+    {
+      "id": "revenue-profitability",
+      "name": "Revenue & Profitability",
+      "role": "Finance / Revenue",
+      "description": "Client revenue, per-client profitability, MRR, forecasting",
+      "skills": ["Revenue", "P&L", "MRR", "Forecasting"],
+      "icon": "Nova",
+      "color": "#6366f1"
+    }
+  ]
+}

@@ -1,0 +1,5 @@
+{
+  "brandName": "Kyle's Command Center",
+  "cronPaths": ["./data/crons.json"],
+  "timezone": "America/Denver"
+}

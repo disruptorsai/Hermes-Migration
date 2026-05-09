@@ -1,0 +1,52 @@
+﻿PARA|None|AI Voice Receptionist
+PARA|None|Client Intake Form
+PARA|Heading 2|1. Business Information
+PARA|None|Basic details about your business that the AI will use to identify itself.
+PARA|None|Business Hours
+PARA|Heading 2|2. Call Handling Preferences
+PARA|None|How should the AI answer and manage calls?
+PARA|None|Preferred Greeting Script
+PARA|None|Example: "Hi, thank you for calling [Business]. This is [Name], how can I help you today?"
+PARA|None|After-Hours Handling
+PARA|None|Voicemail Policy
+PARA|Heading 2|3. Caller Intent Categories
+PARA|None|What types of calls should the AI expect and how should it prioritize them?
+PARA|None|Primary Call Types (check all that apply)
+PARA|None|Do you need to distinguish between:
+PARA|Heading 2|4. Lead Capture Information
+PARA|None|What information should the AI collect from new callers requesting a quote or service?
+PARA|None|Required Fields (check all that apply)
+PARA|None|Services Offered (list all for AI to recognize)
+PARA|None|The AI will use this list to categorize caller requests.
+PARA|Heading 2|5. Service Area
+PARA|None|Define geographic boundaries so the AI can qualify or disqualify callers.
+PARA|None|Primary Service Area
+PARA|None|How should AI handle callers outside the service area?
+PARA|Heading 2|6. Frequently Asked Questions
+PARA|None|List common questions callers ask and the answers you want the AI to provide.
+PARA|Heading 2|7. Transfer & Escalation Rules
+PARA|None|When should the AI transfer a call to a human instead of handling it?
+PARA|None|Primary Transfer Contact
+PARA|None|Backup Contact (if primary unavailable)
+PARA|None|Transfer Triggers (when should AI transfer immediately?)
+PARA|None|VIP Callers (always transfer these callers)
+PARA|None|Names, companies, or numbers that should always be transferred.
+PARA|Heading 2|8. Integrations & Notifications
+PARA|None|Where should lead information be sent?
+PARA|None|CRM / Scheduling Software
+PARA|None|Lead Notification Preferences
+PARA|None|Calendar Integration Needed?
+PARA|Heading 2|9. Tone & Brand Voice
+PARA|None|How should the AI sound when representing your business?
+PARA|None|Preferred Tone
+PARA|None|Phrases to USE
+PARA|None|Phrases to AVOID
+PARA|Heading 2|10. Special Call Handling
+PARA|None|How should the AI handle these specific situations?
+PARA|None|Call Types
+PARA|None|Language Support Needed?
+PARA|Heading 2|11. Testing & Launch
+PARA|None|Launch Preference
+PARA|Heading 2|12. Additional Notes
+PARA|None|Any other information, special instructions, or requirements not covered above.
+PARA|None|Thank you for completing this form!

@@ -1,0 +1,1089 @@
+{
+  "nodes": [
+    {
+      "parameters": {
+        "inputSource": "passthrough"
+      },
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        672,
+        -240
+      ],
+      "id": "8b1fbd50-8833-4ca8-be0a-eeee778e2d9a",
+      "name": "When Executed by Another Workflow"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://googleads.googleapis.com/v19/customers/{{$vars.customerId}}/offlineUserDataJobs:create",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "googleOAuth2Api",
+        "sendHeaders": true,
+        "specifyHeaders": "json",
+        "jsonHeaders": "={\n  \"developer-token\": \"{{$vars.devToken}}\",\n  \"login-customer-id\": \"{{$vars.mccId}}\",\n  \"content-type\": \"application/json\"\n}\n\n",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"job\": {\n    \"type\": \"CUSTOMER_MATCH_USER_LIST\",\n    \"customerMatchUserListMetadata\": {\n      \"userList\": \"customers/{{$vars.customerId}}/userLists/{{$vars.userListId}}\"\n    }\n  }\n}",
+        "options": {
+          "response": {
+            "response": {
+              "fullResponse": true,
+              "responseFormat": "text"
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        896,
+        64
+      ],
+      "id": "715dda97-cba3-462f-9612-32370e623c6e",
+      "name": "Create job",
+      "credentials": {
+        "googleOAuth2Api": {
+          "id": "0rAE7Gkry6SBtVAg",
+          "name": "Google account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://googleads.googleapis.com/v19/customers/{{$vars.customerId}}/offlineUserDataJobs/{{ JSON.parse($node[\"Create job\"].json.data).resourceName.split('/').pop() }}:addOperations",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "googleOAuth2Api",
+        "sendHeaders": true,
+        "specifyHeaders": "json",
+        "jsonHeaders": "={\n  \"developer-token\": \"{{$vars.devToken}}\",\n  \"login-customer-id\": \"{{$vars.mccId}}\",\n  \"content-type\": \"application/json\"\n}",
+        "sendBody": true,
+        "contentType": "raw",
+        "rawContentType": "application/json",
+        "body": "={{\n  JSON.stringify({\n    enablePartialFailure: true,\n    operations: $item(0).$node[\"Ops test (temporary) — Code\"].json.operations || []\n  })\n}}",
+        "options": {
+          "response": {
+            "response": {
+              "fullResponse": true
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1504,
+        288
+      ],
+      "id": "528b1247-d3a7-40b7-b40a-5ef31a7edcb6",
+      "name": "Add operations",
+      "credentials": {
+        "googleOAuth2Api": {
+          "id": "0rAE7Gkry6SBtVAg",
+          "name": "Google account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://googleads.googleapis.com/v19/customers/{{$vars.customerId}}/offlineUserDataJobs/{{ JSON.parse($node[\"Create job\"].json.data).resourceName.split('/').pop() }}:run",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "googleOAuth2Api",
+        "sendHeaders": true,
+        "specifyHeaders": "json",
+        "jsonHeaders": "={\n  \"developer-token\": \"{{$vars.devToken}}\",\n  \"login-customer-id\": \"{{$vars.mccId}}\"\n}\n",
+        "sendBody": true,
+        "contentType": "raw",
+        "rawContentType": "Raw",
+        "body": "={{ \"{}\" }}",
+        "options": {
+          "response": {
+            "response": {
+              "fullResponse": true
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1648,
+        64
+      ],
+      "id": "aa1c5f9b-cf79-4e1f-a3c3-1639620b3efd",
+      "name": "Run job",
+      "credentials": {
+        "googleOAuth2Api": {
+          "id": "0rAE7Gkry6SBtVAg",
+          "name": "Google account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "url": "https://googleads.googleapis.com/v19/customers/1926825641/offlineUserDataJobs/51789508170",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "googleOAuth2Api",
+        "sendHeaders": true,
+        "specifyHeaders": "=json",
+        "headerParameters": {
+          "parameters": [
+            {}
+          ]
+        },
+        "jsonHeaders": "={\n  \"developer-token\": \"{{$vars.devToken}}\",\n  \"login-customer-id\": \"{{$vars.mccId}}\"\n}",
+        "options": {
+          "response": {
+            "response": {
+              "fullResponse": true,
+              "responseFormat": "json"
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        2912,
+        736
+      ],
+      "id": "703a6ba2-c78a-4b61-9e08-65f121f349e4",
+      "name": "Get job",
+      "credentials": {
+        "googleOAuth2Api": {
+          "id": "0rAE7Gkry6SBtVAg",
+          "name": "Google account 2"
+        }
+      },
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "6e934c2b-a6e0-4921-b400-1f635cb26d58",
+              "leftValue": "={{ $json.status ?? $json.body?.status }}",
+              "rightValue": "FAILED",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        3584,
+        624
+      ],
+      "id": "0e8de5f2-3746-47f8-ad57-9a35c3b87184",
+      "name": "If - Failed?"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "2015bf3c-fc1b-4cf4-aad5-9b4fda6b96c5",
+              "leftValue": "={{ $json.done && !$json.error }}",
+              "rightValue": "true",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        3136,
+        624
+      ],
+      "id": "fb06fdba-470e-4b81-88db-d009c2724ce0",
+      "name": "If - Success?",
+      "alwaysOutputData": false
+    },
+    {
+      "parameters": {
+        "amount": 10
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        3808,
+        768
+      ],
+      "id": "77b49bb8-f456-4c12-831f-b850d110aca0",
+      "name": "Wait",
+      "webhookId": "d5e0d479-28d6-4006-9be5-225124018299"
+    },
+    {
+      "parameters": {
+        "errorMessage": "={{$json.partialFailureError ?? $json.body?.partialFailureError}}"
+      },
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        3808,
+        480
+      ],
+      "id": "61031208-500e-41a1-a2fd-af762776e49a",
+      "name": "Stop and Error"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "44650e9c-0f8f-4a84-93b6-31ffd3cf3a06",
+              "name": "operations",
+              "value": "={{\n  (() => {\n    const ops = $json.operations;\n    if (!ops) return [];\n    if (Array.isArray(ops)) return ops;\n    if (typeof ops === 'string') {\n      try {\n        const p = JSON.parse(ops);\n        if (Array.isArray(p)) return p;\n        if (p && Array.isArray(p.operations)) return p.operations;\n      } catch(_) {}\n    }\n    if (typeof ops === 'object' && Array.isArray(ops.operations)) return ops.operations;\n    return [];\n  })()\n}}",
+              "type": "array"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        784,
+        -112
+      ],
+      "id": "d1f3c9ab-fefa-4cb5-bdf1-78d85c69596f",
+      "name": "Carry ops"
+    },
+    {
+      "parameters": {
+        "jsCode": "return [{\n  json: {\n    operations: [\n      {\n        create: {\n          userIdentifiers: [\n            {\n              // sha256(\"test@example.com\"), lowercase\n              hashedEmail: \"973dfe463ec85785f5f95af5ba3906eedb2d931c24e69824a89ea65dba4e813b\"\n            }\n          ]\n        }\n      }\n    ]\n  }\n}];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1344,
+        480
+      ],
+      "id": "f0727df8-4ba8-4292-9776-5269754f8bf7",
+      "name": "Ops test (temporary) — Code"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        2000,
+        16
+      ],
+      "id": "ce42fbd6-91bb-42cd-befe-94c4cf4337ee",
+      "name": "Wait2",
+      "webhookId": "ea02307d-defb-49a6-94a0-35b7046c896e"
+    },
+    {
+      "parameters": {
+        "jsCode": "const cj = $node[\"Create job\"].json;\nconst payload =\n  (cj && typeof cj.data === 'string') ? JSON.parse(cj.data)\n  : (typeof cj === 'string') ? JSON.parse(cj)\n  : (cj && typeof cj === 'object') ? cj\n  : {};\n\nconst rn = payload.resourceName ?? payload.body?.resourceName ?? '';\nconst jobId = rn ? rn.split('/').pop() : '';\n\nreturn [{\n  json: {\n    jobUrl: `https://googleads.googleapis.com/v19/customers/${$vars.customerId}/offlineUserDataJobs/${jobId}`\n  }\n}];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2640,
+        656
+      ],
+      "id": "e30650ef-d280-4375-95d3-86479c7c2d8b",
+      "name": "Debug — Job URL (Code)"
+    },
+    {
+      "parameters": {
+        "url": "=https://googleads.googleapis.com/v19/{{ $json.jobPath }}",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "googleOAuth2Api",
+        "sendHeaders": true,
+        "specifyHeaders": "json",
+        "jsonHeaders": "={\n  \"developer-token\": \"{{$vars.devToken}}\",\n  \"login-customer-id\": \"{{$vars.mccId}}\"\n}",
+        "options": {
+          "response": {
+            "response": {
+              "fullResponse": true
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        2224,
+        48
+      ],
+      "id": "6f83b590-a570-4536-8abe-385b7f637ec6",
+      "name": "Get job (copy)",
+      "credentials": {
+        "googleOAuth2Api": {
+          "id": "0rAE7Gkry6SBtVAg",
+          "name": "Google account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://googleads.googleapis.com/v19/customers/{{$vars.mccId}}/googleAds:searchStream",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "googleOAuth2Api",
+        "sendHeaders": true,
+        "specifyHeaders": "json",
+        "jsonHeaders": "={\n  \"developer-token\": \"{{$vars.devToken}}\",\n  \"login-customer-id\": \"{{$vars.mccId}}\",\n  \"content-type\": \"application/json\"\n}\n",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "query",
+              "value": "=SELECT\n  offline_user_data_job.resource_name,\n  offline_user_data_job.id,\n  offline_user_data_job.type,\n  offline_user_data_job.status,\n  offline_user_data_job.failure_reason\nFROM offline_user_data_job\nWHERE offline_user_data_job.resource_name = '{{$json.operationName.replace(\"/operations/\",\"/offlineUserDataJobs/\")}}'"
+            }
+          ]
+        },
+        "options": {
+          "response": {
+            "response": {
+              "fullResponse": true,
+              "responseFormat": "json"
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        2304,
+        592
+      ],
+      "id": "7cc14517-49e6-4e6a-a86b-0bef2d8e98ea",
+      "name": "Lookup job (search)",
+      "credentials": {
+        "googleOAuth2Api": {
+          "id": "0rAE7Gkry6SBtVAg",
+          "name": "Google account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const payload = $json.body ?? $json;\nconst chunks = Array.isArray(payload) ? payload : [payload];\n\nlet latest = null;\nfor (const chunk of chunks) {\n  const results = chunk?.results ?? [];\n  for (const r of results) {\n    const job =\n      r?.offlineUserDataJob ??\n      r?.row?.offlineUserDataJob ??\n      r?.offline_user_data_job ??\n      null;\n    if (job) latest = job;\n  }\n}\nlatest = latest ?? {};\n\nreturn [\n  {\n    json: {\n      resource_name: latest.resourceName ?? latest.resource_name ?? null,\n      id: latest.id ?? null,\n      type: latest.type ?? null,\n      status: latest.status ?? null,\n      failure_reason: latest.failureReason ?? latest.failure_reason ?? null,\n    },\n  },\n];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2576,
+        448
+      ],
+      "id": "5b54462e-dd53-4636-b91b-bfa4f8d82e24",
+      "name": "Parse lookup"
+    },
+    {
+      "parameters": {
+        "url": "=https://googleads.googleapis.com/v19/{{$json.operationName}}",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "googleOAuth2Api",
+        "sendHeaders": true,
+        "specifyHeaders": "json",
+        "jsonHeaders": "={\n  \"developer-token\": \"{{$vars.devToken}}\",\n  \"login-customer-id\": \"{{$vars.mccId}}\",\n  \"content-type\": \"application/json\"\n}\n",
+        "options": {
+          "response": {
+            "response": {
+              "fullResponse": true,
+              "responseFormat": "json"
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        3344,
+        -96
+      ],
+      "id": "42422089-e76c-421e-8cdf-31cf8cc0a770",
+      "name": "Check operation",
+      "credentials": {
+        "googleAdsOAuth2Api": {
+          "id": "C3E51f0UI99Q7iZj",
+          "name": "Google Ads account"
+        },
+        "googleOAuth2Api": {
+          "id": "0rAE7Gkry6SBtVAg",
+          "name": "Google account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const body = $json.body || {};\nreturn [{\n  json: {\n    operationName: $json.operationName,    // keep it!\n    done: body.done ?? false,\n    error: body.error ?? null,\n    status: body.done ? (body.error ? 'FAILED' : 'SUCCESS') : 'RUNNING'\n  }\n}];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        3568,
+        -240
+      ],
+      "id": "56fd97a9-d605-47c1-8da4-867d197755fa",
+      "name": "Parse operation"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "loose",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "675a524a-9caa-40e0-8e18-870896cd0ce5",
+              "leftValue": "={{ $json.done && !$json.error }}\n",
+              "rightValue": "true",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "looseTypeValidation": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        2016,
+        688
+      ],
+      "id": "ccde00f1-7b13-424d-b823-1a504ee60899",
+      "name": "Is done?"
+    },
+    {
+      "parameters": {
+        "amount": 10
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        3344,
+        368
+      ],
+      "id": "7be336de-e215-459d-8128-5d2e32de16f1",
+      "name": "Wait1",
+      "webhookId": "5397540a-9b5b-4df2-86f4-ded596043784"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "loose",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "feb26288-cc9d-4654-901c-cbd98cfbd35c",
+              "leftValue": "={{ $json.status }}",
+              "rightValue": "SUCCESS",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "or"
+        },
+        "looseTypeValidation": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        3088,
+        16
+      ],
+      "id": "5de08c09-9edf-4a88-b75d-0be0eaf078d6",
+      "name": "Is Success?",
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "aeb0f60a-bd76-4c91-b18b-5e2dd1b63243",
+              "name": "loopCount",
+              "value": "1",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1776,
+        -176
+      ],
+      "id": "f87940e3-fa5a-4162-9825-3684d42d30ab",
+      "name": "Init Counter"
+    },
+    {
+      "parameters": {
+        "jsCode": "const loopCount = Number($json.loopCount ?? 9);\nreturn [{ json: { ...$json, loopCount: loopCount + 1 } }];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        3792,
+        -240
+      ],
+      "id": "df442ce0-d2f4-4bd7-ba29-30793a81d281",
+      "name": "Increment Counter",
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "loose",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "e862060b-6dc9-4052-8160-7154e31a65ca",
+              "leftValue": "={{ $json.loopCount }}",
+              "rightValue": 10,
+              "operator": {
+                "type": "number",
+                "operation": "lt"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "looseTypeValidation": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        4016,
+        -96
+      ],
+      "id": "20fcdf1e-5e92-43af-abdd-da9695a2095c",
+      "name": "Max Retries?"
+    },
+    {
+      "parameters": {
+        "errorMessage": "=Max retries reached ({{ $json.loopCount }}) — job never completed.\n"
+      },
+      "type": "n8n-nodes-base.stopAndError",
+      "typeVersion": 1,
+      "position": [
+        4112,
+        -304
+      ],
+      "id": "cc1960b3-90cb-42f9-a865-58578c098fe1",
+      "name": "Stop and Error1"
+    },
+    {
+      "parameters": {
+        "jsCode": "const customerId = '1926825641';\nconst resourceName = $json.resourceName || $json['results']?.[0]?.resourceName || '';\n\nlet operationName = '';\n\nif (resourceName.includes('offlineUserDataJobs/')) {\n  // convert a job resourceName into an operations path\n  const jobId = resourceName.split('offlineUserDataJobs/')[1];\n  operationName = `customers/${customerId}/operations/${jobId}`;\n} else if (resourceName.includes('operations/')) {\n  // already a valid operation path\n  operationName = resourceName;\n}\n\nreturn [\n  {\n    json: {\n      ...$json,\n      operationName\n    }\n  }\n];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2352,
+        -256
+      ],
+      "id": "a742edf2-ab80-4f57-a118-283c3461c4f3",
+      "name": "Prepare Operation Name"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": []
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        4112,
+        -96
+      ],
+      "id": "a5782dfc-1518-4242-8300-6625827236ef",
+      "name": "NoOp (Set)"
+    },
+    {
+      "parameters": {
+        "amount": 6
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        3920,
+        128
+      ],
+      "id": "f4962b39-5b6a-4259-8e40-8e38724fa8d9",
+      "name": "Wait (poll)",
+      "webhookId": "9b85b6ae-f514-4a65-bc55-50d5e2811fd2"
+    },
+    {
+      "parameters": {
+        "mode": "combine",
+        "combineBy": "combineByPosition",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        2800,
+        -128
+      ],
+      "id": "c5f977b1-796b-4784-9a72-52453c77cbb2",
+      "name": "Merge opName + status"
+    },
+    {
+      "parameters": {
+        "jsCode": "// The raw input from \"Create job\" node looks like:\n// { \"data\": \"{\\\"resourceName\\\":\\\"customers/1926825641/offlineUserDataJobs/52578423903\\\"}\" }\n\n// Parse the JSON string from the \"data\" field\nconst parsed = JSON.parse($json.data);\n\n// Extract the resource name\nconst resourceName = parsed.resourceName;\n\n// Extract both the full path and numeric jobId\nconst match = resourceName.match(/customers\\/\\d+\\/offlineUserDataJobs\\/\\d+/);\n\nreturn [\n  {\n    json: {\n      jobId: match ? match[0].split('/').pop() : null,\n      jobPath: match ? match[0] : null\n    }\n  }\n];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1184,
+        208
+      ],
+      "id": "5260638b-d181-44ba-9483-fc0825249fd4",
+      "name": "Parse job id1"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "cd9513c3-bf85-44f9-8042-e731302dff58",
+              "leftValue": "={{ $json.status }}",
+              "rightValue": "RUNNING",
+              "operator": {
+                "type": "string",
+                "operation": "notEquals"
+              }
+            },
+            {
+              "id": "7977ac8b-b3f7-4417-8ef0-26bde794d51d",
+              "leftValue": "={{ $json.status }}",
+              "rightValue": "SUCCESS",
+              "operator": {
+                "type": "string",
+                "operation": "notEquals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        2432,
+        48
+      ],
+      "id": "b03bd19f-d5bb-4a3d-ac24-3d9b9cd9073b",
+      "name": "Is job still open?"
+    }
+  ],
+  "connections": {
+    "When Executed by Another Workflow": {
+      "main": [
+        [
+          {
+            "node": "Carry ops",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create job": {
+      "main": [
+        [
+          {
+            "node": "Parse job id1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Add operations": {
+      "main": [
+        [
+          {
+            "node": "Run job",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Run job": {
+      "main": [
+        [
+          {
+            "node": "Init Counter",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get job": {
+      "main": [
+        [
+          {
+            "node": "If - Success?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If - Failed?": {
+      "main": [
+        [
+          {
+            "node": "Stop and Error",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Wait",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If - Success?": {
+      "main": [
+        [],
+        [
+          {
+            "node": "Wait1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait": {
+      "main": [
+        [
+          {
+            "node": "Get job",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Carry ops": {
+      "main": [
+        [
+          {
+            "node": "Create job",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Ops test (temporary) — Code": {
+      "main": [
+        [
+          {
+            "node": "Add operations",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait2": {
+      "main": [
+        [
+          {
+            "node": "Get job (copy)",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Prepare Operation Name",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Debug — Job URL (Code)": {
+      "main": [
+        [
+          {
+            "node": "Get job",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Lookup job (search)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get job (copy)": {
+      "main": [
+        [
+          {
+            "node": "Is job still open?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Lookup job (search)": {
+      "main": [
+        [
+          {
+            "node": "Parse lookup",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Parse lookup": {
+      "main": [
+        [
+          {
+            "node": "Debug — Job URL (Code)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check operation": {
+      "main": [
+        [
+          {
+            "node": "Parse operation",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Parse operation": {
+      "main": [
+        [
+          {
+            "node": "Increment Counter",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Is done?": {
+      "main": [
+        [],
+        []
+      ]
+    },
+    "Wait1": {
+      "main": [
+        [
+          {
+            "node": "If - Failed?",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Check operation",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Is Success?": {
+      "main": [
+        [],
+        []
+      ]
+    },
+    "Init Counter": {
+      "main": [
+        [
+          {
+            "node": "Wait2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Increment Counter": {
+      "main": [
+        [
+          {
+            "node": "Max Retries?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Max Retries?": {
+      "main": [
+        [
+          {
+            "node": "Stop and Error1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Wait (poll)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare Operation Name": {
+      "main": [
+        [
+          {
+            "node": "Check operation",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Merge opName + status",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Wait (poll)": {
+      "main": [
+        [
+          {
+            "node": "Check operation",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge opName + status": {
+      "main": [
+        [
+          {
+            "node": "Is Success?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Parse job id1": {
+      "main": [
+        [
+          {
+            "node": "Ops test (temporary) — Code",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Is job still open?": {
+      "main": [
+        [
+          {
+            "node": "Merge opName + status",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Add operations",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Get job (copy)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {},
+  "meta": {
+    "instanceId": "5d5e705b0b8d10682ebb0d37067a6dcb851d3ea541a837b144e99995aef850f4"
+  }
+}

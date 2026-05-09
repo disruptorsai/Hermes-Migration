@@ -1,0 +1,1549 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Sales Infrastructure for Contractors — Webinar | Disruptors Media</title>
+
+    <!-- Fonts -->
+    <link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=clash-display@400,500,600,700&f[]=satoshi@400,500,700&display=swap">
+
+    <style>
+        /* ===========================================
+           WEBINAR THEME
+           Dark + Amber/Orange — optimized for screen sharing
+           Bigger fonts, less text, click-to-advance
+           =========================================== */
+        :root {
+            --bg-primary: #08090e;
+            --bg-secondary: #0f1118;
+            --bg-card: rgba(15, 17, 24, 0.8);
+            --text-primary: #f2f0eb;
+            --text-secondary: #8a8677;
+            --text-muted: #555245;
+            --accent: #f5a623;
+            --accent-secondary: #ff6b35;
+            --accent-glow: rgba(245, 166, 35, 0.25);
+            --accent-glow-strong: rgba(245, 166, 35, 0.5);
+            --cyan: #00e5ff;
+            --danger: #ff3b5c;
+            --success: #00ff88;
+            --font-display: 'Clash Display', sans-serif;
+            --font-body: 'Satoshi', sans-serif;
+            --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html, body {
+            width: 100%;
+            font-family: var(--font-body);
+            background: var(--bg-primary);
+            color: var(--text-primary);
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-snap-type: y mandatory;
+        }
+
+        ::selection {
+            background: var(--accent);
+            color: var(--bg-primary);
+        }
+
+        /* ===========================================
+           SLIDE WRAPPER — scrollable, snap between slides
+           =========================================== */
+        .slides-container {
+            width: 100%;
+        }
+
+        .slide {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: clamp(2rem, 5vw, 5rem);
+            scroll-snap-align: start;
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .slide-inner {
+            max-width: 1100px;
+            width: 100%;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* ===========================================
+           PROGRESS BAR — top
+           =========================================== */
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent), var(--accent-secondary));
+            z-index: 1000;
+            transition: width 0.4s ease;
+            box-shadow: 0 0 15px var(--accent-glow-strong);
+        }
+
+        /* ===========================================
+           SLIDE COUNTER — bottom right
+           =========================================== */
+        .slide-counter {
+            position: fixed;
+            bottom: 1.5rem;
+            right: 2rem;
+            font-family: var(--font-display);
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            z-index: 100;
+        }
+
+        .slide-counter .current { color: var(--accent); font-weight: 600; }
+
+        /* ===========================================
+           BRAND — bottom left
+           =========================================== */
+        .brand-watermark {
+            position: fixed;
+            bottom: 1.5rem;
+            left: 2rem;
+            font-family: var(--font-display);
+            font-weight: 700;
+            font-size: 0.75rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            z-index: 100;
+            opacity: 0.5;
+        }
+
+        /* ===========================================
+           CONTROLS HINT — bottom center
+           =========================================== */
+        .controls-hint {
+            position: fixed;
+            bottom: 1.5rem;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            color: var(--text-muted);
+            font-size: 0.65rem;
+            letter-spacing: 1px;
+            z-index: 100;
+            opacity: 0.35;
+            transition: opacity 0.5s;
+        }
+
+        .controls-hint:hover { opacity: 0.8; }
+
+        .key {
+            padding: 3px 10px;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+            font-size: 0.6rem;
+        }
+
+        /* ===========================================
+           SPEAKER NOTES PANEL (press N to toggle)
+           =========================================== */
+        .notes-panel {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.95);
+            border-top: 2px solid var(--accent);
+            padding: 1.2rem 2rem;
+            z-index: 200;
+            transform: translateY(100%);
+            transition: transform 0.4s var(--ease-out-expo);
+            max-height: 30vh;
+            overflow-y: auto;
+        }
+
+        .notes-panel.visible {
+            transform: translateY(0);
+        }
+
+        .notes-panel .notes-label {
+            font-family: var(--font-display);
+            font-weight: 600;
+            font-size: 0.7rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+        }
+
+        .notes-panel .notes-text {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* ===========================================
+           BACKGROUND EFFECTS
+           =========================================== */
+        .bg-glow {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(120px);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .bg-grid {
+            position: absolute;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(245, 166, 35, 0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(245, 166, 35, 0.02) 1px, transparent 1px);
+            background-size: 60px 60px;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .bg-noise {
+            position: absolute;
+            inset: 0;
+            opacity: 0.025;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+            background-size: 128px;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        /* ===========================================
+           WEBINAR TYPOGRAPHY — bigger, bolder
+           =========================================== */
+        .slide-label {
+            font-family: var(--font-display);
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 1.5rem;
+        }
+
+        h1 {
+            font-family: var(--font-display);
+            font-weight: 700;
+            font-size: clamp(3rem, 6.5vw, 6rem);
+            line-height: 1.02;
+            letter-spacing: -3px;
+        }
+
+        h2 {
+            font-family: var(--font-display);
+            font-weight: 600;
+            font-size: clamp(2.2rem, 4.5vw, 4rem);
+            line-height: 1.12;
+            letter-spacing: -1.5px;
+            margin-bottom: 1.5rem;
+        }
+
+        .big-text {
+            font-family: var(--font-display);
+            font-weight: 600;
+            font-size: clamp(1.8rem, 3.5vw, 3rem);
+            line-height: 1.2;
+            letter-spacing: -1px;
+        }
+
+        .subtitle {
+            font-size: clamp(1.1rem, 2vw, 1.5rem);
+            color: var(--text-secondary);
+            line-height: 1.6;
+            max-width: 750px;
+        }
+
+        .highlight { color: var(--accent); font-weight: 600; }
+
+        .gradient-text {
+            background: linear-gradient(135deg, var(--accent), var(--accent-secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        blockquote {
+            font-family: var(--font-display);
+            font-size: clamp(1.3rem, 2.5vw, 2rem);
+            font-weight: 500;
+            color: var(--text-primary);
+            border-left: 4px solid var(--accent);
+            padding-left: 1.8rem;
+            margin: 2rem 0;
+            line-height: 1.4;
+        }
+
+        /* ===========================================
+           REVEAL ANIMATIONS — elements animate in
+           on slide activation
+           =========================================== */
+        .reveal {
+            opacity: 0;
+            transform: translateY(35px);
+            transition: opacity 0.7s var(--ease-out-expo),
+                        transform 0.7s var(--ease-out-expo);
+        }
+
+        .reveal-left {
+            opacity: 0;
+            transform: translateX(-40px);
+            transition: opacity 0.7s var(--ease-out-expo),
+                        transform 0.7s var(--ease-out-expo);
+        }
+
+        .reveal-right {
+            opacity: 0;
+            transform: translateX(40px);
+            transition: opacity 0.7s var(--ease-out-expo),
+                        transform 0.7s var(--ease-out-expo);
+        }
+
+        .reveal-scale {
+            opacity: 0;
+            transform: scale(0.85);
+            transition: opacity 0.9s var(--ease-out-expo),
+                        transform 0.9s var(--ease-out-expo);
+        }
+
+        .slide.in-view .reveal,
+        .slide.in-view .reveal-left,
+        .slide.in-view .reveal-right {
+            opacity: 1;
+            transform: translate(0);
+        }
+
+        .slide.in-view .reveal-scale {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .d1 { transition-delay: 0.15s; }
+        .d2 { transition-delay: 0.3s; }
+        .d3 { transition-delay: 0.5s; }
+        .d4 { transition-delay: 0.7s; }
+        .d5 { transition-delay: 0.9s; }
+        .d6 { transition-delay: 1.1s; }
+
+        /* ===========================================
+           ENGAGEMENT PROMPT — "type in chat" moments
+           =========================================== */
+        .engagement {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 0.8rem 1.5rem;
+            background: rgba(245, 166, 35, 0.08);
+            border: 1px solid rgba(245, 166, 35, 0.25);
+            border-radius: 100px;
+            font-family: var(--font-display);
+            font-weight: 500;
+            font-size: 1rem;
+            color: var(--accent);
+            margin-top: 2rem;
+            animation: engagePulse 2s ease-in-out infinite;
+        }
+
+        @keyframes engagePulse {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(245, 166, 35, 0.2); }
+            50% { box-shadow: 0 0 0 8px rgba(245, 166, 35, 0); }
+        }
+
+        /* ===========================================
+           CENTERED SLIDE — single powerful message
+           =========================================== */
+        .centered { text-align: center; }
+
+        .centered .subtitle {
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* ===========================================
+           STAT ROW — big numbers
+           =========================================== */
+        .stat-row {
+            display: flex;
+            gap: 2rem;
+            margin: 2.5rem 0;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .stat-card {
+            flex: 1;
+            min-width: 180px;
+            max-width: 280px;
+            padding: 2rem 1.5rem;
+            background: var(--bg-card);
+            border: 1px solid rgba(255, 59, 92, 0.12);
+            border-radius: 16px;
+            text-align: center;
+        }
+
+        .stat-card .stat-value {
+            font-family: var(--font-display);
+            font-weight: 700;
+            font-size: 3rem;
+            line-height: 1;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-card .stat-value.red { color: var(--danger); }
+        .stat-card .stat-value.green { color: var(--success); }
+        .stat-card .stat-value.amber { color: var(--accent); }
+
+        .stat-card .stat-label {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            line-height: 1.4;
+        }
+
+        /* ===========================================
+           PROBLEM ITEMS — fewer, bigger
+           =========================================== */
+        .problem-list {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.2rem;
+            margin: 2rem 0;
+            max-width: 900px;
+        }
+
+        .problem-item {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 1.2rem 1.5rem;
+            background: rgba(255, 59, 92, 0.05);
+            border: 1px solid rgba(255, 59, 92, 0.12);
+            border-radius: 14px;
+            font-family: var(--font-display);
+            font-weight: 500;
+            font-size: 1.05rem;
+        }
+
+        .problem-icon {
+            width: 10px; height: 10px;
+            border-radius: 50%;
+            background: var(--danger);
+            flex-shrink: 0;
+            box-shadow: 0 0 10px rgba(255, 59, 92, 0.5);
+        }
+
+        /* ===========================================
+           FLOW — before/after side by side
+           =========================================== */
+        .flow-container {
+            display: flex;
+            gap: 2rem;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+
+        .flow-box {
+            flex: 1;
+            min-width: 300px;
+            padding: 2rem;
+            border-radius: 16px;
+        }
+
+        .flow-box.before {
+            background: rgba(255, 59, 92, 0.04);
+            border: 1px solid rgba(255, 59, 92, 0.15);
+        }
+
+        .flow-box.after {
+            background: rgba(245, 166, 35, 0.04);
+            border: 1px solid rgba(245, 166, 35, 0.2);
+        }
+
+        .flow-label {
+            font-family: var(--font-display);
+            font-weight: 600;
+            font-size: 0.85rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 1.5rem;
+        }
+
+        .flow-box.before .flow-label { color: var(--danger); }
+        .flow-box.after .flow-label { color: var(--success); }
+
+        .flow-step {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 0.6rem 0;
+            font-size: 1.05rem;
+            color: var(--text-secondary);
+        }
+
+        .flow-step .step-arrow { color: var(--text-muted); }
+
+        .flow-box.before .flow-step:last-child { color: var(--danger); font-weight: 500; }
+        .flow-box.after .flow-step:last-child { color: var(--success); font-weight: 500; }
+
+        /* ===========================================
+           FEATURE CARDS — bigger for webinar
+           =========================================== */
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.2rem;
+            margin: 2rem 0;
+        }
+
+        .feature-card {
+            padding: 1.8rem;
+            background: var(--bg-card);
+            border: 1px solid rgba(245, 166, 35, 0.1);
+            border-radius: 16px;
+        }
+
+        .feature-card .icon {
+            font-size: 2rem;
+            margin-bottom: 0.6rem;
+            display: block;
+        }
+
+        .feature-card .f-title {
+            font-family: var(--font-display);
+            font-weight: 600;
+            font-size: 1.1rem;
+            color: var(--text-primary);
+            margin-bottom: 0.3rem;
+        }
+
+        .feature-card .f-desc {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        /* ===========================================
+           MONEY MATH
+           =========================================== */
+        .money-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin: 2rem 0;
+            max-width: 900px;
+        }
+
+        .money-card {
+            padding: 2rem;
+            background: var(--bg-card);
+            border-radius: 16px;
+            border: 1px solid rgba(245, 166, 35, 0.08);
+        }
+
+        .money-card .money-label {
+            font-family: var(--font-display);
+            font-weight: 600;
+            font-size: 0.8rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 1.2rem;
+        }
+
+        .money-line {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.6rem 0;
+            border-bottom: 1px solid rgba(255,255,255,0.04);
+            font-size: 0.95rem;
+        }
+
+        .money-line:last-child { border-bottom: none; }
+        .money-line .label { color: var(--text-secondary); }
+        .money-line .value { font-weight: 600; }
+        .money-line .value.red { color: var(--danger); }
+        .money-line .value.green { color: var(--success); }
+
+        .money-total {
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 2px solid rgba(245, 166, 35, 0.2);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .money-total .label {
+            font-family: var(--font-display);
+            font-weight: 600;
+            font-size: 1rem;
+        }
+
+        .money-total .value {
+            font-family: var(--font-display);
+            font-weight: 700;
+            font-size: 1.8rem;
+        }
+
+        /* ===========================================
+           TIMELINE — demo steps
+           =========================================== */
+        .demo-timeline {
+            position: relative;
+            padding-left: 3rem;
+            margin: 2rem 0;
+        }
+
+        .demo-timeline::before {
+            content: '';
+            position: absolute;
+            left: 14px;
+            top: 0; bottom: 0;
+            width: 2px;
+            background: linear-gradient(to bottom, var(--accent), var(--accent-secondary), rgba(245,166,35,0.1));
+        }
+
+        .demo-step {
+            position: relative;
+            padding: 0.8rem 0 1.3rem;
+        }
+
+        .demo-step::before {
+            content: '';
+            position: absolute;
+            left: -2.35rem;
+            top: 1.1rem;
+            width: 12px; height: 12px;
+            border-radius: 50%;
+            background: var(--accent);
+            box-shadow: 0 0 12px var(--accent-glow-strong);
+        }
+
+        .demo-step .step-num {
+            font-family: var(--font-display);
+            font-weight: 600;
+            font-size: 0.75rem;
+            letter-spacing: 2px;
+            color: var(--accent);
+            text-transform: uppercase;
+        }
+
+        .demo-step .step-title {
+            font-family: var(--font-display);
+            font-weight: 600;
+            font-size: 1.15rem;
+            color: var(--text-primary);
+        }
+
+        .demo-step .step-desc {
+            font-size: 0.88rem;
+            color: var(--text-secondary);
+        }
+
+        .demo-results {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .demo-result-tag {
+            padding: 0.5rem 1.2rem;
+            background: rgba(0, 255, 136, 0.08);
+            border: 1px solid rgba(0, 255, 136, 0.25);
+            border-radius: 100px;
+            font-size: 0.85rem;
+            color: var(--success);
+            font-weight: 500;
+        }
+
+        /* ===========================================
+           COMPARISON TABLE
+           =========================================== */
+        .comparison-grid {
+            margin: 2rem auto;
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid rgba(245, 166, 35, 0.1);
+            max-width: 800px;
+        }
+
+        .comparison-row {
+            display: grid;
+            grid-template-columns: 1fr 50px 1fr;
+            align-items: center;
+        }
+
+        .comparison-row:not(:last-child) { border-bottom: 1px solid rgba(255,255,255,0.04); }
+        .comparison-row.header { background: rgba(245, 166, 35, 0.06); }
+
+        .comp-old, .comp-new, .comp-arrow { padding: 0.9rem 1.5rem; font-size: 1rem; }
+        .comp-old { color: var(--text-muted); text-decoration: line-through; text-decoration-color: rgba(255,59,92,0.4); }
+        .comp-arrow { text-align: center; color: var(--accent); font-size: 1.2rem; }
+        .comp-new { color: var(--accent); font-weight: 500; }
+
+        .comparison-row.header .comp-old,
+        .comparison-row.header .comp-new {
+            font-family: var(--font-display);
+            font-weight: 600;
+            font-size: 0.75rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            text-decoration: none;
+        }
+
+        .comparison-row.header .comp-old { color: var(--text-muted); }
+        .comparison-row.header .comp-new { color: var(--accent); }
+
+        /* ===========================================
+           CTA BUTTONS
+           =========================================== */
+        .cta-buttons {
+            display: flex;
+            gap: 1.5rem;
+            margin-top: 2.5rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .cta-btn {
+            padding: 1.1rem 3rem;
+            border-radius: 14px;
+            font-family: var(--font-display);
+            font-weight: 600;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.4s var(--ease-out-expo);
+            text-decoration: none;
+            border: none;
+            letter-spacing: 0.5px;
+        }
+
+        .cta-btn.primary {
+            background: linear-gradient(135deg, var(--accent), var(--accent-secondary));
+            color: var(--bg-primary);
+            box-shadow: 0 4px 30px var(--accent-glow);
+        }
+
+        .cta-btn.primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 40px var(--accent-glow-strong);
+        }
+
+        .cta-btn.secondary {
+            background: transparent;
+            border: 2px solid rgba(245, 166, 35, 0.3);
+            color: var(--accent);
+        }
+
+        .cta-btn.secondary:hover {
+            background: rgba(245, 166, 35, 0.08);
+            transform: translateY(-3px);
+        }
+
+        .cta-footer {
+            margin-top: 3rem;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .cta-footer .brand {
+            font-family: var(--font-display);
+            font-weight: 700;
+            color: var(--text-secondary);
+            font-size: 1.2rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+
+        /* ===========================================
+           PARTICLE CANVAS
+           =========================================== */
+        #particles {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        /* ===========================================
+           RESPONSIVE
+           =========================================== */
+        @media (max-width: 768px) {
+            .controls-hint { display: none; }
+            .brand-watermark { font-size: 0.6rem; bottom: 1rem; left: 1rem; }
+            .slide-counter { bottom: 1rem; right: 1rem; font-size: 0.7rem; }
+            .flow-container { flex-direction: column; }
+            .stat-row { flex-direction: column; align-items: center; }
+            .feature-grid { grid-template-columns: 1fr; }
+            .money-grid { grid-template-columns: 1fr; }
+            .problem-list { grid-template-columns: 1fr; }
+            .comparison-row { grid-template-columns: 1fr 40px 1fr; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .reveal, .reveal-left, .reveal-right, .reveal-scale {
+                transition: opacity 0.3s ease;
+                transform: none !important;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <canvas id="particles"></canvas>
+    <div class="progress-bar" id="progressBar"></div>
+    <div class="brand-watermark">Disruptors Media</div>
+    <div class="slide-counter">
+        <span class="current" id="currentSlide">01</span>
+        <span> / </span>
+        <span id="totalSlides">20</span>
+    </div>
+    <div class="controls-hint">
+        <span class="key">&rarr;</span>
+        <span>or</span>
+        <span class="key">click</span>
+        <span>next slide</span>
+        <span style="margin-left:10px;">|</span>
+        <span style="margin-left:10px;" class="key">N</span>
+        <span>speaker notes</span>
+    </div>
+
+    <!-- Speaker notes panel (toggle with N key) -->
+    <div class="notes-panel" id="notesPanel">
+        <div class="notes-label">Speaker Notes</div>
+        <div class="notes-text" id="notesText"></div>
+    </div>
+
+    <div class="slides-container" id="slidesContainer">
+
+        <!-- ===================================================
+             SLIDE 1 — HOOK (Pattern Interrupt)
+             =================================================== -->
+        <section class="slide centered" data-title="Hook"
+            data-notes="Open strong. Don't introduce yourself yet. Hit them with the truth first. Pause after 'while you were working.' Let it land. This is the pattern interrupt — it's unexpected and creates curiosity.">
+            <div class="bg-noise"></div>
+            <div class="bg-glow" style="width:500px;height:500px;background:rgba(245,166,35,0.1);top:30%;left:20%;"></div>
+
+            <div class="slide-inner">
+                <h1 class="reveal d1">
+                    You lost a job<br>
+                    <span class="gradient-text">today.</span>
+                </h1>
+                <p class="subtitle reveal d2" style="margin:1.5rem auto 0;max-width:600px;">
+                    Someone called. You were on a roof, under a sink, or behind drywall. Your phone rang 4 times. They hung up. They called the next contractor on Google.
+                </p>
+                <p class="subtitle reveal d3" style="margin:1rem auto 0;color:var(--accent);font-weight:500;">
+                    And you didn't even know it happened.
+                </p>
+            </div>
+        </section>
+
+        <!-- ===================================================
+             SLIDE 2 — ENGAGEMENT #1
+             =================================================== -->
+        <section class="slide centered" data-title="Engage"
+            data-notes="This is your first engagement moment. Ask the audience to interact. Wait for responses. Read a few out loud. This builds connection and proves the problem is universal. Don't rush past this — let them feel seen.">
+            <div class="bg-noise"></div>
+
+            <div class="slide-inner">
+                <h2 class="reveal d1">Quick question for the chat:</h2>
+                <p class="big-text reveal d2" style="margin-top:2rem;">
+                    How many calls do you <span style="color:var(--danger)">miss</span><br>per week while you're working?
+                </p>
+                <div class="engagement reveal d3">
+                    Drop your number in the chat
+                </div>
+            </div>
+        </section>
+
+        <!-- ===================================================
+             SLIDE 3 — THE DATA
+             =================================================== -->
+        <section class="slide centered" data-title="The Data"
+            data-notes="Now bring the data. These aren't made up — they're industry averages. Read each stat and pause. Let them process. The 78% stat is the killer: 'If you're not first, you're last.' That's the headline.">
+            <div class="bg-noise"></div>
+
+            <div class="slide-inner">
+                <span class="slide-label reveal d1">Here's what the data says</span>
+
+                <div class="stat-row">
+                    <div class="stat-card reveal d2">
+                        <div class="stat-value red">78%</div>
+                        <div class="stat-label">of homeowners hire the<br><strong>first contractor who responds</strong></div>
+                    </div>
+                    <div class="stat-card reveal d3">
+                        <div class="stat-value red">5 min</div>
+                        <div class="stat-label">max before a lead<br><strong>goes cold forever</strong></div>
+                    </div>
+                    <div class="stat-card reveal d4">
+                        <div class="stat-value red">62%</div>
+                        <div class="stat-label">of contractor calls go to<br><strong>voicemail during work hours</strong></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===================================================
+             SLIDE 4 — SINGLE TRUTH BOMB
+             =================================================== -->
+        <section class="slide centered" data-title="Truth"
+            data-notes="This is a breathing slide. One sentence. Let it sit for 3-4 seconds. Then say: 'And it's not your fault. You can't answer the phone when you're holding a drill.' This builds empathy before the solution.">
+            <div class="bg-noise"></div>
+            <div class="bg-glow" style="width:600px;height:600px;background:rgba(255,59,92,0.06);top:30%;left:30%;"></div>
+
+            <div class="slide-inner">
+                <h2 class="reveal d1" style="font-size:clamp(2.5rem,5vw,4.5rem);">
+                    You're not losing jobs because<br>
+                    of your <span style="color:var(--danger)">work.</span><br>
+                    You're losing them because<br>
+                    of your <span style="color:var(--danger)">phone.</span>
+                </h2>
+            </div>
+        </section>
+
+        <!-- ===================================================
+             SLIDE 5 — THE 6 PROBLEMS
+             =================================================== -->
+        <section class="slide centered" data-title="Problems"
+            data-notes="Read each one. After 'Wearing every hat' say: 'Sound familiar? I bet most of you are nodding right now.' This validates their experience before you introduce the solution.">
+            <div class="bg-noise"></div>
+
+            <div class="slide-inner">
+                <span class="slide-label reveal d1">Sound Familiar?</span>
+                <h2 class="reveal d2" style="margin-bottom:2rem;">Every contractor we talk to says the same thing.</h2>
+
+                <div class="problem-list" style="margin:0 auto;">
+                    <div class="problem-item reveal d3">
+                        <div class="problem-icon"></div>
+                        <span>Hands full, can't answer the phone</span>
+                    </div>
+                    <div class="problem-item reveal d3">
+                        <div class="problem-icon"></div>
+                        <span>Evening &amp; weekend leads die</span>
+                    </div>
+                    <div class="problem-item reveal d4">
+                        <div class="problem-icon"></div>
+                        <span>Quotes sent, never followed up</span>
+                    </div>
+                    <div class="problem-item reveal d4">
+                        <div class="problem-icon"></div>
+                        <span>Past customers never hear from you</span>
+                    </div>
+                    <div class="problem-item reveal d5">
+                        <div class="problem-icon"></div>
+                        <span>Reviews aren't growing fast enough</span>
+                    </div>
+                    <div class="problem-item reveal d5">
+                        <div class="problem-icon"></div>
+                        <span>Wearing every hat — no time left</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===================================================
+             SLIDE 6 — TRANSITION: What If
+             =================================================== -->
+        <section class="slide centered" data-title="What If"
+            data-notes="This is the pivot. You've agitated the problem. Now introduce possibility. Say this slowly. Let the audience imagine it. Then say: 'That's exactly what we build.' Click to next slide.">
+            <div class="bg-noise"></div>
+            <div class="bg-glow" style="width:500px;height:500px;background:rgba(245,166,35,0.08);top:30%;right:20%;"></div>
+
+            <div class="slide-inner">
+                <h1 class="reveal d1" style="font-size:clamp(2.8rem,5.5vw,5rem);">
+                    What if your phone<br>
+                    <span class="gradient-text">never went unanswered?</span>
+                </h1>
+            </div>
+        </section>
+
+        <!-- ===================================================
+             SLIDE 7 — INTRODUCE THE SOLUTION
+             =================================================== -->
+        <section class="slide centered" data-title="The Solution"
+            data-notes="Now introduce the concept. Don't say 'AI' too much — say 'system' and 'infrastructure.' Contractors want reliability, not tech buzzwords. Say: 'We don't sell you a chatbot or a tool. We install an entire system that handles your sales while you're working.'">
+            <div class="bg-noise"></div>
+            <div class="bg-grid"></div>
+
+            <div class="slide-inner">
+                <span class="slide-label reveal d1">The Solution</span>
+                <h2 class="reveal d2">
+                    We install a complete<br>
+                    <span class="gradient-text">AI Sales Infrastructure</span>
+                </h2>
+                <p class="subtitle reveal d3" style="margin:0 auto;">
+                    It answers your calls. Responds to your website leads. Follows up on your quotes. Books your estimates. Requests reviews after every job. All automatically. 24/7.
+                </p>
+                <p class="reveal d4" style="margin-top:2rem;color:var(--accent);font-family:var(--font-display);font-weight:600;font-size:1.3rem;">
+                    Like hiring an office manager, receptionist, and sales rep — for a fraction of the cost.
+                </p>
+            </div>
+        </section>
+
+        <!-- ===================================================
+             SLIDE 8 — BEFORE / AFTER
+             =================================================== -->
+        <section class="slide" data-title="Before & After"
+            data-notes="Walk through the 'Today' column first. Then say: 'Now watch what happens with AI Sales Infrastructure.' Walk through the 'After' column. The key moment is 'You get a text with all the details' — emphasize you never left the job site.">
+            <div class="bg-noise"></div>
+
+            <div class="slide-inner">
+                <h2 class="reveal d1" style="text-align:center;margin-bottom:0.5rem;">The difference is <span class="gradient-text">night and day.</span></h2>
+
+                <div class="flow-container">
+                    <div class="flow-box before reveal-left d2">
+                        <div class="flow-label">Today</div>
+                        <div class="flow-step">
+                            <span class="step-arrow">&#9656;</span>
+                            <span>Homeowner calls about a reno</span>
+                        </div>
+                        <div class="flow-step">
+                            <span class="step-arrow">&#8595;</span>
+                            <span>You're on a job site</span>
+                        </div>
+                        <div class="flow-step">
+                            <span class="step-arrow">&#8595;</span>
+                            <span>Goes to voicemail</span>
+                        </div>
+                        <div class="flow-step">
+                            <span class="step-arrow">&#8595;</span>
+                            <span>They call the next guy</span>
+                        </div>
+                    </div>
+
+                    <div class="flow-box after reveal-right d3">
+                        <div class="flow-label">With AI Infrastructure</div>
+                        <div class="flow-step">
+                            <span class="step-arrow">&#9656;</span>
+                            <span>Homeowner calls about a reno</span>
+                        </div>
+                        <div class="flow-step">
+                            <span class="step-arrow">&#8595;</span>
+                            <span>AI answers professionally</span>
+                        </div>
+                        <div class="flow-step">
+                            <span class="step-arrow">&#8595;</span>
+                            <span>Qualifies their project</span>
+                        </div>
+                        <div class="flow-step">
+                            <span class="step-arrow">&#8595;</span>
+                            <span>Books estimate for Thursday</span>
+                        </div>
+                        <div class="flow-step">
+                            <span class="step-arrow">&#8595;</span>
+                            <span>You get a text summary</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===================================================
+             SLIDE 9 — WHAT GETS INSTALLED
+             =================================================== -->
+        <section class="slide centered" data-title="Components"
+            data-notes="Don't read every card. Highlight the top 3: Voice Agent, SMS Follow-Up, and Review Engine. Say: 'These three alone will transform your business.' Then briefly mention the others. The key message: everything is connected through one brain.">
+            <div class="bg-noise"></div>
+
+            <div class="slide-inner">
+                <span class="slide-label reveal d1">What Gets Installed</span>
+                <h2 class="reveal d2">6 systems. <span class="gradient-text">One brain.</span></h2>
+
+                <div class="feature-grid">
+                    <div class="feature-card reveal d3">
+                        <span class="icon">&#128266;</span>
+                        <div class="f-title">AI Voice Agent</div>
+                        <div class="f-desc">Answers every call. Qualifies leads. Books estimates. Sounds human.</div>
+                    </div>
+                    <div class="feature-card reveal d3">
+                        <span class="icon">&#129302;</span>
+                        <div class="f-title">AI Website Chatbot</div>
+                        <div class="f-desc">24/7 on your website. Captures leads while you sleep.</div>
+                    </div>
+                    <div class="feature-card reveal d3">
+                        <span class="icon">&#128172;</span>
+                        <div class="f-title">AI SMS Follow-Up</div>
+                        <div class="f-desc">Follows up on leads, quotes, and past customers automatically.</div>
+                    </div>
+                    <div class="feature-card reveal d4">
+                        <span class="icon">&#11088;</span>
+                        <div class="f-title">Review Engine</div>
+                        <div class="f-desc">Auto-requests Google reviews after every job. More reviews = more calls.</div>
+                    </div>
+                    <div class="feature-card reveal d4">
+                        <span class="icon">&#128197;</span>
+                        <div class="f-title">Estimate Booking</div>
+                        <div class="f-desc">AI books directly into your calendar. Instant confirmation.</div>
+                    </div>
+                    <div class="feature-card reveal d4">
+                        <span class="icon">&#128260;</span>
+                        <div class="f-title">Quote Follow-Up</div>
+                        <div class="f-desc">Sent a quote? AI chases it on Day 2, 5, and 10.</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===================================================
+             SLIDE 10 — ENGAGEMENT #2
+             =================================================== -->
+        <section class="slide centered" data-title="Engage"
+            data-notes="Second engagement moment. This question hits hard because every contractor knows the answer is 'a lot.' Read some responses. Then say: 'What if every single one of those got followed up automatically?' Transition to ROI slide.">
+            <div class="bg-noise"></div>
+
+            <div class="slide-inner">
+                <h2 class="reveal d1">Real talk:</h2>
+                <p class="big-text reveal d2" style="margin-top:2rem;">
+                    How many quotes did you send<br>last month that you <span style="color:var(--danger)">never followed up on?</span>
+                </p>
+                <div class="engagement reveal d3">
+                    Be honest in the chat
+                </div>
+            </div>
+        </section>
+
+        <!-- ===================================================
+             SLIDE 11 — THE MONEY MATH
+             =================================================== -->
+        <section class="slide centered" data-title="ROI"
+            data-notes="This is your most important slide. Walk through the left column slowly. When you get to '$10K-40K+ lost per month,' pause and let it land. Then walk through the right column. End with: 'The system pays for itself with ONE extra job per month.'">
+            <div class="bg-noise"></div>
+
+            <div class="slide-inner">
+                <span class="slide-label reveal d1">The Money Math</span>
+                <h2 class="reveal d2">How much are you <span style="color:var(--danger)">really</span> losing?</h2>
+
+                <div class="money-grid" style="margin:2rem auto;">
+                    <div class="money-card reveal-left d3">
+                        <div class="money-label">What You're Losing</div>
+                        <div class="money-line"><span class="label">Missed calls/week</span><span class="value red">5-10</span></div>
+                        <div class="money-line"><span class="label">Unfollowed leads</span><span class="value red">3-5/wk</span></div>
+                        <div class="money-line"><span class="label">Quotes without follow-up</span><span class="value red">60%</span></div>
+                        <div class="money-line"><span class="label">Avg job value</span><span class="value">$3K-$15K</span></div>
+                        <div class="money-total">
+                            <span class="label">Lost/month</span>
+                            <span class="value red">$10K-$40K+</span>
+                        </div>
+                    </div>
+                    <div class="money-card reveal-right d4">
+                        <div class="money-label">What AI Recovers</div>
+                        <div class="money-line"><span class="label">Calls answered</span><span class="value green">100%</span></div>
+                        <div class="money-line"><span class="label">Leads followed up</span><span class="value green">100%</span></div>
+                        <div class="money-line"><span class="label">Quotes chased</span><span class="value green">100%</span></div>
+                        <div class="money-line"><span class="label">Past customers reactivated</span><span class="value green">Monthly</span></div>
+                        <div class="money-total">
+                            <span class="label">Jobs recovered</span>
+                            <span class="value green">3-8+/mo</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===================================================
+             SLIDE 12 — ONE LINER
+             =================================================== -->
+        <section class="slide centered" data-title="ROI Punchline"
+            data-notes="Let this breathe. 3 second pause. Then say: 'Most contractors who install this see the ROI in the first week.' Click forward.">
+            <div class="bg-noise"></div>
+
+            <div class="slide-inner">
+                <h2 class="reveal d1" style="font-size:clamp(2.5rem,5vw,4.5rem);">
+                    The system pays for itself<br>
+                    with <span class="gradient-text">one extra job.</span>
+                </h2>
+            </div>
+        </section>
+
+        <!-- ===================================================
+             SLIDE 13 — LIVE SCENARIO
+             =================================================== -->
+        <section class="slide" data-title="Live Demo"
+            data-notes="Walk through this like you're telling a story. Say the times out loud. Use a conversational tone: 'So it's 2:15 on a Tuesday. You're on a job. Phone rings...' When you get to the text summary, say: 'You look at your phone during a water break and see this. Lead captured. Estimate booked. You didn't do a thing.'">
+            <div class="bg-noise"></div>
+            <div class="bg-grid"></div>
+
+            <div class="slide-inner">
+                <span class="slide-label reveal d1">Live Scenario</span>
+                <h2 class="reveal d2">Tuesday, 2:15 PM. <span class="gradient-text">You're on a job.</span></h2>
+
+                <div class="demo-timeline">
+                    <div class="demo-step reveal d3">
+                        <div class="step-num">2:15 PM</div>
+                        <div class="step-title">Homeowner calls about a deck</div>
+                        <div class="step-desc">"Can you give me a quote on replacing my deck before summer?"</div>
+                    </div>
+                    <div class="demo-step reveal d4">
+                        <div class="step-num">2:15 PM</div>
+                        <div class="step-title">AI Voice Agent picks up</div>
+                        <div class="step-desc">"Thanks for calling! I'd love to help. What size is the deck and what material are you thinking?"</div>
+                    </div>
+                    <div class="demo-step reveal d5">
+                        <div class="step-num">2:18 PM</div>
+                        <div class="step-title">AI books the estimate</div>
+                        <div class="step-desc">Captures name, address, project scope. Books Thursday 9AM.</div>
+                    </div>
+                    <div class="demo-step reveal d6">
+                        <div class="step-num">2:19 PM</div>
+                        <div class="step-title">You get a text</div>
+                        <div class="step-desc">"New lead: Sarah M. — Deck replacement, 300 sq ft, composite. Estimate Thu 9AM."</div>
+                    </div>
+                </div>
+
+                <div class="demo-results reveal d6">
+                    <div class="demo-result-tag">&#10003; You never left the job site</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===================================================
+             SLIDE 14 — THE SILENT KILLER (Quote Follow-Up)
+             =================================================== -->
+        <section class="slide" data-title="Quote Follow-Up"
+            data-notes="Say: 'Here's the silent killer no one talks about. You spend an hour driving out, measuring, writing up a quote. You email it. And then... nothing. You get busy. They get busy. $12,000 just evaporates.' Then walk through the AI sequence. End with: 'This alone recovers 2-3 jobs per month.'">
+            <div class="bg-noise"></div>
+
+            <div class="slide-inner">
+                <span class="slide-label reveal d1">The Silent Killer</span>
+                <h2 class="reveal d2">You send the quote.<br>Then <span style="color:var(--danger)">nothing happens.</span></h2>
+
+                <div class="demo-timeline" style="margin-top:2rem;">
+                    <div class="demo-step reveal d3">
+                        <div class="step-num">Day 0</div>
+                        <div class="step-title">You send a $12K quote</div>
+                    </div>
+                    <div class="demo-step reveal d4">
+                        <div class="step-num">Day 2</div>
+                        <div class="step-title">AI check-in text</div>
+                        <div class="step-desc">"Hey Mike, any questions about the bathroom estimate?"</div>
+                    </div>
+                    <div class="demo-step reveal d5">
+                        <div class="step-num">Day 5</div>
+                        <div class="step-title">AI value nudge</div>
+                        <div class="step-desc">"We have openings next month. Want to lock one in?"</div>
+                    </div>
+                    <div class="demo-step reveal d6">
+                        <div class="step-num">Day 10</div>
+                        <div class="step-title">AI soft close</div>
+                        <div class="step-desc">"No worries if timing isn't right. We're here when you're ready."</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===================================================
+             SLIDE 15 — QUOTE FOLLOW-UP PUNCHLINE
+             =================================================== -->
+        <section class="slide centered" data-title="Recover"
+            data-notes="Hit this hard. Say: 'This one sequence — just the quote follow-up alone — recovers 2 to 3 jobs per month that would have gone completely silent. That's $6,000 to $45,000 you were leaving on the table.' Pause.">
+            <div class="bg-noise"></div>
+
+            <div class="slide-inner">
+                <h2 class="reveal d1" style="font-size:clamp(2.5rem,5vw,4.5rem);">
+                    This sequence alone<br>
+                    recovers <span class="gradient-text">2-3 jobs/month</span><br>
+                    that would have gone silent.
+                </h2>
+            </div>
+        </section>
+
+        <!-- ===================================================
+             SLIDE 16 — WHAT IT REPLACES
+             =================================================== -->
+        <section class="slide centered" data-title="Replaces"
+            data-notes="Read through the table quickly. The last row is the punch: 'Hire a $4K/month office manager... or get AI that costs a fraction.' Let them do the math in their heads.">
+            <div class="bg-noise"></div>
+
+            <div class="slide-inner">
+                <span class="slide-label reveal d1">What It Replaces</span>
+                <h2 class="reveal d2">Everything you wish you had<br><span class="gradient-text">but can't afford to hire.</span></h2>
+
+                <div class="comparison-grid reveal-scale d3">
+                    <div class="comparison-row header">
+                        <div class="comp-old">Today</div>
+                        <div class="comp-arrow"></div>
+                        <div class="comp-new">With AI Infrastructure</div>
+                    </div>
+                    <div class="comparison-row">
+                        <div class="comp-old">Miss calls on job sites</div>
+                        <div class="comp-arrow">&rarr;</div>
+                        <div class="comp-new">AI answers every call</div>
+                    </div>
+                    <div class="comparison-row">
+                        <div class="comp-old">Voicemails checked at 7PM</div>
+                        <div class="comp-arrow">&rarr;</div>
+                        <div class="comp-new">Estimates booked in real-time</div>
+                    </div>
+                    <div class="comparison-row">
+                        <div class="comp-old">Forget to follow up quotes</div>
+                        <div class="comp-arrow">&rarr;</div>
+                        <div class="comp-new">Auto follow-up Day 2, 5, 10</div>
+                    </div>
+                    <div class="comparison-row">
+                        <div class="comp-old">No after-hours response</div>
+                        <div class="comp-arrow">&rarr;</div>
+                        <div class="comp-new">24/7 AI on phone + website</div>
+                    </div>
+                    <div class="comparison-row">
+                        <div class="comp-old">$4K/mo office manager</div>
+                        <div class="comp-arrow">&rarr;</div>
+                        <div class="comp-new">AI at a fraction of the cost</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===================================================
+             SLIDE 17 — ENGAGEMENT #3
+             =================================================== -->
+        <section class="slide centered" data-title="Engage"
+            data-notes="Third and final engagement before the offer. This gets them imagining the future. Read responses. Then say: 'What if I told you that's exactly what happens after we install this? The first week.' Transition to offer.">
+            <div class="bg-noise"></div>
+
+            <div class="slide-inner">
+                <h2 class="reveal d1">Imagine this:</h2>
+                <p class="big-text reveal d2" style="margin-top:2rem;">
+                    You finish work on Friday.<br>
+                    Check your phone.<br>
+                    <span class="gradient-text">3 new estimates already booked for next week.</span>
+                </p>
+                <div class="engagement reveal d3">
+                    Type "I WANT THAT" in the chat
+                </div>
+            </div>
+        </section>
+
+        <!-- ===================================================
+             SLIDE 18 — THE OFFER
+             =================================================== -->
+        <section class="slide centered" data-title="The Offer"
+            data-notes="Now present the offer clearly. Say: 'Here's what we're offering everyone on this webinar today.' Read each item. Emphasize 'free' — there's no risk. Then say: 'We only have [X] spots available this month because each system is custom-built for your trade and service area.'">
+            <div class="bg-noise"></div>
+            <div class="bg-glow" style="width:500px;height:500px;background:rgba(245,166,35,0.08);top:30%;left:30%;"></div>
+
+            <div class="slide-inner">
+                <span class="slide-label reveal d1">Exclusive Webinar Offer</span>
+                <h2 class="reveal d2">Here's what you get <span class="gradient-text">today.</span></h2>
+
+                <div style="max-width:600px;margin:2rem auto 0;text-align:left;">
+                    <div class="reveal d3" style="display:flex;align-items:center;gap:14px;padding:1rem 0;border-bottom:1px solid rgba(255,255,255,0.06);font-size:1.15rem;">
+                        <span style="color:var(--success);font-size:1.3rem;">&#10003;</span>
+                        <span><strong style="color:var(--accent);">Free AI Sales Audit</strong> — we analyze your current lead flow</span>
+                    </div>
+                    <div class="reveal d4" style="display:flex;align-items:center;gap:14px;padding:1rem 0;border-bottom:1px solid rgba(255,255,255,0.06);font-size:1.15rem;">
+                        <span style="color:var(--success);font-size:1.3rem;">&#10003;</span>
+                        <span><strong style="color:var(--accent);">Custom Demo</strong> — see the AI answer calls for YOUR trade</span>
+                    </div>
+                    <div class="reveal d5" style="display:flex;align-items:center;gap:14px;padding:1rem 0;border-bottom:1px solid rgba(255,255,255,0.06);font-size:1.15rem;">
+                        <span style="color:var(--success);font-size:1.3rem;">&#10003;</span>
+                        <span><strong style="color:var(--accent);">ROI Calculator</strong> — see exactly how many jobs you're losing</span>
+                    </div>
+                    <div class="reveal d6" style="display:flex;align-items:center;gap:14px;padding:1rem 0;font-size:1.15rem;">
+                        <span style="color:var(--success);font-size:1.3rem;">&#10003;</span>
+                        <span><strong style="color:var(--accent);">No commitment</strong> — zero risk, zero pressure</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===================================================
+             SLIDE 19 — URGENCY
+             =================================================== -->
+        <section class="slide centered" data-title="Urgency"
+            data-notes="Create urgency — but be genuine about it. Say: 'Every system is custom-built for your trade, your service area, your pricing approach. We can only onboard [X] contractors per month.' Then: 'The link to book your free audit is in the chat right now.'">
+            <div class="bg-noise"></div>
+
+            <div class="slide-inner">
+                <h2 class="reveal d1" style="font-size:clamp(2.2rem,4.5vw,4rem);">
+                    Every day you wait is another<br>
+                    <span style="color:var(--danger)">$500-$1,000 in lost jobs.</span>
+                </h2>
+                <p class="subtitle reveal d2" style="margin:1.5rem auto 0;">
+                    We custom-build each system for your trade and service area.<br>
+                    Limited spots available this month.
+                </p>
+            </div>
+        </section>
+
+        <!-- ===================================================
+             SLIDE 20 — FINAL CTA
+             =================================================== -->
+        <section class="slide centered" data-title="Book Now"
+            data-notes="Final slide. Say: 'Stop losing jobs while you're doing jobs. Click the link in the chat to book your free AI Sales Audit. It takes 2 minutes. We'll show you exactly how many leads you're missing and what this system would look like for your business.' Thank everyone for attending. Open up for Q&A.">
+            <div class="bg-noise"></div>
+            <div style="position:absolute;width:400px;height:400px;background:radial-gradient(circle,rgba(245,166,35,0.1),transparent 70%);top:20%;left:15%;border-radius:50%;filter:blur(80px);animation:pulse 6s ease-in-out infinite alternate;"></div>
+            <div style="position:absolute;width:350px;height:350px;background:radial-gradient(circle,rgba(255,107,53,0.08),transparent 70%);bottom:20%;right:15%;border-radius:50%;filter:blur(80px);animation:pulse 6s ease-in-out infinite alternate;animation-delay:-2s;"></div>
+
+            <div class="slide-inner">
+                <span class="slide-label reveal d1">Take Action Now</span>
+                <h1 class="reveal d2" style="font-size:clamp(2.5rem,5.5vw,5rem);">
+                    Stop losing jobs<br>
+                    <span class="gradient-text">while you're doing jobs.</span>
+                </h1>
+
+                <div class="cta-buttons reveal d3">
+                    <button class="cta-btn primary">Book Your Free AI Sales Audit</button>
+                </div>
+
+                <p class="reveal d4" style="margin-top:1.5rem;color:var(--text-secondary);font-size:1.1rem;">
+                    The link is in the chat right now.
+                </p>
+
+                <div class="cta-footer reveal d5">
+                    <div class="brand" style="margin-bottom:0.5rem;">Disruptors Media</div>
+                    <span>AI Sales Infrastructure for Contractors</span>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- ===========================================
+         JAVASCRIPT — Webinar Presentation Controller
+         Click-to-advance, keyboard nav, speaker notes
+         =========================================== -->
+    <style>
+        @keyframes pulse {
+            0% { opacity: 0.6; transform: scale(1); }
+            100% { opacity: 1; transform: scale(1.15); }
+        }
+    </style>
+    <script>
+        /* ===========================================
+           PARTICLE SYSTEM — subtle amber particles
+           =========================================== */
+        class ParticleSystem {
+            constructor(canvas) {
+                this.canvas = canvas;
+                this.ctx = canvas.getContext('2d');
+                this.particles = [];
+                this.resize();
+                window.addEventListener('resize', () => this.resize());
+                this.init();
+                this.animate();
+            }
+
+            resize() {
+                this.canvas.width = window.innerWidth;
+                this.canvas.height = window.innerHeight;
+            }
+
+            init() {
+                const count = Math.min(35, Math.floor(window.innerWidth / 40));
+                for (let i = 0; i < count; i++) {
+                    this.particles.push({
+                        x: Math.random() * this.canvas.width,
+                        y: Math.random() * this.canvas.height,
+                        vx: (Math.random() - 0.5) * 0.15,
+                        vy: (Math.random() - 0.5) * 0.15,
+                        size: Math.random() * 1.5 + 0.5,
+                        opacity: Math.random() * 0.15 + 0.03
+                    });
+                }
+            }
+
+            animate() {
+                this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+                this.particles.forEach(p => {
+                    p.x += p.vx; p.y += p.vy;
+                    if (p.x < 0) p.x = this.canvas.width;
+                    if (p.x > this.canvas.width) p.x = 0;
+                    if (p.y < 0) p.y = this.canvas.height;
+                    if (p.y > this.canvas.height) p.y = 0;
+                    this.ctx.beginPath();
+                    this.ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                    this.ctx.fillStyle = `rgba(245, 166, 35, ${p.opacity})`;
+                    this.ctx.fill();
+                });
+                for (let i = 0; i < this.particles.length; i++) {
+                    for (let j = i + 1; j < this.particles.length; j++) {
+                        const dx = this.particles[i].x - this.particles[j].x;
+                        const dy = this.particles[i].y - this.particles[j].y;
+                        const dist = Math.sqrt(dx * dx + dy * dy);
+                        if (dist < 90) {
+                            this.ctx.beginPath();
+                            this.ctx.moveTo(this.particles[i].x, this.particles[i].y);
+                            this.ctx.lineTo(this.particles[j].x, this.particles[j].y);
+                            this.ctx.strokeStyle = `rgba(245, 166, 35, ${0.015 * (1 - dist / 90)})`;
+                            this.ctx.lineWidth = 0.5;
+                            this.ctx.stroke();
+                        }
+                    }
+                }
+                requestAnimationFrame(() => this.animate());
+            }
+        }
+
+        /* ===========================================
+           SCROLL-BASED SLIDE CONTROLLER
+           Scroll between slides with snap and animations
+           =========================================== */
+        class WebinarPresentation {
+            constructor() {
+                this.slides = document.querySelectorAll('.slide');
+                this.currentIndex = 0;
+
+                /* Set total count */
+                document.getElementById('totalSlides').textContent = this.slides.length;
+                document.getElementById('currentSlide').textContent = '01';
+
+                /* Trigger reveal animations when slides scroll into view */
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('in-view');
+                            const index = Array.from(this.slides).indexOf(entry.target);
+                            this.currentIndex = index;
+                            this.updateUI();
+                        }
+                    });
+                }, { threshold: 0.4 });
+
+                this.slides.forEach(slide => observer.observe(slide));
+
+                /* Mark first slide as in-view */
+                this.slides[0].classList.add('in-view');
+                this.updateUI();
+            }
+
+            updateUI() {
+                document.getElementById('currentSlide').textContent =
+                    String(this.currentIndex + 1).padStart(2, '0');
+
+                const progress = ((this.currentIndex + 1) / this.slides.length) * 100;
+                document.getElementById('progressBar').style.width = progress + '%';
+
+                /* Update speaker notes */
+                const notes = this.slides[this.currentIndex].dataset.notes || 'No notes for this slide.';
+                document.getElementById('notesText').textContent = notes;
+            }
+        }
+
+        /* ===========================================
+           INITIALIZE
+           =========================================== */
+        document.addEventListener('DOMContentLoaded', () => {
+            const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            const isMobile = window.innerWidth < 768;
+            if (!prefersReducedMotion && !isMobile) {
+                new ParticleSystem(document.getElementById('particles'));
+            }
+            new WebinarPresentation();
+        });
+    </script>
+</body>
+</html>

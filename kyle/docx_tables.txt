@@ -1,0 +1,129 @@
+﻿TABLE_0
+  ROW 0: ['Business Name:', '']
+  ROW 1: ['Phone Number:', '']
+  ROW 2: ['Email:', '']
+  ROW 3: ['Address/Location:', '']
+  ROW 4: ['Website:', '']
+---
+TABLE_1
+  ROW 0: ['Weekday Hours:', '']
+  ROW 1: ['Weekend Hours:', '']
+---
+TABLE_2
+  ROW 0: ['AI Name/Persona:', '']
+---
+TABLE_3
+  ROW 0: ['']
+---
+TABLE_4
+  ROW 0: ['ΓÿÉ  Same greeting as business hours', 'ΓÿÉ  Different after-hours message']
+  ROW 1: ['ΓÿÉ  Take message only', 'ΓÿÉ  Offer callback']
+---
+TABLE_5
+  ROW 0: ['ΓÿÉ  Take detailed message', 'ΓÿÉ  Offer to text instead']
+  ROW 1: ['ΓÿÉ  Redirect to voicemail box', 'ΓÿÉ  Schedule callback']
+---
+TABLE_6
+  ROW 0: ['ΓÿÉ  New quote/estimate requests', 'ΓÿÉ  Existing customer inquiries']
+  ROW 1: ['ΓÿÉ  Scheduling/rescheduling', 'ΓÿÉ  Job status questions']
+  ROW 2: ['ΓÿÉ  Billing/payment questions', 'ΓÿÉ  General service questions']
+  ROW 3: ['ΓÿÉ  Complaints/issues', 'ΓÿÉ  Other: ________________']
+---
+TABLE_7
+  ROW 0: ['ΓÿÉ  Residential vs. Commercial', 'ΓÿÉ  New vs. Existing customers']
+  ROW 1: ['ΓÿÉ  Urgent vs. Non-urgent', 'ΓÿÉ  N/A - treat all the same']
+---
+TABLE_8
+  ROW 0: ['ΓÿÉ  Full name', 'ΓÿÉ  Phone number']
+  ROW 1: ['ΓÿÉ  Email address', 'ΓÿÉ  Property address']
+  ROW 2: ['ΓÿÉ  Service type needed', 'ΓÿÉ  Residential or commercial']
+  ROW 3: ['ΓÿÉ  How they heard about you', 'ΓÿÉ  Preferred contact method']
+  ROW 4: ['ΓÿÉ  Best time for callback/visit', 'ΓÿÉ  Budget range']
+  ROW 5: ['ΓÿÉ  Urgency/timeline', 'ΓÿÉ  Other: ________________']
+---
+TABLE_9
+  ROW 0: ['']
+---
+TABLE_10
+  ROW 0: ['Cities/Towns:']
+---
+TABLE_11
+  ROW 0: ['ΓÿÉ  Politely decline', 'ΓÿÉ  Take info anyway for review']
+  ROW 1: ['ΓÿÉ  Quote with travel fee', 'ΓÿÉ  Transfer to manager']
+---
+TABLE_12
+  ROW 0: ['Question', 'Answer']
+  ROW 1: ['', '']
+  ROW 2: ['', '']
+  ROW 3: ['', '']
+  ROW 4: ['', '']
+  ROW 5: ['', '']
+  ROW 6: ['', '']
+---
+TABLE_13
+  ROW 0: ['Name:', '']
+  ROW 1: ['Direct Phone:', '']
+  ROW 2: ['Role/Title:', '']
+---
+TABLE_14
+  ROW 0: ['Name:', '']
+  ROW 1: ['Direct Phone:', '']
+---
+TABLE_15
+  ROW 0: ['ΓÿÉ  Existing customer with urgent issue', 'ΓÿÉ  Large commercial job inquiry']
+  ROW 1: ['ΓÿÉ  Customer complaint', 'ΓÿÉ  Caller asks for specific person']
+  ROW 2: ['ΓÿÉ  Emergency/safety issue', 'ΓÿÉ  Media/press inquiry']
+  ROW 3: ['ΓÿÉ  Legal matter', 'ΓÿÉ  Other: ________________']
+---
+TABLE_16
+  ROW 0: ['']
+---
+TABLE_17
+  ROW 0: ['ΓÿÉ  Jobber', 'ΓÿÉ  Housecall Pro']
+  ROW 1: ['ΓÿÉ  ServiceTitan', 'ΓÿÉ  GoHighLevel']
+  ROW 2: ['ΓÿÉ  Salesforce', 'ΓÿÉ  HubSpot']
+  ROW 3: ['ΓÿÉ  None / Manual', 'ΓÿÉ  Other: ________________']
+---
+TABLE_18
+  ROW 0: ['Email(s) for leads:', '']
+  ROW 1: ['SMS number(s):', '']
+  ROW 2: ['Other (Slack, etc.):', '']
+---
+TABLE_19
+  ROW 0: ['ΓÿÉ  Yes - Google Calendar', 'ΓÿÉ  Yes - Outlook/Microsoft']
+  ROW 1: ['ΓÿÉ  Yes - CRM calendar', 'ΓÿÉ  No - AI takes message only']
+---
+TABLE_20
+  ROW 0: ['ΓÿÉ  Professional/Formal', 'ΓÿÉ  Friendly/Casual', 'ΓÿÉ  Mix of both']
+---
+TABLE_21
+  ROW 0: ['']
+---
+TABLE_22
+  ROW 0: ['']
+---
+TABLE_23
+  ROW 0: ['Call Type', 'How to Handle']
+  ROW 1: ['Solicitors/Sales calls', '']
+  ROW 2: ['Job applicants', '']
+  ROW 3: ['Vendor/Supplier calls', '']
+  ROW 4: ['Wrong numbers', '']
+  ROW 5: ['Prank calls', '']
+---
+TABLE_24
+  ROW 0: ['ΓÿÉ  English only', 'ΓÿÉ  Spanish']
+  ROW 1: ['ΓÿÉ  Other: ________________', '']
+---
+TABLE_25
+  ROW 0: ['Test Phone Number:', '']
+  ROW 1: ['QA Contact Name:', '']
+  ROW 2: ['QA Contact Email:', '']
+  ROW 3: ['Target Go-Live Date:', '']
+---
+TABLE_26
+  ROW 0: ['ΓÿÉ  Soft launch (limited hours first)', 'ΓÿÉ  Full deployment immediately']
+  ROW 1: ['', '']
+---
+TABLE_27
+  ROW 0: ['']
+---

@@ -1,0 +1,23 @@
+{
+  "agents": [
+    { "id": "meta-orchestrator", "name": "Meta-Orchestrator", "color": "#ff6b1a", "icon": "Crown", "workspace": "/Users/owner/Downloads/Phantom-Agents-CLIENT-KYLE/00-meta-orchestrator" },
+    { "id": "backend-agent", "name": "Backend Agent", "color": "#0a84ff", "icon": "Fortress", "workspace": "/Users/owner/Downloads/Phantom-Agents-CLIENT-KYLE/SUPER AI AGENTS TEAM/01-fullstack-team" },
+    { "id": "frontend-agent", "name": "Frontend Agent", "color": "#0a84ff", "icon": "Prism", "workspace": "/Users/owner/Downloads/Phantom-Agents-CLIENT-KYLE/SUPER AI AGENTS TEAM/01-fullstack-team" },
+    { "id": "audit-agent", "name": "Audit Agent", "color": "#ff2d55", "icon": "Warden", "workspace": "/Users/owner/Downloads/Phantom-Agents-CLIENT-KYLE/SUPER AI AGENTS TEAM/02-security-team" },
+    { "id": "deployment-agent", "name": "Deployment Agent", "color": "#50e3c2", "icon": "Pylon", "workspace": "/Users/owner/Downloads/Phantom-Agents-CLIENT-KYLE/SUPER AI AGENTS TEAM/03-devops-cloud-team" },
+    { "id": "ai-architect", "name": "AI Architect", "color": "#af52de", "icon": "Phantom", "workspace": "/Users/owner/Downloads/Phantom-Agents-CLIENT-KYLE/SUPER AI AGENTS TEAM/04-ai-ml-team" },
+    { "id": "seo-agent", "name": "SEO Agent", "color": "#f5a623", "icon": "Thorn", "workspace": "/Users/owner/Downloads/Phantom-Agents-CLIENT-KYLE/SUPER AI AGENTS TEAM/05-marketing-growth-team" },
+    { "id": "workflow-orchestrator", "name": "Workflow Orchestrator", "color": "#06b6d4", "icon": "Drift", "workspace": "/Users/owner/Downloads/Phantom-Agents-CLIENT-KYLE/SUPER AI AGENTS TEAM/07-automation-factory" },
+    { "id": "content-strategist", "name": "Content Strategist", "color": "#3b82f6", "icon": "Halo", "workspace": "/Users/owner/Downloads/Phantom-Agents-CLIENT-KYLE/SUPER AI AGENTS TEAM/13-content-creation-team" },
+    { "id": "client-tracker", "name": "Client Tracker", "color": "#10b981", "icon": "Rook", "workspace": "/Users/owner/Downloads/Phantom-Agents-CLIENT-KYLE/SUPER AI AGENTS TEAM/14-csm-team" },
+    { "id": "qa-engineer", "name": "QA Engineer", "color": "#f59e0b", "icon": "Fortress", "workspace": "/Users/owner/Downloads/Phantom-Agents-CLIENT-KYLE/SUPER AI AGENTS TEAM/16-qa-team" },
+    { "id": "revenue-profitability", "name": "Revenue & Profitability", "color": "#6366f1", "icon": "Nova", "workspace": "/Users/owner/Downloads/Phantom-Agents-CLIENT-KYLE/SUPER AI AGENTS TEAM/17-finance-team" }
+  ],
+  "skillDirs": [
+    "/Users/owner/Downloads/Phantom-Agents-CLIENT-KYLE/Client-Skills/"
+  ],
+  "docPaths": {
+    "claude": "AGENT.md",
+    "soul": "ROUTING.md"
+  }
+}

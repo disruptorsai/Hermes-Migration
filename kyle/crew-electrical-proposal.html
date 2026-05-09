@@ -1,0 +1,1596 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Systems & Automation Partnership — Crew Electrical Services</title>
+
+    <link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=clash-display@400,500,600,700&f[]=satoshi@400,500,700&display=swap">
+
+    <style>
+        :root {
+            --bg-primary: #060a14;
+            --bg-secondary: #0c1222;
+            --bg-card: rgba(12, 18, 34, 0.7);
+            --text-primary: #f0f4ff;
+            --text-secondary: #7a8bb5;
+            --text-muted: #4a5a80;
+            --accent: #00e5ff;
+            --accent-secondary: #0088ff;
+            --accent-glow: rgba(0, 229, 255, 0.25);
+            --accent-glow-strong: rgba(0, 229, 255, 0.5);
+            --danger: #ff3b5c;
+            --success: #00ff88;
+            --warning: #ffaa00;
+            --gold: #d4a843;
+            --gold-glow: rgba(212, 168, 67, 0.25);
+            --font-display: 'Clash Display', sans-serif;
+            --font-body: 'Satoshi', sans-serif;
+            --slide-padding: clamp(2rem, 6vw, 5rem);
+            --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+            --duration-normal: 0.7s;
+            --duration-slow: 1.2s;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-snap-type: y mandatory;
+            overflow-x: hidden;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            overflow-x: hidden;
+            cursor: default;
+        }
+
+        ::selection {
+            background: var(--accent);
+            color: var(--bg-primary);
+        }
+
+        /* PROGRESS BAR */
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent), var(--accent-secondary));
+            z-index: 1000;
+            transition: width 0.3s ease;
+            box-shadow: 0 0 12px var(--accent-glow-strong);
+        }
+
+        /* NAV DOTS */
+        .nav-dots {
+            position: fixed;
+            right: 1.5rem;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            z-index: 100;
+        }
+
+        .nav-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            border: 1.5px solid var(--text-muted);
+            background: transparent;
+            cursor: pointer;
+            transition: all 0.4s var(--ease-out-expo);
+            position: relative;
+        }
+
+        .nav-dot:hover {
+            border-color: var(--accent);
+            box-shadow: 0 0 8px var(--accent-glow);
+        }
+
+        .nav-dot.active {
+            border-color: var(--accent);
+            background: var(--accent);
+            box-shadow: 0 0 12px var(--accent-glow-strong);
+            transform: scale(1.3);
+        }
+
+        .nav-dot .tooltip {
+            position: absolute;
+            right: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: var(--bg-secondary);
+            border: 1px solid rgba(0, 229, 255, 0.2);
+            color: var(--text-primary);
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 0.65rem;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s;
+            font-family: var(--font-body);
+        }
+
+        .nav-dot:hover .tooltip { opacity: 1; }
+
+        /* BRAND WATERMARK + COUNTER */
+        .brand-watermark {
+            position: fixed;
+            bottom: 1.5rem;
+            left: 2rem;
+            font-family: var(--font-display);
+            font-weight: 700;
+            font-size: 0.75rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            z-index: 100;
+            opacity: 0.5;
+        }
+
+        .slide-counter {
+            position: fixed;
+            bottom: 1.5rem;
+            right: 2rem;
+            font-family: var(--font-display);
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            z-index: 100;
+        }
+
+        .slide-counter .current {
+            color: var(--accent);
+            font-weight: 600;
+        }
+
+        /* SLIDE */
+        .slide {
+            min-height: 100vh;
+            padding: var(--slide-padding);
+            scroll-snap-align: start;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .slide-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* TYPOGRAPHY */
+        .slide-label {
+            font-family: var(--font-display);
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 1.2rem;
+        }
+
+        h1 {
+            font-family: var(--font-display);
+            font-weight: 700;
+            font-size: clamp(2.5rem, 5.5vw, 5rem);
+            line-height: 1.05;
+            letter-spacing: -2px;
+        }
+
+        h2 {
+            font-family: var(--font-display);
+            font-weight: 600;
+            font-size: clamp(2rem, 4vw, 3.5rem);
+            line-height: 1.15;
+            letter-spacing: -1px;
+            margin-bottom: 1.5rem;
+        }
+
+        h3 {
+            font-family: var(--font-display);
+            font-weight: 600;
+            font-size: clamp(1.2rem, 2vw, 1.6rem);
+            line-height: 1.3;
+        }
+
+        .subtitle {
+            font-size: clamp(1rem, 1.8vw, 1.4rem);
+            color: var(--text-secondary);
+            line-height: 1.6;
+            max-width: 750px;
+        }
+
+        .highlight { color: var(--accent); font-weight: 600; }
+
+        .gradient-text {
+            background: linear-gradient(135deg, var(--accent), var(--accent-secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        blockquote {
+            font-family: var(--font-display);
+            font-size: clamp(1rem, 1.8vw, 1.4rem);
+            font-weight: 500;
+            color: var(--text-primary);
+            border-left: 3px solid var(--accent);
+            padding-left: 1.5rem;
+            margin: 2rem 0;
+            line-height: 1.5;
+        }
+
+        /* REVEAL */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity var(--duration-normal) var(--ease-out-expo),
+                        transform var(--duration-normal) var(--ease-out-expo);
+        }
+
+        .reveal-left {
+            opacity: 0;
+            transform: translateX(-50px);
+            transition: opacity var(--duration-normal) var(--ease-out-expo),
+                        transform var(--duration-normal) var(--ease-out-expo);
+        }
+
+        .reveal-right {
+            opacity: 0;
+            transform: translateX(50px);
+            transition: opacity var(--duration-normal) var(--ease-out-expo),
+                        transform var(--duration-normal) var(--ease-out-expo);
+        }
+
+        .reveal-scale {
+            opacity: 0;
+            transform: scale(0.85);
+            transition: opacity var(--duration-slow) var(--ease-out-expo),
+                        transform var(--duration-slow) var(--ease-out-expo);
+        }
+
+        .slide.visible .reveal,
+        .slide.visible .reveal-left,
+        .slide.visible .reveal-right {
+            opacity: 1;
+            transform: translate(0);
+        }
+
+        .slide.visible .reveal-scale {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .d1 { transition-delay: 0.1s; }
+        .d2 { transition-delay: 0.2s; }
+        .d3 { transition-delay: 0.35s; }
+        .d4 { transition-delay: 0.5s; }
+        .d5 { transition-delay: 0.65s; }
+        .d6 { transition-delay: 0.8s; }
+        .d7 { transition-delay: 0.95s; }
+        .d8 { transition-delay: 1.1s; }
+
+        /* BG */
+        .bg-glow {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(120px);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .bg-grid {
+            position: absolute;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(0, 229, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 229, 255, 0.03) 1px, transparent 1px);
+            background-size: 60px 60px;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .bg-noise {
+            position: absolute;
+            inset: 0;
+            opacity: 0.025;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+            background-size: 128px;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        /* TITLE SLIDE */
+        .title-slide {
+            text-align: center;
+            align-items: center;
+        }
+
+        .title-slide .brand-name {
+            font-family: var(--font-display);
+            font-weight: 500;
+            font-size: 0.85rem;
+            letter-spacing: 6px;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 2.5rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .title-slide .brand-name::before,
+        .title-slide .brand-name::after {
+            content: '';
+            width: 40px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--accent));
+        }
+
+        .title-slide .brand-name::after {
+            background: linear-gradient(90deg, var(--accent), transparent);
+        }
+
+        .title-slide h1 { margin-bottom: 1.5rem; }
+
+        .title-slide .tagline {
+            font-size: clamp(1rem, 2vw, 1.35rem);
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto 2rem;
+            line-height: 1.7;
+        }
+
+        .title-slide .client-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 0.7rem 1.5rem;
+            background: rgba(212, 168, 67, 0.08);
+            border: 1px solid rgba(212, 168, 67, 0.25);
+            border-radius: 100px;
+            font-family: var(--font-display);
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: var(--gold);
+            letter-spacing: 1px;
+        }
+
+        .title-slide .scroll-hint {
+            position: absolute;
+            bottom: 3rem;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-muted);
+            font-size: 0.7rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            animation: float 2.5s ease-in-out infinite;
+        }
+
+        .scroll-hint .arrow {
+            width: 20px;
+            height: 20px;
+            border-right: 1.5px solid var(--text-muted);
+            border-bottom: 1.5px solid var(--text-muted);
+            transform: rotate(45deg);
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(10px); }
+        }
+
+        .title-slide .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            animation: pulse 6s ease-in-out infinite alternate;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 0.6; transform: scale(1); }
+            100% { opacity: 1; transform: scale(1.15); }
+        }
+
+        /* BUILD CARDS */
+        .build-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.2rem;
+            margin: 2rem 0;
+        }
+
+        .build-card {
+            padding: 2rem 1.5rem;
+            background: var(--bg-card);
+            border: 1px solid rgba(0, 229, 255, 0.1);
+            border-radius: 16px;
+            backdrop-filter: blur(10px);
+            transition: all 0.4s var(--ease-out-expo);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .build-card:hover {
+            border-color: rgba(0, 229, 255, 0.3);
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px rgba(0, 229, 255, 0.08);
+        }
+
+        .build-card .build-num {
+            font-family: var(--font-display);
+            font-weight: 700;
+            font-size: 3rem;
+            color: var(--accent);
+            opacity: 0.1;
+            position: absolute;
+            top: 0.5rem;
+            right: 1rem;
+            line-height: 1;
+        }
+
+        .build-card .build-priority {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 100px;
+            font-size: 0.65rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+        }
+
+        .build-card .build-priority.highest {
+            background: rgba(255, 59, 92, 0.1);
+            border: 1px solid rgba(255, 59, 92, 0.25);
+            color: var(--danger);
+        }
+
+        .build-card .build-priority.high {
+            background: rgba(255, 170, 0, 0.1);
+            border: 1px solid rgba(255, 170, 0, 0.25);
+            color: var(--warning);
+        }
+
+        .build-card .build-priority.quick {
+            background: rgba(0, 255, 136, 0.1);
+            border: 1px solid rgba(0, 255, 136, 0.25);
+            color: var(--success);
+        }
+
+        .build-card .build-priority.triage {
+            background: rgba(0, 229, 255, 0.1);
+            border: 1px solid rgba(0, 229, 255, 0.25);
+            color: var(--accent);
+        }
+
+        .build-card .build-title {
+            font-family: var(--font-display);
+            font-weight: 600;
+            font-size: 1.15rem;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .build-card .build-desc {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* DETAIL LIST */
+        .detail-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+            margin: 1.5rem 0;
+        }
+
+        .detail-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 1rem 1.2rem;
+            background: var(--bg-card);
+            border: 1px solid rgba(0, 229, 255, 0.08);
+            border-radius: 12px;
+            transition: border-color 0.3s;
+        }
+
+        .detail-item:hover {
+            border-color: rgba(0, 229, 255, 0.2);
+        }
+
+        .detail-icon {
+            width: 28px;
+            height: 28px;
+            border-radius: 8px;
+            background: rgba(0, 229, 255, 0.08);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            font-size: 0.85rem;
+            color: var(--accent);
+            margin-top: 2px;
+        }
+
+        .detail-text {
+            font-size: 0.9rem;
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+
+        .detail-text strong { color: var(--accent); }
+
+        /* META BAR (tech stack / timeline / cost) */
+        .meta-bar {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .meta-item {
+            padding: 1rem 1.2rem;
+            border-radius: 12px;
+            background: rgba(0, 229, 255, 0.03);
+            border: 1px solid rgba(0, 229, 255, 0.08);
+        }
+
+        .meta-item .meta-label {
+            font-family: var(--font-display);
+            font-weight: 600;
+            font-size: 0.65rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 0.4rem;
+        }
+
+        .meta-item .meta-value {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        /* PRICING TABLE */
+        .pricing-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            margin: 1.5rem 0;
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid rgba(0, 229, 255, 0.15);
+        }
+
+        .pricing-table th {
+            background: rgba(0, 229, 255, 0.08);
+            font-family: var(--font-display);
+            font-weight: 600;
+            font-size: 0.7rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--accent);
+            padding: 1rem 1.5rem;
+            text-align: left;
+        }
+
+        .pricing-table th:last-child { text-align: right; }
+
+        .pricing-table td {
+            padding: 1rem 1.5rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+            color: var(--text-secondary);
+            line-height: 1.5;
+            font-size: 0.95rem;
+        }
+
+        .pricing-table td:last-child {
+            text-align: right;
+            font-family: var(--font-display);
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+
+        .pricing-table tr:last-child td { border-bottom: none; }
+
+        .pricing-table tr:hover td { background: rgba(0, 229, 255, 0.02); }
+
+        .pricing-table tr.highlight-row td {
+            background: rgba(0, 229, 255, 0.04);
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+
+        .pricing-table tr.highlight-row td:first-child {
+            font-family: var(--font-display);
+            font-weight: 600;
+            color: var(--accent);
+        }
+
+        .pricing-table tr.highlight-row td:last-child {
+            color: var(--accent);
+            font-size: 1.1rem;
+            font-weight: 700;
+        }
+
+        .pricing-table tr.terms-row td {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            font-style: italic;
+        }
+
+        .pricing-table tr.terms-row td:last-child {
+            color: var(--success);
+            font-style: normal;
+            font-weight: 600;
+            font-size: 0.85rem;
+        }
+
+        /* PARTNERSHIP GRID */
+        .partnership-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.2rem;
+            margin: 2rem 0;
+        }
+
+        .partnership-card {
+            padding: 1.8rem 1.5rem;
+            background: var(--bg-card);
+            border: 1px solid rgba(0, 229, 255, 0.1);
+            border-radius: 16px;
+            backdrop-filter: blur(10px);
+            transition: all 0.4s var(--ease-out-expo);
+        }
+
+        .partnership-card:hover {
+            border-color: rgba(0, 229, 255, 0.25);
+            transform: translateY(-3px);
+        }
+
+        .partnership-card .card-icon {
+            font-size: 1.6rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .partnership-card .card-title {
+            font-family: var(--font-display);
+            font-weight: 600;
+            font-size: 1.05rem;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .partnership-card .card-desc {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* FIT ITEMS */
+        .fit-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .fit-item {
+            display: flex;
+            gap: 1.2rem;
+            padding: 1.5rem;
+            background: var(--bg-card);
+            border: 1px solid rgba(0, 229, 255, 0.08);
+            border-radius: 14px;
+            transition: border-color 0.3s;
+        }
+
+        .fit-item:hover { border-color: rgba(0, 229, 255, 0.2); }
+
+        .fit-item .fit-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            background: rgba(0, 255, 136, 0.08);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            font-size: 1rem;
+            color: var(--success);
+        }
+
+        .fit-item .fit-content {}
+
+        .fit-item .fit-title {
+            font-family: var(--font-display);
+            font-weight: 600;
+            font-size: 1.05rem;
+            color: var(--text-primary);
+            margin-bottom: 0.3rem;
+        }
+
+        .fit-item .fit-desc {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* FUTURE CARDS */
+        .future-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.2rem;
+            margin: 2rem 0;
+        }
+
+        .future-card {
+            padding: 1.8rem 1.5rem;
+            background: var(--bg-card);
+            border: 1px solid rgba(0, 229, 255, 0.08);
+            border-radius: 16px;
+            backdrop-filter: blur(10px);
+            transition: all 0.4s var(--ease-out-expo);
+        }
+
+        .future-card:hover {
+            border-color: rgba(0, 229, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .future-card .future-title {
+            font-family: var(--font-display);
+            font-weight: 600;
+            font-size: 1.05rem;
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+        }
+
+        .future-card .future-desc {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* CTA */
+        .cta-slide { text-align: center; align-items: center; }
+
+        .next-steps {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin: 2rem auto;
+            max-width: 600px;
+        }
+
+        .next-step-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1.2rem 1.5rem;
+            background: var(--bg-card);
+            border: 1px solid rgba(0, 229, 255, 0.1);
+            border-radius: 14px;
+            text-align: left;
+        }
+
+        .next-step-num {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent), var(--accent-secondary));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--font-display);
+            font-weight: 700;
+            font-size: 0.9rem;
+            color: var(--bg-primary);
+            flex-shrink: 0;
+        }
+
+        .next-step-text {
+            font-size: 1rem;
+            color: var(--text-primary);
+        }
+
+        .cta-footer {
+            margin-top: 3rem;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+        .cta-footer .brand {
+            font-family: var(--font-display);
+            font-weight: 700;
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+
+        .cta-footer .contact {
+            margin-top: 0.5rem;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        /* TWO COL */
+        .two-col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin: 1.5rem 0;
+        }
+
+        /* KEYBOARD */
+        .keyboard-hint {
+            position: fixed;
+            bottom: 1.5rem;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 6px;
+            align-items: center;
+            color: var(--text-muted);
+            font-size: 0.65rem;
+            letter-spacing: 1px;
+            z-index: 100;
+            opacity: 0.4;
+            transition: opacity 0.5s;
+        }
+
+        .keyboard-hint:hover { opacity: 0.8; }
+
+        .key {
+            padding: 3px 8px;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+            font-family: var(--font-body);
+            font-size: 0.6rem;
+        }
+
+        /* PARTICLES */
+        #particles {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        /* CALLOUT */
+        .callout {
+            padding: 1.5rem;
+            border-radius: 14px;
+            margin: 1.5rem 0;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .callout.important {
+            background: rgba(255, 170, 0, 0.06);
+            border: 1px solid rgba(255, 170, 0, 0.2);
+            color: var(--warning);
+        }
+
+        .callout.tip {
+            background: rgba(0, 255, 136, 0.05);
+            border: 1px solid rgba(0, 255, 136, 0.15);
+            color: var(--success);
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .nav-dots, .keyboard-hint { display: none; }
+            .brand-watermark { font-size: 0.6rem; bottom: 1rem; left: 1rem; }
+            .slide-counter { bottom: 1rem; right: 1rem; font-size: 0.7rem; }
+            .two-col { grid-template-columns: 1fr; }
+            .build-grid { grid-template-columns: 1fr; }
+            .partnership-grid { grid-template-columns: 1fr; }
+            .future-grid { grid-template-columns: 1fr; }
+            .meta-bar { grid-template-columns: 1fr; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .reveal, .reveal-left, .reveal-right, .reveal-scale {
+                transition: opacity 0.3s ease;
+                transform: none !important;
+            }
+            .title-slide .orb { animation: none; }
+            .scroll-hint { animation: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <canvas id="particles"></canvas>
+    <div class="progress-bar" id="progressBar"></div>
+    <nav class="nav-dots" id="navDots"></nav>
+    <div class="brand-watermark">Disruptors Media</div>
+    <div class="slide-counter">
+        <span class="current" id="currentSlide">01</span>
+        <span> / </span>
+        <span id="totalSlides">12</span>
+    </div>
+    <div class="keyboard-hint">
+        <span class="key">&uarr;</span>
+        <span class="key">&darr;</span>
+        <span>or</span>
+        <span class="key">Space</span>
+        <span>to navigate</span>
+    </div>
+
+    <!-- ===================================================
+         SLIDE 1 — TITLE
+         =================================================== -->
+    <section class="slide title-slide" data-title="Title">
+        <div class="bg-noise"></div>
+        <div class="orb" style="width:500px;height:500px;background:radial-gradient(circle,rgba(0,229,255,0.15),transparent 70%);top:10%;left:-10%;position:absolute;border-radius:50%;filter:blur(80px);animation:pulse 6s ease-in-out infinite alternate;"></div>
+        <div class="orb" style="width:400px;height:400px;background:radial-gradient(circle,rgba(0,136,255,0.12),transparent 70%);bottom:10%;right:-5%;position:absolute;border-radius:50%;filter:blur(80px);animation:pulse 6s ease-in-out infinite alternate;animation-delay:-3s;"></div>
+
+        <div class="slide-inner">
+            <div class="brand-name reveal d1">Disruptors Media</div>
+            <h1 class="reveal d2">
+                AI Systems &amp;<br><span class="gradient-text">Automation Partnership</span>
+            </h1>
+            <p class="tagline reveal d3">
+                Strategic proposal for embedding a Chief AI Officer into your business.
+            </p>
+            <div class="reveal d4">
+                <span class="client-badge">&#9889; &nbsp;Crew Electrical Services &bull; Calgary, AB</span>
+            </div>
+        </div>
+
+        <div class="scroll-hint">
+            <span>Scroll</span>
+            <div class="arrow"></div>
+        </div>
+    </section>
+
+    <!-- ===================================================
+         SLIDE 2 — STRATEGIC OVERVIEW
+         =================================================== -->
+    <section class="slide" data-title="Strategic Overview">
+        <div class="bg-noise"></div>
+        <div class="bg-glow" style="width:500px;height:500px;background:rgba(0,229,255,0.06);top:-10%;right:-10%;"></div>
+
+        <div class="slide-inner">
+            <span class="slide-label reveal d1">Strategic Overview</span>
+            <h2 class="reveal d2">You don't need a wake-up call.<br>You need a <span class="gradient-text">Chief AI Officer.</span></h2>
+
+            <p class="subtitle reveal d3" style="margin-bottom:2rem;">
+                Crew is already further down the AI and automation road than most contractors we partner with &mdash; Service Titan dialed in, GoHighLevel running the funnel, an online estimator deployed, licensed journeyman electricians delivering.
+            </p>
+
+            <blockquote class="reveal d4">
+                You don't need to be sold on AI. You need someone embedded in your business who takes what you've built from a <span style="color:var(--warning);">7</span> to a <span class="highlight">10</span> and keeps it on the cutting edge as the technology evolves.
+            </blockquote>
+
+            <p class="subtitle reveal d5" style="margin-top:2rem;">
+                This proposal outlines <span class="highlight">four high-leverage builds</span>, sequenced by your stated priorities &mdash; designed to compound on what's already working.
+            </p>
+        </div>
+    </section>
+
+    <!-- ===================================================
+         SLIDE 3 — FOUR BUILDS AT A GLANCE
+         =================================================== -->
+    <section class="slide" data-title="The Four Builds">
+        <div class="bg-noise"></div>
+        <div class="bg-grid"></div>
+
+        <div class="slide-inner">
+            <span class="slide-label reveal d1">The Roadmap</span>
+            <h2 class="reveal d2">Four Builds. <span class="gradient-text">Eight Weeks.</span></h2>
+            <p class="subtitle reveal d3">Sequenced by your stated priorities, each build compounds on the last.</p>
+
+            <div class="build-grid">
+                <div class="build-card reveal d4">
+                    <span class="build-num">01</span>
+                    <span class="build-priority highest">Highest Priority</span>
+                    <div class="build-title">Follow-Up &amp; Database Reactivation Engine</div>
+                    <div class="build-desc">Automated nurture for residential leads. AI sales companion for commercial. Service Titan sync. Reactivation cadences at 30/90/180/365 days.</div>
+                </div>
+                <div class="build-card reveal d5">
+                    <span class="build-num">02</span>
+                    <span class="build-priority high">High Priority</span>
+                    <div class="build-title">Rebuilt Online Estimator</div>
+                    <div class="build-desc">Replace PriceGuide AI with a native, mobile-first estimator that feels like Crew &mdash; no iframe, no double scroll. Range-based pricing with $75 assessment CTA.</div>
+                </div>
+                <div class="build-card reveal d6">
+                    <span class="build-num">03</span>
+                    <span class="build-priority quick">Quick Win</span>
+                    <div class="build-title">B2B Partnership Outbound Engine</div>
+                    <div class="build-desc">Reciprocal referral network with Calgary contractors, builders, and property managers. Value-first LinkedIn automation. Live by end of week one.</div>
+                </div>
+                <div class="build-card reveal d7">
+                    <span class="build-num">04</span>
+                    <span class="build-priority triage">Triage &amp; Coverage</span>
+                    <div class="build-title">After-Hours AI Voice Receptionist</div>
+                    <div class="build-desc">Service Titan integrated, dispatch-ready voice agent for after-hours coverage. Legacy client prioritization. Never replaces human touch during business hours.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===================================================
+         SLIDE 4 — BUILD 1: FOLLOW-UP & REACTIVATION
+         =================================================== -->
+    <section class="slide" data-title="Build 1: Reactivation">
+        <div class="bg-noise"></div>
+        <div class="bg-glow" style="width:500px;height:500px;background:rgba(255,59,92,0.05);bottom:-10%;left:-10%;"></div>
+
+        <div class="slide-inner">
+            <span class="slide-label reveal d1">Build 1 &mdash; Highest Priority</span>
+            <h2 class="reveal d2">Follow-Up &amp; Database<br><span class="gradient-text">Reactivation Engine</span></h2>
+
+            <p class="subtitle reveal d3" style="margin-bottom:1.5rem;font-style:italic;color:var(--text-muted);">
+                Your Monday Service Titan list is fully manual. Residential leads slip; commercial relationships demand human touch. We build for both, separately.
+            </p>
+
+            <div class="detail-list">
+                <div class="detail-item reveal d4">
+                    <div class="detail-icon">&#128172;</div>
+                    <div class="detail-text"><strong>Residential automated nurture:</strong> SMS + email sequences segmented by stage &mdash; quoted-not-booked, ghosted prospects, past customers &mdash; featuring a promotional video we script, shoot direction for, and edit.</div>
+                </div>
+                <div class="detail-item reveal d4">
+                    <div class="detail-icon">&#127891;</div>
+                    <div class="detail-text"><strong>Commercial AI sales companion:</strong> Drafts personalized follow-ups inside GoHighLevel with embedded Loom or selfie videos from your human rep &mdash; automation power, human relationship.</div>
+                </div>
+                <div class="detail-item reveal d5">
+                    <div class="detail-icon">&#128260;</div>
+                    <div class="detail-text"><strong>Service Titan &rarr; GHL sync via API:</strong> Closed-lost and aging-quote tags pulled into GoHighLevel for reactivation campaigns automatically.</div>
+                </div>
+                <div class="detail-item reveal d5">
+                    <div class="detail-icon">&#128197;</div>
+                    <div class="detail-text"><strong>Reactivation cadence:</strong> 30 / 90 / 180 / 365-day touchpoints with seasonal offers &mdash; panel inspections in spring, generator readiness in fall.</div>
+                </div>
+            </div>
+
+            <div class="meta-bar reveal d6">
+                <div class="meta-item">
+                    <div class="meta-label">Tech Stack</div>
+                    <div class="meta-value">GHL (existing) &bull; Service Titan API &bull; Twilio SMS &bull; OpenAI &bull; Loom &bull; In-house video production</div>
+                </div>
+                <div class="meta-item">
+                    <div class="meta-label">Timeline</div>
+                    <div class="meta-value">Week 1: Audit &bull; Week 2: Build segmentation &bull; Week 3: AI companion + video &bull; Week 4: Launch</div>
+                </div>
+                <div class="meta-item">
+                    <div class="meta-label">Operational Cost</div>
+                    <div class="meta-value">Twilio ~$0.008/msg &bull; OpenAI ~$30&ndash;$80/mo &bull; GHL &amp; Service Titan existing. <strong>$50&ndash;$120/month</strong></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===================================================
+         SLIDE 5 — BUILD 2: ONLINE ESTIMATOR
+         =================================================== -->
+    <section class="slide" data-title="Build 2: Estimator">
+        <div class="bg-noise"></div>
+        <div class="bg-glow" style="width:500px;height:500px;background:rgba(255,170,0,0.05);top:10%;right:-10%;"></div>
+
+        <div class="slide-inner">
+            <span class="slide-label reveal d1">Build 2 &mdash; High Priority</span>
+            <h2 class="reveal d2">Rebuilt Online<br><span class="gradient-text">Estimator</span></h2>
+
+            <p class="subtitle reveal d3" style="margin-bottom:1.5rem;font-style:italic;color:var(--text-muted);">
+                You rated PriceGuide AI a 7/10 &mdash; clunky, scroll-within-a-scroll. We rebuild it natively in your site so it feels like Crew, not a bolted-on tool.
+            </p>
+
+            <div class="detail-list">
+                <div class="detail-item reveal d4">
+                    <div class="detail-icon">&#128241;</div>
+                    <div class="detail-text"><strong>Custom-coded estimator</strong> with mobile-first interface, flush in your site &mdash; no iframe, no double scroll.</div>
+                </div>
+                <div class="detail-item reveal d4">
+                    <div class="detail-icon">&#9881;</div>
+                    <div class="detail-text"><strong>Logic engine</strong> mirrors Service Titan price book ranges, with photo upload and intelligent project type branching.</div>
+                </div>
+                <div class="detail-item reveal d5">
+                    <div class="detail-icon">&#128176;</div>
+                    <div class="detail-text"><strong>Range-based pricing output</strong> (the way you do it) with a strong CTA to book the $75 in-person assessment.</div>
+                </div>
+                <div class="detail-item reveal d5">
+                    <div class="detail-icon">&#128260;</div>
+                    <div class="detail-text"><strong>Lead capture</strong> pushes details into GoHighLevel and creates a Service Titan contact automatically.</div>
+                </div>
+            </div>
+
+            <div class="meta-bar reveal d6">
+                <div class="meta-item">
+                    <div class="meta-label">Tech Stack</div>
+                    <div class="meta-value">React or Next.js &bull; Cloudflare/Vercel hosting &bull; Service Titan + GHL APIs &bull; Cloudinary for photos</div>
+                </div>
+                <div class="meta-item">
+                    <div class="meta-label">Timeline</div>
+                    <div class="meta-value">Weeks 2&ndash;3: Pricing logic &bull; Weeks 4&ndash;5: Design + build &bull; Week 6: Testing &bull; Week 7: Deploy</div>
+                </div>
+                <div class="meta-item">
+                    <div class="meta-label">Operational Cost</div>
+                    <div class="meta-value">Hosting $0&ndash;$20/mo &bull; Cloudinary free tier. <strong>$0&ndash;$25/mo</strong> &mdash; plus you stop paying for PriceGuide AI.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===================================================
+         SLIDE 6 — BUILD 3: B2B OUTBOUND
+         =================================================== -->
+    <section class="slide" data-title="Build 3: B2B Outbound">
+        <div class="bg-noise"></div>
+        <div class="bg-grid"></div>
+
+        <div class="slide-inner">
+            <span class="slide-label reveal d1">Build 3 &mdash; Quick Win</span>
+            <h2 class="reveal d2">B2B Partnership<br><span class="gradient-text">Outbound Engine</span></h2>
+
+            <p class="subtitle reveal d3" style="margin-bottom:1.5rem;font-style:italic;color:var(--text-muted);">
+                Reciprocal referral network with Calgary contractors, builders, and property managers. Value-first outreach, not cold spam.
+            </p>
+
+            <div class="detail-list">
+                <div class="detail-item reveal d4">
+                    <div class="detail-icon">&#127919;</div>
+                    <div class="detail-text"><strong>Targeted prospect list:</strong> Calgary general contractors, builders, property managers, adjacent trades &mdash; vetted for fit.</div>
+                </div>
+                <div class="detail-item reveal d4">
+                    <div class="detail-icon">&#128101;</div>
+                    <div class="detail-text"><strong>Dripify automation</strong> tied to your LinkedIn: 200 connection requests per week with non-invasive, value-first messaging.</div>
+                </div>
+                <div class="detail-item reveal d5">
+                    <div class="detail-icon">&#129309;</div>
+                    <div class="detail-text"><strong>Three-touch sequence</strong> offering reciprocal referrals; first message leads with what you can give them.</div>
+                </div>
+                <div class="detail-item reveal d5">
+                    <div class="detail-icon">&#128200;</div>
+                    <div class="detail-text"><strong>Connected partners tagged</strong> in GoHighLevel for quarterly check-in videos and ongoing relationship nurture.</div>
+                </div>
+            </div>
+
+            <div class="meta-bar reveal d6">
+                <div class="meta-item">
+                    <div class="meta-label">Tech Stack</div>
+                    <div class="meta-value">Dripify ($59/mo) &bull; LinkedIn (existing) &bull; GHL for CRM tagging &bull; RocketReach or Apollo</div>
+                </div>
+                <div class="meta-item">
+                    <div class="meta-label">Timeline</div>
+                    <div class="meta-value">Day 1&ndash;3: Prospect list + copy &bull; Day 4: Dripify config &bull; Day 5: Launch. <strong>Live by end of week one.</strong></div>
+                </div>
+                <div class="meta-item">
+                    <div class="meta-label">Operational Cost</div>
+                    <div class="meta-value">Dripify $59/mo &bull; RocketReach/Apollo $39&ndash;$99/mo (optional). <strong>$59&ndash;$160/month</strong></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===================================================
+         SLIDE 7 — BUILD 4: AI VOICE RECEPTIONIST
+         =================================================== -->
+    <section class="slide" data-title="Build 4: Voice AI">
+        <div class="bg-noise"></div>
+        <div class="bg-glow" style="width:500px;height:500px;background:rgba(0,229,255,0.05);bottom:-10%;right:-10%;"></div>
+
+        <div class="slide-inner">
+            <span class="slide-label reveal d1">Build 4 &mdash; Triage &amp; Coverage</span>
+            <h2 class="reveal d2">After-Hours AI<br><span class="gradient-text">Voice Receptionist</span></h2>
+
+            <p class="subtitle reveal d3" style="margin-bottom:1.5rem;font-style:italic;color:var(--text-muted);">
+                Augments your daytime receptionist for after-hours coverage. Service Titan integrated, dispatch-ready. Never replaces the human touch during business hours.
+            </p>
+
+            <div class="detail-list">
+                <div class="detail-item reveal d4">
+                    <div class="detail-icon">&#128266;</div>
+                    <div class="detail-text"><strong>Retell AI voice agent</strong> trained on Crew's services, tone, and qualifying questions for residential + commercial.</div>
+                </div>
+                <div class="detail-item reveal d4">
+                    <div class="detail-icon">&#128269;</div>
+                    <div class="detail-text"><strong>Caller ID lookup</strong> against Service Titan: legacy clients flagged for priority dispatch routing.</div>
+                </div>
+                <div class="detail-item reveal d5">
+                    <div class="detail-icon">&#128680;</div>
+                    <div class="detail-text"><strong>Urgent legacy:</strong> Creates Service Titan job + SMS-alerts dispatch. <strong>Non-urgent:</strong> Summary email for morning + logs in GHL.</div>
+                </div>
+                <div class="detail-item reveal d5">
+                    <div class="detail-icon">&#128222;</div>
+                    <div class="detail-text"><strong>Phone migration</strong> from Telus VoIP to forwarding-compatible service (Sona or Twilio-based) so AI picks up only after hours.</div>
+                </div>
+            </div>
+
+            <div class="meta-bar reveal d6">
+                <div class="meta-item">
+                    <div class="meta-label">Tech Stack</div>
+                    <div class="meta-value">Retell AI &bull; Twilio for numbers/routing &bull; Service Titan API for lookup + job creation &bull; GHL</div>
+                </div>
+                <div class="meta-item">
+                    <div class="meta-label">Timeline</div>
+                    <div class="meta-value">Week 5: Phone migration &bull; Week 6: Voice build + scripting &bull; Week 7: Testing &bull; Week 8: Go-live</div>
+                </div>
+                <div class="meta-item">
+                    <div class="meta-label">Operational Cost</div>
+                    <div class="meta-value">Retell ~$0.07&ndash;$0.10/min &bull; Twilio $1.15/mo + $0.013/min. At ~30&ndash;60 calls/mo: <strong>$15&ndash;$40/month</strong></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===================================================
+         SLIDE 8 — INVESTMENT SUMMARY
+         =================================================== -->
+    <section class="slide" data-title="Investment">
+        <div class="bg-noise"></div>
+        <div class="bg-grid"></div>
+
+        <div class="slide-inner">
+            <span class="slide-label reveal d1">Investment Summary</span>
+            <h2 class="reveal d2">The <span class="gradient-text">Numbers</span></h2>
+
+            <table class="pricing-table reveal-scale d3">
+                <thead>
+                    <tr>
+                        <th>Component</th>
+                        <th>Investment</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="highlight-row">
+                        <td>Game-Changer Plan: Chief AI Officer Partnership</td>
+                        <td>$3,500 / month</td>
+                    </tr>
+                    <tr>
+                        <td>Weekly 1-hour strategy + whiteboarding session</td>
+                        <td>Included</td>
+                    </tr>
+                    <tr>
+                        <td>All four core builds (sequenced over 8 weeks)</td>
+                        <td>Included</td>
+                    </tr>
+                    <tr>
+                        <td>Custom AI development tailored to your workflows</td>
+                        <td>Included</td>
+                    </tr>
+                    <tr>
+                        <td>Ongoing maintenance, optimization, and new builds</td>
+                        <td>Included</td>
+                    </tr>
+                    <tr>
+                        <td>CRO-style KPI tracking and revenue accountability</td>
+                        <td>Included</td>
+                    </tr>
+                    <tr>
+                        <td style="font-style:italic;color:var(--text-muted);">Estimated software / operational costs (paid by Crew)</td>
+                        <td style="font-style:italic;color:var(--text-muted);font-size:0.9rem;">$125 &ndash; $345 / month</td>
+                    </tr>
+                    <tr class="terms-row">
+                        <td>Contract terms</td>
+                        <td>Month-to-month. No long-term commitment.</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <blockquote class="reveal d4" style="border-left-color:var(--success);margin-top:2rem;">
+                Month-to-month. No lock-in. Every system sits inside accounts you own. If we part ways, you keep everything.
+            </blockquote>
+        </div>
+    </section>
+
+    <!-- ===================================================
+         SLIDE 9 — WHAT THIS PARTNERSHIP LOOKS LIKE
+         =================================================== -->
+    <section class="slide" data-title="Partnership">
+        <div class="bg-noise"></div>
+        <div class="bg-glow" style="width:500px;height:500px;background:rgba(0,229,255,0.06);top:50%;left:50%;transform:translate(-50%,-50%);"></div>
+
+        <div class="slide-inner">
+            <span class="slide-label reveal d1">How It Works</span>
+            <h2 class="reveal d2">What This Partnership <span class="gradient-text">Looks Like</span></h2>
+
+            <div class="partnership-grid">
+                <div class="partnership-card reveal d3">
+                    <div class="card-icon">&#128338;</div>
+                    <div class="card-title">Weekly Strategy Session</div>
+                    <div class="card-desc">One hour every week to whiteboard the next build and review what's live. No deployment without your approval.</div>
+                </div>
+                <div class="partnership-card reveal d4">
+                    <div class="card-icon">&#127916;</div>
+                    <div class="card-title">Demo-First Delivery</div>
+                    <div class="card-desc">Every build gets demoed before deployment. You see it, request revisions, approve, then we ship.</div>
+                </div>
+                <div class="partnership-card reveal d5">
+                    <div class="card-icon">&#128274;</div>
+                    <div class="card-title">Owned by Crew</div>
+                    <div class="card-desc">Every system sits inside your accounts &mdash; your GHL, your Service Titan, your Dripify. No black boxes. No lock-in.</div>
+                </div>
+                <div class="partnership-card reveal d6">
+                    <div class="card-icon">&#128640;</div>
+                    <div class="card-title">Cutting-Edge by Default</div>
+                    <div class="card-desc">When new tools or models drop that beat what we built, we upgrade you. That's the value of a CAIO over a one-and-done agency.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===================================================
+         SLIDE 10 — WHY THIS FITS CREW
+         =================================================== -->
+    <section class="slide" data-title="Why Crew">
+        <div class="bg-noise"></div>
+        <div class="bg-glow" style="width:400px;height:400px;background:rgba(0,255,136,0.05);bottom:10%;left:-10%;"></div>
+
+        <div class="slide-inner">
+            <span class="slide-label reveal d1">Why This Fits</span>
+            <h2 class="reveal d2">Built for Where <span class="gradient-text">Crew Is Today</span></h2>
+
+            <div class="fit-list">
+                <div class="fit-item reveal d3">
+                    <div class="fit-icon">&#9889;</div>
+                    <div class="fit-content">
+                        <div class="fit-title">You're polishing, not rebuilding.</div>
+                        <div class="fit-desc">Game-Changer gives you targeted high-leverage upgrades, not a teardown of what already works.</div>
+                    </div>
+                </div>
+                <div class="fit-item reveal d4">
+                    <div class="fit-icon">&#128260;</div>
+                    <div class="fit-content">
+                        <div class="fit-title">Flexibility over scope-locking.</div>
+                        <div class="fit-desc">Priorities shift. The retainer model means you direct the work, not the contract.</div>
+                    </div>
+                </div>
+                <div class="fit-item reveal d5">
+                    <div class="fit-icon">&#127968;</div>
+                    <div class="fit-content">
+                        <div class="fit-title">Built on your turf.</div>
+                        <div class="fit-desc">Every system lives inside accounts you own &mdash; Service Titan, GoHighLevel, your domain, your LinkedIn. No vendor lock-in, ever.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===================================================
+         SLIDE 11 — AFTER THE INITIAL BUILDS
+         =================================================== -->
+    <section class="slide" data-title="What's Next">
+        <div class="bg-noise"></div>
+        <div class="bg-grid"></div>
+
+        <div class="slide-inner">
+            <span class="slide-label reveal d1">After the Initial Builds</span>
+            <h2 class="reveal d2">Where We Go <span class="gradient-text">From Here</span></h2>
+            <p class="subtitle reveal d3">Once the four core builds are deployed and humming, we re-evaluate priorities together. A few of the highest-leverage directions we'd explore next:</p>
+
+            <div class="future-grid">
+                <div class="future-card reveal d4">
+                    <div class="future-title">SEO + GEO Content Strategy</div>
+                    <div class="future-desc">Plug your case studies and project knowledge into a humanized AI content engine that writes service pages, blog posts, and FAQs at scale &mdash; ranking you in both Google and AI Overviews.</div>
+                </div>
+                <div class="future-card reveal d5">
+                    <div class="future-title">Training Curriculum for New Hires</div>
+                    <div class="future-desc">Custom training database and onboarding materials so a new electrician or estimator ramps up faster, on standardized Crew processes &mdash; not tribal knowledge.</div>
+                </div>
+                <div class="future-card reveal d6">
+                    <div class="future-title">Franchise-Ready Asset Library</div>
+                    <div class="future-desc">If you ever choose to franchise, we build the documented systems, brand guidelines, and operational playbooks that make Crew duplicable. Decide later &mdash; set yourself up for the option now.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===================================================
+         SLIDE 12 — NEXT STEPS / CLOSE
+         =================================================== -->
+    <section class="slide cta-slide" data-title="Next Steps">
+        <div class="bg-noise"></div>
+        <div class="orb" style="width:400px;height:400px;background:radial-gradient(circle,rgba(0,229,255,0.12),transparent 70%);top:20%;left:10%;position:absolute;border-radius:50%;filter:blur(80px);animation:pulse 6s ease-in-out infinite alternate;"></div>
+        <div class="orb" style="width:350px;height:350px;background:radial-gradient(circle,rgba(0,136,255,0.1),transparent 70%);bottom:20%;right:10%;position:absolute;border-radius:50%;filter:blur(80px);animation:pulse 6s ease-in-out infinite alternate;animation-delay:-2s;"></div>
+
+        <div class="slide-inner">
+            <span class="slide-label reveal d1">Next Steps</span>
+            <h2 class="reveal d2" style="font-size:clamp(2rem,5vw,3.8rem);">
+                Excited to Build<br><span class="gradient-text">With You, Cory.</span>
+            </h2>
+
+            <div class="next-steps">
+                <div class="next-step-item reveal d3">
+                    <div class="next-step-num">1</div>
+                    <div class="next-step-text">Run the numbers through your budget.</div>
+                </div>
+                <div class="next-step-item reveal d4">
+                    <div class="next-step-num">2</div>
+                    <div class="next-step-text">Schedule onboarding meeting to lock the build sequence and kickoff date.</div>
+                </div>
+            </div>
+
+            <div class="cta-footer reveal d5">
+                <div class="brand" style="margin-bottom:0.5rem;">Disruptors Media</div>
+                <span>AI Systems &amp; Automation Partnership</span>
+                <div class="contact" style="margin-top:0.8rem;">
+                    Kyle Painter &mdash; Co-Founder<br>
+                    kyle@disruptorsmedia.com &bull; (801) 918-0223
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- JAVASCRIPT -->
+    <script>
+        class ParticleSystem {
+            constructor(canvas) {
+                this.canvas = canvas;
+                this.ctx = canvas.getContext('2d');
+                this.particles = [];
+                this.resize();
+                window.addEventListener('resize', () => this.resize());
+                this.init();
+                this.animate();
+            }
+            resize() {
+                this.canvas.width = window.innerWidth;
+                this.canvas.height = window.innerHeight;
+            }
+            init() {
+                const count = Math.min(50, Math.floor(window.innerWidth / 25));
+                for (let i = 0; i < count; i++) {
+                    this.particles.push({
+                        x: Math.random() * this.canvas.width,
+                        y: Math.random() * this.canvas.height,
+                        vx: (Math.random() - 0.5) * 0.3,
+                        vy: (Math.random() - 0.5) * 0.3,
+                        size: Math.random() * 1.5 + 0.5,
+                        opacity: Math.random() * 0.3 + 0.05
+                    });
+                }
+            }
+            animate() {
+                this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+                this.particles.forEach(p => {
+                    p.x += p.vx; p.y += p.vy;
+                    if (p.x < 0) p.x = this.canvas.width;
+                    if (p.x > this.canvas.width) p.x = 0;
+                    if (p.y < 0) p.y = this.canvas.height;
+                    if (p.y > this.canvas.height) p.y = 0;
+                    this.ctx.beginPath();
+                    this.ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                    this.ctx.fillStyle = `rgba(0, 229, 255, ${p.opacity})`;
+                    this.ctx.fill();
+                });
+                for (let i = 0; i < this.particles.length; i++) {
+                    for (let j = i + 1; j < this.particles.length; j++) {
+                        const dx = this.particles[i].x - this.particles[j].x;
+                        const dy = this.particles[i].y - this.particles[j].y;
+                        const dist = Math.sqrt(dx * dx + dy * dy);
+                        if (dist < 120) {
+                            this.ctx.beginPath();
+                            this.ctx.moveTo(this.particles[i].x, this.particles[i].y);
+                            this.ctx.lineTo(this.particles[j].x, this.particles[j].y);
+                            this.ctx.strokeStyle = `rgba(0, 229, 255, ${0.03 * (1 - dist / 120)})`;
+                            this.ctx.lineWidth = 0.5;
+                            this.ctx.stroke();
+                        }
+                    }
+                }
+                requestAnimationFrame(() => this.animate());
+            }
+        }
+
+        class SlidePresentation {
+            constructor() {
+                this.slides = document.querySelectorAll('.slide');
+                this.currentIndex = 0;
+                this.isScrolling = false;
+                this.scrollTimeout = null;
+                document.getElementById('totalSlides').textContent = this.slides.length;
+                this.buildNavDots();
+                this.setupObserver();
+                this.setupKeyboard();
+                this.setupTouch();
+                this.setupWheel();
+                this.updateProgress();
+            }
+            buildNavDots() {
+                const nav = document.getElementById('navDots');
+                this.slides.forEach((slide, i) => {
+                    const dot = document.createElement('button');
+                    dot.className = 'nav-dot' + (i === 0 ? ' active' : '');
+                    dot.setAttribute('aria-label', `Go to slide ${i + 1}`);
+                    const tooltip = document.createElement('span');
+                    tooltip.className = 'tooltip';
+                    tooltip.textContent = slide.dataset.title || `Slide ${i + 1}`;
+                    dot.appendChild(tooltip);
+                    dot.addEventListener('click', () => this.goTo(i));
+                    nav.appendChild(dot);
+                });
+            }
+            setupObserver() {
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('visible');
+                            const index = Array.from(this.slides).indexOf(entry.target);
+                            this.currentIndex = index;
+                            this.updateUI();
+                        }
+                    });
+                }, { threshold: 0.4 });
+                this.slides.forEach(slide => observer.observe(slide));
+            }
+            setupKeyboard() {
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'ArrowDown' || e.key === ' ' || e.key === 'PageDown') { e.preventDefault(); this.next(); }
+                    else if (e.key === 'ArrowUp' || e.key === 'PageUp') { e.preventDefault(); this.prev(); }
+                    else if (e.key === 'Home') { e.preventDefault(); this.goTo(0); }
+                    else if (e.key === 'End') { e.preventDefault(); this.goTo(this.slides.length - 1); }
+                });
+            }
+            setupTouch() {
+                let startY = 0;
+                document.addEventListener('touchstart', (e) => { startY = e.touches[0].clientY; }, { passive: true });
+                document.addEventListener('touchend', (e) => {
+                    const diff = startY - e.changedTouches[0].clientY;
+                    if (Math.abs(diff) > 60) { diff > 0 ? this.next() : this.prev(); }
+                }, { passive: true });
+            }
+            setupWheel() {
+                document.addEventListener('wheel', (e) => {
+                    if (this.isScrolling) return;
+                    this.isScrolling = true;
+                    if (e.deltaY > 30) this.next();
+                    else if (e.deltaY < -30) this.prev();
+                    clearTimeout(this.scrollTimeout);
+                    this.scrollTimeout = setTimeout(() => { this.isScrolling = false; }, 800);
+                }, { passive: true });
+            }
+            next() { if (this.currentIndex < this.slides.length - 1) this.goTo(this.currentIndex + 1); }
+            prev() { if (this.currentIndex > 0) this.goTo(this.currentIndex - 1); }
+            goTo(index) {
+                this.currentIndex = index;
+                this.slides[index].scrollIntoView({ behavior: 'smooth' });
+                this.updateUI();
+            }
+            updateUI() {
+                document.querySelectorAll('.nav-dot').forEach((dot, i) => { dot.classList.toggle('active', i === this.currentIndex); });
+                document.getElementById('currentSlide').textContent = String(this.currentIndex + 1).padStart(2, '0');
+                this.updateProgress();
+            }
+            updateProgress() {
+                const progress = ((this.currentIndex + 1) / this.slides.length) * 100;
+                document.getElementById('progressBar').style.width = progress + '%';
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            const isMobile = window.innerWidth < 768;
+            if (!prefersReducedMotion && !isMobile) {
+                new ParticleSystem(document.getElementById('particles'));
+            }
+            new SlidePresentation();
+            document.querySelector('.slide').classList.add('visible');
+        });
+    </script>
+</body>
+</html>

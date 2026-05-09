@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hiring Cold Callers — Miro Board · Disruptors Media</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%E2%9A%A1%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=clash-display@400,500,600,700&f[]=satoshi@400,500,700&display=swap">
+<style>
+  :root{
+    --bg-primary:#060a14;
+    --bg-secondary:#0c1222;
+    --bg-card:rgba(12,18,34,0.72);
+    --bg-card-strong:rgba(18,26,46,0.85);
+    --text-primary:#f0f4ff;
+    --text-secondary:#7a8bb5;
+    --text-muted:#4a5a80;
+    --accent:#00e5ff;
+    --accent-secondary:#0088ff;
+    --accent-glow:rgba(0,229,255,0.25);
+    --accent-glow-strong:rgba(0,229,255,0.5);
+    --danger:#ff3b5c;
+    --success:#00ff88;
+    --warning:#ffaa00;
+    --orange:#ff8c42;
+    --purple:#a855f7;
+    --font-h:'Clash Display', system-ui, sans-serif;
+    --font-b:'Satoshi', system-ui, sans-serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{height:100%;overflow:hidden;background:var(--bg-primary);color:var(--text-primary);font-family:var(--font-b)}
+
+  /* Subtle cyan grid + noise */
+  body::before{
+    content:"";position:fixed;inset:0;z-index:0;pointer-events:none;
+    background-image:
+      linear-gradient(rgba(0,229,255,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,229,255,0.04) 1px, transparent 1px);
+    background-size:60px 60px;
+  }
+  body::after{
+    content:"";position:fixed;inset:0;z-index:0;pointer-events:none;opacity:0.03;
+    background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-size:128px;
+  }
+  /* Ambient glow orbs (fixed, behind everything) */
+  .orb{position:fixed;border-radius:50%;filter:blur(120px);pointer-events:none;z-index:0}
+  .orb-1{width:560px;height:560px;background:radial-gradient(circle,rgba(0,229,255,0.16),transparent 70%);top:-12%;left:-8%}
+  .orb-2{width:480px;height:480px;background:radial-gradient(circle,rgba(255,140,66,0.10),transparent 70%);bottom:-12%;right:-6%}
+
+  /* === Top bar === */
+  .topbar{
+    position:fixed;top:0;left:0;right:0;height:54px;z-index:20;
+    background:linear-gradient(180deg,rgba(6,10,20,0.9),rgba(6,10,20,0.65));
+    backdrop-filter:blur(14px);
+    border-bottom:1px solid rgba(0,229,255,0.14);
+    display:flex;align-items:center;padding:0 18px;gap:16px;font-size:13px;
+  }
+  .topbar .brand{display:flex;align-items:center;gap:10px}
+  .topbar .brand .dot{width:8px;height:8px;border-radius:50%;background:var(--accent);box-shadow:0 0 12px var(--accent-glow-strong)}
+  .topbar .title{font-family:var(--font-h);font-weight:600;font-size:15px;letter-spacing:.4px}
+  .topbar .sub{
+    font-family:var(--font-h);font-size:10.5px;letter-spacing:3px;
+    text-transform:uppercase;color:var(--accent);font-weight:600;
+  }
+  .topbar .sep{width:1px;height:22px;background:rgba(0,229,255,0.18)}
+  .topbar .meta{color:var(--text-muted);font-size:11.5px;letter-spacing:.4px}
+  .topbar .spacer{flex:1}
+  .btns{display:flex;gap:6px;align-items:center}
+  .btn{
+    background:rgba(12,18,34,0.7);border:1px solid rgba(0,229,255,0.18);border-radius:8px;
+    padding:6px 11px;font:600 11.5px var(--font-b);color:var(--text-primary);letter-spacing:.4px;
+    cursor:pointer;transition:.18s;user-select:none;
+  }
+  .btn:hover{background:rgba(0,229,255,0.10);border-color:var(--accent);box-shadow:0 0 10px var(--accent-glow)}
+  .zoomlabel{font-variant-numeric:tabular-nums;color:var(--accent);min-width:46px;text-align:center;font-weight:700;font-family:var(--font-h)}
+
+  /* Progress accent bar */
+  .progress-line{
+    position:fixed;top:54px;left:0;right:0;height:1px;
+    background:linear-gradient(90deg,transparent,var(--accent) 20%,var(--accent-secondary) 80%,transparent);
+    box-shadow:0 0 10px var(--accent-glow);z-index:19;
+  }
+
+  /* === Canvas / viewport === */
+  .viewport{position:fixed;inset:55px 0 0 0;overflow:hidden;cursor:grab;z-index:1}
+  .viewport.dragging{cursor:grabbing}
+  .world{position:absolute;left:0;top:0;transform-origin:0 0;will-change:transform}
+  .layer-arrows{position:absolute;left:0;top:0;pointer-events:none;overflow:visible}
+
+  /* === Section column === */
+  .col{position:absolute;width:600px}
+  .col-head{
+    position:relative;padding:20px 22px 18px;border-radius:16px 16px 0 0;
+    background:linear-gradient(135deg,rgba(0,229,255,0.10),rgba(0,136,255,0.04));
+    border:1px solid rgba(0,229,255,0.22);border-bottom:none;
+    overflow:hidden;
+  }
+  .col-head::before{
+    content:"";position:absolute;inset:0;
+    background:radial-gradient(circle at 90% 0%, rgba(0,229,255,0.18), transparent 60%);
+    pointer-events:none;
+  }
+  .col-num{
+    font-family:var(--font-h);font-weight:700;font-size:11px;letter-spacing:4px;
+    color:var(--accent);text-transform:uppercase;margin-bottom:8px;display:flex;align-items:center;gap:10px;
+  }
+  .col-num::before{content:"";width:24px;height:1px;background:var(--accent);box-shadow:0 0 8px var(--accent-glow)}
+  .col-title{font-family:var(--font-h);font-weight:600;font-size:24px;line-height:1.15;letter-spacing:-0.4px}
+  .col-title .accent{
+    background:linear-gradient(135deg,var(--accent),var(--accent-secondary));
+    -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  }
+  .col-tag{
+    display:inline-block;margin-top:10px;padding:3px 10px;border-radius:999px;
+    font:600 10px var(--font-h);letter-spacing:1.5px;text-transform:uppercase;
+    background:rgba(255,140,66,0.14);color:var(--orange);border:1px solid rgba(255,140,66,0.3);
+  }
+  .col-body{
+    padding:18px;border:1px solid rgba(0,229,255,0.18);border-top:none;
+    border-radius:0 0 16px 16px;background:rgba(12,18,34,0.42);backdrop-filter:blur(8px);
+    display:flex;flex-direction:column;gap:14px;
+  }
+
+  /* === Cards inside columns === */
+  .card{
+    padding:14px 16px;border-radius:12px;
+    background:var(--bg-card);border:1px solid rgba(0,229,255,0.12);
+    backdrop-filter:blur(8px);
+    font:500 13px/1.5 var(--font-b);color:var(--text-primary);
+    transition:border-color .25s,box-shadow .25s;
+  }
+  .card:hover{border-color:rgba(0,229,255,0.32);box-shadow:0 0 24px rgba(0,229,255,0.08)}
+  .card .label{
+    display:block;font-family:var(--font-h);font-weight:700;font-size:10.5px;
+    letter-spacing:2.5px;color:var(--accent);text-transform:uppercase;margin-bottom:8px;
+  }
+  .card h3{font-family:var(--font-h);font-weight:600;font-size:15.5px;line-height:1.25;margin-bottom:6px;letter-spacing:-0.2px}
+  .card p+p,.card p+ul{margin-top:7px}
+  .card ul{margin:0;padding-left:18px}
+  .card li{margin:3px 0;color:var(--text-primary)}
+  .card li::marker{color:var(--accent)}
+  .card b{font-weight:700;color:var(--text-primary)}
+  .card u{text-decoration:none;color:var(--accent);border-bottom:1px solid var(--accent-glow-strong);padding-bottom:1px}
+  .card .muted{color:var(--text-secondary);font-size:12px}
+
+  /* Card variants by intent */
+  .card.warn{
+    background:linear-gradient(135deg,rgba(255,59,92,0.10),rgba(255,59,92,0.03));
+    border-color:rgba(255,59,92,0.28);
+  }
+  .card.warn .label{color:var(--danger)}
+  .card.warn u{color:var(--danger);border-bottom-color:rgba(255,59,92,0.5)}
+  .card.go{
+    background:linear-gradient(135deg,rgba(0,255,136,0.10),rgba(0,255,136,0.03));
+    border-color:rgba(0,255,136,0.28);
+  }
+  .card.go .label{color:var(--success)}
+  .card.amber{
+    background:linear-gradient(135deg,rgba(255,170,0,0.10),rgba(255,170,0,0.03));
+    border-color:rgba(255,170,0,0.30);
+  }
+  .card.amber .label{color:var(--warning)}
+  .card.heat{
+    background:linear-gradient(135deg,rgba(255,140,66,0.12),rgba(255,140,66,0.04));
+    border-color:rgba(255,140,66,0.30);
+  }
+  .card.heat .label{color:var(--orange)}
+  .card.feature{
+    background:linear-gradient(135deg,rgba(0,229,255,0.12),rgba(0,136,255,0.04));
+    border-color:rgba(0,229,255,0.32);
+  }
+
+  /* numbered chip (process steps) */
+  .step{
+    display:inline-flex;align-items:center;gap:8px;
+    font-family:var(--font-h);font-weight:600;font-size:11px;letter-spacing:1.5px;
+    color:var(--accent);text-transform:uppercase;margin-bottom:8px;
+  }
+  .step .n{
+    width:22px;height:22px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;
+    background:rgba(0,229,255,0.15);border:1px solid var(--accent);color:var(--accent);
+    font-size:11px;font-weight:700;
+  }
+
+  /* metric / KPI table */
+  .kpi{
+    background:linear-gradient(135deg,rgba(0,229,255,0.05),rgba(0,136,255,0.02));
+    border:1px solid rgba(0,229,255,0.2);border-radius:12px;padding:14px 16px;
+  }
+  .kpi table{width:100%;border-collapse:collapse;font-size:12.5px}
+  .kpi td{padding:5px 0;border-bottom:1px dashed rgba(0,229,255,0.12);color:var(--text-secondary)}
+  .kpi td:last-child{text-align:right;font-variant-numeric:tabular-nums;font-weight:700;color:var(--accent);font-family:var(--font-h)}
+  .kpi tr:last-child td{border-bottom:none}
+  .kpi .gap td{padding-top:10px;border-top:1px solid rgba(0,229,255,0.25);color:var(--text-primary)}
+  .kpi .gap td:last-child{color:var(--orange)}
+  .kpi .hdr{
+    font-family:var(--font-h);font-size:10.5px;letter-spacing:2.5px;color:var(--accent);
+    text-transform:uppercase;font-weight:700;margin-bottom:8px;display:flex;align-items:center;gap:8px;
+  }
+  .kpi .hdr::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,var(--accent-glow),transparent)}
+
+  /* Mini avatars (callers) */
+  .avatars{display:flex;gap:10px;justify-content:center;align-items:flex-end}
+  .avatar-wrap{text-align:center}
+  .avatar{
+    width:42px;height:42px;border-radius:50%;
+    background:linear-gradient(160deg,#1f3262,#0a1530);
+    border:1.5px solid var(--accent);
+    box-shadow:0 0 16px rgba(0,229,255,0.25);
+    position:relative;margin:0 auto;
+  }
+  .avatar::before{
+    content:"";position:absolute;left:50%;top:30%;transform:translate(-50%,-50%);
+    width:14px;height:14px;border-radius:50%;background:var(--accent);
+    box-shadow:0 12px 0 -2px var(--accent);opacity:.85;
+  }
+  .avatar.lg{width:54px;height:54px}
+  .avatar.lg::before{width:18px;height:18px;box-shadow:0 16px 0 -2px var(--accent)}
+  .avatar-label{font:700 10.5px var(--font-h);color:var(--text-secondary);letter-spacing:1.5px;margin-top:6px;text-transform:uppercase}
+
+  /* Skill transfer comparison */
+  .compare{
+    display:grid;grid-template-columns:1fr 1fr;gap:12px;
+    padding:14px;border:1px dashed rgba(0,229,255,0.25);border-radius:12px;
+    background:rgba(12,18,34,0.5);
+  }
+  .compare-cell{text-align:center;padding:8px 4px}
+  .compare-cell .you{font:600 11px var(--font-h);color:var(--orange);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:8px}
+  .compare-cell .div{height:1px;background:linear-gradient(90deg,transparent,var(--accent-glow),transparent);margin:10px 0}
+  .compare-cell .them{font:600 11px var(--font-h);color:var(--accent);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:8px}
+  .compare-cell .rate{font:700 22px var(--font-h);background:linear-gradient(135deg,var(--accent),var(--accent-secondary));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1}
+  .compare-cell .rate.dim{background:linear-gradient(135deg,#5a6280,#3a4257);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+
+  /* Funnel block (Section 5) */
+  .funnel{
+    background:linear-gradient(135deg,rgba(0,229,255,0.08),rgba(0,136,255,0.02));
+    border:1px solid rgba(0,229,255,0.25);border-radius:12px;padding:14px;
+    text-align:center;
+  }
+  .funnel .row{font-family:var(--font-h);font-weight:600;font-size:14px;padding:5px 0}
+  .funnel .row b{font-size:18px;color:var(--accent)}
+  .funnel .arrow{color:var(--text-muted);font-size:11px;letter-spacing:2px;text-transform:uppercase;padding:2px 0}
+
+  /* ROI hero */
+  .roi-hero{
+    text-align:center;padding:18px;border-radius:14px;
+    background:linear-gradient(135deg,rgba(0,229,255,0.16),rgba(255,140,66,0.06));
+    border:1px solid rgba(0,229,255,0.4);
+    box-shadow:0 0 30px rgba(0,229,255,0.15);
+  }
+  .roi-hero .big{
+    font-family:var(--font-h);font-weight:700;font-size:42px;line-height:1;
+    background:linear-gradient(135deg,var(--accent),var(--accent-secondary));
+    -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+    letter-spacing:-1px;
+  }
+  .roi-hero .sub{font:600 11px var(--font-h);letter-spacing:3px;text-transform:uppercase;color:var(--orange);margin-top:6px}
+  .roi-hero .note{font-size:12px;color:var(--text-secondary);margin-top:10px;line-height:1.4}
+
+  /* Two-column money split */
+  .money-split{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  .money-cell{padding:12px;border-radius:10px;text-align:center}
+  .money-cell.rev{background:rgba(0,255,136,0.08);border:1px solid rgba(0,255,136,0.28)}
+  .money-cell.cost{background:rgba(255,59,92,0.08);border:1px solid rgba(255,59,92,0.28)}
+  .money-cell .lbl{font:700 9.5px var(--font-h);letter-spacing:2px;text-transform:uppercase;margin-bottom:6px}
+  .money-cell.rev .lbl{color:var(--success)}
+  .money-cell.cost .lbl{color:var(--danger)}
+  .money-cell .val{font:700 22px var(--font-h);color:var(--text-primary);line-height:1;margin-bottom:4px}
+  .money-cell .det{font-size:11px;color:var(--text-secondary);line-height:1.35}
+
+  /* Hint chip */
+  .hint{
+    position:fixed;bottom:18px;left:50%;transform:translateX(-50%);z-index:20;
+    background:rgba(12,18,34,0.85);color:var(--text-primary);
+    border:1px solid rgba(0,229,255,0.3);
+    padding:8px 16px;border-radius:999px;backdrop-filter:blur(10px);
+    font:600 11px var(--font-h);letter-spacing:1.5px;text-transform:uppercase;
+    box-shadow:0 0 20px var(--accent-glow);
+    opacity:.95;animation:fadeOut 8s 5s forwards;
+  }
+  .hint .k{color:var(--accent)}
+  @keyframes fadeOut{to{opacity:0;visibility:hidden}}
+
+  /* Title + footer banner inside canvas (for context when zoomed out) */
+  .canvas-banner{
+    position:absolute;text-align:center;font-family:var(--font-h);
+    color:var(--text-secondary);
+  }
+  .canvas-title{
+    left:0;top:-20px;width:100%;
+    font-weight:600;font-size:36px;letter-spacing:-0.6px;
+  }
+  .canvas-title .ac{
+    background:linear-gradient(135deg,var(--accent),var(--accent-secondary));
+    -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  }
+  .canvas-sub{
+    left:0;top:36px;width:100%;
+    font-size:12px;letter-spacing:5px;text-transform:uppercase;color:var(--orange);
+  }
+  .canvas-foot{
+    left:0;bottom:-50px;width:100%;
+    font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--text-muted);
+  }
+
+</style>
+</head>
+<body>
+
+<div class="orb orb-1"></div>
+<div class="orb orb-2"></div>
+
+<div class="topbar">
+  <div class="brand"><span class="dot"></span><span class="title">Hiring Cold Callers</span></div>
+  <div class="sep"></div>
+  <div class="sub">Disruptors · Playbook</div>
+  <div class="sep"></div>
+  <div class="meta">5-section operator board · drag to pan · scroll/pinch to zoom</div>
+  <div class="spacer"></div>
+  <div class="btns">
+    <button class="btn" id="btn-fit">Fit</button>
+    <button class="btn" id="btn-zoom-out">−</button>
+    <span class="zoomlabel" id="zoomlabel">100%</span>
+    <button class="btn" id="btn-zoom-in">+</button>
+    <button class="btn" id="btn-reset">Reset</button>
+  </div>
+</div>
+<div class="progress-line"></div>
+
+<div class="viewport" id="viewport">
+  <div class="world" id="world">
+
+    <!-- Canvas title above sections -->
+    <div class="canvas-banner canvas-title" style="top:-2px">
+      Build a <span class="ac">Cold-Calling Engine</span> — 5-Section Operator Board
+    </div>
+    <div class="canvas-banner canvas-sub" style="top:50px">
+      From founder-on-the-phones to a 3-person team booking 60 appointments/wk
+    </div>
+
+    <!-- Arrow layer (between sections) -->
+    <svg class="layer-arrows" id="arrows" width="3380" height="2000" style="left:0;top:0">
+      <defs>
+        <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5"
+                markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+          <path d="M 0 0 L 10 5 L 0 10 z" fill="#00e5ff"/>
+        </marker>
+        <linearGradient id="gline" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%" stop-color="#00e5ff" stop-opacity="0.0"/>
+          <stop offset="50%" stop-color="#00e5ff" stop-opacity="0.6"/>
+          <stop offset="100%" stop-color="#00e5ff" stop-opacity="0.0"/>
+        </linearGradient>
+      </defs>
+
+      <!-- Bridge arrows between section columns at vertical midpoint -->
+      <line x1="660" y1="220" x2="700"  y2="220" stroke="#00e5ff" stroke-width="2" marker-end="url(#arr)" opacity="0.85"/>
+      <line x1="1320" y1="220" x2="1360" y2="220" stroke="#00e5ff" stroke-width="2" marker-end="url(#arr)" opacity="0.85"/>
+      <line x1="1980" y1="220" x2="2020" y2="220" stroke="#00e5ff" stroke-width="2" marker-end="url(#arr)" opacity="0.85"/>
+      <line x1="2640" y1="220" x2="2680" y2="220" stroke="#00e5ff" stroke-width="2" marker-end="url(#arr)" opacity="0.85"/>
+    </svg>
+
+    <!-- =================================================================== -->
+    <!-- SECTION 1 — Why Hiring Is Unbelievably Important                     -->
+    <!-- =================================================================== -->
+    <div class="col" style="left:40px;top:140px">
+      <div class="col-head">
+        <div class="col-num"><span>Section 01</span></div>
+        <div class="col-title">Why Hiring Is <span class="accent">Non-Negotiable</span></div>
+        <span class="col-tag">Founder Leverage</span>
+      </div>
+      <div class="col-body">
+
+        <div class="card feature">
+          <span class="label">Core Premise</span>
+          <h3>Founder attention moves from <u>doing the task</u> to <u>training the task</u>.</h3>
+          <p class="muted">Stop being in the weeds 2 hrs/day on cold calls. Redirect attention to better client results, close-rate improvements, and the next bottleneck.</p>
+        </div>
+
+        <div class="card">
+          <span class="label">Volume → Faster Feedback</span>
+          <p>You alone: 100–150 dials/day → script tests take weeks.</p>
+          <p>Team of 3+: 600 dials/day → run a 1,000-call test, iterate, run another. The feedback loop on script changes is <u>way</u> quicker.</p>
+        </div>
+
+        <div class="card heat">
+          <span class="label">Skill Transfer Philosophy</span>
+          <p>You can only transfer what you actually have. If you're at 1% ABR, three callers will sit at ~1%. If you're at 5%, you'll pull them up to 5%.</p>
+        </div>
+
+        <div class="compare">
+          <div class="compare-cell">
+            <div class="you">YOU</div>
+            <div class="rate">5% ABR</div>
+            <div class="div"></div>
+            <div class="them">→ THEM</div>
+            <div class="avatars">
+              <div class="avatar-wrap"><div class="avatar"></div></div>
+              <div class="avatar-wrap"><div class="avatar"></div></div>
+              <div class="avatar-wrap"><div class="avatar"></div></div>
+            </div>
+            <div class="avatar-label" style="margin-top:8px">~5% each</div>
+          </div>
+          <div class="compare-cell">
+            <div class="you">YOU</div>
+            <div class="rate dim">1% ABR</div>
+            <div class="div"></div>
+            <div class="them">→ THEM</div>
+            <div class="avatars">
+              <div class="avatar-wrap"><div class="avatar"></div></div>
+              <div class="avatar-wrap"><div class="avatar"></div></div>
+              <div class="avatar-wrap"><div class="avatar"></div></div>
+            </div>
+            <div class="avatar-label" style="margin-top:8px">stuck at ~1%</div>
+          </div>
+        </div>
+
+        <div class="card warn">
+          <span class="label">Action Step Before Hiring</span>
+          <p>If you're not doing 150–200 dials/day right now: <b>do 1,000 calls yourself first</b> (~8–9 days). Then you'll know 95% of what they'll ask — power dialer, GHL setup, niche objections, best call times — and can actually train them.</p>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- =================================================================== -->
+    <!-- SECTION 2 — General Hiring Philosophy                                -->
+    <!-- =================================================================== -->
+    <div class="col" style="left:700px;top:140px">
+      <div class="col-head">
+        <div class="col-num"><span>Section 02</span></div>
+        <div class="col-title">Hiring <span class="accent">Philosophy</span></div>
+        <span class="col-tag">Comp · Sources · Paths</span>
+      </div>
+      <div class="col-body">
+
+        <div class="card feature">
+          <span class="label">Front-End Reality</span>
+          <h3>The more <u>front-end</u> the role, the higher the churn.</h3>
+          <p class="muted">Cold callers face rejection 2–3 hrs/day. VAs running ads on the back end don't. Design hiring assuming front-end churn is permanent — comp, training, and culture all flow from this.</p>
+        </div>
+
+        <div class="card warn">
+          <span class="label">❌ Don't — Per-Hour Pay</span>
+          <p>Lacks incentive. Callers pad hours, ignore appointment quality, and just want calendar fill to justify the timesheet.</p>
+        </div>
+
+        <div class="card go">
+          <span class="label">✅ My Comp Structure</span>
+          <p style="font-family:var(--font-h);font-weight:600;font-size:16px;color:var(--success);margin-bottom:6px">$25 / Qualified Show + 5–10% Commission</p>
+          <p class="muted">Pay-per-qualified-show forces them to book real fits. Commission on closes aligns them with the agency's outcome — and only fires if you can actually close.</p>
+        </div>
+
+        <div class="card heat">
+          <span class="label">Hiring Sources — Ranked</span>
+          <ul>
+            <li><b>Indeed.com</b> — best quality, group interviews 5–10 in one Zoom</li>
+            <li><b>Your network</b> — agency-owner referrals</li>
+            <li><b>Cold-call community owners</b> — DM trainers; they're incentivized to place students</li>
+            <li><b>Upwork.com</b> — easier, lower quality</li>
+            <li><b>Fiverr.com</b> — last resort</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <span class="label">Two Hiring Paths</span>
+          <p><b>Blank-slate</b> — train harder, longer; cheaper rate.</p>
+          <p><b>Past skill set</b> — picks up faster; costs more.</p>
+          <p class="muted">Either way, they will ask niche-specific questions you must already know the answer to.</p>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- =================================================================== -->
+    <!-- SECTION 3 — Track Metrics                                            -->
+    <!-- =================================================================== -->
+    <div class="col" style="left:1360px;top:140px">
+      <div class="col-head">
+        <div class="col-num"><span>Section 03</span></div>
+        <div class="col-title">Track <span class="accent">Metrics</span></div>
+        <span class="col-tag">KPI Stack</span>
+      </div>
+      <div class="col-body">
+
+        <div class="kpi">
+          <div class="hdr">Weekly KPI Snapshot</div>
+          <table>
+            <tr><td>Total Dials</td><td>3,006</td></tr>
+            <tr><td>Total Pickups</td><td>2,100</td></tr>
+            <tr><td>Total Pitches</td><td>600</td></tr>
+            <tr><td>Total Resonations</td><td>300</td></tr>
+            <tr><td>Total Bookings</td><td>78</td></tr>
+            <tr class="gap"><td>Pickups %</td><td>69.86%</td></tr>
+            <tr><td>Pitches %</td><td>19.96%</td></tr>
+            <tr><td>Resonations %</td><td>9.98%</td></tr>
+            <tr><td>Bookings %</td><td>2.59%</td></tr>
+            <tr class="gap"><td>Pickup → Pitch</td><td>28.57%</td></tr>
+            <tr><td>Pitch → Resonation</td><td>50.00%</td></tr>
+            <tr><td>Resonation → Booking</td><td>26.00%</td></tr>
+          </table>
+        </div>
+
+        <div class="card">
+          <span class="label">Why Submetrics Matter</span>
+          <p><b>Bad pickup %</b> → number flagged spam in GHL (rotate it) or wrong call time (test 2pm vs 5pm).</p>
+          <p><b>Bad pitch → resonation</b> → opener/hook is weak; rewrite the first 30 seconds.</p>
+          <p><b>Bad resonation → booking</b> → close mechanic / calendar friction.</p>
+        </div>
+
+        <div class="card amber">
+          <span class="label">Setup</span>
+          <p>One Google Sheet per caller. They log Dials / Pickups / Pitches / Resonations / Bookings into their daily row. Percentages and totals autofill at the top.</p>
+          <p class="muted">Niche-specific. Contracting ≠ gyms ≠ real estate ≠ landscaping. Test for your vertical.</p>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- =================================================================== -->
+    <!-- SECTION 4 — Cold Calling SOP                                         -->
+    <!-- =================================================================== -->
+    <div class="col" style="left:2020px;top:140px">
+      <div class="col-head">
+        <div class="col-num"><span>Section 04</span></div>
+        <div class="col-title">Cold Calling <span class="accent">SOP</span></div>
+        <span class="col-tag">Training · Feedback · Culture</span>
+      </div>
+      <div class="col-body">
+
+        <div class="card feature">
+          <span class="label">Inside the SOP Doc</span>
+          <ul>
+            <li>Brief company overview + niche</li>
+            <li>Role description (incentive framing)</li>
+            <li><u>Offer & pricing</u> — written, not verbal</li>
+            <li>Sales process walkthrough</li>
+            <li>Daily checklist (2–3 hrs of calls)</li>
+            <li>GHL CRM walkthrough video</li>
+            <li>Calendly + EOD report links</li>
+            <li>Pre-call video reminder template</li>
+            <li><u>Objection-handling SOP</u> (5–10 most common)</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <div class="step"><span class="n">1</span><span>Call Recording Reviews</span></div>
+          <p><b>Caller-driven:</b> they send 5/wk or 2/day for feedback on weak calls.</p>
+          <p><b>Owner-driven:</b> pull recordings from GHL sub-account, review 1–2 hrs/wk, DM feedback.</p>
+        </div>
+
+        <div class="card">
+          <div class="step"><span class="n">2</span><span>End-of-Day Report (Google Form)</span></div>
+          <ul>
+            <li>Total Dials</li>
+            <li># Appointments Set</li>
+            <li>Self-rated performance 1–10</li>
+            <li>Notes / blocking objections</li>
+          </ul>
+          <p class="muted">Forces self-reflection. Surfaces niche objection trends ("everyone asked about price today").</p>
+        </div>
+
+        <div class="card heat">
+          <div class="step"><span class="n">3</span><span>Weekly Zoom + WhatsApp Group</span></div>
+          <ul>
+            <li><b>Morning motivational videos</b> in chat — ramp up before the rejection block</li>
+            <li><b>Weekly company calls</b> on Zoom — share what's working, train</li>
+            <li><b>Win-drop ritual:</b> when a caller books, they <u>manually type</u> the win in chat. Not automation. Creates natural competition: "John just got 3 — I need to catch up."</li>
+          </ul>
+        </div>
+
+        <div class="card warn">
+          <span class="label">⚠ Group-Chat Caveat</span>
+          <p>The chat connects callers to each other. If the agency is bleeding (no closes, low pay), they group-think and turn on you. Only safe when you're closing.</p>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- =================================================================== -->
+    <!-- SECTION 5 — Reverse Engineering Numbers                              -->
+    <!-- =================================================================== -->
+    <div class="col" style="left:2680px;top:140px">
+      <div class="col-head">
+        <div class="col-num"><span>Section 05</span></div>
+        <div class="col-title">Reverse Engineering <span class="accent">the Numbers</span></div>
+        <span class="col-tag">Unit Economics</span>
+      </div>
+      <div class="col-body">
+
+        <div class="card feature">
+          <span class="label">Setup — 3 Cold Callers</span>
+          <div class="avatars" style="margin:10px 0 4px">
+            <div class="avatar-wrap"><div class="avatar lg"></div><div class="avatar-label">CC #1</div></div>
+            <div class="avatar-wrap"><div class="avatar lg"></div><div class="avatar-label">CC #2</div></div>
+            <div class="avatar-wrap"><div class="avatar lg"></div><div class="avatar-label">CC #3</div></div>
+          </div>
+          <ul style="margin-top:8px">
+            <li>200 dials/day each</li>
+            <li>2% ABR — conservative</li>
+            <li>4 bookings/day × 5 days</li>
+            <li>= <b>20 bookings / caller / wk</b></li>
+          </ul>
+        </div>
+
+        <div class="funnel">
+          <div class="row"><b>60 bookings/wk</b> total</div>
+          <div class="arrow">↓ 70% show-up</div>
+          <div class="row"><b>42 shows</b></div>
+          <div class="arrow">↓ 15% close rate</div>
+          <div class="row"><b>6 clients closed</b></div>
+        </div>
+
+        <div class="money-split">
+          <div class="money-cell rev">
+            <div class="lbl">Agency Revenue</div>
+            <div class="val">$12K</div>
+            <div class="det">6 clients × $2K setup<br><span style="opacity:.7">LTV not included</span></div>
+          </div>
+          <div class="money-cell cost">
+            <div class="lbl">Caller Payout</div>
+            <div class="val">$2.2K</div>
+            <div class="det">42 × $25 = $1,050<br>+ ~$1.2K commission</div>
+          </div>
+        </div>
+
+        <div class="roi-hero">
+          <div class="big">5.5×</div>
+          <div class="sub">ROI on Upfront Costs</div>
+          <div class="note">Conservative · upfront only. Add performance fees + 3–6 mo retention LTV → easily <b style="color:var(--accent)">20×</b>.</div>
+        </div>
+
+        <div class="card amber">
+          <span class="label">Reality Check</span>
+          <p>Real callers vary wildly: A / B / C / D players. Some 1% ABR, some 5%. Some $300/wk, some $100. These are averaged — your weekly numbers will swing.</p>
+        </div>
+
+        <div class="card">
+          <span class="label">Caller Workload</span>
+          <p>~2–3 hrs/day, 5 days/wk. <b>$2,200/wk split across 3 callers</b> ≈ $733/wk each. Realistic part-time pay for the role.</p>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Canvas footer -->
+    <div class="canvas-banner canvas-foot" style="top:1880px">
+      Disruptors Media · Cold Caller Hiring Playbook · v1.0
+    </div>
+
+  </div><!-- /world -->
+</div><!-- /viewport -->
+
+<div class="hint"><span class="k">Drag</span> · pan &nbsp; <span class="k">Scroll / Pinch</span> · zoom &nbsp; <span class="k">Fit</span> · whole board</div>
+
+<script>
+(() => {
+  const vp = document.getElementById('viewport');
+  const world = document.getElementById('world');
+  const zoomLabel = document.getElementById('zoomlabel');
+  const WORLD_W = 3380, WORLD_H = 2000;
+
+  let scale = 1, tx = 0, ty = 0;
+
+  function apply(){
+    world.style.transform = `translate(${tx}px, ${ty}px) scale(${scale})`;
+    zoomLabel.textContent = Math.round(scale*100) + '%';
+  }
+
+  function fit(){
+    const w = vp.clientWidth, h = vp.clientHeight;
+    const s = Math.min(w / WORLD_W, h / WORLD_H) * 0.95;
+    scale = s;
+    tx = (w - WORLD_W * scale) / 2;
+    ty = (h - WORLD_H * scale) / 2;
+    apply();
+  }
+
+  function reset(){
+    scale = 1;
+    tx = 30; ty = 30;
+    apply();
+  }
+
+  // Wheel zoom (around cursor)
+  vp.addEventListener('wheel', (e) => {
+    e.preventDefault();
+    const rect = vp.getBoundingClientRect();
+    const mx = e.clientX - rect.left;
+    const my = e.clientY - rect.top;
+    const factor = Math.exp(-e.deltaY * 0.0015);
+    const newScale = Math.max(0.1, Math.min(3, scale * factor));
+    tx = mx - (mx - tx) * (newScale / scale);
+    ty = my - (my - ty) * (newScale / scale);
+    scale = newScale;
+    apply();
+  }, {passive:false});
+
+  // Drag pan
+  let dragging = false, sx = 0, sy = 0, stx = 0, sty = 0;
+  vp.addEventListener('mousedown', (e) => {
+    dragging = true; vp.classList.add('dragging');
+    sx = e.clientX; sy = e.clientY; stx = tx; sty = ty;
+  });
+  window.addEventListener('mousemove', (e) => {
+    if (!dragging) return;
+    tx = stx + (e.clientX - sx);
+    ty = sty + (e.clientY - sy);
+    apply();
+  });
+  window.addEventListener('mouseup', () => { dragging = false; vp.classList.remove('dragging'); });
+
+  // Touch pan + pinch
+  let touchStart = null;
+  vp.addEventListener('touchstart', (e) => {
+    if (e.touches.length === 1){
+      touchStart = {mode:'pan', x:e.touches[0].clientX, y:e.touches[0].clientY, tx, ty};
+    } else if (e.touches.length === 2){
+      const t1 = e.touches[0], t2 = e.touches[1];
+      const d = Math.hypot(t1.clientX - t2.clientX, t1.clientY - t2.clientY);
+      const cx = (t1.clientX + t2.clientX) / 2, cy = (t1.clientY + t2.clientY) / 2;
+      touchStart = {mode:'pinch', d, cx, cy, scale, tx, ty};
+    }
+  }, {passive:true});
+  vp.addEventListener('touchmove', (e) => {
+    if (!touchStart) return;
+    if (touchStart.mode === 'pan' && e.touches.length === 1){
+      tx = touchStart.tx + (e.touches[0].clientX - touchStart.x);
+      ty = touchStart.ty + (e.touches[0].clientY - touchStart.y);
+      apply();
+    } else if (touchStart.mode === 'pinch' && e.touches.length === 2){
+      e.preventDefault();
+      const t1 = e.touches[0], t2 = e.touches[1];
+      const d = Math.hypot(t1.clientX - t2.clientX, t1.clientY - t2.clientY);
+      const newScale = Math.max(0.1, Math.min(3, touchStart.scale * (d / touchStart.d)));
+      const rect = vp.getBoundingClientRect();
+      const mx = touchStart.cx - rect.left, my = touchStart.cy - rect.top;
+      tx = mx - (mx - touchStart.tx) * (newScale / touchStart.scale);
+      ty = my - (my - touchStart.ty) * (newScale / touchStart.scale);
+      scale = newScale;
+      apply();
+    }
+  }, {passive:false});
+  vp.addEventListener('touchend', () => { touchStart = null; });
+
+  // Buttons
+  document.getElementById('btn-fit').onclick = fit;
+  document.getElementById('btn-reset').onclick = reset;
+  document.getElementById('btn-zoom-in').onclick = () => {
+    const newScale = Math.min(3, scale * 1.2);
+    const cx = vp.clientWidth/2, cy = vp.clientHeight/2;
+    tx = cx - (cx - tx) * (newScale / scale);
+    ty = cy - (cy - ty) * (newScale / scale);
+    scale = newScale; apply();
+  };
+  document.getElementById('btn-zoom-out').onclick = () => {
+    const newScale = Math.max(0.1, scale / 1.2);
+    const cx = vp.clientWidth/2, cy = vp.clientHeight/2;
+    tx = cx - (cx - tx) * (newScale / scale);
+    ty = cy - (cy - ty) * (newScale / scale);
+    scale = newScale; apply();
+  };
+
+  window.addEventListener('resize', apply);
+  fit();
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Disruptors Media — Compensation Structure</title>
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="icon" type="image/png" sizes="64x64" href="favicon-64.png">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif&family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --black: #050505;
+  --black-light: #0C0C0C;
+  --black-lighter: #131313;
+  --gold: #C9A84C;
+  --gold-dark: #A58A3D;
+  --gold-light: #D4B970;
+  --cream: #F0EDE6;
+  --cream-90: rgba(240, 237, 230, 0.9);
+  --cream-70: rgba(240, 237, 230, 0.7);
+  --cream-50: rgba(240, 237, 230, 0.5);
+  --cream-30: rgba(240, 237, 230, 0.3);
+  --cream-15: rgba(240, 237, 230, 0.15);
+  --cream-10: rgba(240, 237, 230, 0.1);
+  --cream-05: rgba(240, 237, 230, 0.05);
+  --gold-glow: rgba(201, 168, 76, 0.35);
+  --gold-border: rgba(201, 168, 76, 0.25);
+  --gold-tint: rgba(201, 168, 76, 0.08);
+  --font-display: 'Instrument Serif', Georgia, serif;
+  --font-body: 'Outfit', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html {
+  background: var(--black);
+  color: var(--cream);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--black);
+}
+
+/* ── Sections ── */
+.section {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 80px 96px;
+  position: relative;
+  background:
+    radial-gradient(ellipse at top, rgba(201, 168, 76, 0.06) 0%, transparent 55%),
+    radial-gradient(ellipse at bottom right, rgba(201, 168, 76, 0.03) 0%, transparent 50%),
+    var(--black);
+}
+
+.section-inner {
+  width: 100%;
+  max-width: 1180px;
+  margin: 0 auto;
+}
+
+/* Subtle divider between sections */
+.section + .section {
+  border-top: 1px solid var(--cream-05);
+}
+
+/* ── Logo ── */
+.logo-mark-lg {
+  width: 140px;
+  height: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 0 30px rgba(201, 168, 76, 0.5));
+}
+
+/* ── Typography ── */
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 20px;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+.eyebrow::before {
+  content: "";
+  display: inline-block;
+  width: 24px;
+  height: 1px;
+  background: var(--gold);
+}
+
+h1.display {
+  font-family: var(--font-display);
+  font-size: clamp(48px, 6.5vw, 88px);
+  line-height: 1.0;
+  letter-spacing: -2px;
+  color: var(--cream);
+  margin-bottom: 20px;
+}
+h1.display .gold {
+  background: linear-gradient(135deg, var(--gold), var(--gold-light));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+h2.title {
+  font-family: var(--font-display);
+  font-size: clamp(36px, 4.2vw, 56px);
+  line-height: 1.05;
+  letter-spacing: -1.5px;
+  color: var(--cream);
+  margin-bottom: 14px;
+}
+
+.subtitle {
+  font-size: 18px;
+  color: var(--cream-70);
+  font-weight: 300;
+  line-height: 1.5;
+  max-width: 720px;
+}
+
+.section-tag {
+  display: inline-block;
+  padding: 8px 18px;
+  border: 1px solid var(--gold-border);
+  border-radius: 60px;
+  background: var(--gold-tint);
+  color: var(--gold);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin-bottom: 28px;
+}
+
+/* ── Cards / Grids ── */
+.grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 28px;
+  margin-top: 36px;
+}
+.grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-top: 36px;
+}
+
+.card {
+  background: rgba(240, 237, 230, 0.03);
+  border: 1px solid var(--cream-10);
+  border-radius: 20px;
+  padding: 32px;
+  backdrop-filter: blur(16px);
+  transition: all 0.3s ease;
+}
+.card.gold {
+  border-color: var(--gold-border);
+  background: linear-gradient(160deg, var(--gold-tint), rgba(240, 237, 230, 0.03));
+}
+.card.gold:hover, .card:hover {
+  border-color: var(--gold);
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.4), 0 0 40px rgba(201, 168, 76, 0.15);
+}
+
+.card-label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--cream-50);
+  margin-bottom: 14px;
+}
+.card-value {
+  font-family: var(--font-display);
+  font-size: 64px;
+  line-height: 1.0;
+  letter-spacing: -2px;
+  color: var(--gold);
+  margin-bottom: 10px;
+}
+.card-desc {
+  font-size: 14px;
+  color: var(--cream-70);
+  line-height: 1.5;
+  font-style: italic;
+}
+
+/* ── Table ── */
+.table-wrap {
+  margin-top: 32px;
+  border: 1px solid var(--cream-10);
+  border-radius: 20px;
+  overflow: hidden;
+  background: rgba(240, 237, 230, 0.02);
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+thead {
+  background: var(--gold-tint);
+}
+th {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: var(--gold);
+  padding: 20px 24px;
+  text-align: left;
+  border-bottom: 1px solid var(--gold-border);
+  font-weight: 500;
+}
+td {
+  padding: 18px 24px;
+  font-size: 16px;
+  color: var(--cream-90);
+  border-bottom: 1px solid var(--cream-05);
+}
+tbody tr:last-child td { border-bottom: none; }
+td.gold-val {
+  color: var(--gold);
+  font-family: var(--font-display);
+  font-size: 22px;
+  letter-spacing: -0.5px;
+}
+
+/* ── Highlight banner ── */
+.notice {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 18px 26px;
+  background: linear-gradient(90deg, var(--gold-tint), transparent);
+  border-left: 3px solid var(--gold);
+  border-radius: 8px;
+  margin-top: 28px;
+  font-size: 15px;
+  color: var(--cream-90);
+}
+.notice strong { color: var(--gold); font-weight: 500; }
+
+/* ── Lists ── */
+.feat-list {
+  list-style: none;
+  margin-top: 8px;
+}
+.feat-list li {
+  display: flex;
+  gap: 14px;
+  padding: 10px 0;
+  font-size: 16px;
+  color: var(--cream-90);
+  line-height: 1.5;
+}
+.feat-list li::before {
+  content: "\25B8";
+  color: var(--gold);
+  font-size: 18px;
+  line-height: 1.4;
+  flex-shrink: 0;
+}
+
+.asset-list {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 22px 40px;
+  margin-top: 24px;
+}
+.asset {
+  padding: 22px 24px;
+  border-left: 2px solid var(--gold-border);
+  transition: border-color 0.3s ease;
+}
+.asset:hover { border-left-color: var(--gold); }
+.asset h4 {
+  font-family: var(--font-display);
+  font-size: 22px;
+  color: var(--gold);
+  margin-bottom: 8px;
+  letter-spacing: -0.5px;
+}
+.asset p {
+  font-size: 14px;
+  color: var(--cream-70);
+  line-height: 1.55;
+}
+
+/* ── Earnings breakdown ── */
+.earnings-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 22px 0;
+  border-bottom: 1px solid var(--cream-05);
+}
+.earnings-row:last-child {
+  border-bottom: none;
+  border-top: 1px solid var(--gold-border);
+  padding-top: 28px;
+  margin-top: 8px;
+}
+.earnings-label { font-size: 16px; color: var(--cream-90); }
+.earnings-value {
+  font-family: var(--font-display);
+  font-size: 32px;
+  color: var(--cream);
+  letter-spacing: -0.5px;
+}
+.earnings-row:last-child .earnings-value {
+  color: var(--gold);
+  font-size: 42px;
+}
+.earnings-row.neg .earnings-value { color: #d08a7a; }
+
+/* ── Title / Closing sections ── */
+.title-section {
+  text-align: center;
+}
+.title-section .logo-mark-lg { margin-bottom: 36px; }
+.title-section h1 { margin-bottom: 24px; }
+.title-section .subtitle {
+  font-family: var(--font-display);
+  font-size: 26px;
+  color: var(--cream-70);
+  font-style: italic;
+  margin: 0 auto 40px;
+}
+.divider-line {
+  width: 80px;
+  height: 1px;
+  background: var(--gold);
+  margin: 0 auto 32px;
+  box-shadow: 0 0 12px var(--gold-glow);
+}
+.title-meta {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 4px;
+  color: var(--gold);
+  text-transform: uppercase;
+}
+
+.closing-title {
+  font-family: var(--font-display);
+  font-size: clamp(40px, 5.5vw, 72px);
+  line-height: 1.05;
+  letter-spacing: -1.5px;
+  text-align: center;
+  margin-bottom: 32px;
+}
+.closing-title .gold {
+  background: linear-gradient(135deg, var(--gold), var(--gold-light));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-style: italic;
+}
+
+/* ── Footer brand ── */
+.footer-brand {
+  text-align: center;
+  padding: 48px 32px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 3px;
+  color: var(--cream-30);
+  text-transform: uppercase;
+  background: var(--black);
+}
+
+/* ── Scroll fade-in ── */
+.fade-in {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1), transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (max-width: 900px) {
+  .section { padding: 60px 28px; }
+  .grid-2, .grid-3 { grid-template-columns: 1fr; }
+  .asset-list { grid-template-columns: 1fr; }
+  .earnings-row { flex-direction: column; gap: 4px; }
+  .earnings-value { font-size: 26px; }
+  .earnings-row:last-child .earnings-value { font-size: 34px; }
+}
+</style>
+</head>
+<body>
+
+  <!-- Title -->
+  <section class="section title-section">
+    <div class="section-inner fade-in">
+      <img class="logo-mark-lg" src="logo.png" alt="Disruptors Media">
+      <h1 class="display"><span class="gold">Disruptors</span> Media</h1>
+      <p class="subtitle">Compensation Structure</p>
+      <div class="divider-line"></div>
+      <div class="title-meta">Strategist &amp; Partner Tracks</div>
+    </div>
+  </section>
+
+  <!-- Two Tracks -->
+  <section class="section">
+    <div class="section-inner fade-in">
+      <div class="eyebrow">Overview</div>
+      <h2 class="title">Two Tracks. One Mission.</h2>
+      <p class="subtitle">Two distinct paths are available inside Disruptors Media &mdash; each offering increasing upside as you grow the monthly recurring revenue you manage.</p>
+      <div class="grid-2">
+        <div class="card gold">
+          <div class="card-label">Track One</div>
+          <div style="font-family: var(--font-display); font-size: 48px; color: var(--gold); letter-spacing: -1px; margin-bottom: 12px;">Strategist</div>
+          <p style="color: var(--cream-70); font-size: 15px; line-height: 1.6;">Guaranteed base pay plus tiered portfolio bonuses and self-sourced client overrides. Designed for consistent growth.</p>
+        </div>
+        <div class="card gold">
+          <div class="card-label">Track Two</div>
+          <div style="font-family: var(--font-display); font-size: 48px; color: var(--gold); letter-spacing: -1px; margin-bottom: 12px;">Partner</div>
+          <p style="color: var(--cream-70); font-size: 15px; line-height: 1.6;">Merit-based upgrade. 50/50 revenue split with shared fulfillment.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Strategist Base Pay -->
+  <section class="section">
+    <div class="section-inner fade-in">
+      <div class="section-tag">Strategist Model</div>
+      <h2 class="title">Guaranteed Base. <span style="color: var(--gold); font-style: italic;">Structured Growth.</span></h2>
+      <div class="grid-3">
+        <div class="card gold">
+          <div class="card-label">Monthly Base Pay</div>
+          <div class="card-value">$3,000</div>
+          <div class="card-desc">Flat guaranteed for every Strategist during year one</div>
+        </div>
+        <div class="card gold">
+          <div class="card-label">Vetting Period</div>
+          <div class="card-value" style="font-size: 52px;">90 Days</div>
+          <div class="card-desc">Base pay only for the first three months</div>
+        </div>
+        <div class="card gold">
+          <div class="card-label">Bonus Eligibility</div>
+          <div class="card-value" style="font-size: 48px;">$10K</div>
+          <div class="card-desc">Portfolio bonuses kick in at $10K managed MRR</div>
+        </div>
+      </div>
+      <div class="notice">
+        <span>&#9873;</span>
+        <span>After the vetting period, compensation scales through <strong>two tiers</strong> &mdash; managed portfolio bonuses and self-sourced client overrides &mdash; both stacking on top of your base.</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Tier 1: Managed Portfolio Bonuses -->
+  <section class="section">
+    <div class="section-inner fade-in">
+      <div class="section-tag">Tier 1</div>
+      <h2 class="title">Managed Portfolio <span style="color: var(--gold); font-style: italic;">Bonuses.</span></h2>
+      <p class="subtitle">Monthly bonuses on clients that Disruptors Media sources and assigns to you. Bonuses are gated on client satisfaction reviews across defined metrics.</p>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Managed Monthly MRR</th>
+              <th>Monthly Bonus</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>$10,000</td><td class="gold-val">$300</td></tr>
+            <tr><td>$15,000</td><td class="gold-val">$400</td></tr>
+            <tr><td>$20,000</td><td class="gold-val">$500</td></tr>
+            <tr><td>$25,000</td><td class="gold-val">$600</td></tr>
+            <tr><td>$30,000</td><td class="gold-val">$700</td></tr>
+            <tr><td>$35,000</td><td class="gold-val">$800</td></tr>
+            <tr><td>$40,000</td><td class="gold-val">$900</td></tr>
+            <tr><td>$45,000</td><td class="gold-val">$1,000</td></tr>
+            <tr><td>$50,000+</td><td class="gold-val">$1,100+</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p style="margin-top: 20px; color: var(--cream-70); font-style: italic; font-size: 14px;">Linear curve: $300 at $10K, then $100 more for every additional $5K of managed MRR. Scales further beyond $50K.</p>
+    </div>
+  </section>
+
+  <!-- Tier 2: Self-Sourced Override -->
+  <section class="section">
+    <div class="section-inner fade-in">
+      <div class="section-tag">Tier 2</div>
+      <h2 class="title">Self-Sourced Client <span style="color: var(--gold); font-style: italic;">Override.</span></h2>
+      <p class="subtitle">A separate, higher-paying structure that rewards Strategists who bring their own clients into the agency.</p>
+      <div class="grid-2" style="margin-top: 40px;">
+        <div class="card gold" style="display: flex; flex-direction: column; justify-content: center;">
+          <div class="card-label">Override Rate</div>
+          <div class="card-value">10%</div>
+          <div class="card-desc">Of gross revenue on any client you personally source and close</div>
+        </div>
+        <div class="card" style="display: flex; flex-direction: column; gap: 10px;">
+          <div class="card-label">How It Works</div>
+          <ul class="feat-list" style="margin-top: 0;">
+            <li>Stacks on top of base and any Tier 1 bonus you qualify for</li>
+            <li>Applies to every self-sourced client in your portfolio</li>
+            <li>A $20K/mo self-sourced client = $24,000/year override alone</li>
+          </ul>
+        </div>
+      </div>
+      <div class="notice">
+        <span>&#9873;</span>
+        <span>Self-sourced overrides are <strong>in addition to</strong> your base pay and Tier 1 managed bonuses. They compound as your personal book grows.</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Strategist Earnings Example -->
+  <section class="section">
+    <div class="section-inner fade-in" style="max-width: 920px;">
+      <div class="section-tag">Earnings Example</div>
+      <h2 class="title">Strategist at <span style="color: var(--gold); font-style: italic;">$40K MRR</span></h2>
+      <p class="subtitle" style="margin-bottom: 8px;">$20K assigned by the agency + $20K self-sourced</p>
+      <div class="card gold" style="padding: 40px 48px; margin-top: 28px;">
+        <div class="earnings-row">
+          <div class="earnings-label">Base salary ($3,000/mo)</div>
+          <div class="earnings-value">$36,000</div>
+        </div>
+        <div class="earnings-row">
+          <div class="earnings-label">Managed portfolio bonus on $20K assigned ($500/mo)</div>
+          <div class="earnings-value">$6,000</div>
+        </div>
+        <div class="earnings-row">
+          <div class="earnings-label">Self-sourced override on $20K (10% of gross)</div>
+          <div class="earnings-value">$24,000</div>
+        </div>
+        <div class="earnings-row">
+          <div class="earnings-label" style="color: var(--gold); font-family: var(--font-mono); font-size: 11px; letter-spacing: 3px; text-transform: uppercase;">Total Annual Compensation</div>
+          <div class="earnings-value">$66,000</div>
+        </div>
+      </div>
+      <p style="margin-top: 24px; text-align: center; color: var(--cream-70); font-style: italic; font-size: 15px;">Achievable inside a 40-hour week with AI tooling and team support. High performers compound by pushing past 40 hours.</p>
+    </div>
+  </section>
+
+  <!-- Path to Partner -->
+  <section class="section">
+    <div class="section-inner fade-in">
+      <div class="section-tag">Advancement</div>
+      <h2 class="title">Path to <span style="color: var(--gold); font-style: italic;">Partner.</span></h2>
+      <p class="subtitle">Graduation to Partner is on the table for any Strategist who proves themselves over time. Two requirements must be met:</p>
+      <div class="grid-2" style="margin-top: 40px;">
+        <div class="card">
+          <div class="card-label">Requirement 01</div>
+          <h3 style="font-family: var(--font-display); font-size: 28px; color: var(--gold); margin-bottom: 12px; letter-spacing: -0.5px;">Sustained Client Retention</h3>
+          <p style="color: var(--cream-70); font-size: 15px; line-height: 1.6;">Demonstrate satisfactory performance and client retention over an extended period &mdash; typically 1 to 2 years.</p>
+        </div>
+        <div class="card">
+          <div class="card-label">Requirement 02</div>
+          <h3 style="font-family: var(--font-display); font-size: 28px; color: var(--gold); margin-bottom: 12px; letter-spacing: -0.5px;">Independent Sales Ability</h3>
+          <p style="color: var(--cream-70); font-size: 15px; line-height: 1.6;">Source and close your own clients multiple times with no sales assistance from leadership or anyone else on the team.</p>
+        </div>
+      </div>
+      <div class="notice">
+        <span>&#9873;</span>
+        <span>Partner graduation is a <strong>deliberate decision, not an automatic threshold.</strong> Both requirements must be demonstrated before consideration.</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Partner Splits -->
+  <section class="section">
+    <div class="section-inner fade-in">
+      <div class="eyebrow">Partner Structure</div>
+      <h2 class="title">Split the Revenue. <span style="color: var(--gold); font-style: italic;">Share the Build.</span></h2>
+      <div class="grid-2">
+        <div class="card gold">
+          <div class="card-label">Revenue Split</div>
+          <div class="card-value">50 / 50</div>
+          <div class="card-desc">Partner retains 50% of all MRR managed</div>
+        </div>
+        <div class="card gold">
+          <div class="card-label">Fulfillment Cost Split</div>
+          <div class="card-value">50 / 50</div>
+          <div class="card-desc">Software, VAs, and production shared equally</div>
+        </div>
+      </div>
+      <p style="margin-top: 32px; color: var(--cream-70); font-size: 15px; line-height: 1.6; max-width: 880px;">Partners receiving Disruptors-provided clients earn <strong style="color: var(--gold);">20%</strong> of that client's MRR and remain responsible for their share of fulfillment costs.</p>
+    </div>
+  </section>
+
+  <!-- Partner Earnings Example -->
+  <section class="section">
+    <div class="section-inner fade-in" style="max-width: 860px;">
+      <div class="section-tag">Earnings Example</div>
+      <h2 class="title">Partner at <span style="color: var(--gold); font-style: italic;">$40K MRR</span></h2>
+      <div class="card gold" style="padding: 40px 48px; margin-top: 36px;">
+        <div class="earnings-row">
+          <div class="earnings-label">Revenue (50% of managed MRR)</div>
+          <div class="earnings-value">$20,000</div>
+        </div>
+        <div class="earnings-row neg">
+          <div class="earnings-label">Fulfillment cost share (est.)</div>
+          <div class="earnings-value">&minus; $2,000 to $2,500</div>
+        </div>
+        <div class="earnings-row">
+          <div class="earnings-label" style="color: var(--gold); font-family: var(--font-mono); font-size: 11px; letter-spacing: 3px; text-transform: uppercase;">Net Monthly (approx.)</div>
+          <div class="earnings-value">~$17,500+</div>
+        </div>
+      </div>
+      <p style="margin-top: 28px; text-align: center; color: var(--cream-70); font-style: italic; font-size: 16px;">Source your own business and keep more of what you build.</p>
+    </div>
+  </section>
+
+  <!-- Path to $150K+ -->
+  <section class="section">
+    <div class="section-inner fade-in">
+      <div class="section-tag">Long-Term Upside</div>
+      <h2 class="title">Path to <span style="color: var(--gold); font-style: italic;">$150K+</span></h2>
+      <div class="grid-3" style="margin-top: 40px;">
+        <div class="card gold">
+          <div class="card-label">Step 01</div>
+          <h3 style="font-family: var(--font-display); font-size: 26px; color: var(--gold); margin-bottom: 10px; letter-spacing: -0.5px;">Grow Your Personal Book</h3>
+          <p style="color: var(--cream-70); font-size: 14px; line-height: 1.55;">Grow your self-sourced portfolio significantly larger than your assigned portfolio to maximize override income.</p>
+        </div>
+        <div class="card gold">
+          <div class="card-label">Step 02</div>
+          <h3 style="font-family: var(--font-display); font-size: 26px; color: var(--gold); margin-bottom: 10px; letter-spacing: -0.5px;">Stack Managed Bonuses</h3>
+          <p style="color: var(--cream-70); font-size: 14px; line-height: 1.55;">Push managed portfolio bonuses into the higher tiers ($40K+ managed) where monthly bonuses compound meaningfully.</p>
+        </div>
+        <div class="card gold">
+          <div class="card-label">Step 03</div>
+          <h3 style="font-family: var(--font-display); font-size: 26px; color: var(--gold); margin-bottom: 10px; letter-spacing: -0.5px;">Graduate to Partner</h3>
+          <p style="color: var(--cream-70); font-size: 14px; line-height: 1.55;">Once both partner requirements are met, graduate into the 50/50 Partner model for maximum earning potential.</p>
+        </div>
+      </div>
+      <div class="notice">
+        <span>&#9873;</span>
+        <span>The structure is designed so that <strong>high performers naturally want to push past 40 hours</strong> to compound their earnings. Every client you bring directly increases your take-home.</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Assets -->
+  <section class="section">
+    <div class="section-inner fade-in">
+      <div class="eyebrow">What You're Building With</div>
+      <h2 class="title">Assets Disruptors Media <span style="color: var(--gold); font-style: italic;">Provides.</span></h2>
+      <div class="asset-list">
+        <div class="asset">
+          <h4>Proven Brand &amp; Case Studies</h4>
+          <p>Step into a company with an established track record &mdash; accumulated proof, client results, and a portfolio that opens doors.</p>
+        </div>
+        <div class="asset">
+          <h4>Systems, Frameworks &amp; Playbooks</h4>
+          <p>Sales messaging, offer positioning, acquisition workflows, and delivery processes &mdash; already mapped and battle-tested.</p>
+        </div>
+        <div class="asset">
+          <h4>World-Class Fulfillment Team</h4>
+          <p>Full production team &mdash; videographers, editors, automation specialists &mdash; backed by AI-accelerated virtual assistants.</p>
+        </div>
+        <div class="asset">
+          <h4>Automation Library</h4>
+          <p>AI voice receptionists, follow-up agents, review collection, chat widgets, database reactivation, quote follow-ups.</p>
+        </div>
+        <div class="asset">
+          <h4>Mentorship &amp; Shared Knowledge</h4>
+          <p>Ongoing coaching from Kyle (sales) and Tyler (fulfillment). Every winning strategy is shared openly across the team.</p>
+        </div>
+        <div class="asset">
+          <h4>Infrastructure Stack</h4>
+          <p>GoHighLevel &bull; n8n &bull; Supabase &bull; OpenAI &bull; Retell AI &bull; Twilio &bull; Vercel &bull; Frame.io &mdash; production-grade, day one.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Expectations -->
+  <section class="section">
+    <div class="section-inner fade-in">
+      <div class="section-tag">What's Expected</div>
+      <h2 class="title">Full-Time. <span style="color: var(--gold); font-style: italic;">In-Person.</span> All In.</h2>
+      <p class="subtitle">This is a full-time, in-person commitment during all business hours. In the early stages you will shadow Kyle on sales and Tyler on fulfillment to build the foundational skills required to succeed at both.</p>
+      <div class="card gold" style="margin-top: 36px;">
+        <div class="card-label">Early Stage Focus</div>
+        <h3 style="font-family: var(--font-display); font-size: 36px; color: var(--cream); margin-bottom: 16px; letter-spacing: -1px;">Sales First &mdash; <span style="color: var(--gold); font-style: italic;">By Design.</span></h3>
+        <p style="color: var(--cream-70); font-size: 16px; line-height: 1.6;">The majority of early time is weighted toward sales. You cannot manage revenue you have not yet acquired. Building your MRR base quickly is the priority &mdash; and the fastest path to unlocking the full income potential of either track.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Growth Methods -->
+  <section class="section">
+    <div class="section-inner fade-in">
+      <div class="eyebrow">Growth Playbook</div>
+      <h2 class="title">Recommended <span style="color: var(--gold); font-style: italic;">Growth Methods.</span></h2>
+      <div class="grid-2" style="margin-top: 40px;">
+        <div class="card">
+          <div class="card-label">Method 01</div>
+          <h3 style="font-family: var(--font-display); font-size: 26px; color: var(--gold); margin-bottom: 10px; letter-spacing: -0.5px;">LinkedIn Outreach</h3>
+          <p style="color: var(--cream-70); font-size: 14px; line-height: 1.55;">Cold outreach and automation &mdash; high-leverage, low-cost acquisition.</p>
+        </div>
+        <div class="card">
+          <div class="card-label">Method 02</div>
+          <h3 style="font-family: var(--font-display); font-size: 26px; color: var(--gold); margin-bottom: 10px; letter-spacing: -0.5px;">Cold Email</h3>
+          <p style="color: var(--cream-70); font-size: 14px; line-height: 1.55;">Scalable campaigns targeting service businesses at volume.</p>
+        </div>
+        <div class="card">
+          <div class="card-label">Method 03</div>
+          <h3 style="font-family: var(--font-display); font-size: 26px; color: var(--gold); margin-bottom: 10px; letter-spacing: -0.5px;">Cold Calling</h3>
+          <p style="color: var(--cream-70); font-size: 14px; line-height: 1.55;">A proven skill-builder &mdash; one of the most direct paths to fast closes.</p>
+        </div>
+        <div class="card">
+          <div class="card-label">Method 04</div>
+          <h3 style="font-family: var(--font-display); font-size: 26px; color: var(--gold); margin-bottom: 10px; letter-spacing: -0.5px;">Warm Network</h3>
+          <p style="color: var(--cream-70); font-size: 14px; line-height: 1.55;">Personal and professional relationships &mdash; often the fastest first wins.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Closing -->
+  <section class="section title-section">
+    <div class="section-inner fade-in">
+      <img class="logo-mark-lg" src="logo.png" alt="Disruptors Media" style="width: 110px; height: auto; margin-bottom: 28px;">
+      <h1 class="closing-title">Grow Your Book.<br><span class="gold">Build Your Career.</span></h1>
+      <div class="divider-line"></div>
+      <div class="title-meta">disruptorsmedia.com</div>
+    </div>
+  </section>
+
+  <div class="footer-brand">Disruptors Media &mdash; Compensation Structure</div>
+
+<script>
+// Scroll fade-in observer
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.15 });
+
+document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>

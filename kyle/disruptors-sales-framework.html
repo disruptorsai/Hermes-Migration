@@ -1,0 +1,1137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Internal sales training framework for Disruptors Media reps">
+<meta name="robots" content="noindex, nofollow">
+<title>Disruptors Media — The Sales Framework</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='44' fill='%23050505' stroke='%23C9A84C' stroke-width='3'/><ellipse cx='50' cy='50' rx='44' ry='18' fill='none' stroke='%23C9A84C' stroke-width='2'/><ellipse cx='50' cy='50' rx='18' ry='44' fill='none' stroke='%23C9A84C' stroke-width='2'/></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif&family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --black: #050505;
+  --black-light: #0C0C0C;
+  --black-lighter: #131313;
+  --gold: #C9A84C;
+  --gold-dark: #A58A3D;
+  --gold-light: #D4B970;
+  --cream: #F0EDE6;
+  --cream-90: rgba(240, 237, 230, 0.9);
+  --cream-70: rgba(240, 237, 230, 0.7);
+  --cream-50: rgba(240, 237, 230, 0.5);
+  --cream-30: rgba(240, 237, 230, 0.3);
+  --cream-15: rgba(240, 237, 230, 0.15);
+  --cream-10: rgba(240, 237, 230, 0.1);
+  --cream-05: rgba(240, 237, 230, 0.05);
+  --gold-glow: rgba(201, 168, 76, 0.35);
+  --gold-border: rgba(201, 168, 76, 0.25);
+  --gold-tint: rgba(201, 168, 76, 0.08);
+  --font-display: 'Instrument Serif', Georgia, serif;
+  --font-body: 'Outfit', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  height: 100%;
+  background: var(--black);
+  color: var(--cream);
+  font-family: var(--font-body);
+  overflow: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+.deck {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.slide {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 64px 96px;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1), transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse at top, rgba(201, 168, 76, 0.06) 0%, transparent 55%),
+    radial-gradient(ellipse at bottom right, rgba(201, 168, 76, 0.03) 0%, transparent 50%),
+    var(--black);
+  overflow-y: auto;
+}
+
+.slide.active {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.slide-inner {
+  width: 100%;
+  max-width: 1180px;
+  margin: 0 auto;
+}
+
+/* ── Logo ── */
+.logo-mark {
+  width: 56px;
+  height: 56px;
+  filter: drop-shadow(0 0 18px rgba(201, 168, 76, 0.4));
+}
+.logo-mark-lg {
+  width: 110px;
+  height: 110px;
+  filter: drop-shadow(0 0 30px rgba(201, 168, 76, 0.5));
+}
+
+/* ── Typography ── */
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 20px;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+.eyebrow::before {
+  content: "";
+  display: inline-block;
+  width: 24px;
+  height: 1px;
+  background: var(--gold);
+}
+
+h1.display {
+  font-family: var(--font-display);
+  font-size: clamp(48px, 6.5vw, 88px);
+  line-height: 1.0;
+  letter-spacing: -2px;
+  color: var(--cream);
+  margin-bottom: 20px;
+}
+h1.display .gold {
+  background: linear-gradient(135deg, var(--gold), var(--gold-light));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+h2.title {
+  font-family: var(--font-display);
+  font-size: clamp(36px, 4.2vw, 56px);
+  line-height: 1.05;
+  letter-spacing: -1.5px;
+  color: var(--cream);
+  margin-bottom: 14px;
+}
+h2.title .accent {
+  color: var(--gold);
+  font-style: italic;
+}
+
+.subtitle {
+  font-size: 18px;
+  color: var(--cream-70);
+  font-weight: 300;
+  line-height: 1.55;
+  max-width: 820px;
+}
+
+.section-tag {
+  display: inline-block;
+  padding: 8px 18px;
+  border: 1px solid var(--gold-border);
+  border-radius: 60px;
+  background: var(--gold-tint);
+  color: var(--gold);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin-bottom: 28px;
+}
+
+/* ── Cards / Grids ── */
+.grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin-top: 32px;
+}
+.grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 22px;
+  margin-top: 32px;
+}
+.grid-5 {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 16px;
+  margin-top: 36px;
+}
+
+.card {
+  background: rgba(240, 237, 230, 0.03);
+  border: 1px solid var(--cream-10);
+  border-radius: 20px;
+  padding: 28px;
+  backdrop-filter: blur(16px);
+  transition: all 0.3s ease;
+  position: relative;
+}
+.card.gold {
+  border-color: var(--gold-border);
+  background: linear-gradient(160deg, var(--gold-tint), rgba(240, 237, 230, 0.03));
+}
+.card.gold:hover, .card:hover {
+  border-color: var(--gold);
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.4), 0 0 40px rgba(201, 168, 76, 0.15);
+}
+
+.card-label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--cream-50);
+  margin-bottom: 12px;
+}
+.card-num {
+  font-family: var(--font-display);
+  font-size: 64px;
+  line-height: 1;
+  letter-spacing: -2px;
+  color: var(--gold);
+  margin-bottom: 8px;
+}
+.card-title {
+  font-family: var(--font-display);
+  font-size: 26px;
+  color: var(--cream);
+  letter-spacing: -0.5px;
+  margin-bottom: 10px;
+  line-height: 1.15;
+}
+.card-desc {
+  font-size: 14px;
+  color: var(--cream-70);
+  line-height: 1.55;
+}
+
+/* ── Phase intro slide ── */
+.phase-intro {
+  text-align: center;
+}
+.phase-intro .phase-num {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 36px;
+}
+.phase-intro h1 {
+  font-family: var(--font-display);
+  font-size: clamp(64px, 9vw, 128px);
+  line-height: 1;
+  letter-spacing: -3px;
+  background: linear-gradient(135deg, var(--gold), var(--gold-light));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 28px;
+  font-style: italic;
+}
+.phase-intro .phase-sub {
+  font-family: var(--font-display);
+  font-size: 26px;
+  color: var(--cream-70);
+  font-style: italic;
+  max-width: 760px;
+  margin: 0 auto 32px;
+  line-height: 1.4;
+}
+.phase-intro .stage-list {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 28px;
+}
+.phase-intro .stage-pill {
+  padding: 8px 18px;
+  border: 1px solid var(--gold-border);
+  border-radius: 60px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  color: var(--gold);
+  background: var(--gold-tint);
+}
+
+.divider-line {
+  width: 80px;
+  height: 1px;
+  background: var(--gold);
+  margin: 0 auto 32px;
+  box-shadow: 0 0 12px var(--gold-glow);
+}
+
+/* ── Lists ── */
+.feat-list {
+  list-style: none;
+  margin-top: 8px;
+}
+.feat-list li {
+  display: flex;
+  gap: 14px;
+  padding: 10px 0;
+  font-size: 16px;
+  color: var(--cream-90);
+  line-height: 1.55;
+}
+.feat-list li::before {
+  content: "▸";
+  color: var(--gold);
+  font-size: 18px;
+  line-height: 1.4;
+  flex-shrink: 0;
+}
+
+/* ── Script callout ── */
+.script-callout {
+  margin-top: 32px;
+  padding: 32px 36px;
+  background: linear-gradient(160deg, var(--gold-tint), rgba(240, 237, 230, 0.03));
+  border: 1px solid var(--gold-border);
+  border-left: 3px solid var(--gold);
+  border-radius: 16px;
+  position: relative;
+}
+.script-callout::before {
+  content: "\201C";
+  position: absolute;
+  top: 4px;
+  left: 18px;
+  font-family: var(--font-display);
+  font-size: 96px;
+  line-height: 1;
+  color: var(--gold);
+  opacity: 0.3;
+}
+.script-callout .script-label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 14px;
+  position: relative;
+  z-index: 1;
+}
+.script-callout .script-text {
+  font-family: var(--font-display);
+  font-size: 22px;
+  line-height: 1.5;
+  color: var(--cream);
+  font-style: italic;
+  position: relative;
+  z-index: 1;
+}
+
+/* ── Notice banner ── */
+.notice {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 18px 26px;
+  background: linear-gradient(90deg, var(--gold-tint), transparent);
+  border-left: 3px solid var(--gold);
+  border-radius: 8px;
+  margin-top: 28px;
+  font-size: 15px;
+  color: var(--cream-90);
+}
+.notice .notice-icon {
+  color: var(--gold);
+  font-size: 18px;
+}
+.notice strong { color: var(--gold); font-weight: 500; }
+
+/* ── Step row (for objection loop) ── */
+.step-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 10px;
+  margin-top: 36px;
+}
+.step-cell {
+  padding: 18px 12px;
+  background: rgba(240, 237, 230, 0.03);
+  border: 1px solid var(--cream-10);
+  border-radius: 14px;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+.step-cell:hover {
+  border-color: var(--gold);
+  background: var(--gold-tint);
+}
+.step-cell .step-n {
+  font-family: var(--font-display);
+  font-size: 32px;
+  color: var(--gold);
+  line-height: 1;
+  margin-bottom: 6px;
+}
+.step-cell .step-name {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--cream-70);
+}
+
+/* ── Map slide phases ── */
+.phase-card {
+  text-align: left;
+}
+.phase-card .phase-card-num {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 3px;
+  color: var(--gold);
+  margin-bottom: 10px;
+}
+.phase-card .phase-card-name {
+  font-family: var(--font-display);
+  font-size: 32px;
+  color: var(--cream);
+  letter-spacing: -0.5px;
+  margin-bottom: 14px;
+  line-height: 1.1;
+}
+.phase-card .phase-card-stages {
+  font-size: 13px;
+  color: var(--cream-70);
+  line-height: 1.6;
+  font-weight: 300;
+}
+
+/* ── ROI list ── */
+.roi-list {
+  margin-top: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.roi-item {
+  padding: 18px 22px;
+  border-left: 2px solid var(--gold);
+  background: rgba(240, 237, 230, 0.03);
+  border-radius: 12px;
+}
+.roi-item .roi-label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 3px;
+  color: var(--gold);
+  margin-bottom: 8px;
+}
+.roi-item .roi-text {
+  font-size: 15px;
+  color: var(--cream-90);
+  line-height: 1.55;
+  font-weight: 300;
+}
+
+/* ── Nav ── */
+.nav {
+  position: fixed;
+  bottom: 28px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 10px 18px;
+  background: rgba(12, 12, 12, 0.7);
+  backdrop-filter: blur(16px);
+  border: 1px solid var(--cream-10);
+  border-radius: 60px;
+  z-index: 100;
+}
+.nav button {
+  background: transparent;
+  border: none;
+  color: var(--cream-70);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 1px;
+  cursor: pointer;
+  padding: 8px 14px;
+  border-radius: 60px;
+  transition: all 0.2s ease;
+}
+.nav button:hover {
+  color: var(--gold);
+  background: var(--gold-tint);
+}
+.nav-counter {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--cream-50);
+  letter-spacing: 1px;
+  min-width: 70px;
+  text-align: center;
+}
+.nav-counter .cur { color: var(--gold); }
+
+.dots {
+  position: fixed;
+  right: 28px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  z-index: 100;
+  max-height: 80vh;
+  overflow-y: auto;
+  padding: 4px;
+}
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--cream-15);
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  padding: 0;
+  flex-shrink: 0;
+}
+.dot.active {
+  background: var(--gold);
+  box-shadow: 0 0 12px var(--gold-glow);
+  height: 24px;
+  border-radius: 4px;
+}
+
+.footer-brand {
+  position: fixed;
+  bottom: 28px;
+  left: 40px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 3px;
+  color: var(--cream-30);
+  text-transform: uppercase;
+  z-index: 100;
+}
+.slide-num {
+  position: fixed;
+  top: 28px;
+  right: 40px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 3px;
+  color: var(--cream-30);
+  z-index: 100;
+}
+
+/* ── Title slide ── */
+.title-slide { text-align: center; }
+.title-slide .logo-mark-lg { margin-bottom: 36px; }
+.title-slide h1 { margin-bottom: 24px; }
+.title-slide .subtitle {
+  font-family: var(--font-display);
+  font-size: 26px;
+  color: var(--cream-70);
+  font-style: italic;
+  margin: 0 auto 36px;
+  max-width: 720px;
+}
+.title-slide .title-meta {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 4px;
+  color: var(--gold);
+  text-transform: uppercase;
+}
+
+.closing-title {
+  font-family: var(--font-display);
+  font-size: clamp(40px, 5.5vw, 72px);
+  line-height: 1.05;
+  letter-spacing: -1.5px;
+  text-align: center;
+  margin-bottom: 32px;
+}
+.closing-title .gold {
+  background: linear-gradient(135deg, var(--gold), var(--gold-light));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-style: italic;
+}
+
+.hint {
+  position: fixed;
+  bottom: 80px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 2px;
+  color: var(--cream-30);
+  text-transform: uppercase;
+  opacity: 0;
+  animation: fadeHint 4s ease 1s forwards;
+  z-index: 99;
+  pointer-events: none;
+}
+@keyframes fadeHint {
+  0% { opacity: 0; }
+  20% { opacity: 1; }
+  80% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+/* Custom scrollbar for slides that overflow */
+.slide::-webkit-scrollbar { width: 4px; }
+.slide::-webkit-scrollbar-thumb { background: var(--gold-border); border-radius: 2px; }
+
+@media (max-width: 900px) {
+  .slide { padding: 40px 24px; }
+  .grid-2, .grid-3, .grid-5 { grid-template-columns: 1fr; }
+  .step-grid { grid-template-columns: repeat(3, 1fr); }
+  .dots { display: none; }
+  .footer-brand { display: none; }
+  .script-callout { padding: 24px; }
+  .script-callout .script-text { font-size: 18px; }
+}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute">
+  <defs>
+    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#D4B970"/>
+      <stop offset="50%" stop-color="#C9A84C"/>
+      <stop offset="100%" stop-color="#A58A3D"/>
+    </linearGradient>
+    <symbol id="globe" viewBox="0 0 100 100">
+      <circle cx="50" cy="50" r="44" fill="#050505" stroke="url(#goldGrad)" stroke-width="2.5"/>
+      <ellipse cx="50" cy="50" rx="44" ry="18" fill="none" stroke="url(#goldGrad)" stroke-width="1.5"/>
+      <ellipse cx="50" cy="50" rx="44" ry="32" fill="none" stroke="url(#goldGrad)" stroke-width="1.2" opacity="0.8"/>
+      <ellipse cx="50" cy="50" rx="18" ry="44" fill="none" stroke="url(#goldGrad)" stroke-width="1.5"/>
+      <ellipse cx="50" cy="50" rx="32" ry="44" fill="none" stroke="url(#goldGrad)" stroke-width="1.2" opacity="0.8"/>
+      <line x1="6" y1="50" x2="94" y2="50" stroke="url(#goldGrad)" stroke-width="1.5"/>
+      <line x1="50" y1="6" x2="50" y2="94" stroke="url(#goldGrad)" stroke-width="1.5"/>
+    </symbol>
+  </defs>
+</svg>
+
+<div class="deck" id="deck">
+
+  <!-- 1 — Title -->
+  <section class="slide active title-slide">
+    <div class="slide-inner">
+      <svg class="logo-mark-lg"><use href="#globe"/></svg>
+      <h1 class="display">The <span class="gold">Sales</span> Framework</h1>
+      <p class="subtitle">A 13-stage conversation system for turning cold conversations into closed clients.</p>
+      <div class="divider-line"></div>
+      <div class="title-meta">Disruptors Media · Internal Rep Training</div>
+    </div>
+  </section>
+
+  <!-- 2 — Overview Map -->
+  <section class="slide">
+    <div class="slide-inner">
+      <div class="eyebrow">The Full Conversation Flow</div>
+      <h2 class="title">Five Phases. <span class="accent">Thirteen Stages.</span></h2>
+      <p class="subtitle">Every winning sales call moves through the same arc — opener, discovery, assessment, pitch, and close. Master the arc and the deal becomes inevitable.</p>
+      <div class="grid-5">
+        <div class="card phase-card">
+          <div class="phase-card-num">Phase 01</div>
+          <div class="phase-card-name">Opener</div>
+          <div class="phase-card-stages">Build Rapport · Set the Frame</div>
+        </div>
+        <div class="card phase-card">
+          <div class="phase-card-num">Phase 02</div>
+          <div class="phase-card-name">Discovery</div>
+          <div class="phase-card-stages">Situation · Desires · Pain</div>
+        </div>
+        <div class="card phase-card">
+          <div class="phase-card-num">Phase 03</div>
+          <div class="phase-card-name">Assessment</div>
+          <div class="phase-card-stages">Past Solutions · Qualify</div>
+        </div>
+        <div class="card phase-card">
+          <div class="phase-card-num">Phase 04</div>
+          <div class="phase-card-name">Pitch</div>
+          <div class="phase-card-stages">Differentiators · Case Studies · Trial Close</div>
+        </div>
+        <div class="card phase-card gold">
+          <div class="phase-card-num">Phase 05</div>
+          <div class="phase-card-name">Close</div>
+          <div class="phase-card-stages">Pricing · Objections · Close</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3 — Phase 1 Intro -->
+  <section class="slide phase-intro">
+    <div class="slide-inner">
+      <div class="phase-num">Phase One</div>
+      <h1>Opener</h1>
+      <p class="phase-sub">Earn permission. Set the frame. Establish you are the consultant in the room — not a salesperson.</p>
+      <div class="stage-list">
+        <span class="stage-pill">01 · Build Rapport</span>
+        <span class="stage-pill">02 · Set the Frame</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4 — Stage 1: Build Rapport -->
+  <section class="slide">
+    <div class="slide-inner">
+      <div class="eyebrow">Stage 01 · Opener</div>
+      <h2 class="title">Build <span class="accent">Rapport.</span></h2>
+      <p class="subtitle">Establish a professional, cordial connection quickly. Be direct. Earn permission to ask questions before diving deeper — you are not pitching yet.</p>
+      <div class="script-callout">
+        <div class="script-label">Cold Call Opener</div>
+        <div class="script-text">"Hey — I wanted to reach out because I genuinely believe I can help you save time and make money. My company is mastering the art of using AI to grow your presence online, get you more leads, and plug up inefficiencies. I do not want to assume what I do can help when I do not know your situation yet. Do you mind if we have a brief conversation just to see if there is something we can do to help you out?"</div>
+      </div>
+      <div class="notice">
+        <span class="notice-icon">⚑</span>
+        <span><strong>Hook:</strong> "Save time and make money" — that two-part promise is the whole opener. Keep it under 60 seconds.</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5 — Stage 2: Set the Frame -->
+  <section class="slide">
+    <div class="slide-inner">
+      <div class="eyebrow">Stage 02 · Opener</div>
+      <h2 class="title">Set the <span class="accent">Frame.</span></h2>
+      <p class="subtitle">Position yourself as a consultant and trusted advisor — NOT a salesperson. Establish the agenda and get a verbal yes before discovery begins.</p>
+      <div class="script-callout">
+        <div class="script-label">Frame Setting Script</div>
+        <div class="script-text">"My job today is to figure out with you how AI can help you save time and make money. Our whole business model is helping people like you do 10x more without increasing cost or time. We start by understanding what is working and what is not. From there I can tell you where AI brings the best ROI. And later, if I determine we are actually a good fit, I will share exactly how we can help. Does that sound like a good thing to go through?"</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6 — Phase 2 Intro -->
+  <section class="slide phase-intro">
+    <div class="slide-inner">
+      <div class="phase-num">Phase Two</div>
+      <h1>Discovery</h1>
+      <p class="phase-sub">Map their reality, surface the dream, and quantify the pain. Listen more than you talk.</p>
+      <div class="stage-list">
+        <span class="stage-pill">03 · Situation</span>
+        <span class="stage-pill">04 · Desires</span>
+        <span class="stage-pill">05 · Pain</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7 — Stage 3: Current Situation -->
+  <section class="slide">
+    <div class="slide-inner">
+      <div class="eyebrow">Stage 03 · Discovery</div>
+      <h2 class="title">Current <span class="accent">Situation.</span></h2>
+      <p class="subtitle">Understand where they are right now. Their tech, their wins, their bottlenecks — and the three numbers that drive every ROI calculation later.</p>
+      <div class="grid-3">
+        <div class="card gold">
+          <div class="card-label">Number 01</div>
+          <div class="card-title">LTV</div>
+          <div class="card-desc">Lifetime value of a typical customer — the single most important number in the entire framework.</div>
+        </div>
+        <div class="card gold">
+          <div class="card-label">Number 02</div>
+          <div class="card-title">CPA</div>
+          <div class="card-desc">What it currently costs them to acquire one customer through their existing channels.</div>
+        </div>
+        <div class="card gold">
+          <div class="card-label">Number 03</div>
+          <div class="card-title">Monthly Revenue</div>
+          <div class="card-desc">Their current ballpark — the baseline against which every gap and every ROI is framed.</div>
+        </div>
+      </div>
+      <ul class="feat-list" style="margin-top: 28px;">
+        <li>"What strategies have you used to get more clients? What worked, what did not?"</li>
+        <li>"What does your tech stack look like? Is your CRM dialed in?"</li>
+        <li>"What bottlenecks do you have, and where could AI help?"</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 8 — Stage 4: Desires -->
+  <section class="slide">
+    <div class="slide-inner">
+      <div class="eyebrow">Stage 04 · Discovery</div>
+      <h2 class="title">Explore the <span class="accent">Dream Outcome.</span></h2>
+      <p class="subtitle">Find out exactly what success looks like to them. The wider the gap between their current state and their dream state, the more valuable your help becomes.</p>
+      <ul class="feat-list" style="margin-top: 24px;">
+        <li>"What would you like to see happen in the next two to five years?"</li>
+        <li>"How many clients would your acquisition systems be bringing in?"</li>
+        <li>"How do you plan on removing yourself from day-to-day operations?"</li>
+        <li>"Tell me more about that — why is that goal important to you?"</li>
+        <li>"Based on your numbers, how many new clients would you need to hit that?"</li>
+      </ul>
+      <div class="notice">
+        <span class="notice-icon">⚑</span>
+        <span><strong>Make the gap concrete.</strong> Use their LTV × target client count to put a real dollar figure on the dream. The dream becomes urgent the moment it has a number attached.</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 9 — Stage 5: Pain -->
+  <section class="slide">
+    <div class="slide-inner">
+      <div class="eyebrow">Stage 05 · Discovery</div>
+      <h2 class="title">Pinpoint the <span class="accent">Problem.</span></h2>
+      <p class="subtitle">Surface the bottlenecks blocking them from the dream. Quantify the cost in real dollars and real hours. Nothing moves in a sale without real, felt pain.</p>
+      <ul class="feat-list" style="margin-top: 24px;">
+        <li>"Given that goal — what do you feel are the biggest roadblocks right now?"</li>
+        <li>"How much is this lack of lead flow costing you per month?"</li>
+        <li>"How much revenue are you losing because of follow-up gaps — if you had to estimate?"</li>
+        <li>"Walk me through what happens after a lead comes in. Where does it fall through the cracks?"</li>
+        <li>"What is the thing that keeps you up at night about the business right now?"</li>
+      </ul>
+      <div class="notice">
+        <span class="notice-icon">⚑</span>
+        <span><strong>Pain must be felt, not just acknowledged.</strong> Push them to put a real number on it. The more specific the pain, the stronger your ROI story will be later.</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 10 — Phase 3 Intro -->
+  <section class="slide phase-intro">
+    <div class="slide-inner">
+      <div class="phase-num">Phase Three</div>
+      <h1>Assessment</h1>
+      <p class="phase-sub">Understand what they have tried, why it failed, and decide honestly whether you are the right fit.</p>
+      <div class="stage-list">
+        <span class="stage-pill">06 · Past Solutions</span>
+        <span class="stage-pill">07 · Qualification</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 11 — Stage 6: Past Solutions -->
+  <section class="slide">
+    <div class="slide-inner">
+      <div class="eyebrow">Stage 06 · Assessment</div>
+      <h2 class="title">Exhaust <span class="accent">Previous Solutions.</span></h2>
+      <p class="subtitle">Learn what they have tried, why it failed, and uncover their buying value — the criteria a solution must meet for them to commit.</p>
+      <div class="card gold" style="margin-top: 28px;">
+        <div class="card-label">Definition · Buying Value</div>
+        <div style="font-size: 17px; color: var(--cream-90); line-height: 1.6; font-weight: 300;">A buying value is something the prospect feels they absolutely need before they will move forward. Discovered by learning what failed and what is still missing. Example: <em style="color: var(--gold);">"I need to own everything we build — no vendor lock-in."</em> That tells you to lead hard on IP ownership.</div>
+      </div>
+      <ul class="feat-list" style="margin-top: 24px;">
+        <li>"What have you tried in the past to address [pain] — and what made it fail?"</li>
+        <li>"If you are comparing strategies, what would be the top one or two criteria that would make something genuinely worth implementing?"</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 12 — Stage 7: Qualification -->
+  <section class="slide">
+    <div class="slide-inner">
+      <div class="eyebrow">Stage 07 · Assessment</div>
+      <h2 class="title">Qualification — <span class="accent">Go or No-Go.</span></h2>
+      <p class="subtitle">Make a genuine, honest assessment of fit. Either invite them into the pitch with real conviction, or disqualify them respectfully and point them toward a better path.</p>
+      <div class="grid-2">
+        <div class="card gold">
+          <div class="card-label">If Qualified</div>
+          <div style="font-family: var(--font-display); font-size: 17px; color: var(--cream); font-style: italic; line-height: 1.55;">"After everything we covered today, I genuinely believe what we do at Disruptors Media can be a massive game changer for your business. Since I think we are a strong fit, I would love to walk you through what I would suggest. Would you be open to that?"</div>
+        </div>
+        <div class="card">
+          <div class="card-label">If Not Qualified</div>
+          <div style="font-family: var(--font-display); font-size: 17px; color: var(--cream-90); font-style: italic; line-height: 1.55;">"Based on what you've shared, I will be straight with you — I do not think we are the right fit at this stage." Then give them concrete direction. Disqualified prospects often send referrals.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 13 — Phase 4 Intro -->
+  <section class="slide phase-intro">
+    <div class="slide-inner">
+      <div class="phase-num">Phase Four</div>
+      <h1>Pitch</h1>
+      <p class="phase-sub">Show them what makes you different, prove it with transformation, then let them tell you the value.</p>
+      <div class="stage-list">
+        <span class="stage-pill">08 · Differentiators</span>
+        <span class="stage-pill">09 · Case Studies</span>
+        <span class="stage-pill">10 · Trial Close</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 14 — Stage 8: Differentiators -->
+  <section class="slide">
+    <div class="slide-inner">
+      <div class="eyebrow">Stage 08 · Pitch</div>
+      <h2 class="title">The <span class="accent">Disruptors Difference.</span></h2>
+      <p class="subtitle">Lead with the differentiators that map directly to their buying value and what burned them before. Use their own words as the contrast.</p>
+      <ul class="feat-list" style="margin-top: 28px;">
+        <li>Fractional <strong style="color:var(--gold);font-weight:500">Chief AI Officer</strong> service — not a typical agency.</li>
+        <li>We build inside <strong style="color:var(--gold);font-weight:500">your software stack</strong> — no artificial dependencies, ever.</li>
+        <li>You own <strong style="color:var(--gold);font-weight:500">100% of the IP</strong>. Remove us anytime and keep what we built.</li>
+        <li>We work <strong style="color:var(--gold);font-weight:500">live, side by side</strong> — unlike agencies that go silent after kickoff.</li>
+        <li>You direct our skill set wherever <strong style="color:var(--gold);font-weight:500">your ROI is highest.</strong></li>
+        <li>Test multiple mechanisms — build one system at a time, highest ROI first.</li>
+      </ul>
+      <div class="notice">
+        <span class="notice-icon">⚑</span>
+        <span><strong>Never ask "does that make sense?"</strong> Use open check-ins: <em>"What thoughts are coming up?" / "What questions do you have right now?"</em></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 15 — Stage 9: Case Studies -->
+  <section class="slide">
+    <div class="slide-inner">
+      <div class="eyebrow">Stage 09 · Pitch</div>
+      <h2 class="title">The <span class="accent">Transformation Story.</span></h2>
+      <p class="subtitle">Tell the story of a client who had a similar situation and achieved their dream outcome. Transformation is the word — not features, not services. Real before-and-after.</p>
+      <div class="grid-2" style="margin-top: 28px;">
+        <div class="card">
+          <div class="card-label">Step 01 · Set the Scene</div>
+          <div style="font-size: 15px; color: var(--cream-90); line-height: 1.6; font-style: italic;">"We worked with a [similar business] that was struggling with [their exact pain point]..."</div>
+        </div>
+        <div class="card">
+          <div class="card-label">Step 02 · What We Did</div>
+          <div style="font-size: 15px; color: var(--cream-90); line-height: 1.6; font-style: italic;">"What we did was [specific approach] — and because we built it inside their own stack, they kept everything..."</div>
+        </div>
+        <div class="card">
+          <div class="card-label">Step 03 · The Result</div>
+          <div style="font-size: 15px; color: var(--cream-90); line-height: 1.6; font-style: italic;">"Within [timeframe] they went from [specific before] to [specific after]..."</div>
+        </div>
+        <div class="card gold">
+          <div class="card-label">Step 04 · Connect Back</div>
+          <div style="font-size: 15px; color: var(--cream); line-height: 1.6; font-style: italic;">"That is actually really similar to what you described earlier when you mentioned [their pain point]..."</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 16 — Stage 10: Trial Close -->
+  <section class="slide">
+    <div class="slide-inner">
+      <div class="eyebrow">Stage 10 · Pitch</div>
+      <h2 class="title">The <span class="accent">Trial Close.</span></h2>
+      <p class="subtitle">Have them articulate the value themselves. Self-articulated value is far more powerful than being told. Get them to a 10 before any dollar figure is mentioned.</p>
+      <div class="script-callout">
+        <div class="script-label">Soft Close · The 1-to-10 Scale</div>
+        <div class="script-text">"This might be a silly question — but on a scale of 1 to 10, where 1 means I just want to get off this call, and 10 means finances completely aside, this is something I could absolutely see myself doing — where do you fall right now?"</div>
+      </div>
+      <div class="grid-2" style="margin-top: 24px;">
+        <div class="card">
+          <div class="card-label">If Under 10 · Step 1</div>
+          <div style="font-size: 15px; color: var(--cream-90); line-height: 1.55; font-style: italic;">"Why not a 1? What are the things you are actually finding genuinely valuable about this?" — anchor on positives first.</div>
+        </div>
+        <div class="card gold">
+          <div class="card-label">If Under 10 · Step 2</div>
+          <div style="font-size: 15px; color: var(--cream); line-height: 1.55; font-style: italic;">"What is keeping it from being a 10? What do you need to see for this to feel like a clear yes — finances aside?"</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 17 — Phase 5 Intro -->
+  <section class="slide phase-intro">
+    <div class="slide-inner">
+      <div class="phase-num">Phase Five</div>
+      <h1>Close</h1>
+      <p class="phase-sub">Frame the price as math. Run the loop on every objection. Then ask for the commitment cleanly — and stop talking.</p>
+      <div class="stage-list">
+        <span class="stage-pill">11 · Pricing</span>
+        <span class="stage-pill">12 · Objections</span>
+        <span class="stage-pill">13 · Close</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 18 — Stage 11: Pricing -->
+  <section class="slide">
+    <div class="slide-inner">
+      <div class="eyebrow">Stage 11 · Close</div>
+      <h2 class="title">Pricing as <span class="accent">ROI Math.</span></h2>
+      <p class="subtitle">Never present price as a standalone number. By the time you state the fee, it should feel like a no-brainer they have already talked themselves into.</p>
+      <div class="roi-list">
+        <div class="roi-item">
+          <div class="roi-label">Leads Agent ROI</div>
+          <div class="roi-text">"If our leads agent delivers X leads per month, your team closes Y%, with an LTV of Z — even at half performance, that is [$X]. Does that more than cover our fee?"</div>
+        </div>
+        <div class="roi-item">
+          <div class="roi-label">Time Savings ROI</div>
+          <div class="roi-text">"What is your effective hourly rate? If we save you 10 hours a week, that is [rate × 10] per week — or [× 52] per year — back in your pocket. Does that alone pay for this?"</div>
+        </div>
+        <div class="roi-item">
+          <div class="roi-label">Combined ROI</div>
+          <div class="roi-text">"Between time savings and expected lead ROI, we are looking at [combined figure]. Our fee is [price]. That is a [X:1] return in the conservative scenario. Does this feel like a straightforward investment?"</div>
+        </div>
+      </div>
+      <div class="notice">
+        <span class="notice-icon">⚑</span>
+        <span><strong>After you say the price — silence.</strong> The next person to speak tends to lose their footing.</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 19 — Stage 12: Objection Loop -->
+  <section class="slide">
+    <div class="slide-inner">
+      <div class="eyebrow">Stage 12 · Close</div>
+      <h2 class="title">The <span class="accent">Objection Loop.</span></h2>
+      <p class="subtitle">Resolve concerns one by one with a structured, repeatable seven-step loop. Each pass gets you closer to the close. Commit this to memory.</p>
+      <div class="step-grid">
+        <div class="step-cell"><div class="step-n">01</div><div class="step-name">Hear</div></div>
+        <div class="step-cell"><div class="step-n">02</div><div class="step-name">Acknowledge</div></div>
+        <div class="step-cell"><div class="step-n">03</div><div class="step-name">Get Clarity</div></div>
+        <div class="step-cell" style="border-color: var(--gold); background: var(--gold-tint);"><div class="step-n">04</div><div class="step-name" style="color: var(--gold);">Tie-Down</div></div>
+        <div class="step-cell"><div class="step-n">05</div><div class="step-name">Resolve</div></div>
+        <div class="step-cell"><div class="step-n">06</div><div class="step-name">Ace</div></div>
+        <div class="step-cell"><div class="step-n">07</div><div class="step-name">Close Again</div></div>
+      </div>
+      <div class="script-callout" style="margin-top: 28px;">
+        <div class="script-label">Step 04 · Tie-Down · The Most Critical Step</div>
+        <div class="script-text">"I appreciate you sharing that. Setting this concern aside for a second — do you feel like what we are offering would genuinely get you to where you want to go? Why or why not?"</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 20 — Stage 13: The Close -->
+  <section class="slide">
+    <div class="slide-inner">
+      <div class="eyebrow">Stage 13 · Close</div>
+      <h2 class="title">Ask for the <span class="accent">Commitment.</span></h2>
+      <p class="subtitle">Use a direct close question. Do not hedge. Do not soften. Then stop talking and wait — confidence carries the moment.</p>
+      <div class="grid-3" style="margin-top: 32px;">
+        <div class="card gold">
+          <div class="card-label">Direct Close</div>
+          <div style="font-family: var(--font-display); font-size: 22px; color: var(--cream); font-style: italic; line-height: 1.4;">"When would you like to move forward?"</div>
+        </div>
+        <div class="card">
+          <div class="card-label">Agreement-First</div>
+          <div style="font-family: var(--font-display); font-size: 18px; color: var(--cream-90); font-style: italic; line-height: 1.45;">"I will get the agreement sent over so you can review the IP ownership clause yourself. Under what name should I address it?"</div>
+        </div>
+        <div class="card">
+          <div class="card-label">Date-Setting</div>
+          <div style="font-family: var(--font-display); font-size: 20px; color: var(--cream-90); font-style: italic; line-height: 1.45;">"Let us lock in a start date — does [X date] work to kick things off?"</div>
+        </div>
+      </div>
+      <div class="notice">
+        <span class="notice-icon">⚑</span>
+        <span><strong>After your close question — silence.</strong> Once committed, immediately confirm next steps: agreement, onboarding call, kickoff date.</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 21 — Closing -->
+  <section class="slide title-slide">
+    <div class="slide-inner">
+      <svg class="logo-mark-lg" style="width: 80px; height: 80px; margin-bottom: 28px;"><use href="#globe"/></svg>
+      <h1 class="closing-title">Run the Play.<br><span class="gold">Close the Deal.</span></h1>
+      <div class="divider-line"></div>
+      <div class="title-meta">Disruptors Media · disruptorsmedia.com</div>
+    </div>
+  </section>
+
+</div>
+
+<div class="slide-num"><span id="slideNum">01</span> / <span id="slideTotal">21</span></div>
+<div class="footer-brand">Disruptors Media — The Sales Framework</div>
+
+<div class="dots" id="dots"></div>
+
+<nav class="nav">
+  <button id="prev">← Prev</button>
+  <span class="nav-counter"><span class="cur" id="cur">01</span> / <span id="totalEl">21</span></span>
+  <button id="next">Next →</button>
+</nav>
+
+<div class="hint">Use ← → arrow keys to navigate</div>
+
+<script>
+(function(){
+  const slides = document.querySelectorAll('.slide');
+  const total = slides.length;
+  const dotsEl = document.getElementById('dots');
+  const curEl = document.getElementById('cur');
+  const slideNumEl = document.getElementById('slideNum');
+  document.getElementById('totalEl').textContent = String(total).padStart(2,'0');
+  document.getElementById('slideTotal').textContent = String(total).padStart(2,'0');
+  let idx = 0;
+
+  for (let i = 0; i < total; i++) {
+    const d = document.createElement('button');
+    d.className = 'dot' + (i === 0 ? ' active' : '');
+    d.setAttribute('aria-label', 'Go to slide ' + (i+1));
+    d.addEventListener('click', () => go(i));
+    dotsEl.appendChild(d);
+  }
+  const dots = dotsEl.querySelectorAll('.dot');
+
+  function pad(n){ return String(n).padStart(2,'0'); }
+
+  function go(n){
+    if (n < 0 || n >= total) return;
+    slides[idx].classList.remove('active');
+    dots[idx].classList.remove('active');
+    idx = n;
+    slides[idx].classList.add('active');
+    dots[idx].classList.add('active');
+    slides[idx].scrollTop = 0;
+    curEl.textContent = pad(idx+1);
+    slideNumEl.textContent = pad(idx+1);
+    history.replaceState(null, '', '#' + (idx+1));
+  }
+
+  document.getElementById('prev').addEventListener('click', () => go(idx-1));
+  document.getElementById('next').addEventListener('click', () => go(idx+1));
+
+  document.addEventListener('keydown', (e) => {
+    if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+    if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') { e.preventDefault(); go(idx+1); }
+    else if (e.key === 'ArrowLeft' || e.key === 'PageUp') { e.preventDefault(); go(idx-1); }
+    else if (e.key === 'Home') { go(0); }
+    else if (e.key === 'End') { go(total-1); }
+  });
+
+  const h = parseInt(location.hash.replace('#',''), 10);
+  if (h >= 1 && h <= total) go(h-1);
+
+  let tx = 0, ty = 0;
+  document.addEventListener('touchstart', e => { tx = e.touches[0].clientX; ty = e.touches[0].clientY; });
+  document.addEventListener('touchend', e => {
+    const dx = e.changedTouches[0].clientX - tx;
+    const dy = e.changedTouches[0].clientY - ty;
+    if (Math.abs(dx) > 60 && Math.abs(dx) > Math.abs(dy)) go(idx + (dx < 0 ? 1 : -1));
+  });
+})();
+</script>
+</body>
+</html>

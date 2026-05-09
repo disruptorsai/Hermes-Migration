@@ -1,0 +1,36 @@
+{
+  "brandName": "RUBRIC Team",
+  "mission": "[Your mission here]",
+  "serverLabel": "my-server-1",
+  "skillsRoot": "../",
+  "lead": {
+    "id": "alpha",
+    "name": "Alpha (placeholder)",
+    "badge": "Lead",
+    "role": "Lead Agent",
+    "description": "Your lead agent — coordinates, delegates, keeps everything on track. Replace this with your actual lead agent.",
+    "skills": ["Orchestration", "Planning", "Memory"],
+    "icon": "Crown",
+    "color": "#f5a623"
+  },
+  "agents": [
+    {
+      "id": "beta",
+      "name": "Beta (placeholder)",
+      "role": "Agent 2",
+      "description": "Your second agent. Replace with your actual agent's role and description.",
+      "skills": ["Building", "Debugging", "Infrastructure"],
+      "icon": "Spark",
+      "color": "#58abf5"
+    },
+    {
+      "id": "gamma",
+      "name": "Gamma (placeholder)",
+      "role": "Agent 3",
+      "description": "Your third agent. Replace with your actual agent's role and description.",
+      "skills": ["Writing", "Research", "Strategy"],
+      "icon": "Drift",
+      "color": "#50e3c2"
+    }
+  ]
+}
