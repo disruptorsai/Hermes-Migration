@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Claude Code — The Essential Slash Commands | Disruptors Media</title>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif&family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #050505;
+    --surface: #0C0C0C;
+    --hover: #131313;
+    --cream: #F0EDE6;
+    --gold: #C9A84C;
+    --cream-70: rgba(240,237,230,0.7);
+    --cream-50: rgba(240,237,230,0.5);
+    --cream-30: rgba(240,237,230,0.3);
+    --cream-15: rgba(240,237,230,0.15);
+    --cream-10: rgba(240,237,230,0.1);
+    --cream-05: rgba(240,237,230,0.05);
+    --gold-35: rgba(201,168,76,0.35);
+    --gold-25: rgba(201,168,76,0.25);
+    --gold-15: rgba(201,168,76,0.15);
+    --gold-08: rgba(201,168,76,0.08);
+    --gold-03: rgba(201,168,76,0.03);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  @page { size: Letter; margin: 0; }
+
+  html, body {
+    background: var(--bg);
+    color: var(--cream);
+    font-family: 'Outfit', system-ui, sans-serif;
+    font-weight: 400;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .page {
+    width: 8.5in;
+    height: 11in;
+    padding: 0.45in 0.55in 0.4in;
+    overflow: hidden;
+    background:
+      radial-gradient(circle at 88% -6%, var(--gold-08), transparent 42%),
+      radial-gradient(circle at -6% 108%, var(--gold-03), transparent 55%),
+      var(--bg);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* === HEADER === */
+  header.top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--cream-10);
+    flex-shrink: 0;
+  }
+  header.top img.logo { height: 40px; width: auto; }
+  header.top .meta {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 8.5px;
+    letter-spacing: 2.8px;
+    text-transform: uppercase;
+    color: var(--cream-30);
+    text-align: right;
+    line-height: 1.7;
+  }
+  header.top .meta strong { color: var(--gold); font-weight: 400; }
+
+  /* === TITLE BLOCK === */
+  .title-block {
+    padding: 18px 0 14px;
+    border-bottom: 1px solid var(--cream-10);
+    flex-shrink: 0;
+  }
+  .eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9.5px;
+    letter-spacing: 3.2px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 8px;
+  }
+  h1 {
+    font-family: 'Instrument Serif', Georgia, serif;
+    font-weight: 400;
+    font-size: 36px;
+    letter-spacing: -1px;
+    line-height: 1.05;
+    color: var(--cream);
+  }
+  h1 em {
+    color: var(--gold);
+    font-style: italic;
+  }
+  .deck {
+    margin-top: 8px;
+    font-size: 11.5px;
+    line-height: 1.5;
+    color: var(--cream-70);
+    max-width: 6.5in;
+  }
+
+  /* === GRID === */
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 16px;
+    row-gap: 7px;
+    padding-top: 14px;
+    flex: 1;
+  }
+
+  .cmd {
+    position: relative;
+    padding: 9px 11px 9px 12px;
+    background: var(--cream-05);
+    border: 1px solid var(--cream-10);
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .cmd::before {
+    content: "";
+    position: absolute;
+    inset: 0 12px auto;
+    top: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--cream-15), transparent);
+    border-radius: 10px;
+  }
+  .cmd .name {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--gold);
+    letter-spacing: 0.2px;
+  }
+  .cmd .desc {
+    font-size: 10.5px;
+    line-height: 1.4;
+    color: var(--cream-70);
+  }
+
+  /* === FOOTER === */
+  footer {
+    margin-top: 14px;
+    padding-top: 12px;
+    border-top: 1px solid var(--cream-10);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-shrink: 0;
+  }
+  footer .left {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 8.5px;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--cream-30);
+  }
+  footer .left span { color: var(--gold); }
+  footer .right {
+    font-family: 'Instrument Serif', Georgia, serif;
+    font-size: 13px;
+    color: var(--cream-70);
+    letter-spacing: -0.2px;
+  }
+  footer .right a {
+    color: var(--gold);
+    text-decoration: none;
+    border-bottom: 1px solid var(--gold-25);
+    padding-bottom: 1px;
+  }
+
+  /* Pro tip strip */
+  .protip {
+    margin-top: 10px;
+    padding: 10px 14px;
+    background: var(--gold-08);
+    border: 1px solid var(--gold-15);
+    border-radius: 10px;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    flex-shrink: 0;
+  }
+  .protip .label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--gold);
+    white-space: nowrap;
+    padding-top: 1px;
+  }
+  .protip .text {
+    font-size: 10.5px;
+    line-height: 1.45;
+    color: var(--cream-70);
+  }
+  .protip .text strong { color: var(--cream); font-weight: 500; }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <header class="top">
+    <img src="logo.png" alt="Disruptors Media" class="logo">
+    <div class="meta">
+      <div><strong>FIELD GUIDE</strong> · v1.0</div>
+      <div>Issue 001 — Claude Code</div>
+    </div>
+  </header>
+
+  <div class="title-block">
+    <div class="eyebrow">The Essential Slash Commands</div>
+    <h1>Twenty commands that make<br>Claude Code <em>actually fast</em>.</h1>
+    <p class="deck">
+      The slash commands seasoned operators reach for daily — pulled from real Claude Code users
+      shipping production work. Keep this open in a second monitor. Type the slash, type the command, ship.
+    </p>
+  </div>
+
+  <div class="grid">
+
+    <div class="cmd">
+      <div class="name">/clear</div>
+      <div class="desc">Wipes the conversation and frees the context window for a fresh task.</div>
+    </div>
+
+    <div class="cmd">
+      <div class="name">/compact</div>
+      <div class="desc">Summarizes the current session in place so you can keep going without losing the thread.</div>
+    </div>
+
+    <div class="cmd">
+      <div class="name">/init</div>
+      <div class="desc">Generates a CLAUDE.md so Claude understands your repo's conventions on every run.</div>
+    </div>
+
+    <div class="cmd">
+      <div class="name">/model</div>
+      <div class="desc">Swaps between Opus, Sonnet, and Haiku mid-session to match cost and capability.</div>
+    </div>
+
+    <div class="cmd">
+      <div class="name">/agents</div>
+      <div class="desc">View, edit, and spin up specialized sub-agents that handle scoped tasks in parallel.</div>
+    </div>
+
+    <div class="cmd">
+      <div class="name">/mcp</div>
+      <div class="desc">Connect Model Context Protocol servers — databases, Slack, Notion, anything with an MCP.</div>
+    </div>
+
+    <div class="cmd">
+      <div class="name">/memory</div>
+      <div class="desc">Open and edit the persistent memory files Claude carries between sessions.</div>
+    </div>
+
+    <div class="cmd">
+      <div class="name">/review</div>
+      <div class="desc">Runs a structured code review on the current branch before you open the PR.</div>
+    </div>
+
+    <div class="cmd">
+      <div class="name">/pr-comments</div>
+      <div class="desc">Pulls down GitHub PR comments so Claude can address every reviewer note in one pass.</div>
+    </div>
+
+    <div class="cmd">
+      <div class="name">/security-review</div>
+      <div class="desc">Audits pending changes for credential leaks, injection risk, and common vulnerabilities.</div>
+    </div>
+
+    <div class="cmd">
+      <div class="name">/hooks</div>
+      <div class="desc">Wire shell hooks that fire on tool calls — auto-format, lint, or block dangerous actions.</div>
+    </div>
+
+    <div class="cmd">
+      <div class="name">/permissions</div>
+      <div class="desc">Allowlist or deny specific tools and paths so Claude stops asking for the same approval.</div>
+    </div>
+
+    <div class="cmd">
+      <div class="name">/cost</div>
+      <div class="desc">Shows tokens spent and dollar cost for the current session in real time.</div>
+    </div>
+
+    <div class="cmd">
+      <div class="name">/resume</div>
+      <div class="desc">Reopens a previous session from history exactly where you left off.</div>
+    </div>
+
+    <div class="cmd">
+      <div class="name">/export</div>
+      <div class="desc">Saves the full transcript to a file — perfect for handoffs and audit trails.</div>
+    </div>
+
+    <div class="cmd">
+      <div class="name">/todos</div>
+      <div class="desc">Surfaces Claude's live task list so you can see exactly what's planned and what's done.</div>
+    </div>
+
+    <div class="cmd">
+      <div class="name">/status</div>
+      <div class="desc">Reports account, active model, working directory, and current permission mode.</div>
+    </div>
+
+    <div class="cmd">
+      <div class="name">/add-dir</div>
+      <div class="desc">Grants Claude access to an additional directory outside the launch folder.</div>
+    </div>
+
+    <div class="cmd">
+      <div class="name">/ide</div>
+      <div class="desc">Connects to VS Code or JetBrains for inline diffs, jump-to, and selection context.</div>
+    </div>
+
+    <div class="cmd">
+      <div class="name">/help</div>
+      <div class="desc">Lists every available slash command, including ones added by your installed plugins.</div>
+    </div>
+
+  </div>
+
+  <div class="protip">
+    <div class="label">Pro Tip</div>
+    <div class="text">
+      Pair <strong>/init</strong> on day one with <strong>/compact</strong> before context fills up,
+      and <strong>/clear</strong> at every new task. That single rhythm is the difference between Claude as a toy and Claude as an operator.
+    </div>
+  </div>
+
+  <footer>
+    <div class="left">DISRUPTORS <span>·</span> MEDIA &nbsp;&nbsp;<span>·</span>&nbsp;&nbsp; FIELD GUIDE 001</div>
+    <div class="right">More guides at <a href="https://disruptorsmedia.com">disruptorsmedia.com</a></div>
+  </footer>
+
+</div>
+</body>
+</html>
