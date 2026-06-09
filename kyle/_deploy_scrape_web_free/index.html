@@ -1,0 +1,969 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Scrape The Web For Free — A Field Guide | Disruptors Media</title>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif&family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #050505;
+    --surface: #0C0C0C;
+    --hover: #131313;
+    --cream: #F0EDE6;
+    --gold: #C9A84C;
+    --cream-70: rgba(240,237,230,0.7);
+    --cream-50: rgba(240,237,230,0.5);
+    --cream-30: rgba(240,237,230,0.3);
+    --cream-15: rgba(240,237,230,0.15);
+    --cream-10: rgba(240,237,230,0.1);
+    --cream-05: rgba(240,237,230,0.05);
+    --gold-35: rgba(201,168,76,0.35);
+    --gold-25: rgba(201,168,76,0.25);
+    --gold-15: rgba(201,168,76,0.15);
+    --gold-08: rgba(201,168,76,0.08);
+    --gold-03: rgba(201,168,76,0.03);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  @page { size: Letter; margin: 0; }
+
+  html, body {
+    background: var(--bg);
+    color: var(--cream);
+    font-family: 'Outfit', system-ui, sans-serif;
+    font-weight: 400;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .page {
+    width: 8.5in;
+    height: 11in;
+    padding: 0.45in 0.55in 0.42in;
+    page-break-after: always;
+    overflow: hidden;
+    background:
+      radial-gradient(circle at 85% -5%, var(--gold-08), transparent 45%),
+      radial-gradient(circle at -5% 100%, var(--gold-03), transparent 55%),
+      var(--bg);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+  }
+  .page:last-child { page-break-after: auto; }
+
+  /* === HEADERS === */
+  header.cover-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--cream-10);
+  }
+  header.cover-header img.logo { height: 48px; width: auto; }
+  header.cover-header .meta {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--cream-30);
+    text-align: right;
+    line-height: 1.6;
+  }
+  header.cover-header .meta strong { color: var(--gold); font-weight: 400; }
+
+  header.page-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--cream-10);
+    margin-bottom: 16px;
+    flex-shrink: 0;
+  }
+  header.page-header img.logo { height: 26px; width: auto; }
+  header.page-header .crumb {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--cream-30);
+  }
+  header.page-header .crumb span { color: var(--gold); }
+
+  /* === COVER === */
+  .cover-body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 16px;
+  }
+
+  h1.display {
+    font-family: 'Instrument Serif', Georgia, serif;
+    font-weight: 400;
+    font-size: 72px;
+    line-height: 0.98;
+    letter-spacing: -2px;
+    color: var(--cream);
+    margin-bottom: 22px;
+  }
+  h1.display em { font-style: italic; color: var(--gold); }
+
+  .deck {
+    font-family: 'Outfit', sans-serif;
+    font-size: 15.5px;
+    line-height: 1.55;
+    color: var(--cream-70);
+    max-width: 5.6in;
+    margin-bottom: 32px;
+  }
+
+  .stat-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+  }
+  .stat {
+    padding: 22px 20px;
+    background: var(--cream-05);
+    border: 1px solid var(--cream-10);
+    border-radius: 14px;
+    position: relative;
+    overflow: hidden;
+  }
+  .stat::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--cream-15), transparent);
+  }
+  .stat .num {
+    font-family: 'Instrument Serif', serif;
+    font-weight: 400;
+    font-size: 38px;
+    line-height: 1;
+    letter-spacing: -1px;
+    color: var(--gold);
+    margin-bottom: 6px;
+  }
+  .stat .lbl {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--cream-30);
+    line-height: 1.4;
+  }
+
+  /* === HEADINGS === */
+  h2 {
+    font-family: 'Instrument Serif', serif;
+    font-weight: 400;
+    font-size: 30px;
+    line-height: 1.05;
+    letter-spacing: -0.8px;
+    color: var(--cream);
+    margin-bottom: 8px;
+  }
+  h2 .num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 2.5px;
+    color: var(--gold);
+    display: block;
+    text-transform: uppercase;
+    margin-bottom: 5px;
+    font-weight: 400;
+  }
+  h3 {
+    font-family: 'Instrument Serif', serif;
+    font-weight: 400;
+    font-size: 18px;
+    color: var(--cream);
+    margin: 12px 0 7px;
+    line-height: 1.2;
+  }
+  h4 {
+    font-family: 'Outfit', sans-serif;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: 500;
+    color: var(--gold);
+    margin: 10px 0 6px;
+  }
+
+  p {
+    font-size: 12px;
+    line-height: 1.55;
+    color: var(--cream-70);
+    margin-bottom: 8px;
+  }
+  p.lede {
+    font-size: 13.5px;
+    line-height: 1.5;
+    color: var(--cream);
+    margin-bottom: 14px;
+  }
+
+  ul, ol {
+    margin: 0 0 9px 18px;
+    color: var(--cream-70);
+    font-size: 12px;
+    line-height: 1.55;
+  }
+  li { margin-bottom: 3px; }
+  li::marker { color: var(--gold); }
+
+  strong { color: var(--cream); font-weight: 500; }
+  em.gold { color: var(--gold); font-style: normal; }
+
+  /* === CODE === */
+  pre, code { font-family: 'JetBrains Mono', monospace; }
+  code.inline {
+    background: var(--gold-08);
+    border: 1px solid var(--gold-15);
+    padding: 1px 5px;
+    border-radius: 3px;
+    font-size: 10.5px;
+    color: var(--gold);
+  }
+  pre.code {
+    background: rgba(5,5,5,0.65);
+    border: 1px solid var(--cream-10);
+    border-radius: 10px;
+    padding: 11px 14px;
+    font-size: 10.5px;
+    line-height: 1.55;
+    color: var(--cream);
+    margin-bottom: 9px;
+    position: relative;
+    overflow: hidden;
+    white-space: pre;
+  }
+  pre.code.tight {
+    font-size: 9.5px;
+    line-height: 1.5;
+    padding: 10px 12px;
+  }
+  pre.code::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold-25), transparent);
+  }
+  pre.code .c { color: var(--cream-30); }
+  pre.code .k { color: var(--gold); }
+  pre.code .s { color: #d6c89a; }
+
+  /* === STEP CARDS === */
+  .step-card {
+    background: var(--cream-05);
+    border: 1px solid var(--cream-10);
+    border-radius: 14px;
+    padding: 16px 18px;
+    margin-bottom: 12px;
+    position: relative;
+    overflow: hidden;
+  }
+  .step-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--cream-15), transparent);
+  }
+  .step-card .step-head {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 9px;
+  }
+  .step-card .step-num {
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    background: var(--gold-08);
+    border: 1px solid var(--gold-25);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Instrument Serif', serif;
+    font-size: 16px;
+    color: var(--gold);
+    box-shadow: 0 0 12px var(--gold-15);
+    flex-shrink: 0;
+  }
+  .step-card h3.step-title { margin: 0; font-size: 16px; line-height: 1.1; }
+  .step-card .step-sub {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 1.8px;
+    text-transform: uppercase;
+    color: var(--cream-30);
+    margin-top: 2px;
+  }
+  .step-card p { margin-bottom: 7px; font-size: 12px; }
+  .step-card pre.code { margin-bottom: 7px; }
+
+  /* === CALLOUTS === */
+  .callout {
+    background: var(--gold-08);
+    border: 1px solid var(--gold-15);
+    border-radius: 10px;
+    padding: 11px 14px;
+    margin: 9px 0;
+    font-size: 11.5px;
+    color: var(--cream);
+    line-height: 1.5;
+  }
+  .callout .tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 8.5px;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--gold);
+    display: block;
+    margin-bottom: 4px;
+  }
+
+  /* === TABLE === */
+  .compare {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 6px 0 10px;
+    font-size: 11.5px;
+  }
+  .compare th, .compare td {
+    text-align: left;
+    padding: 9px 12px;
+    border-bottom: 1px solid var(--cream-10);
+    vertical-align: top;
+  }
+  .compare th {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--cream-30);
+    font-weight: 400;
+  }
+  .compare td { color: var(--cream-70); }
+  .compare td strong { color: var(--cream); }
+  .compare td .badge {
+    display: inline-block;
+    padding: 1px 7px;
+    border-radius: 10px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 8.5px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    background: var(--gold-08);
+    border: 1px solid var(--gold-15);
+    color: var(--gold);
+  }
+
+  /* === GRIDS === */
+  .grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+  .grid-3 {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 10px;
+  }
+  .mini {
+    background: var(--cream-05);
+    border: 1px solid var(--cream-10);
+    border-radius: 10px;
+    padding: 11px 12px;
+    position: relative;
+    overflow: hidden;
+  }
+  .mini::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--cream-15), transparent);
+  }
+  .mini .mt {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9.5px;
+    color: var(--gold);
+    letter-spacing: 0.3px;
+    margin-bottom: 4px;
+  }
+  .mini .md {
+    font-size: 10.5px;
+    line-height: 1.45;
+    color: var(--cream-70);
+  }
+
+  /* === FOOTERS === */
+  .footer {
+    margin-top: auto;
+    padding-top: 12px;
+    border-top: 1px solid var(--cream-10);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 8.5px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--cream-30);
+    flex-shrink: 0;
+  }
+  .footer .page-num { color: var(--gold); }
+
+  .cover-foot {
+    padding-top: 20px;
+    border-top: 1px solid var(--cream-10);
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--cream-30);
+    flex-shrink: 0;
+  }
+  .cover-foot .auth { color: var(--gold); font-size: 10px; }
+
+  /* === PAGE BODY === */
+  .body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+  }
+
+  /* === TARGETS LIST === */
+  .targets {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+    margin: 6px 0 10px;
+  }
+  .target {
+    padding: 9px 10px;
+    background: var(--cream-05);
+    border: 1px solid var(--cream-10);
+    border-radius: 8px;
+    font-size: 10.5px;
+    line-height: 1.35;
+    color: var(--cream);
+  }
+  .target .nm {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--gold);
+    margin-bottom: 2px;
+  }
+  .target .ds {
+    font-size: 9.5px;
+    color: var(--cream-70);
+    line-height: 1.35;
+  }
+
+  /* === FLOW === */
+  .flow {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    margin: 10px 0 12px;
+  }
+  .flow-step {
+    padding: 12px 12px;
+    background: var(--cream-05);
+    border: 1px solid var(--cream-10);
+    border-radius: 10px;
+    position: relative;
+  }
+  .flow-step .fn {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 2px;
+    color: var(--gold);
+    margin-bottom: 6px;
+  }
+  .flow-step .ft {
+    font-family: 'Instrument Serif', serif;
+    font-size: 15px;
+    color: var(--cream);
+    line-height: 1.15;
+    margin-bottom: 4px;
+  }
+  .flow-step .fd {
+    font-size: 10px;
+    color: var(--cream-70);
+    line-height: 1.4;
+  }
+</style>
+</head>
+<body>
+
+<!-- ===================== PAGE 1: COVER ===================== -->
+<section class="page">
+  <header class="cover-header">
+    <img src="logo.png" alt="Disruptors Media" class="logo">
+    <div class="meta">
+      Field Guide<br>
+      <strong>Issue 002 · 2026</strong>
+    </div>
+  </header>
+
+  <div class="cover-body">
+    <div class="label">Disruptors Media · Field Guide</div>
+
+    <h1 class="display">Scrape The<br>Web For<br><em>Free</em>.</h1>
+
+    <p class="deck">
+      A plain-English playbook for ScrapeGraph AI — the open-source library that turns any website into clean, structured JSON without CSS selectors, XPath, or brittle scripts. Setup, code, pipelines, and the agency business model on top of it.
+    </p>
+
+    <div class="stat-row">
+      <div class="stat">
+        <div class="num">$0</div>
+        <div class="lbl">MIT-licensed tool cost</div>
+      </div>
+      <div class="stat">
+        <div class="num">10 min</div>
+        <div class="lbl">From zero to first scrape</div>
+      </div>
+      <div class="stat">
+        <div class="num">$2–5K</div>
+        <div class="lbl">Per scrape job (agency rate)</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cover-foot">
+    <div>
+      <div>Published by Disruptors Media</div>
+      <div class="auth">FIELD GUIDE 002 — AI AUTOMATION</div>
+    </div>
+    <div>disruptorsmedia.com</div>
+  </div>
+</section>
+
+<!-- ===================== PAGE 2: WHY + WHAT ===================== -->
+<section class="page">
+  <header class="page-header">
+    <img src="logo.png" alt="Disruptors Media" class="logo">
+    <div class="crumb">FIELD GUIDE 002 <span>·</span> 01 / THE WHY &amp; THE TOOL</div>
+  </header>
+
+  <div class="body">
+    <h2><span class="num">Section 01</span>Web scraping is the 90%.<br>This guide automates it.</h2>
+
+    <p class="lede">
+      Scraping is the slow, repetitive, technical work that eats your day — copy-pasting from LinkedIn, watching prices on Amazon, pulling agent contacts off Zillow, building lead lists by hand. The right tool turns weeks of work into a single prompt. This is that tool.
+    </p>
+
+    <h3>Meet ScrapeGraph AI</h3>
+    <p>
+      ScrapeGraph AI is a <strong>free, MIT-licensed Python library</strong> that uses an LLM to scrape any website with a single plain-English prompt. No CSS selectors. No XPath. No brittle rules that break when a site updates. You describe what you want; the model figures out how to extract it.
+    </p>
+
+    <div class="grid-2">
+      <div class="mini">
+        <div class="mt">github.com/ScrapeGraphAI/Scrapegraph-ai</div>
+        <div class="md">Open source. MIT licensed. Active community. The library is free to use forever.</div>
+      </div>
+      <div class="mini">
+        <div class="mt">Pluggable LLM backend</div>
+        <div class="md">Drop in OpenAI, Anthropic, or run a local model with Ollama. Pay pennies, or pay nothing.</div>
+      </div>
+    </div>
+
+    <h3>What makes it different</h3>
+    <table class="compare">
+      <thead>
+        <tr>
+          <th>Old way</th>
+          <th>ScrapeGraph AI</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Hand-write CSS selectors and XPath</strong><br>Breaks every time the site changes its layout.</td>
+          <td><strong>Write a prompt in English</strong><br>"Get every product name, price, and rating from this page."</td>
+        </tr>
+        <tr>
+          <td><strong>BeautifulSoup, Scrapy, Selenium glue code</strong><br>Hours of setup and constant maintenance.</td>
+          <td><strong>One function call</strong><br>The LLM reads the page and returns structured JSON.</td>
+        </tr>
+        <tr>
+          <td><strong>$50–200 / mo SaaS subscriptions</strong><br>Per-row pricing on every paid scraping platform.</td>
+          <td><strong>Pennies in inference, or $0 with Ollama</strong><br>You own the pipeline end-to-end.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="callout">
+      <span class="tag">The Promise</span>
+      Spend 10 minutes on setup. Trade weeks of manual data gathering for a script that runs on demand and outputs clean, structured JSON every time.
+    </div>
+
+    <p>
+      The rest of this guide walks you through installation, picking your LLM, running your first scrape, and a workflow for getting AI to write the script for you. We close with the use cases this unlocks — including the $2–5K-per-job lead-gen model operators are already running.
+    </p>
+  </div>
+
+  <div class="footer">
+    <div>DISRUPTORS MEDIA <span>·</span> FIELD GUIDE 002</div>
+    <div>SECTION 01 <span class="page-num">· 02 / 06</span></div>
+  </div>
+</section>
+
+<!-- ===================== PAGE 3: SETUP (STEPS 1-2) ===================== -->
+<section class="page">
+  <header class="page-header">
+    <img src="logo.png" alt="Disruptors Media" class="logo">
+    <div class="crumb">FIELD GUIDE 002 <span>·</span> 02 / SETUP IN TEN MINUTES</div>
+  </header>
+
+  <div class="body">
+    <h2><span class="num">Section 02</span>Install the library.<br>Pick your model.</h2>
+
+    <p class="lede">
+      Two steps stand between you and a working scraper. Total time on a clean machine: ten minutes.
+    </p>
+
+    <div class="step-card">
+      <div class="step-head">
+        <div class="step-num">1</div>
+        <div>
+          <h3 class="step-title">Install ScrapeGraph AI</h3>
+          <div class="step-sub">Terminal · ~2 minutes</div>
+        </div>
+      </div>
+      <p>Open your terminal and run these two commands. Playwright handles the browser layer that lets the scraper render JavaScript-heavy sites.</p>
+<pre class="code"><span class="c"># Install the library and its browser engine</span>
+<span class="k">pip install</span> scrapegraphai
+<span class="k">playwright install</span></pre>
+      <div class="callout">
+        <span class="tag">Recommended</span>
+        Run this inside a Python virtual environment (<code class="inline">python -m venv venv</code>) to keep dependencies isolated from the rest of your system.
+      </div>
+    </div>
+
+    <div class="step-card">
+      <div class="step-head">
+        <div class="step-num">2</div>
+        <div>
+          <h3 class="step-title">Choose your LLM backend</h3>
+          <div class="step-sub">Hosted API or local model</div>
+        </div>
+      </div>
+      <p>ScrapeGraph AI is model-agnostic. Pick the lane that fits your speed, privacy, and budget needs.</p>
+
+      <table class="compare">
+        <thead>
+          <tr>
+            <th>Option</th>
+            <th>Where</th>
+            <th>Cost</th>
+            <th>Best for</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>OpenAI</strong> <span class="badge">Recommended</span></td>
+            <td>platform.openai.com</td>
+            <td>Pennies per scrape</td>
+            <td>Fastest setup. Best accuracy on messy pages. GPT-4o-mini is the sweet spot.</td>
+          </tr>
+          <tr>
+            <td><strong>Anthropic</strong></td>
+            <td>console.anthropic.com</td>
+            <td>Pennies per scrape</td>
+            <td>Long context, strong reasoning. Great for multi-page extraction.</td>
+          </tr>
+          <tr>
+            <td><strong>Ollama</strong> <span class="badge">Free</span></td>
+            <td>ollama.com</td>
+            <td>$0 — runs locally</td>
+            <td>Total privacy. Zero ongoing cost. Slower; quality varies by model.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h4>If you go local with Ollama</h4>
+      <p>Install Ollama from <code class="inline">ollama.com</code>, then pull a model. Llama 3.2 is a solid starting point that balances speed and quality on consumer hardware.</p>
+<pre class="code"><span class="c"># Pull a local model — runs entirely on your machine</span>
+<span class="k">ollama pull</span> llama3.2</pre>
+    </div>
+  </div>
+
+  <div class="footer">
+    <div>DISRUPTORS MEDIA <span>·</span> FIELD GUIDE 002</div>
+    <div>SETUP <span class="page-num">· 03 / 06</span></div>
+  </div>
+</section>
+
+<!-- ===================== PAGE 4: FIRST SCRAPE (STEP 3) ===================== -->
+<section class="page">
+  <header class="page-header">
+    <img src="logo.png" alt="Disruptors Media" class="logo">
+    <div class="crumb">FIELD GUIDE 002 <span>·</span> 03 / YOUR FIRST SCRAPE</div>
+  </header>
+
+  <div class="body">
+    <h2><span class="num">Section 03</span>Run your first scrape.</h2>
+
+    <p class="lede">
+      The same library, two flavors. Copy the snippet that matches the model you picked, swap the URL and the prompt for your target, and run it.
+    </p>
+
+    <div class="step-card">
+      <div class="step-head">
+        <div class="step-num">3</div>
+        <div>
+          <h3 class="step-title">Hosted API — OpenAI GPT-4o-mini</h3>
+          <div class="step-sub">Best accuracy · pennies per run</div>
+        </div>
+      </div>
+      <p>Paste your API key, point at any public URL, write a prompt that names the fields you want, and run the script. The output is a Python dict you can save as JSON.</p>
+<pre class="code tight"><span class="k">from</span> scrapegraphai.graphs <span class="k">import</span> SmartScraperGraph
+
+graph_config = {
+    <span class="s">"llm"</span>: {<span class="s">"api_key"</span>: <span class="s">"YOUR_OPENAI_KEY"</span>, <span class="s">"model"</span>: <span class="s">"openai/gpt-4o-mini"</span>},
+    <span class="s">"verbose"</span>: <span class="k">True</span>, <span class="s">"headless"</span>: <span class="k">True</span>,
+}
+
+scraper = SmartScraperGraph(
+    prompt=<span class="s">"List every product name, price, and rating."</span>,
+    source=<span class="s">"https://example.com/products"</span>,
+    config=graph_config,
+)
+<span class="k">print</span>(scraper.run())</pre>
+    </div>
+
+    <div class="step-card">
+      <div class="step-head">
+        <div class="step-num">3b</div>
+        <div>
+          <h3 class="step-title">Local model — Ollama (Llama 3.2)</h3>
+          <div class="step-sub">$0 ongoing · stays on your machine</div>
+        </div>
+      </div>
+      <p>Same shape, no API key. Make sure <code class="inline">ollama serve</code> is running in another terminal before you launch the scraper.</p>
+<pre class="code tight"><span class="k">from</span> scrapegraphai.graphs <span class="k">import</span> SmartScraperGraph
+
+graph_config = {
+    <span class="s">"llm"</span>: {
+        <span class="s">"model"</span>: <span class="s">"ollama/llama3.2"</span>, <span class="s">"temperature"</span>: 0,
+        <span class="s">"format"</span>: <span class="s">"json"</span>, <span class="s">"model_tokens"</span>: 8192,
+        <span class="s">"base_url"</span>: <span class="s">"http://localhost:11434"</span>,
+    },
+    <span class="s">"verbose"</span>: <span class="k">True</span>, <span class="s">"headless"</span>: <span class="k">True</span>,
+}
+
+scraper = SmartScraperGraph(
+    prompt=<span class="s">"Extract every job title, company, and location."</span>,
+    source=<span class="s">"https://example.com/jobs"</span>,
+    config=graph_config,
+)
+<span class="k">print</span>(scraper.run())</pre>
+    </div>
+
+    <div class="callout">
+      <span class="tag">Checkpoint</span>
+      Run the script. You should see a printed JSON-shaped Python dict in your terminal. If you do, you're done — every future scrape is a variation on this same eight-line pattern.
+    </div>
+  </div>
+
+  <div class="footer">
+    <div>DISRUPTORS MEDIA <span>·</span> FIELD GUIDE 002</div>
+    <div>FIRST SCRAPE <span class="page-num">· 04 / 06</span></div>
+  </div>
+</section>
+
+<!-- ===================== PAGE 5: AI-ASSISTED + PIPELINES ===================== -->
+<section class="page">
+  <header class="page-header">
+    <img src="logo.png" alt="Disruptors Media" class="logo">
+    <div class="crumb">FIELD GUIDE 002 <span>·</span> 04 / LET AI WRITE THE SCRIPT</div>
+  </header>
+
+  <div class="body">
+    <h2><span class="num">Section 04</span>You don't need to know Python.<br>You need to know <em class="gold">what data you want</em>.</h2>
+
+    <p class="lede">
+      Step 4 is the unlock. Hand the work off to Claude Code or OpenAI Codex. Describe the data, paste in the target URL, and ship a working scraper without writing a line yourself.
+    </p>
+
+    <div class="step-card">
+      <div class="step-head">
+        <div class="step-num">4</div>
+        <div>
+          <h3 class="step-title">Prompt your AI assistant</h3>
+          <div class="step-sub">Claude Code · Codex · Cursor</div>
+        </div>
+      </div>
+      <p>Open your AI coding assistant and paste a prompt like the one below. Swap in your target URL and the exact fields you need. The assistant generates a runnable script you can execute immediately.</p>
+<pre class="code"><span class="c"># Paste into Claude Code or Codex</span>
+
+Using the ScrapeGraphAI Python library with OpenAI GPT-4o-mini,
+write a script that scrapes <span class="s">[TARGET URL]</span> and returns
+a JSON list of every <span class="s">[ENTITY]</span> with the following fields:
+<span class="s">[FIELD 1]</span>, <span class="s">[FIELD 2]</span>, <span class="s">[FIELD 3]</span>.
+
+Save the output to <span class="s">scrape_output.json</span>.</pre>
+      <div class="callout">
+        <span class="tag">The Insight</span>
+        The bottleneck for most operators is not Python skill — it's knowing what to ask for. Once you can describe the data clearly, an AI assistant writes the scraper.
+      </div>
+    </div>
+
+    <h3>The pipelines under the hood</h3>
+    <p>ScrapeGraph AI ships with five graph types. <strong>For 90% of jobs, SmartScraperGraph is all you need.</strong> Reach for the others when you scale up.</p>
+
+    <table class="compare">
+      <thead>
+        <tr>
+          <th>Pipeline</th>
+          <th>Use it for</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>SmartScraperGraph</strong> <span class="badge">Default</span></td>
+          <td>Single page, one prompt. Your daily driver.</td>
+        </tr>
+        <tr>
+          <td><strong>SmartScraperMultiGraph</strong></td>
+          <td>A list of URLs scraped in parallel — same prompt, many pages.</td>
+        </tr>
+        <tr>
+          <td><strong>SearchGraph</strong></td>
+          <td>Run a search query, then scrape the top N results in one call.</td>
+        </tr>
+        <tr>
+          <td><strong>ScriptCreatorGraph</strong></td>
+          <td>Generates a reusable, standalone Python script for the target site.</td>
+        </tr>
+        <tr>
+          <td><strong>SpeechGraph</strong></td>
+          <td>Extract data and return the result as synthesized audio output.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="footer">
+    <div>DISRUPTORS MEDIA <span>·</span> FIELD GUIDE 002</div>
+    <div>AI-ASSISTED <span class="page-num">· 05 / 06</span></div>
+  </div>
+</section>
+
+<!-- ===================== PAGE 6: USE CASES + AGENCY + CTA ===================== -->
+<section class="page">
+  <header class="page-header">
+    <img src="logo.png" alt="Disruptors Media" class="logo">
+    <div class="crumb">FIELD GUIDE 002 <span>·</span> 05 / WHAT TO BUILD WITH IT</div>
+  </header>
+
+  <div class="body">
+    <h2><span class="num">Section 05</span>The targets. The business.<br>The fine print.</h2>
+
+    <h3>What you can scrape — in plain English</h3>
+    <div class="targets">
+      <div class="target">
+        <div class="nm">LinkedIn</div>
+        <div class="ds">Names, titles, companies, bios for outbound lists.</div>
+      </div>
+      <div class="target">
+        <div class="nm">Amazon</div>
+        <div class="ds">Pricing, reviews, specs for competitive intel.</div>
+      </div>
+      <div class="target">
+        <div class="nm">Zillow</div>
+        <div class="ds">Property data and agent contacts for real-estate ops.</div>
+      </div>
+      <div class="target">
+        <div class="nm">Glassdoor</div>
+        <div class="ds">Ratings and reviews for employer-brand research.</div>
+      </div>
+      <div class="target">
+        <div class="nm">Twitter / X</div>
+        <div class="ds">Handles, bios, follower counts for creator outreach.</div>
+      </div>
+      <div class="target">
+        <div class="nm">Email Directories</div>
+        <div class="ds">Bulk contacts for verified outreach campaigns.</div>
+      </div>
+      <div class="target">
+        <div class="nm">Multi-Page Datasets</div>
+        <div class="ds">Crawl paginated lists in a single parallel run.</div>
+      </div>
+      <div class="target">
+        <div class="nm">Custom Sources</div>
+        <div class="ds">Any public site — the prompt is the spec.</div>
+      </div>
+    </div>
+
+    <h3>The agency model on top of this</h3>
+    <p>Lead-gen operators are charging <strong>$2,000–$5,000 per scrape job</strong> using this exact workflow. One laptop. Zero platform fees. The margin is almost entirely yours.</p>
+
+    <div class="flow">
+      <div class="flow-step">
+        <div class="fn">01 · INTAKE</div>
+        <div class="ft">Client brief</div>
+        <div class="fd">Industry, geography, job title, platform.</div>
+      </div>
+      <div class="flow-step">
+        <div class="fn">02 · RUN</div>
+        <div class="ft">Execute scrape</div>
+        <div class="fd">Point ScrapeGraph AI at the source list.</div>
+      </div>
+      <div class="flow-step">
+        <div class="fn">03 · DELIVER</div>
+        <div class="ft">Structured JSON</div>
+        <div class="fd">Hand back clean data within hours, not weeks.</div>
+      </div>
+      <div class="flow-step">
+        <div class="fn">04 · INVOICE</div>
+        <div class="ft">Bill the job</div>
+        <div class="fd">Flat fee per project. No SaaS markup.</div>
+      </div>
+    </div>
+
+    <h3>The fine print — what to expect</h3>
+    <ul>
+      <li><strong>The tool is free, inference is not.</strong> OpenAI and Anthropic charge pennies per scrape. Budget accordingly on large jobs.</li>
+      <li><strong>Ollama is $0 but variable.</strong> Local models are slower and quality depends on your hardware and chosen model.</li>
+      <li><strong>No GUI.</strong> Everything runs from Python or an AI code assistant — there is no point-and-click interface.</li>
+      <li><strong>Scale needs proxies.</strong> Heavy-volume scraping triggers rate limits. Add a basic proxy rotation layer once you cross thousands of requests per run.</li>
+    </ul>
+
+    <div class="callout">
+      <span class="tag">The Takeaway</span>
+      Web scraping just got commoditized. The leverage is no longer in writing brittle code — it's in knowing what data is worth pulling, and turning it into a deliverable a client will pay for.
+    </div>
+  </div>
+
+  <div class="footer">
+    <div>DISRUPTORS MEDIA <span>·</span> FIELD GUIDE 002 <span>·</span> disruptorsmedia.com</div>
+    <div>FINISH <span class="page-num">· 06 / 06</span></div>
+  </div>
+</section>
+
+</body>
+</html>
